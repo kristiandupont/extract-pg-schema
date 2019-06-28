@@ -1,0 +1,13 @@
+{
+  "name": "extract-pg-schema",
+  "author": {
+    "name": "Kristian Dupont",
+    "url": "http://www.kristiandupont.com"
+  },
+  "version": "0.1.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "ramda": "^0.26.1"
+  }
+}
