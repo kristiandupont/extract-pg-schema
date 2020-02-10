@@ -30,10 +30,10 @@ async function run() {
   const db = knex(knexConfig);
 
   const tablesToSkip = ['knex_migrations', 'knex_migrations_lock'];
-  const { models, types } = await extractSchema('public', tablesToSkip, db);
+  const { tables, types } = await extractSchema('public', tablesToSkip, db);
 
   console.log('Models:');
-  console.log(models);
+  console.log(tables);
   console.log('Types:');
   console.log(types);
 }
@@ -56,9 +56,11 @@ The `models` array consists of objects that correspond to the tables in the sche
 {
   "name": "member",
   "comment": "Members of an organization",
-  "properties": [
+  "tags": {},
+  "columns": [
     {
       "name": "id",
+      "tags": {},
       "indices": [
         {
           "name": "person_pkey",
@@ -73,6 +75,7 @@ The `models` array consists of objects that correspond to the tables in the sche
     },
     {
       "name": "createdAt",
+      "tags": {},
       "indices": [],
       "nullable": false,
       "defaultValue": null,
@@ -81,6 +84,7 @@ The `models` array consists of objects that correspond to the tables in the sche
     },
     {
       "name": "displayName",
+      "tags": {},
       "indices": [],
       "nullable": false,
       "defaultValue": null,
@@ -89,6 +93,7 @@ The `models` array consists of objects that correspond to the tables in the sche
     },
     {
       "name": "organizationId",
+      "tags": {},
       "parent": "organization.id",
       "indices": [
         {
@@ -111,8 +116,8 @@ You can set the comment for a table with the following SQL:
 COMMENT ON TABLE "member" IS 'Members of an organization';
 ```
 
-### Property
-The `properties` array on a `model` has the following properties:
+### Column
+The `columns` array on a `table` has the following properties:
 - `name` which is the column name,
 - `parent` which is the referenced table and column if the column has a foreign key
 - `indices`, an array describing the indices that apply. These have two properties: `name` and `isPrimary`.
