@@ -1,11 +1,39 @@
 const R = require('ramda');
 
+const parseComment = (source) => {
+  if (!source) {
+    return { comment: undefined, tags: {} };
+  }
+
+  const matches = source.match(/(@(\S*))/g) || [];
+  const tags= R.fromPairs(
+    R.map(
+      tag =>
+        tag.indexOf(':') === -1
+          ? [tag.substr(1), true]
+          : tag.substr(1).split(':'),
+      matches
+    )
+  );
+  const comment = R.reduce(
+    (acc, match) => acc.replace(match, ''),
+    source,
+    matches
+  ).trim();
+
+  return {
+    comment,
+    tags,
+  };
+};
+
+
 /**
  * @typedef {any} Knex
  * @typedef {{ name: string, isPrimary: boolean }} Index
  * @typedef {{ [index: string]: string | boolean }} TagMap
- * @typedef {{ name: string, parent: string, indices: Index[], nullable: boolean, defaultValue: any, isPrimary: boolean, type: string, comment: string, tags: TagMap }} Property
- * @typedef {{ name: string, properties: Property[], comment: string, tags: TagMap }} Model
+ * @typedef {{ name: string, parent: string, indices: Index[], nullable: boolean, defaultValue: any, isPrimary: boolean, type: string, comment: string, tags: TagMap }} Column
+ * @typedef {{ name: string, columns: Column[], comment: string, tags: TagMap }} Table
  * @typedef {{ name: string, type: string, values: string[], comment: string, tags: Object }} Type
  */
 
@@ -13,10 +41,11 @@ const R = require('ramda');
  * @param {string} schemaName
  * @param {string[]} tablesToSkip
  * @param {Knex} db
- * @returns {Promise<{ models: Model[], types: Type[] }>}
+ * @returns {Promise<{ tables: Table[], types: Type[] }>}
  */
 async function extractSchema(schemaName, tablesToSkip, db) {
-  const models = [];
+  /** @type {Table[]} */
+  const tables = [];
   const dbTables = await db
     .select('tablename')
     .from('pg_catalog.pg_tables')
@@ -93,10 +122,11 @@ async function extractSchema(schemaName, tablesToSkip, db) {
       'col_description',
       R.indexBy(R.prop('column_name'), commentsQuery.rows)
     );
-    models.push({
+    tables.push({
       name: tableName,
-      comment: rawTableComment,
-      properties: R.map(
+      ...parseComment(rawTableComment),
+      columns: R.map(
+        /** @returns {Column} */
         column => ({
           name: column.column_name,
           parent: relationsMap[column.column_name],
@@ -108,13 +138,14 @@ async function extractSchema(schemaName, tablesToSkip, db) {
             indexMap[column.column_name] || []
           ),
           type: column.udt_name,
-          comment: commentMap[column.column_name],
+          ...parseComment(commentMap[column.column_name]),
         }),
         columns
       ),
     });
   }
 
+  /** @type {Type[]} */
   const types = [];
   const enumTypes = await db
     .select(['oid', 'typname'])
@@ -134,7 +165,7 @@ async function extractSchema(schemaName, tablesToSkip, db) {
     types.push({
       type: 'enum',
       name: enumType.typname,
-      comment: rawTypeComment,
+      ...parseComment(rawTypeComment),
       values: R.pluck('enumlabel', R.sortBy(R.prop('enumsortorder'), values)),
     });
   }
@@ -142,7 +173,7 @@ async function extractSchema(schemaName, tablesToSkip, db) {
   db.destroy();
 
   return {
-    models: R.sortBy(R.prop('name'), models),
+    tables: R.sortBy(R.prop('name'), tables),
     types: R.sortBy(R.prop('name'), types),
   };
 }
