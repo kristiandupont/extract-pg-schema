@@ -1,7 +1,7 @@
 # Extract Schema from Postgres Database
 
 This will read various metadata from your postgres database and return a js object.
-This module is being used by [Kanel](https://www.npmjs.com/package/kanel) to generate Typescript types and [Schemalint](https://www.npmjs.com/package/schemalint) to provide linting of database schemas.
+This module is being used by [Kanel](https://github.com/kristiandupont/kanel) to generate Typescript types and [Schemalint](https://github.com/kristiandupont/schemalint) to provide linting of database schemas.
 
 You hand it an initialized [knex](https://knexjs.org/) instance and the name of the schema you want to read.
 
