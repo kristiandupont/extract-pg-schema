@@ -30,10 +30,12 @@ async function run() {
   const db = knex(knexConfig);
 
   const tablesToSkip = ['knex_migrations', 'knex_migrations_lock'];
-  const { tables, types } = await extractSchema('public', tablesToSkip, db);
+  const { tables, views, types } = await extractSchema('public', tablesToSkip, db);
 
-  console.log('Models:');
+  console.log('Tables:');
   console.log(tables);
+  console.log('Views:');
+  console.log(views);
   console.log('Types:');
   console.log(types);
 }
@@ -44,13 +46,13 @@ run();
 ## Reference
 This module exposes one function:
 ```
-extractSchema(schemaName, tablesToSkip, knexInstance)
+async extractSchema(schemaName, tablesToSkip, knexInstance)
 ```
 
-It returns an object that has two properties: `models` and `types`. Both are arrays.
+It returns an object that has three properties: `tables`, `views` and `types`. All arrays.
 
-### Model
-The `models` array consists of objects that correspond to the tables in the schema. It could look like this:
+### Table
+The `tables` array consists of objects that correspond to the tables in the schema. It could look like this:
 
 ```javascript
 {
@@ -110,11 +112,18 @@ The `models` array consists of objects that correspond to the tables in the sche
 }
 ```
 
-Basically, a model has three properties: `name` which is the name of the table, `comment` which is the postgres table comment and `properties` which represents the columns.
+Basically, a table has four properties: `name` which is the name of the table, `comment` which is the postgres table comment, `tags` which is a map of tags parsed out of the comment, and `columns` which represents the columns.
 You can set the comment for a table with the following SQL:
 ```SQL
 COMMENT ON TABLE "member" IS 'Members of an organization';
 ```
+
+The tags feature uses the @-symbol, so you if you write a comment like this: `'Members of an organization @cached @alias:person'`, you will get
+* a `comment` with the value `'Members of an organization'`, and
+* a `tags` value of `{ cached: true, alias: 'person' }`
+
+You can use tags for any sort of metadata that you want to store for further processing.
+
 
 ### Column
 The `columns` array on a `table` has the following properties:
@@ -125,11 +134,16 @@ The `columns` array on a `table` has the following properties:
 - `defaultValue` which states the possible default value for the column,
 - `type` which specifies the [datatype](https://www.postgresql.org/docs/9.5/datatype.html) of the column
 - `comment` which specifies the column comment.
+- `tags` which is a map of tags parsed from the column comment
 
 You can set the comment for a column with the following SQL:
 ```SQL
 COMMENT ON COLUMN "member"."displayName" IS 'Name that will be displayed in the UI';
 ```
+
+### View
+
+Views have exactly the same shape as tables. 
 
 ### Type
 The second property in the result is the `types` array. This contains the user-specified types, currently only postgres [enum](https://www.postgresql.org/docs/9.2/datatype-enum.html) types.
@@ -154,3 +168,5 @@ CREATE TYPE "AccountState" AS ENUM ('active', 'pending', 'closed');
 
 COMMENT ON TYPE "AccountState" IS 'Determines the state of an account';
 ```
+
+For an example of a generated object, take a look at [dvdrental.json](./dvdrental.json) file which is generated from the [sample Database](https://www.postgresqltutorial.com/postgresql-sample-database/) from www.postgresqltutorial.com.
