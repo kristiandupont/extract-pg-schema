@@ -1,0 +1,1505 @@
+{
+  "tables": [
+    {
+      "name": "actor",
+      "tags": {},
+      "columns": [
+        {
+          "name": "actor_id",
+          "indices": [
+            {
+              "name": "actor_pkey",
+              "isPrimary": true
+            }
+          ],
+          "nullable": false,
+          "defaultValue": "nextval('actor_actor_id_seq'::regclass)",
+          "isPrimary": true,
+          "type": "int4",
+          "tags": {}
+        },
+        {
+          "name": "first_name",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "last_name",
+          "indices": [
+            {
+              "name": "idx_actor_last_name",
+              "isPrimary": false
+            }
+          ],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "last_update",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": "now()",
+          "isPrimary": false,
+          "type": "timestamp",
+          "tags": {}
+        }
+      ]
+    },
+    {
+      "name": "address",
+      "tags": {},
+      "columns": [
+        {
+          "name": "address_id",
+          "indices": [
+            {
+              "name": "address_pkey",
+              "isPrimary": true
+            }
+          ],
+          "nullable": false,
+          "defaultValue": "nextval('address_address_id_seq'::regclass)",
+          "isPrimary": true,
+          "type": "int4",
+          "tags": {}
+        },
+        {
+          "name": "address",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "address2",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "district",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "city_id",
+          "parent": "city.city_id",
+          "indices": [
+            {
+              "name": "idx_fk_city_id",
+              "isPrimary": false
+            }
+          ],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "postal_code",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "phone",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "last_update",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": "now()",
+          "isPrimary": false,
+          "type": "timestamp",
+          "tags": {}
+        }
+      ]
+    },
+    {
+      "name": "category",
+      "tags": {},
+      "columns": [
+        {
+          "name": "category_id",
+          "indices": [
+            {
+              "name": "category_pkey",
+              "isPrimary": true
+            }
+          ],
+          "nullable": false,
+          "defaultValue": "nextval('category_category_id_seq'::regclass)",
+          "isPrimary": true,
+          "type": "int4",
+          "tags": {}
+        },
+        {
+          "name": "name",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "last_update",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": "now()",
+          "isPrimary": false,
+          "type": "timestamp",
+          "tags": {}
+        }
+      ]
+    },
+    {
+      "name": "city",
+      "tags": {},
+      "columns": [
+        {
+          "name": "city_id",
+          "indices": [
+            {
+              "name": "city_pkey",
+              "isPrimary": true
+            }
+          ],
+          "nullable": false,
+          "defaultValue": "nextval('city_city_id_seq'::regclass)",
+          "isPrimary": true,
+          "type": "int4",
+          "tags": {}
+        },
+        {
+          "name": "city",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "country_id",
+          "parent": "country.country_id",
+          "indices": [
+            {
+              "name": "idx_fk_country_id",
+              "isPrimary": false
+            }
+          ],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "last_update",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": "now()",
+          "isPrimary": false,
+          "type": "timestamp",
+          "tags": {}
+        }
+      ]
+    },
+    {
+      "name": "country",
+      "tags": {},
+      "columns": [
+        {
+          "name": "country_id",
+          "indices": [
+            {
+              "name": "country_pkey",
+              "isPrimary": true
+            }
+          ],
+          "nullable": false,
+          "defaultValue": "nextval('country_country_id_seq'::regclass)",
+          "isPrimary": true,
+          "type": "int4",
+          "tags": {}
+        },
+        {
+          "name": "country",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "last_update",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": "now()",
+          "isPrimary": false,
+          "type": "timestamp",
+          "tags": {}
+        }
+      ]
+    },
+    {
+      "name": "customer",
+      "tags": {},
+      "columns": [
+        {
+          "name": "customer_id",
+          "indices": [
+            {
+              "name": "customer_pkey",
+              "isPrimary": true
+            }
+          ],
+          "nullable": false,
+          "defaultValue": "nextval('customer_customer_id_seq'::regclass)",
+          "isPrimary": true,
+          "type": "int4",
+          "tags": {}
+        },
+        {
+          "name": "store_id",
+          "indices": [
+            {
+              "name": "idx_fk_store_id",
+              "isPrimary": false
+            }
+          ],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "first_name",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "last_name",
+          "indices": [
+            {
+              "name": "idx_last_name",
+              "isPrimary": false
+            }
+          ],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "email",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "address_id",
+          "parent": "address.address_id",
+          "indices": [
+            {
+              "name": "idx_fk_address_id",
+              "isPrimary": false
+            }
+          ],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "activebool",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": "true",
+          "isPrimary": false,
+          "type": "bool",
+          "tags": {}
+        },
+        {
+          "name": "create_date",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": "('now'::text)::date",
+          "isPrimary": false,
+          "type": "date",
+          "tags": {}
+        },
+        {
+          "name": "last_update",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": "now()",
+          "isPrimary": false,
+          "type": "timestamp",
+          "tags": {}
+        },
+        {
+          "name": "active",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int4",
+          "tags": {}
+        }
+      ]
+    },
+    {
+      "name": "film",
+      "tags": {},
+      "columns": [
+        {
+          "name": "film_id",
+          "indices": [
+            {
+              "name": "film_pkey",
+              "isPrimary": true
+            }
+          ],
+          "nullable": false,
+          "defaultValue": "nextval('film_film_id_seq'::regclass)",
+          "isPrimary": true,
+          "type": "int4",
+          "tags": {}
+        },
+        {
+          "name": "title",
+          "indices": [
+            {
+              "name": "idx_title",
+              "isPrimary": false
+            }
+          ],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "description",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "text",
+          "tags": {}
+        },
+        {
+          "name": "release_year",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int4",
+          "tags": {}
+        },
+        {
+          "name": "language_id",
+          "parent": "language.language_id",
+          "indices": [
+            {
+              "name": "idx_fk_language_id",
+              "isPrimary": false
+            }
+          ],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "rental_duration",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": "3",
+          "isPrimary": false,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "rental_rate",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": "4.99",
+          "isPrimary": false,
+          "type": "numeric",
+          "tags": {}
+        },
+        {
+          "name": "length",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "replacement_cost",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": "19.99",
+          "isPrimary": false,
+          "type": "numeric",
+          "tags": {}
+        },
+        {
+          "name": "rating",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": "'G'::mpaa_rating",
+          "isPrimary": false,
+          "type": "mpaa_rating",
+          "tags": {}
+        },
+        {
+          "name": "last_update",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": "now()",
+          "isPrimary": false,
+          "type": "timestamp",
+          "tags": {}
+        },
+        {
+          "name": "special_features",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "_text",
+          "tags": {}
+        },
+        {
+          "name": "fulltext",
+          "indices": [
+            {
+              "name": "film_fulltext_idx",
+              "isPrimary": false
+            }
+          ],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "tsvector",
+          "tags": {}
+        }
+      ]
+    },
+    {
+      "name": "film_actor",
+      "tags": {},
+      "columns": [
+        {
+          "name": "actor_id",
+          "parent": "actor.actor_id",
+          "indices": [
+            {
+              "name": "film_actor_pkey",
+              "isPrimary": true
+            }
+          ],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": true,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "film_id",
+          "parent": "film.film_id",
+          "indices": [
+            {
+              "name": "film_actor_pkey",
+              "isPrimary": true
+            },
+            {
+              "name": "idx_fk_film_id",
+              "isPrimary": false
+            }
+          ],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": true,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "last_update",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": "now()",
+          "isPrimary": false,
+          "type": "timestamp",
+          "tags": {}
+        }
+      ]
+    },
+    {
+      "name": "film_category",
+      "tags": {},
+      "columns": [
+        {
+          "name": "film_id",
+          "parent": "film.film_id",
+          "indices": [
+            {
+              "name": "film_category_pkey",
+              "isPrimary": true
+            }
+          ],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": true,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "category_id",
+          "parent": "category.category_id",
+          "indices": [
+            {
+              "name": "film_category_pkey",
+              "isPrimary": true
+            }
+          ],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": true,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "last_update",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": "now()",
+          "isPrimary": false,
+          "type": "timestamp",
+          "tags": {}
+        }
+      ]
+    },
+    {
+      "name": "inventory",
+      "tags": {},
+      "columns": [
+        {
+          "name": "inventory_id",
+          "indices": [
+            {
+              "name": "inventory_pkey",
+              "isPrimary": true
+            }
+          ],
+          "nullable": false,
+          "defaultValue": "nextval('inventory_inventory_id_seq'::regclass)",
+          "isPrimary": true,
+          "type": "int4",
+          "tags": {}
+        },
+        {
+          "name": "film_id",
+          "parent": "film.film_id",
+          "indices": [
+            {
+              "name": "idx_store_id_film_id",
+              "isPrimary": false
+            }
+          ],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "store_id",
+          "indices": [
+            {
+              "name": "idx_store_id_film_id",
+              "isPrimary": false
+            }
+          ],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "last_update",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": "now()",
+          "isPrimary": false,
+          "type": "timestamp",
+          "tags": {}
+        }
+      ]
+    },
+    {
+      "name": "language",
+      "tags": {},
+      "columns": [
+        {
+          "name": "language_id",
+          "indices": [
+            {
+              "name": "language_pkey",
+              "isPrimary": true
+            }
+          ],
+          "nullable": false,
+          "defaultValue": "nextval('language_language_id_seq'::regclass)",
+          "isPrimary": true,
+          "type": "int4",
+          "tags": {}
+        },
+        {
+          "name": "name",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "bpchar",
+          "tags": {}
+        },
+        {
+          "name": "last_update",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": "now()",
+          "isPrimary": false,
+          "type": "timestamp",
+          "tags": {}
+        }
+      ]
+    },
+    {
+      "name": "payment",
+      "tags": {},
+      "columns": [
+        {
+          "name": "payment_id",
+          "indices": [
+            {
+              "name": "payment_pkey",
+              "isPrimary": true
+            }
+          ],
+          "nullable": false,
+          "defaultValue": "nextval('payment_payment_id_seq'::regclass)",
+          "isPrimary": true,
+          "type": "int4",
+          "tags": {}
+        },
+        {
+          "name": "customer_id",
+          "parent": "customer.customer_id",
+          "indices": [
+            {
+              "name": "idx_fk_customer_id",
+              "isPrimary": false
+            }
+          ],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "staff_id",
+          "parent": "staff.staff_id",
+          "indices": [
+            {
+              "name": "idx_fk_staff_id",
+              "isPrimary": false
+            }
+          ],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "rental_id",
+          "parent": "rental.rental_id",
+          "indices": [
+            {
+              "name": "idx_fk_rental_id",
+              "isPrimary": false
+            }
+          ],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int4",
+          "tags": {}
+        },
+        {
+          "name": "amount",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "numeric",
+          "tags": {}
+        },
+        {
+          "name": "payment_date",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "timestamp",
+          "tags": {}
+        }
+      ]
+    },
+    {
+      "name": "rental",
+      "tags": {},
+      "columns": [
+        {
+          "name": "rental_id",
+          "indices": [
+            {
+              "name": "rental_pkey",
+              "isPrimary": true
+            }
+          ],
+          "nullable": false,
+          "defaultValue": "nextval('rental_rental_id_seq'::regclass)",
+          "isPrimary": true,
+          "type": "int4",
+          "tags": {}
+        },
+        {
+          "name": "rental_date",
+          "indices": [
+            {
+              "name": "idx_unq_rental_rental_date_inventory_id_customer_id",
+              "isPrimary": false
+            }
+          ],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "timestamp",
+          "tags": {}
+        },
+        {
+          "name": "inventory_id",
+          "parent": "inventory.inventory_id",
+          "indices": [
+            {
+              "name": "idx_fk_inventory_id",
+              "isPrimary": false
+            },
+            {
+              "name": "idx_unq_rental_rental_date_inventory_id_customer_id",
+              "isPrimary": false
+            }
+          ],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int4",
+          "tags": {}
+        },
+        {
+          "name": "customer_id",
+          "parent": "customer.customer_id",
+          "indices": [
+            {
+              "name": "idx_unq_rental_rental_date_inventory_id_customer_id",
+              "isPrimary": false
+            }
+          ],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "return_date",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "timestamp",
+          "tags": {}
+        },
+        {
+          "name": "staff_id",
+          "parent": "staff.staff_id",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "last_update",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": "now()",
+          "isPrimary": false,
+          "type": "timestamp",
+          "tags": {}
+        }
+      ]
+    },
+    {
+      "name": "staff",
+      "tags": {},
+      "columns": [
+        {
+          "name": "staff_id",
+          "indices": [
+            {
+              "name": "staff_pkey",
+              "isPrimary": true
+            }
+          ],
+          "nullable": false,
+          "defaultValue": "nextval('staff_staff_id_seq'::regclass)",
+          "isPrimary": true,
+          "type": "int4",
+          "tags": {}
+        },
+        {
+          "name": "first_name",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "last_name",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "address_id",
+          "parent": "address.address_id",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "email",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "store_id",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "active",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": "true",
+          "isPrimary": false,
+          "type": "bool",
+          "tags": {}
+        },
+        {
+          "name": "username",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "password",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "last_update",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": "now()",
+          "isPrimary": false,
+          "type": "timestamp",
+          "tags": {}
+        },
+        {
+          "name": "picture",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "bytea",
+          "tags": {}
+        }
+      ]
+    },
+    {
+      "name": "store",
+      "tags": {},
+      "columns": [
+        {
+          "name": "store_id",
+          "indices": [
+            {
+              "name": "store_pkey",
+              "isPrimary": true
+            }
+          ],
+          "nullable": false,
+          "defaultValue": "nextval('store_store_id_seq'::regclass)",
+          "isPrimary": true,
+          "type": "int4",
+          "tags": {}
+        },
+        {
+          "name": "manager_staff_id",
+          "parent": "staff.staff_id",
+          "indices": [
+            {
+              "name": "idx_unq_manager_staff_id",
+              "isPrimary": false
+            }
+          ],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "address_id",
+          "parent": "address.address_id",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "last_update",
+          "indices": [],
+          "nullable": false,
+          "defaultValue": "now()",
+          "isPrimary": false,
+          "type": "timestamp",
+          "tags": {}
+        }
+      ]
+    }
+  ],
+  "views": [
+    {
+      "name": "actor_info",
+      "tags": {},
+      "columns": [
+        {
+          "name": "actor_id",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int4",
+          "tags": {}
+        },
+        {
+          "name": "first_name",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "last_name",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "film_info",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "text",
+          "tags": {}
+        }
+      ]
+    },
+    {
+      "name": "customer_list",
+      "tags": {},
+      "columns": [
+        {
+          "name": "id",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int4",
+          "tags": {}
+        },
+        {
+          "name": "name",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "text",
+          "tags": {}
+        },
+        {
+          "name": "address",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "zip code",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "phone",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "city",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "country",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "notes",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "text",
+          "tags": {}
+        },
+        {
+          "name": "sid",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int2",
+          "tags": {}
+        }
+      ]
+    },
+    {
+      "name": "film_list",
+      "tags": {},
+      "columns": [
+        {
+          "name": "fid",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int4",
+          "tags": {}
+        },
+        {
+          "name": "title",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "description",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "text",
+          "tags": {}
+        },
+        {
+          "name": "category",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "price",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "numeric",
+          "tags": {}
+        },
+        {
+          "name": "length",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "rating",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "mpaa_rating",
+          "tags": {}
+        },
+        {
+          "name": "actors",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "text",
+          "tags": {}
+        }
+      ]
+    },
+    {
+      "name": "nicer_but_slower_film_list",
+      "tags": {},
+      "columns": [
+        {
+          "name": "fid",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int4",
+          "tags": {}
+        },
+        {
+          "name": "title",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "description",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "text",
+          "tags": {}
+        },
+        {
+          "name": "category",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "price",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "numeric",
+          "tags": {}
+        },
+        {
+          "name": "length",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int2",
+          "tags": {}
+        },
+        {
+          "name": "rating",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "mpaa_rating",
+          "tags": {}
+        },
+        {
+          "name": "actors",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "text",
+          "tags": {}
+        }
+      ]
+    },
+    {
+      "name": "sales_by_film_category",
+      "tags": {},
+      "columns": [
+        {
+          "name": "category",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "total_sales",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "numeric",
+          "tags": {}
+        }
+      ]
+    },
+    {
+      "name": "sales_by_store",
+      "tags": {},
+      "columns": [
+        {
+          "name": "store",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "text",
+          "tags": {}
+        },
+        {
+          "name": "manager",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "text",
+          "tags": {}
+        },
+        {
+          "name": "total_sales",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "numeric",
+          "tags": {}
+        }
+      ]
+    },
+    {
+      "name": "staff_list",
+      "tags": {},
+      "columns": [
+        {
+          "name": "id",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int4",
+          "tags": {}
+        },
+        {
+          "name": "name",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "text",
+          "tags": {}
+        },
+        {
+          "name": "address",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "zip code",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "phone",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "city",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "country",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "varchar",
+          "tags": {}
+        },
+        {
+          "name": "sid",
+          "indices": [],
+          "nullable": true,
+          "defaultValue": null,
+          "isPrimary": false,
+          "type": "int2",
+          "tags": {}
+        }
+      ]
+    }
+  ],
+  "types": [
+    {
+      "type": "enum",
+      "name": "mpaa_rating",
+      "tags": {},
+      "values": [
+        "G",
+        "PG",
+        "PG-13",
+        "R",
+        "NC-17"
+      ]
+    }
+  ]
+}
