@@ -29,8 +29,7 @@ async function run() {
   };
   const db = knex(knexConfig);
 
-  const tablesToSkip = ['knex_migrations', 'knex_migrations_lock'];
-  const { tables, views, types } = await extractSchema('public', tablesToSkip, db);
+  const { tables, views, types } = await extractSchema('public', db);
 
   console.log('Tables:');
   console.log(tables);
@@ -46,7 +45,7 @@ run();
 ## Reference
 This module exposes one function:
 ```
-async extractSchema(schemaName, tablesToSkip, knexInstance)
+async extractSchema(schemaName, knexInstance)
 ```
 
 It returns an object that has three properties: `tables`, `views` and `types`. All arrays.

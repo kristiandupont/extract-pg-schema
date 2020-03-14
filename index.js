@@ -137,18 +137,16 @@ async function extractColumns(schemaName, tableOrViewName, db) {
 
 /**
  * @param {string} schemaName
- * @param {string[]} tablesToSkip
  * @param {Knex} db
  * @returns {Promise<Table[]>}
  */
-async function extractTables(schemaName, tablesToSkip, db) {
+async function extractTables(schemaName, db) {
   /** @type {Table[]} */
   const tables = [];
   const dbTables = await db
     .select('tablename')
     .from('pg_catalog.pg_tables')
     .where('schemaname', schemaName)
-    .whereNotIn('tablename', tablesToSkip);
 
   for (const table of dbTables) {
     const tableName = table.tablename;
@@ -239,12 +237,11 @@ async function extractTypes(db) {
 
 /**
  * @param {string} schemaName
- * @param {string[]} tablesToSkip
  * @param {Knex} db
  * @returns {Promise<{ tables: Table[], views: View[], types: Type[] }>}
  */
-async function extractSchema(schemaName, tablesToSkip, db) {
-  const tables = await extractTables(schemaName, tablesToSkip, db);
+async function extractSchema(schemaName, db) {
+  const tables = await extractTables(schemaName, db);
   const views = await extractViews(schemaName, db);
   const types = await extractTypes(db);
   db.destroy();
