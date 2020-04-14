@@ -127,6 +127,7 @@ async function extractColumns(schemaName, tableOrViewName, db) {
         indexMap[column.column_name] || []
       ),
       type: column.udt_name,
+      rawInfo: column,
       ...parseComment(commentMap[column.column_name]),
     }),
     dbColumns
