@@ -68,16 +68,19 @@ The `tables` array consists of objects that correspond to the tables in the sche
           "isPrimary": true
         }
       ],
+      "maxLength": null,
       "nullable": false,
       "defaultValue": "nextval('person_id_seq'::regclass)",
       "isPrimary": true,
       "type": "int4",
-      "comment": null
+      "comment": null,
+      "rawInfo": {...},
     },
     {
       "name": "createdAt",
       "tags": {},
       "indices": [],
+      "maxLength": null,
       "nullable": false,
       "defaultValue": null,
       "type": "timestamptz",
@@ -87,10 +90,12 @@ The `tables` array consists of objects that correspond to the tables in the sche
       "name": "displayName",
       "tags": {},
       "indices": [],
+      "maxLength": null,
       "nullable": false,
       "defaultValue": null,
       "type": "text",
-      "comment": "Name that will be displayed in the UI"
+      "comment": "Name that will be displayed in the UI",
+      "rawInfo": {...},
     },
     {
       "name": "organizationId",
@@ -102,10 +107,12 @@ The `tables` array consists of objects that correspond to the tables in the sche
           "isPrimary": false
         }
       ],
+      "maxLength": null,
       "nullable": false,
       "defaultValue": null,
       "type": "int4",
-      "comment": null
+      "comment": null,
+      "rawInfo": {...},
     }
   ]
 }
@@ -129,11 +136,13 @@ The `columns` array on a `table` has the following properties:
 - `name` which is the column name,
 - `parent` which is the referenced table and column if the column has a foreign key
 - `indices`, an array describing the indices that apply. These have two properties: `name` and `isPrimary`.
+- `maxLength`, which specifies the max string length the column has if that applies.
 - `nullable` which indicates if the column is nullable,
 - `defaultValue` which states the possible default value for the column,
 - `type` which specifies the [datatype](https://www.postgresql.org/docs/9.5/datatype.html) of the column
 - `comment` which specifies the column comment.
 - `tags` which is a map of tags parsed from the column comment
+- `rawInfo` which contains all the column information that is extracted from postgres.
 
 You can set the comment for a column with the following SQL:
 ```SQL
