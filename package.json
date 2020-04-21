@@ -4,7 +4,7 @@
     "name": "Kristian Dupont",
     "url": "http://www.kristiandupont.com"
   },
-  "version": "1.2.0",
+  "version": "1.3.0",
   "main": "index.js",
   "repository": "git@github.com:kristiandupont/extract-pg-schema.git",
   "license": "MIT",
