@@ -4,7 +4,7 @@ const R = require('ramda');
  * @typedef {any} Knex
  * @typedef {{ name: string, isPrimary: boolean }} Index
  * @typedef {{ [index: string]: string | boolean }} TagMap
- * @typedef {{ name: string, parent: string, indices: Index[], nullable: boolean, defaultValue: any, isPrimary: boolean, type: string, comment: string, tags: TagMap }} Column
+ * @typedef {{ name: string, parent: string, indices: Index[], maxLength: number, nullable: boolean, defaultValue: any, isPrimary: boolean, type: string, comment: string, tags: TagMap, rawInfo: object }} Column
  * @typedef {{ name: string, columns: Column[], comment: string, tags: TagMap }} Table
  * @typedef {{ name: string, columns: Column[], comment: string, tags: TagMap }} View
  * @typedef {{ name: string, type: string, values: string[], comment: string, tags: TagMap }} Type
