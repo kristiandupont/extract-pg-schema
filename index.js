@@ -120,6 +120,7 @@ async function extractColumns(schemaName, tableOrViewName, db) {
       name: column.column_name,
       parent: relationsMap[column.column_name],
       indices: indexMap[column.column_name] || [],
+      maxLength: column.character_maximum_length,
       nullable: column.is_nullable === 'YES',
       defaultValue: column.column_default,
       isPrimary: !!R.find(
@@ -127,6 +128,7 @@ async function extractColumns(schemaName, tableOrViewName, db) {
         indexMap[column.column_name] || []
       ),
       type: column.udt_name,
+      rawInfo: column,
       ...parseComment(commentMap[column.column_name]),
     }),
     dbColumns
