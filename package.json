@@ -8,7 +8,7 @@
     "name": "Kristian Dupont",
     "url": "http://www.kristiandupont.com"
   },
-  "version": "1.4.0",
+  "version": "1.5.0",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "repository": "git@github.com:kristiandupont/extract-pg-schema.git",
