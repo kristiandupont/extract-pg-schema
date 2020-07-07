@@ -4,7 +4,7 @@
  * returns: { comment: "This is a comment that has tags", tags: { a: true, b: '123' }}
  */
 const parseComment = (
-  source: string
+  source: string | undefined
 ): {
   comment: string | undefined;
   tags: { [index: string]: string | boolean };
@@ -28,3 +28,5 @@ const parseComment = (
     tags,
   };
 };
+
+export default parseComment;
