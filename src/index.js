@@ -1,4 +1,5 @@
 const R = require('ramda');
+const parseComment = require('./parseComment');
 
 /**
  * @typedef {any} Knex
@@ -9,40 +10,6 @@ const R = require('ramda');
  * @typedef {{ name: string, columns: Column[], comment: string, tags: TagMap }} View
  * @typedef {{ name: string, type: string, values: string[], comment: string, tags: TagMap }} Type
  */
-
-/**
- * Parse a possibly tagged string.
- * Example: "This is a comment that has tags @a and @b:123"
- * returns: { comment: "This is a comment that has tags", tags: { a: true, b: '123' }}
- * @param {string} source
- * @returns {{ comment?: string, tags: TagMap }}
- */
-const parseComment = (source) => {
-  if (!source) {
-    return { comment: undefined, tags: {} };
-  }
-
-  const matches = source.match(/(@(\S*))/g) || [];
-  const tags = R.fromPairs(
-    R.map(
-      (tag) =>
-        tag.indexOf(':') === -1
-          ? [tag.substr(1), true]
-          : tag.substr(1).split(':'),
-      matches
-    )
-  );
-  const comment = R.reduce(
-    (acc, match) => acc.replace(match, ''),
-    source,
-    matches
-  ).trim();
-
-  return {
-    comment,
-    tags,
-  };
-};
 
 /**
  * @param {string} schemaName
