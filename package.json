@@ -1,28 +1,43 @@
 {
   "name": "extract-pg-schema",
+  "keywords": ["postgresql", "schema"],
   "author": {
     "name": "Kristian Dupont",
     "url": "http://www.kristiandupont.com"
   },
   "version": "1.4.0",
-  "main": "index.js",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "repository": "git@github.com:kristiandupont/extract-pg-schema.git",
   "license": "MIT",
   "dependencies": {
-    "ramda": "^0.26.1"
+    "ramda": "^0.27.0"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc",
+    "version": "yarn build"
   },
   "devDependencies": {
-    "@types/ramda": "^0.26.41",
+    "@types/knex": "^0.16.1",
+    "@types/ramda": "^0.27.7",
+    "eslint": "^7.4.0",
     "jest": "^26.1.0",
     "knex": "^0.21.1",
+    "np": "^6.3.0",
     "pg": "^8.2.1",
-    "testcontainers": "^2.18.2"
+    "prettier": "^2.0.5",
+    "testcontainers": "^2.18.2",
+    "typescript": "^3.9.6"
   },
+  "files": [
+    "build/"
+  ],
   "prettier": {
     "singleQuote": true,
     "trailingComma": "es5"
+  },
+  "np": {
+    "tests": false
   }
 }

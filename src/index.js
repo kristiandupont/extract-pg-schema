@@ -11,13 +11,13 @@ const R = require('ramda');
  */
 
 /**
- * Parse a possibly tagges string.
+ * Parse a possibly tagged string.
  * Example: "This is a comment that has tags @a and @b:123"
  * returns: { comment: "This is a comment that has tags", tags: { a: true, b: '123' }}
  * @param {string} source
  * @returns {{ comment?: string, tags: TagMap }}
  */
-const parseComment = source => {
+const parseComment = (source) => {
   if (!source) {
     return { comment: undefined, tags: {} };
   }
@@ -25,7 +25,7 @@ const parseComment = source => {
   const matches = source.match(/(@(\S*))/g) || [];
   const tags = R.fromPairs(
     R.map(
-      tag =>
+      (tag) =>
         tag.indexOf(':') === -1
           ? [tag.substr(1), true]
           : tag.substr(1).split(':'),
@@ -116,7 +116,7 @@ async function extractColumns(schemaName, tableOrViewName, db) {
 
   const columns = R.map(
     /** @returns {Column} */
-    column => ({
+    (column) => ({
       name: column.column_name,
       parent: relationsMap[column.column_name],
       indices: indexMap[column.column_name] || [],
@@ -148,7 +148,7 @@ async function extractTables(schemaName, db) {
   const dbTables = await db
     .select('tablename')
     .from('pg_catalog.pg_tables')
-    .where('schemaname', schemaName)
+    .where('schemaname', schemaName);
 
   for (const table of dbTables) {
     const tableName = table.tablename;
