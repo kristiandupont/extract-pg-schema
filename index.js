@@ -52,7 +52,7 @@ const parseComment = source => {
  */
 async function extractColumns(schemaName, tableOrViewName, db) {
   const dbColumns = await db
-    .select(db.raw('*, udt_name::regtype as regtype'))
+    .select(db.raw('*, ("udt_schema" || \'.\' || "udt_name")::regtype as regtype'))
     .from('information_schema.columns')
     .where('table_schema', schemaName)
     .where('table_name', tableOrViewName);

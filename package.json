@@ -11,8 +11,15 @@
   "dependencies": {
     "ramda": "^0.26.1"
   },
+  "scripts": {
+    "test": "jest"
+  },
   "devDependencies": {
-    "@types/ramda": "^0.26.41"
+    "@types/ramda": "^0.26.41",
+    "jest": "^26.1.0",
+    "knex": "^0.21.1",
+    "pg": "^8.2.1",
+    "testcontainers": "^2.18.2"
   },
   "prettier": {
     "singleQuote": true,
