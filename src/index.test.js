@@ -2,6 +2,7 @@ const { GenericContainer, Wait } = require('testcontainers');
 const { Duration, TemporalUnit } = require('node-duration');
 const index = require('./index');
 
+const containerLogPrefix = "postgres-container>>> ";
 let pgContainer = new GenericContainer('postgres')
     .withExposedPorts(5432)
     .withEnv('POSTGRES_PASSWORD', 'postgres')
@@ -14,6 +15,11 @@ let config;
 beforeAll(async () => {
   jest.setTimeout(30000);
   pgContainer = await pgContainer.start();
+  const stream = await pgContainer.logs();
+  stream
+    .on("data", line => console.log(containerLogPrefix + line))
+    .on("err", line => console.error(containerLogPrefix + line))
+    .on("end", () => console.log(containerLogPrefix + "Stream closed"));
   config = {
     client: 'postgres',
     debug: true,
