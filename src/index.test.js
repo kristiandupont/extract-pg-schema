@@ -2,27 +2,25 @@ const { GenericContainer, Wait } = require('testcontainers');
 const { Duration, TemporalUnit } = require('node-duration');
 const index = require('./index');
 
-let container;
+let pgContainer = new GenericContainer('postgres')
+    .withExposedPorts(5432)
+    .withEnv('POSTGRES_PASSWORD', 'postgres')
+    .withStartupTimeout()
+    .withWaitStrategy(
+        Wait.forLogMessage('database system is ready to accept connections')
+    );
 let config;
 
 beforeAll(async () => {
   jest.setTimeout(30000);
-
-  container = await new GenericContainer('postgres')
-    .withExposedPorts(5432)
-    .withEnv('POSTGRES_PASSWORD', 'postgres')
-    .withWaitStrategy(
-      Wait.forLogMessage('database system is ready to accept connections')
-    )
-    .start();
-
+  pgContainer = await pgContainer.start();
   config = {
     client: 'postgres',
     debug: true,
     connection: {
-      host: container.getContainerIpAddress(),
+      host: pgContainer.getContainerIpAddress(),
       database: 'postgres',
-      port: container.getMappedPort(5432),
+      port: pgContainer.getMappedPort(5432),
       password: 'postgres',
       user: 'postgres',
     },
@@ -47,7 +45,6 @@ beforeAll(async () => {
     'CREATE VIEW public.default_view AS select * from public.default_table'
   );
   await setupDB.schema.createSchemaIfNotExists('not_default');
-
   await setupDB.schema.raw(
     "CREATE TYPE not_default.cust_type_not_default as ENUM ('custom1', 'custom2');"
   );
@@ -74,7 +71,7 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  await container.stop({
+  await pgContainer.stop({
     timeout: new Duration(10, TemporalUnit.SECONDS),
   });
 });
