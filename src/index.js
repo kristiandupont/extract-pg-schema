@@ -9,6 +9,7 @@ import parseComment from './parseComment';
  * @typedef {{ name: string, columns: Column[], comment: string, tags: TagMap }} Table
  * @typedef {{ name: string, columns: Column[], comment: string, tags: TagMap }} View
  * @typedef {{ name: string, type: string, values: string[], comment: string, tags: TagMap }} Type
+ * @typedef {{ tables: Table[], views: View[], types: Type[] }} Schema
  */
 
 /**
@@ -211,7 +212,7 @@ async function extractTypes(db) {
 /**
  * @param {string} schemaName
  * @param {Knex} db
- * @returns {Promise<{ tables: Table[], views: View[], types: Type[] }>}
+ * @returns {Promise<Schema>}
  */
 export async function extractSchema(schemaName, db) {
   const tables = await extractTables(schemaName, db);
