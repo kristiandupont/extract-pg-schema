@@ -213,7 +213,7 @@ async function extractTypes(db) {
  * @param {Knex} db
  * @returns {Promise<{ tables: Table[], views: View[], types: Type[] }>}
  */
-async function extractSchema(schemaName, db) {
+export async function extractSchema(schemaName, db) {
   const tables = await extractTables(schemaName, db);
   const views = await extractViews(schemaName, db);
   const types = await extractTypes(db);
@@ -225,5 +225,3 @@ async function extractSchema(schemaName, db) {
     types: R.sortBy(R.prop('name'), types),
   };
 }
-
-exports.extractSchema = extractSchema;
