@@ -176,16 +176,23 @@ async function extractViews(schemaName, db) {
 }
 
 /**
+ * @param {string | undefined} schemaName Name of the schema or `undefined` to
+ *   extract types from all schemas.
  * @param {Knex} db
  * @returns {Promise<Type[]>}
  */
-async function extractTypes(db) {
+async function extractTypes(schemaName, db) {
   /** @type {Type[]} */
   const types = [];
-  const enumTypes = await db
-    .select(['oid', 'typname'])
-    .from('pg_type')
-    .where('typtype', 'e');
+  const enumsQuery = db
+    .select(['t.oid', 't.typname'])
+    .from('pg_type as t')
+	.join('pg_namespace as n', 'n.oid', 't.typnamespace')
+    .where('t.typtype', 'e');
+  if (schemaName) {
+    enumsQuery.andWhere('n.nspname', schemaName);
+  }
+  const enumTypes = await enumsQuery;
   for (const enumType of enumTypes) {
     const typeCommentQuery = await db.schema.raw(
       `SELECT obj_description(${enumType.oid})`
@@ -216,7 +223,7 @@ async function extractTypes(db) {
 async function extractSchema(schemaName, db) {
   const tables = await extractTables(schemaName, db);
   const views = await extractViews(schemaName, db);
-  const types = await extractTypes(db);
+  const types = await extractTypes(schemaName, db);
   db.destroy();
 
   return {
