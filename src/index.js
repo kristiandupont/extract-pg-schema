@@ -1,14 +1,15 @@
+import Knex from 'knex';  // import type
 import R from 'ramda';
 import parseComment from './parseComment';
 
 /**
- * @typedef {any} Knex
  * @typedef {{ name: string, isPrimary: boolean }} Index
  * @typedef {{ [index: string]: string | boolean }} TagMap
  * @typedef {{ name: string, parent: string, indices: Index[], maxLength: number, nullable: boolean, defaultValue: any, isPrimary: boolean, type: string, comment: string, tags: TagMap, rawInfo: object }} Column
  * @typedef {{ name: string, columns: Column[], comment: string, tags: TagMap }} Table
  * @typedef {{ name: string, columns: Column[], comment: string, tags: TagMap }} View
  * @typedef {{ name: string, type: string, values: string[], comment: string, tags: TagMap }} Type
+ * @typedef {{ tables: Table[], views: View[], types: Type[] }} Schema
  */
 
 /**
@@ -218,9 +219,9 @@ async function extractTypes(schemaName, db) {
 /**
  * @param {string} schemaName
  * @param {Knex} db
- * @returns {Promise<{ tables: Table[], views: View[], types: Type[] }>}
+ * @returns {Promise<Schema>}
  */
-async function extractSchema(schemaName, db) {
+export async function extractSchema(schemaName, db) {
   const tables = await extractTables(schemaName, db);
   const views = await extractViews(schemaName, db);
   const types = await extractTypes(schemaName, db);
@@ -232,5 +233,3 @@ async function extractSchema(schemaName, db) {
     types: R.sortBy(R.prop('name'), types),
   };
 }
-
-exports.extractSchema = extractSchema;
