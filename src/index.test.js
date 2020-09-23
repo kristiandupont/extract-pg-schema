@@ -2,14 +2,14 @@ const { GenericContainer, Wait } = require('testcontainers');
 const { Duration, TemporalUnit } = require('node-duration');
 const index = require('./index');
 
-const containerLogPrefix = "postgres-container>>> ";
+const containerLogPrefix = 'postgres-container>>> ';
 let pgContainer = new GenericContainer('postgres')
-    .withExposedPorts(5432)
-    .withEnv('POSTGRES_PASSWORD', 'postgres')
-    .withStartupTimeout()
-    .withWaitStrategy(
-        Wait.forLogMessage('database system is ready to accept connections')
-    );
+  .withExposedPorts(5432)
+  .withEnv('POSTGRES_PASSWORD', 'postgres')
+  .withStartupTimeout()
+  .withWaitStrategy(
+    Wait.forLogMessage('database system is ready to accept connections')
+  );
 let config;
 
 beforeAll(async () => {
@@ -17,12 +17,11 @@ beforeAll(async () => {
   pgContainer = await pgContainer.start();
   const stream = await pgContainer.logs();
   stream
-    .on("data", line => console.log(containerLogPrefix + line))
-    .on("err", line => console.error(containerLogPrefix + line))
-    .on("end", () => console.log(containerLogPrefix + "Stream closed"));
+    // .on('data', (line) => console.log(containerLogPrefix + line))
+    .on('err', (line) => console.error(containerLogPrefix + line))
+    .on('end', () => console.log(containerLogPrefix + 'Stream closed'));
   config = {
     client: 'postgres',
-    debug: true,
     connection: {
       host: pgContainer.getContainerIpAddress(),
       database: 'postgres',
@@ -92,11 +91,12 @@ test('in default schema', async () => {
   expect(extracted.views.length).toBe(1);
   expect(extracted.views[0].name).toBe('default_view');
 
-  expect(extracted.types.length).toBe(2);
-  expect(extracted.types.filter((t) => t.name === 'cust_type')).not.toBeNull();
+  console.log(extracted.types);
+  expect(extracted.types.length).toBe(1);
+  expect(extracted.types.filter((t) => t.name === 'cust_type')).toHaveLength(1);
   expect(
     extracted.types.filter((t) => t.name === 'cust_type_not_default')
-  ).not.toBeNull();
+  ).toHaveLength(0);
 });
 
 test('in not default schema', async () => {
@@ -109,9 +109,9 @@ test('in not default schema', async () => {
   expect(extracted.views.length).toBe(1);
   expect(extracted.views[0].name).toBe('not_default_view');
 
-  expect(extracted.types.length).toBe(2);
-  expect(extracted.types.filter((t) => t.name === 'cust_type')).not.toBeNull();
+  expect(extracted.types.length).toBe(1);
+  expect(extracted.types.filter((t) => t.name === 'cust_type')).toHaveLength(0);
   expect(
     extracted.types.filter((t) => t.name === 'cust_type_not_default')
-  ).not.toBeNull();
+  ).toHaveLength(1);
 });
