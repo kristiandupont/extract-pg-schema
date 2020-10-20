@@ -1,4 +1,4 @@
-import Knex from 'knex';  // import type
+import Knex from 'knex'; // import type
 import R from 'ramda';
 import parseComment from './parseComment';
 
@@ -188,7 +188,7 @@ async function extractTypes(schemaName, db) {
   const enumsQuery = db
     .select(['t.oid', 't.typname'])
     .from('pg_type as t')
-	.join('pg_namespace as n', 'n.oid', 't.typnamespace')
+    .join('pg_namespace as n', 'n.oid', 't.typnamespace')
     .where('t.typtype', 'e');
   if (schemaName) {
     enumsQuery.andWhere('n.nspname', schemaName);

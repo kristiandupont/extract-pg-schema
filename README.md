@@ -24,8 +24,8 @@ async function run() {
       host: 'localhost',
       database: 'postgres',
       user: 'postgres',
-      password: 'postgres'
-    }
+      password: 'postgres',
+    },
   };
   const db = knex(knexConfig);
 
@@ -43,7 +43,9 @@ run();
 ```
 
 ## Reference
+
 This module exposes one function:
+
 ```
 async extractSchema(schemaName, knexInstance)
 ```
@@ -51,6 +53,7 @@ async extractSchema(schemaName, knexInstance)
 It returns an object that has three properties: `tables`, `views` and `types`. All arrays.
 
 ### Table
+
 The `tables` array consists of objects that correspond to the tables in the schema. It could look like this:
 
 ```javascript
@@ -120,19 +123,22 @@ The `tables` array consists of objects that correspond to the tables in the sche
 
 Basically, a table has four properties: `name` which is the name of the table, `comment` which is the postgres table comment, `tags` which is a map of tags parsed out of the comment, and `columns` which represents the columns.
 You can set the comment for a table with the following SQL:
+
 ```SQL
 COMMENT ON TABLE "member" IS 'Members of an organization';
 ```
 
 The tags feature uses the @-symbol, so you if you write a comment like this: `'Members of an organization @cached @alias:person'`, you will get
-* a `comment` with the value `'Members of an organization'`, and
-* a `tags` value of `{ cached: true, alias: 'person' }`
+
+- a `comment` with the value `'Members of an organization'`, and
+- a `tags` value of `{ cached: true, alias: 'person' }`
 
 You can use tags for any sort of metadata that you want to store for further processing.
 
-
 ### Column
+
 The `columns` array on a `table` has the following properties:
+
 - `name` which is the column name,
 - `parent` which is the referenced table and column if the column has a foreign key
 - `indices`, an array describing the indices that apply. These have two properties: `name` and `isPrimary`.
@@ -145,15 +151,17 @@ The `columns` array on a `table` has the following properties:
 - `rawInfo` which contains all the column information that is extracted from postgres.
 
 You can set the comment for a column with the following SQL:
+
 ```SQL
 COMMENT ON COLUMN "member"."displayName" IS 'Name that will be displayed in the UI';
 ```
 
 ### View
 
-Views have exactly the same shape as tables. 
+Views have exactly the same shape as tables.
 
 ### Type
+
 The second property in the result is the `types` array. This contains the user-specified types, currently only postgres [enum](https://www.postgresql.org/docs/9.2/datatype-enum.html) types.
 A type could look like this:
 
@@ -171,6 +179,7 @@ A type could look like this:
 ```
 
 This would be the output if you had created the type with the following:
+
 ```SQL
 CREATE TYPE "AccountState" AS ENUM ('active', 'pending', 'closed');
 
