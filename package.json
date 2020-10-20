@@ -1,59 +1,62 @@
 {
   "name": "extract-pg-schema",
+  "version": "1.6.0",
   "keywords": [
     "postgresql",
     "schema"
   ],
+  "repository": "git@github.com:kristiandupont/extract-pg-schema.git",
+  "license": "MIT",
   "author": {
     "name": "Kristian Dupont",
     "url": "http://www.kristiandupont.com"
   },
-  "version": "1.6.0",
   "main": "build/index.js",
   "types": "build/index.d.ts",
-  "repository": "git@github.com:kristiandupont/extract-pg-schema.git",
-  "license": "MIT",
-  "dependencies": {
-    "ramda": "^0.27.0"
-  },
-  "scripts": {
-    "test": "jest",
-    "build": "tsc",
-    "version": "yarn build"
-  },
-  "devDependencies": {
-    "@types/jest": "^26.0.4",
-    "@types/knex": "^0.16.1",
-    "@types/ramda": "^0.27.7",
-    "eslint": "^7.4.0",
-    "jest": "^26.1.0",
-    "knex": "^0.21.1",
-    "np": "^6.3.0",
-    "pg": "^8.2.1",
-    "prettier": "^2.0.5",
-    "testcontainers": "^2.18.2",
-    "ts-jest": "^26.4.0",
-    "typescript": "^4.0.3"
-  },
   "files": [
     "build/"
   ],
+  "scripts": {
+    "build": "tsc",
+    "lint": "yarn eslint . -f visualstudio --report-unused-disable-directives --ext .js,.ts",
+    "test": "jest",
+    "version": "yarn build"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
   "jest": {
     "moduleFileExtensions": [
       "js",
       "ts"
     ],
-    "transform": {
-      "^.+\\.(ts|js)$": "ts-jest"
-    },
+    "testEnvironment": "node",
     "testMatch": [
       "<rootDir>/src/**/*.test.js"
     ],
-    "testEnvironment": "node"
+    "transform": {
+      "^.+\\.(ts|js)$": "ts-jest"
+    }
   },
-  "prettier": {
-    "singleQuote": true,
-    "trailingComma": "es5"
+  "dependencies": {
+    "ramda": "^0.27.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.4",
+    "@types/knex": "^0.16.1",
+    "@types/ramda": "^0.27.7",
+    "@typescript-eslint/parser": "^4.5.0",
+    "eslint": "^7.4.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^26.1.0",
+    "knex": "^0.21.1",
+    "np": "^6.3.0",
+    "pg": "^8.2.1",
+    "prettier": "^2.1.2",
+    "testcontainers": "^2.18.2",
+    "ts-jest": "^26.4.0",
+    "typescript": "^4.0.3"
   },
   "np": {}
 }
