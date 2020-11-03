@@ -74,10 +74,13 @@ FROM
         n: 'SET NULL',
         d: 'SET DEFAULT',
       };
+
+      const trim = (s) => s.replace(/^"(.*)"$/, '$1');
+
       return {
-        schema,
-        table,
-        column,
+        schema: trim(schema),
+        table: trim(table),
+        column: trim(column),
         onDelete: updateActionMap[confupdtype],
         onUpdate: updateActionMap[confdeltype],
       };
