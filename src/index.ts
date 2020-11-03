@@ -3,13 +3,14 @@ import R from 'ramda';
 import extractTables from './extract-tables';
 import extractTypes from './extract-types';
 import extractViews from './extract-views';
+import { Schema } from './types';
 
-/**
- * @param {string} schemaName
- * @param {Knex} db
- * @returns {Promise<import('./types').Schema>}
- */
-export async function extractSchema(schemaName, db) {
+export * from './types';
+
+export async function extractSchema(
+  schemaName: string,
+  db: Knex
+): Promise<Schema> {
   const tables = await extractTables(schemaName, db);
   const views = await extractViews(schemaName, db);
   const types = await extractTypes(schemaName, db);
