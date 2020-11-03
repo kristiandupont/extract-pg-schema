@@ -1,21 +1,25 @@
 const { GenericContainer, Wait } = require('testcontainers');
-const { Duration, TemporalUnit } = require('node-duration');
 const index = require('./index');
 
 const containerLogPrefix = 'postgres-container>>> ';
-let pgContainer = new GenericContainer('postgres')
+
+/** @type {import('testcontainers').StartedTestContainer} */
+let startedContainer;
+
+let genericContainer = new GenericContainer('postgres')
   .withExposedPorts(5432)
   .withEnv('POSTGRES_PASSWORD', 'postgres')
-  .withStartupTimeout()
+  .withStartupTimeout(30000)
   .withWaitStrategy(
     Wait.forLogMessage('database system is ready to accept connections')
   );
+
 let config;
 
 beforeAll(async () => {
   jest.setTimeout(30000);
-  pgContainer = await pgContainer.start();
-  const stream = await pgContainer.logs();
+  startedContainer = await genericContainer.start();
+  const stream = await startedContainer.logs();
   stream
     // .on('data', (line) => console.log(containerLogPrefix + line))
     .on('err', (line) => console.error(containerLogPrefix + line))
@@ -23,9 +27,9 @@ beforeAll(async () => {
   config = {
     client: 'postgres',
     connection: {
-      host: pgContainer.getContainerIpAddress(),
+      host: startedContainer.getContainerIpAddress(),
       database: 'postgres',
-      port: pgContainer.getMappedPort(5432),
+      port: startedContainer.getMappedPort(5432),
       password: 'postgres',
       user: 'postgres',
     },
@@ -76,8 +80,8 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  await pgContainer.stop({
-    timeout: new Duration(10, TemporalUnit.SECONDS),
+  await startedContainer.stop({
+    timeout: 10000,
   });
 });
 
@@ -91,7 +95,6 @@ test('in default schema', async () => {
   expect(extracted.views.length).toBe(1);
   expect(extracted.views[0].name).toBe('default_view');
 
-  console.log(extracted.types);
   expect(extracted.types.length).toBe(1);
   expect(extracted.types.filter((t) => t.name === 'cust_type')).toHaveLength(1);
   expect(
@@ -114,4 +117,31 @@ test('in not default schema', async () => {
   expect(
     extracted.types.filter((t) => t.name === 'cust_type_not_default')
   ).toHaveLength(1);
+});
+
+test('references should contain schema, table and column', async () => {
+  const db = require('knex')(config);
+
+  await db.raw(`CREATE SCHEMA test1;
+CREATE SCHEMA test2;
+
+CREATE TABLE test1.users (
+    id integer PRIMARY KEY
+);
+
+CREATE TABLE test2.user_managers (
+    id integer PRIMARY KEY,
+    user_id integer REFERENCES test1.users(id)
+);
+`);
+
+  let extracted = await index.extractSchema('test2', db);
+
+  expect(extracted.tables[0].columns[1].reference).toEqual({
+    schema: 'test1',
+    table: 'users',
+    column: 'id',
+    onDelete: 'NO ACTION',
+    onUpdate: 'NO ACTION',
+  });
 });

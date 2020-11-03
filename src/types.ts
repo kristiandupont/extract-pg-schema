@@ -2,9 +2,28 @@ export type Index = { name: string; isPrimary: boolean };
 
 export type TagMap = { [index: string]: string | boolean };
 
+export type UpdateAction =
+  | 'SET NULL'
+  | 'SET DEFAULT'
+  | 'RESTRICT'
+  | 'NO ACTION'
+  | 'CASCADE';
+
+export type Reference = {
+  schema: string;
+  table: string;
+  column: string;
+  onDelete: UpdateAction;
+  onUpdate: UpdateAction;
+};
+
 export type Column = {
   name: string;
+
+  /** @deprecated use reference instead, this will be removed in the future */
   parent: string;
+
+  reference?: Reference;
   indices: Index[];
   maxLength: number;
   nullable: boolean;

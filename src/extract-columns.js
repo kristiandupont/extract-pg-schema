@@ -25,32 +25,66 @@ async function extractColumns(schemaName, tableOrViewName, db) {
     .where('table_schema', schemaName)
     .where('table_name', tableOrViewName);
   const relationsQuery = await db.schema.raw(`
-      SELECT att2.attname AS "column_name", concat_ws('.', cl.relname, att.attname) AS "parent"
-      FROM (
-          SELECT
-              unnest(con1.conkey) AS "parent",
-              unnest(con1.confkey) AS "child",
-              con1.confrelid,
-              con1.conrelid,
-              con1.conname
-          FROM
-              pg_class cl
-              JOIN pg_namespace ns ON cl.relnamespace = ns.oid
-              JOIN pg_constraint con1 ON con1.conrelid = cl.oid
-          WHERE
-              cl.relname = '${tableOrViewName}'
-              AND ns.nspname = '${schemaName}'
-              AND con1.contype = 'f') con
-          JOIN pg_attribute att ON att.attrelid = con.confrelid
-          AND att.attnum = con.child
-          JOIN pg_class cl ON cl.oid = con.confrelid
-          JOIN pg_attribute att2 ON att2.attrelid = con.conrelid
-          AND att2.attnum = con.parent
+SELECT
+  att2.attname AS "column_name",
+  con.confrelid :: regclass :: text as table_path,
+  att.attname as column,
+  con.confupdtype,
+  con.confdeltype,
+  concat_ws('.', cl.relname, att.attname) AS "parent"
+FROM
+  (
+      SELECT
+          unnest(con1.conkey) AS "parent",
+          unnest(con1.confkey) AS "child",
+          con1.confrelid,
+          con1.conrelid,
+          con1.conname,
+          con1.confupdtype,
+          con1.confdeltype
+      FROM
+          pg_class cl
+          JOIN pg_namespace ns ON cl.relnamespace = ns.oid
+          JOIN pg_constraint con1 ON con1.conrelid = cl.oid
+      WHERE
+          cl.relname = '${tableOrViewName}'
+          AND ns.nspname = '${schemaName}'
+          AND con1.contype = 'f'
+  ) con
+  JOIN pg_attribute att ON att.attrelid = con.confrelid
+  AND att.attnum = con.child
+  JOIN pg_class cl ON cl.oid = con.confrelid
+  JOIN pg_attribute att2 ON att2.attrelid = con.conrelid
+  AND att2.attnum = con.parent;
     `);
-  const relationsMap = R.pluck(
-    'parent',
-    R.indexBy(R.prop('column_name'), relationsQuery.rows)
+  const relationsMap = R.indexBy(R.prop('column_name'), relationsQuery.rows);
+  const parentMap = R.pluck('parent', relationsMap);
+  const referenceMap = R.map(
+    ({ table_path, column, confupdtype, confdeltype }) => {
+      let schema = schemaName;
+      let table = table_path;
+      if (table.indexOf('.') !== -1) {
+        [schema, table] = table.split('.');
+      }
+
+      const updateActionMap = {
+        a: 'NO ACTION',
+        r: 'RESTRICT',
+        c: 'CASCADE',
+        n: 'SET NULL',
+        d: 'SET DEFAULT',
+      };
+      return {
+        schema,
+        table,
+        column,
+        onDelete: updateActionMap[confupdtype],
+        onUpdate: updateActionMap[confdeltype],
+      };
+    },
+    relationsMap
   );
+
   const indexQuery = await db.schema.raw(`
       SELECT i.relname as index_name, ix.indisprimary as is_primary, a.attname as column_name
       FROM pg_class t, pg_class i, pg_index ix, pg_attribute a
@@ -86,7 +120,8 @@ async function extractColumns(schemaName, tableOrViewName, db) {
     /** @returns {Column} */
     (column) => ({
       name: column.column_name,
-      parent: relationsMap[column.column_name],
+      parent: parentMap[column.column_name],
+      reference: referenceMap[column.column_name],
       indices: indexMap[column.column_name] || [],
       maxLength: column.character_maximum_length,
       nullable: column.is_nullable === 'YES',
