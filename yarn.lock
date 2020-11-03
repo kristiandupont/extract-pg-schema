@@ -586,10 +586,10 @@
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
 
-"@types/dockerode@^2.5.33":
-  version "2.5.33"
-  resolved "https://registry.yarnpkg.com/@types/dockerode/-/dockerode-2.5.33.tgz#80e4fe22da02c5a4116fd6f143b9ce7db1fd0b4e"
-  integrity sha512-4kj3wwY3Zu+cOQ78NLif5ciUnwQhuxLv9m3Fng1sN5t3NzDL7uvJ/QlKrrTm3QADHm8kdc/KdxyRCrg70qLlqA==
+"@types/dockerode@^2.5.34":
+  version "2.5.34"
+  resolved "https://registry.yarnpkg.com/@types/dockerode/-/dockerode-2.5.34.tgz#9adb884f7cc6c012a6eb4b2ad794cc5d01439959"
+  integrity sha512-LcbLGcvcBwBAvjH9UrUI+4qotY+A5WCer5r43DR5XHv2ZIEByNXFdPLo1XxR+v/BjkGjlggW8qUiXuVEhqfkpA==
   dependencies:
     "@types/node" "*"
 
@@ -1490,16 +1490,6 @@ concat-map@0.0.1:
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
   integrity sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
 
-concat-stream@~2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/concat-stream/-/concat-stream-2.0.0.tgz#414cf5af790a48c60ab9be4527d56d5e41133cb1"
-  integrity sha512-MWufYdFw53ccGjCA+Ol7XJYpAlW6/prSMzuPOTRnJGcGzuhLn4Scrz7qf6o8bROZ514ltazcIFJZevcfbo0x7A==
-  dependencies:
-    buffer-from "^1.0.0"
-    inherits "^2.0.3"
-    readable-stream "^3.0.2"
-    typedarray "^0.0.6"
-
 configstore@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/configstore/-/configstore-5.0.1.tgz#d365021b5df4b98cdd187d6a3b0e3f6a7cc5ed96"
@@ -1681,13 +1671,6 @@ deepmerge@^4.2.2:
   resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-4.2.2.tgz#44d2ea3679b8f4d4ffba33f03d865fc1e7bf4955"
   integrity sha512-FJ3UgI4gIl+PHZm53knsuSFpE+nESMr7M4v9QcgB7S63Kj/6WqMiFQJpBBYz1Pt+66bZpP3Q7Lye0Oo9MPKEdg==
 
-default-gateway@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/default-gateway/-/default-gateway-6.0.1.tgz#a6b266196931bf27dfe763dec9e488573fe8c803"
-  integrity sha512-55Zt/cfV9OkkerJR3fECxhSk4+mVv6cq/npDz7n6255faTGh0/9HbEnTpUQdMMGJXclBCxEu1Kol3h362c2cbg==
-  dependencies:
-    execa "^4.0.2"
-
 defer-to-connect@^1.0.1:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/defer-to-connect/-/defer-to-connect-1.1.3.tgz#331ae050c08dcf789f8c83a7b81f0ed94f4ac591"
@@ -1765,10 +1748,10 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
-docker-compose@^0.23.4:
-  version "0.23.4"
-  resolved "https://registry.yarnpkg.com/docker-compose/-/docker-compose-0.23.4.tgz#43bcabcde55a6ba2873b52fe0ccd99dd8fdceba8"
-  integrity sha512-yWdXby9uQ8o4syOfvoSJ9ZlTnLipvUmDn59uaYY5VGIUSUAfMPPGqE1DE3pOCnfSg9Tl9UOOFO0PCSAzuIHmuA==
+docker-compose@^0.23.5:
+  version "0.23.5"
+  resolved "https://registry.yarnpkg.com/docker-compose/-/docker-compose-0.23.5.tgz#8dd338d1a89cfbc968faa4a61a7cfbbcece7138b"
+  integrity sha512-y3swhij4q3pyX45kJH7OMHZjoHPfiaTe8RPAQQ9fbamKQHI+k+1HnZm0T9NbbMFusTn0het0eK4WjXGM+rcF2A==
 
 docker-modem@^2.1.0:
   version "2.1.3"
@@ -1780,12 +1763,11 @@ docker-modem@^2.1.0:
     split-ca "^1.0.1"
     ssh2 "^0.8.7"
 
-dockerode@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/dockerode/-/dockerode-3.2.0.tgz#80e5bd9c2a988bdde4c995ae4aa2584fa0166c23"
-  integrity sha512-C+y/W4Kks7YLBsfUOTMkk1IVilb4cdj+rE+UZ5hnE+rpcn2frSs7kX+6H8GteTqHcv8sln+GyxuP1qdno3IzIw==
+dockerode@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/dockerode/-/dockerode-3.2.1.tgz#4a2222e3e1df536bf595e78e76d3cfbf6d4d93b9"
+  integrity sha512-XsSVB5Wu5HWMg1aelV5hFSqFJaKS5x1aiV/+sT7YOzOq1IRl49I/UwV8Pe4x6t0iF9kiGkWu5jwfvbkcFVupBw==
   dependencies:
-    concat-stream "~2.0.0"
     docker-modem "^2.1.0"
     tar-fs "~2.0.1"
 
@@ -2031,7 +2013,7 @@ execa@^1.0.0:
     signal-exit "^3.0.0"
     strip-eof "^1.0.0"
 
-execa@^4.0.0, execa@^4.0.2:
+execa@^4.0.0:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/execa/-/execa-4.0.2.tgz#ad87fb7b2d9d564f70d2b62d511bee41d5cbb240"
   integrity sha512-QI2zLa6CjGWdiQsmSkZoGtDx2N+cQIGb3yNolGTdjSQzydzLgYYf8LRuagp7S7fPimjcrzUDSUFd/MgzELMi4Q==
@@ -4073,11 +4055,6 @@ nice-try@^1.0.4:
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
 
-node-duration@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/node-duration/-/node-duration-1.0.4.tgz#3e94ecc0e473691c89c4560074503362071cecac"
-  integrity sha512-eUXYNSY7DL53vqfTosggWkvyIW3bhAcqBDIlolgNYlZhianXTrCL50rlUJWD1eRqkIxMppXTfiFbp+9SjpPrgA==
-
 node-int64@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/node-int64/-/node-int64-0.4.0.tgz#87a9065cdb355d3182d8f94ce11188b825c68a3b"
@@ -4778,7 +4755,7 @@ read-pkg@^5.2.0:
     parse-json "^5.0.0"
     type-fest "^0.6.0"
 
-readable-stream@^3.0.2, readable-stream@^3.1.1, readable-stream@^3.4.0, readable-stream@^3.5.0:
+readable-stream@^3.1.1, readable-stream@^3.4.0, readable-stream@^3.5.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-3.6.0.tgz#337bbda3adc0706bd3e024426a286d4b4b2c9198"
   integrity sha512-BViHy7LKeTz4oNnkcLJ+lVSL6vpiFeX6/d3oSH8zCW7UxP2onchk+vTGB143xuFjHS3deTgkKoXXymXqymiIdA==
@@ -5567,20 +5544,19 @@ test-exclude@^6.0.0:
     glob "^7.1.4"
     minimatch "^3.0.4"
 
-testcontainers@^2.18.2:
-  version "2.18.3"
-  resolved "https://registry.yarnpkg.com/testcontainers/-/testcontainers-2.18.3.tgz#81b4b7aed0fe776bd2339ea9df645e131d5381d9"
-  integrity sha512-P7h2nR4B43aiIigS1drOegpWrYWIxSKd8Zr/jvArN8tTVEsbhonsSxJlg9+tKyqA0ZGQBu/q5pUkDQJZrWhOjw==
+testcontainers@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/testcontainers/-/testcontainers-5.0.0.tgz#c45f89b925bd18d3bbe5685cac09253f716fe4a3"
+  integrity sha512-pUN04B6tQZAknU6tXEh0wRK/TXd47JeyXXS+an11yCc0RSQTXmMkeOc8gSDLRjtjUS8cxXjfuDHO1QqAtHAYcg==
   dependencies:
-    "@types/dockerode" "^2.5.33"
+    "@types/dockerode" "^2.5.34"
     byline "^5.0.0"
     debug "^4.1.1"
-    default-gateway "^6.0.1"
-    docker-compose "^0.23.4"
-    dockerode "^3.2.0"
+    docker-compose "^0.23.5"
+    dockerode "^3.2.1"
     get-port "^5.1.1"
     glob "^7.1.6"
-    node-duration "^1.0.4"
+    slash "^3.0.0"
     stream-to-array "^2.3.0"
     tar-fs "^2.1.0"
 
@@ -5798,11 +5774,6 @@ typedarray-to-buffer@^3.1.5:
   integrity sha512-zdu8XMNEDepKKR+XYOXAVPtWui0ly0NtohUscw+UmaHiAWT8hrV1rr//H6V+0DvJ3OQ19S979M0laLfX8rm82Q==
   dependencies:
     is-typedarray "^1.0.0"
-
-typedarray@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
-  integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
 typescript@^4.0.3:
   version "4.0.3"
