@@ -103,7 +103,13 @@ The `tables` array consists of objects that correspond to the tables in the sche
     {
       "name": "organizationId",
       "tags": {},
-      "parent": "organization.id",
+      "reference": {
+        "schema": "public",
+        "table": "organization",
+        "column": "id",
+        "onDelete": "CASCADE",
+        "onUpdate": "NO ACTION"
+      }
       "indices": [
         {
           "name": "member_organizationId_index",
@@ -140,7 +146,7 @@ You can use tags for any sort of metadata that you want to store for further pro
 The `columns` array on a `table` has the following properties:
 
 - `name` which is the column name,
-- `parent` which is the referenced table and column if the column has a foreign key
+- `reference`, an object containing schema, table and column names of a foreign key reference. Also has `onUpdate` and `onDelete` fields specifying update actions.
 - `indices`, an array describing the indices that apply. These have two properties: `name` and `isPrimary`.
 - `maxLength`, which specifies the max string length the column has if that applies.
 - `nullable` which indicates if the column is nullable,

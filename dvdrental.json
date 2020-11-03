@@ -62,7 +62,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "integer"
           }
         },
         {
@@ -118,7 +119,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "character varying"
           }
         },
         {
@@ -179,7 +181,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "character varying"
           }
         },
         {
@@ -235,7 +238,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "timestamp without time zone"
           }
         }
       ]
@@ -302,7 +306,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "integer"
           }
         },
         {
@@ -358,7 +363,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "character varying"
           }
         },
         {
@@ -414,7 +420,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "character varying"
           }
         },
         {
@@ -470,12 +477,20 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "character varying"
           }
         },
         {
           "name": "city_id",
           "parent": "city.city_id",
+          "reference": {
+            "schema": "public",
+            "table": "city",
+            "column": "city_id",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION"
+          },
           "indices": [
             {
               "name": "idx_fk_city_id",
@@ -532,7 +547,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "smallint"
           }
         },
         {
@@ -588,7 +604,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "character varying"
           }
         },
         {
@@ -644,7 +661,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "character varying"
           }
         },
         {
@@ -700,7 +718,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "timestamp without time zone"
           }
         }
       ]
@@ -767,7 +786,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "integer"
           }
         },
         {
@@ -823,7 +843,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "character varying"
           }
         },
         {
@@ -879,7 +900,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "timestamp without time zone"
           }
         }
       ]
@@ -946,7 +968,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "integer"
           }
         },
         {
@@ -1002,12 +1025,20 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "character varying"
           }
         },
         {
           "name": "country_id",
           "parent": "country.country_id",
+          "reference": {
+            "schema": "public",
+            "table": "country",
+            "column": "country_id",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION"
+          },
           "indices": [
             {
               "name": "idx_fk_country_id",
@@ -1064,7 +1095,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "smallint"
           }
         },
         {
@@ -1120,7 +1152,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "timestamp without time zone"
           }
         }
       ]
@@ -1187,7 +1220,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "integer"
           }
         },
         {
@@ -1243,7 +1277,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "character varying"
           }
         },
         {
@@ -1299,7 +1334,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "timestamp without time zone"
           }
         }
       ]
@@ -1366,7 +1402,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "integer"
           }
         },
         {
@@ -1427,7 +1464,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "smallint"
           }
         },
         {
@@ -1483,7 +1521,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "character varying"
           }
         },
         {
@@ -1544,7 +1583,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "character varying"
           }
         },
         {
@@ -1600,12 +1640,20 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "character varying"
           }
         },
         {
           "name": "address_id",
           "parent": "address.address_id",
+          "reference": {
+            "schema": "public",
+            "table": "address",
+            "column": "address_id",
+            "onDelete": "CASCADE",
+            "onUpdate": "RESTRICT"
+          },
           "indices": [
             {
               "name": "idx_fk_address_id",
@@ -1662,7 +1710,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "smallint"
           }
         },
         {
@@ -1718,7 +1767,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "boolean"
           }
         },
         {
@@ -1774,7 +1824,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "date"
           }
         },
         {
@@ -1830,7 +1881,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "timestamp without time zone"
           }
         },
         {
@@ -1886,7 +1938,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "integer"
           }
         }
       ]
@@ -1953,7 +2006,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "integer"
           }
         },
         {
@@ -2014,7 +2068,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "character varying"
           }
         },
         {
@@ -2070,7 +2125,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "text"
           }
         },
         {
@@ -2126,12 +2182,20 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "integer"
           }
         },
         {
           "name": "language_id",
           "parent": "language.language_id",
+          "reference": {
+            "schema": "public",
+            "table": "language",
+            "column": "language_id",
+            "onDelete": "CASCADE",
+            "onUpdate": "RESTRICT"
+          },
           "indices": [
             {
               "name": "idx_fk_language_id",
@@ -2188,7 +2252,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "smallint"
           }
         },
         {
@@ -2244,7 +2309,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "smallint"
           }
         },
         {
@@ -2300,7 +2366,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "numeric"
           }
         },
         {
@@ -2356,7 +2423,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "smallint"
           }
         },
         {
@@ -2412,7 +2480,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "numeric"
           }
         },
         {
@@ -2468,7 +2537,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "mpaa_rating"
           }
         },
         {
@@ -2524,7 +2594,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "timestamp without time zone"
           }
         },
         {
@@ -2534,7 +2605,7 @@
           "nullable": true,
           "defaultValue": null,
           "isPrimary": false,
-          "type": "_text",
+          "type": "text[]",
           "tags": {},
           "rawInfo": {
             "table_catalog": "dvdrental",
@@ -2580,7 +2651,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "text[]"
           }
         },
         {
@@ -2641,7 +2713,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "tsvector"
           }
         }
       ]
@@ -2653,6 +2726,13 @@
         {
           "name": "actor_id",
           "parent": "actor.actor_id",
+          "reference": {
+            "schema": "public",
+            "table": "actor",
+            "column": "actor_id",
+            "onDelete": "CASCADE",
+            "onUpdate": "RESTRICT"
+          },
           "indices": [
             {
               "name": "film_actor_pkey",
@@ -2709,12 +2789,20 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "smallint"
           }
         },
         {
           "name": "film_id",
           "parent": "film.film_id",
+          "reference": {
+            "schema": "public",
+            "table": "film",
+            "column": "film_id",
+            "onDelete": "CASCADE",
+            "onUpdate": "RESTRICT"
+          },
           "indices": [
             {
               "name": "film_actor_pkey",
@@ -2775,7 +2863,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "smallint"
           }
         },
         {
@@ -2831,7 +2920,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "timestamp without time zone"
           }
         }
       ]
@@ -2843,6 +2933,13 @@
         {
           "name": "film_id",
           "parent": "film.film_id",
+          "reference": {
+            "schema": "public",
+            "table": "film",
+            "column": "film_id",
+            "onDelete": "CASCADE",
+            "onUpdate": "RESTRICT"
+          },
           "indices": [
             {
               "name": "film_category_pkey",
@@ -2899,12 +2996,20 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "smallint"
           }
         },
         {
           "name": "category_id",
           "parent": "category.category_id",
+          "reference": {
+            "schema": "public",
+            "table": "category",
+            "column": "category_id",
+            "onDelete": "CASCADE",
+            "onUpdate": "RESTRICT"
+          },
           "indices": [
             {
               "name": "film_category_pkey",
@@ -2961,7 +3066,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "smallint"
           }
         },
         {
@@ -3017,7 +3123,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "timestamp without time zone"
           }
         }
       ]
@@ -3084,12 +3191,20 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "integer"
           }
         },
         {
           "name": "film_id",
           "parent": "film.film_id",
+          "reference": {
+            "schema": "public",
+            "table": "film",
+            "column": "film_id",
+            "onDelete": "CASCADE",
+            "onUpdate": "RESTRICT"
+          },
           "indices": [
             {
               "name": "idx_store_id_film_id",
@@ -3146,7 +3261,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "smallint"
           }
         },
         {
@@ -3207,7 +3323,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "smallint"
           }
         },
         {
@@ -3263,7 +3380,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "timestamp without time zone"
           }
         }
       ]
@@ -3330,7 +3448,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "integer"
           }
         },
         {
@@ -3386,7 +3505,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "character"
           }
         },
         {
@@ -3442,7 +3562,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "timestamp without time zone"
           }
         }
       ]
@@ -3509,12 +3630,20 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "integer"
           }
         },
         {
           "name": "customer_id",
           "parent": "customer.customer_id",
+          "reference": {
+            "schema": "public",
+            "table": "customer",
+            "column": "customer_id",
+            "onDelete": "CASCADE",
+            "onUpdate": "RESTRICT"
+          },
           "indices": [
             {
               "name": "idx_fk_customer_id",
@@ -3571,12 +3700,20 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "smallint"
           }
         },
         {
           "name": "staff_id",
           "parent": "staff.staff_id",
+          "reference": {
+            "schema": "public",
+            "table": "staff",
+            "column": "staff_id",
+            "onDelete": "CASCADE",
+            "onUpdate": "RESTRICT"
+          },
           "indices": [
             {
               "name": "idx_fk_staff_id",
@@ -3633,12 +3770,20 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "smallint"
           }
         },
         {
           "name": "rental_id",
           "parent": "rental.rental_id",
+          "reference": {
+            "schema": "public",
+            "table": "rental",
+            "column": "rental_id",
+            "onDelete": "CASCADE",
+            "onUpdate": "SET NULL"
+          },
           "indices": [
             {
               "name": "idx_fk_rental_id",
@@ -3695,7 +3840,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "integer"
           }
         },
         {
@@ -3751,7 +3897,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "numeric"
           }
         },
         {
@@ -3807,7 +3954,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "timestamp without time zone"
           }
         }
       ]
@@ -3874,7 +4022,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "integer"
           }
         },
         {
@@ -3935,12 +4084,20 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "timestamp without time zone"
           }
         },
         {
           "name": "inventory_id",
           "parent": "inventory.inventory_id",
+          "reference": {
+            "schema": "public",
+            "table": "inventory",
+            "column": "inventory_id",
+            "onDelete": "CASCADE",
+            "onUpdate": "RESTRICT"
+          },
           "indices": [
             {
               "name": "idx_fk_inventory_id",
@@ -4001,12 +4158,20 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "integer"
           }
         },
         {
           "name": "customer_id",
           "parent": "customer.customer_id",
+          "reference": {
+            "schema": "public",
+            "table": "customer",
+            "column": "customer_id",
+            "onDelete": "CASCADE",
+            "onUpdate": "RESTRICT"
+          },
           "indices": [
             {
               "name": "idx_unq_rental_rental_date_inventory_id_customer_id",
@@ -4063,7 +4228,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "smallint"
           }
         },
         {
@@ -4119,12 +4285,20 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "timestamp without time zone"
           }
         },
         {
           "name": "staff_id",
           "parent": "staff.staff_id",
+          "reference": {
+            "schema": "public",
+            "table": "staff",
+            "column": "staff_id",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION"
+          },
           "indices": [],
           "maxLength": null,
           "nullable": false,
@@ -4176,7 +4350,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "smallint"
           }
         },
         {
@@ -4232,7 +4407,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "timestamp without time zone"
           }
         }
       ]
@@ -4299,7 +4475,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "integer"
           }
         },
         {
@@ -4355,7 +4532,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "character varying"
           }
         },
         {
@@ -4411,12 +4589,20 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "character varying"
           }
         },
         {
           "name": "address_id",
           "parent": "address.address_id",
+          "reference": {
+            "schema": "public",
+            "table": "address",
+            "column": "address_id",
+            "onDelete": "CASCADE",
+            "onUpdate": "RESTRICT"
+          },
           "indices": [],
           "maxLength": null,
           "nullable": false,
@@ -4468,7 +4654,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "smallint"
           }
         },
         {
@@ -4524,7 +4711,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "character varying"
           }
         },
         {
@@ -4580,7 +4768,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "smallint"
           }
         },
         {
@@ -4636,7 +4825,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "boolean"
           }
         },
         {
@@ -4692,7 +4882,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "character varying"
           }
         },
         {
@@ -4748,7 +4939,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "character varying"
           }
         },
         {
@@ -4804,7 +4996,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "timestamp without time zone"
           }
         },
         {
@@ -4860,7 +5053,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "bytea"
           }
         }
       ]
@@ -4927,12 +5121,20 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "integer"
           }
         },
         {
           "name": "manager_staff_id",
           "parent": "staff.staff_id",
+          "reference": {
+            "schema": "public",
+            "table": "staff",
+            "column": "staff_id",
+            "onDelete": "CASCADE",
+            "onUpdate": "RESTRICT"
+          },
           "indices": [
             {
               "name": "idx_unq_manager_staff_id",
@@ -4989,12 +5191,20 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "smallint"
           }
         },
         {
           "name": "address_id",
           "parent": "address.address_id",
+          "reference": {
+            "schema": "public",
+            "table": "address",
+            "column": "address_id",
+            "onDelete": "CASCADE",
+            "onUpdate": "RESTRICT"
+          },
           "indices": [],
           "maxLength": null,
           "nullable": false,
@@ -5046,7 +5256,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "smallint"
           }
         },
         {
@@ -5102,7 +5313,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "YES"
+            "is_updatable": "YES",
+            "regtype": "timestamp without time zone"
           }
         }
       ]
@@ -5121,10 +5333,7 @@
           "defaultValue": null,
           "isPrimary": false,
           "type": "int4",
-          "comment": "This is the identifier for the actor",
-          "tags": {
-            "type": "ActorId"
-          },
+          "tags": {},
           "rawInfo": {
             "table_catalog": "dvdrental",
             "table_schema": "public",
@@ -5169,7 +5378,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "integer"
           }
         },
         {
@@ -5225,7 +5435,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "character varying"
           }
         },
         {
@@ -5281,7 +5492,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "character varying"
           }
         },
         {
@@ -5337,7 +5549,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "text"
           }
         }
       ]
@@ -5399,7 +5612,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "integer"
           }
         },
         {
@@ -5455,7 +5669,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "text"
           }
         },
         {
@@ -5511,7 +5726,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "character varying"
           }
         },
         {
@@ -5567,7 +5783,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "character varying"
           }
         },
         {
@@ -5623,7 +5840,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "character varying"
           }
         },
         {
@@ -5679,7 +5897,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "character varying"
           }
         },
         {
@@ -5735,7 +5954,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "character varying"
           }
         },
         {
@@ -5791,7 +6011,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "text"
           }
         },
         {
@@ -5847,7 +6068,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "smallint"
           }
         }
       ]
@@ -5909,7 +6131,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "integer"
           }
         },
         {
@@ -5965,7 +6188,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "character varying"
           }
         },
         {
@@ -6021,7 +6245,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "text"
           }
         },
         {
@@ -6077,7 +6302,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "character varying"
           }
         },
         {
@@ -6133,7 +6359,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "numeric"
           }
         },
         {
@@ -6189,7 +6416,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "smallint"
           }
         },
         {
@@ -6245,7 +6473,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "mpaa_rating"
           }
         },
         {
@@ -6301,7 +6530,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "text"
           }
         }
       ]
@@ -6363,7 +6593,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "integer"
           }
         },
         {
@@ -6419,7 +6650,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "character varying"
           }
         },
         {
@@ -6475,7 +6707,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "text"
           }
         },
         {
@@ -6531,7 +6764,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "character varying"
           }
         },
         {
@@ -6587,7 +6821,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "numeric"
           }
         },
         {
@@ -6643,7 +6878,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "smallint"
           }
         },
         {
@@ -6699,7 +6935,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "mpaa_rating"
           }
         },
         {
@@ -6755,7 +6992,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "text"
           }
         }
       ]
@@ -6817,7 +7055,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "character varying"
           }
         },
         {
@@ -6873,7 +7112,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "numeric"
           }
         }
       ]
@@ -6935,7 +7175,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "text"
           }
         },
         {
@@ -6991,7 +7232,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "text"
           }
         },
         {
@@ -7047,7 +7289,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "numeric"
           }
         }
       ]
@@ -7109,7 +7352,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "integer"
           }
         },
         {
@@ -7165,7 +7409,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "text"
           }
         },
         {
@@ -7221,7 +7466,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "character varying"
           }
         },
         {
@@ -7277,7 +7523,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "character varying"
           }
         },
         {
@@ -7333,7 +7580,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "character varying"
           }
         },
         {
@@ -7389,7 +7637,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "character varying"
           }
         },
         {
@@ -7445,7 +7694,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "character varying"
           }
         },
         {
@@ -7501,7 +7751,8 @@
             "identity_cycle": "NO",
             "is_generated": "NEVER",
             "generation_expression": null,
-            "is_updatable": "NO"
+            "is_updatable": "NO",
+            "regtype": "smallint"
           }
         }
       ]
@@ -7512,7 +7763,13 @@
       "type": "enum",
       "name": "mpaa_rating",
       "tags": {},
-      "values": ["G", "PG", "PG-13", "R", "NC-17"]
+      "values": [
+        "G",
+        "PG",
+        "PG-13",
+        "R",
+        "NC-17"
+      ]
     }
   ]
 }
