@@ -745,6 +745,21 @@
   dependencies:
     "@types/node" "*"
 
+"@types/ssh2-streams@*":
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/@types/ssh2-streams/-/ssh2-streams-0.1.7.tgz#bf79349ec85a4dfb5b3fd9f4a05af729121f07e6"
+  integrity sha512-cQNV72C+BOG7G8WNGarTQdB2Ii37cJlWatSpx5zTYxtI2ZvUt2lbq6Nc2XZ4kbge28V7Xe5KYYr82d96/rDMnQ==
+  dependencies:
+    "@types/node" "*"
+
+"@types/ssh2@^0.5.45":
+  version "0.5.45"
+  resolved "https://registry.yarnpkg.com/@types/ssh2/-/ssh2-0.5.45.tgz#14e293ec2a4d4c8a5434a7989a676b87340aa870"
+  integrity sha512-SAQITTyO/jOoskSAw2T/9sveX4lhTzx7zdeYR0t04RMhZQrEIzvrAoCStSxYwvwZ5ofek1JWeW9x2yOK3GOUlg==
+  dependencies:
+    "@types/node" "*"
+    "@types/ssh2-streams" "*"
+
 "@types/stack-utils@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-2.0.0.tgz#7036640b4e21cc2f259ae826ce843d277dad8cff"
@@ -1956,10 +1971,10 @@ eslint-visitor-keys@^2.0.0:
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-2.0.0.tgz#21fdc8fbcd9c795cc0321f0563702095751511a8"
   integrity sha512-QudtT6av5WXels9WjIM7qz1XD1cWGvX4gGXvp/zBn9nXG02D0utdU3Em2m/QjTnrsk6bBjmCygl3rmj118msQQ==
 
-eslint@7.13.0:
-  version "7.13.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.13.0.tgz#7f180126c0dcdef327bfb54b211d7802decc08da"
-  integrity sha512-uCORMuOO8tUzJmsdRtrvcGq5qposf7Rw0LwkTJkoDbOycVQtQjmnhZSuLQnozLE4TmAzlMVV45eCHmQ1OpDKUQ==
+eslint@7.14.0:
+  version "7.14.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.14.0.tgz#2d2cac1d28174c510a97b377f122a5507958e344"
+  integrity sha512-5YubdnPXrlrYAFCKybPuHIAH++PINe1pmKNc5wQRB9HSbqIK1ywAnntE3Wwua4giKu0bjligf1gLF6qxMGOYRA==
   dependencies:
     "@babel/code-frame" "^7.0.0"
     "@eslint/eslintrc" "^0.2.1"
@@ -5455,6 +5470,14 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
+ssh-remote-port-forward@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/ssh-remote-port-forward/-/ssh-remote-port-forward-1.0.3.tgz#074cebed6d54a42ce4659d6aa24987e433ff5fef"
+  integrity sha512-PJ6qGFmB6n0iMCQIp+qzx8qVUE5cgacopvEh63t3NJjEQHOaza/JT9zywmmVlaol/eGtCmpvBXx2A03ih1Y+xg==
+  dependencies:
+    "@types/ssh2" "^0.5.45"
+    ssh2 "^0.8.9"
+
 ssh2-streams@~0.4.10:
   version "0.4.10"
   resolved "https://registry.yarnpkg.com/ssh2-streams/-/ssh2-streams-0.4.10.tgz#48ef7e8a0e39d8f2921c30521d56dacb31d23a34"
@@ -5464,7 +5487,7 @@ ssh2-streams@~0.4.10:
     bcrypt-pbkdf "^1.0.2"
     streamsearch "~0.1.2"
 
-ssh2@^0.8.7:
+ssh2@^0.8.7, ssh2@^0.8.9:
   version "0.8.9"
   resolved "https://registry.yarnpkg.com/ssh2/-/ssh2-0.8.9.tgz#54da3a6c4ba3daf0d8477a538a481326091815f3"
   integrity sha512-GmoNPxWDMkVpMFa9LVVzQZHF6EW3WKmBwL+4/GeILf2hFmix5Isxm7Amamo8o7bHiU0tC+wXsGcUXOxp8ChPaw==
@@ -5748,10 +5771,10 @@ test-exclude@^6.0.0:
     glob "^7.1.4"
     minimatch "^3.0.4"
 
-testcontainers@5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/testcontainers/-/testcontainers-5.0.0.tgz#c45f89b925bd18d3bbe5685cac09253f716fe4a3"
-  integrity sha512-pUN04B6tQZAknU6tXEh0wRK/TXd47JeyXXS+an11yCc0RSQTXmMkeOc8gSDLRjtjUS8cxXjfuDHO1QqAtHAYcg==
+testcontainers@6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/testcontainers/-/testcontainers-6.2.0.tgz#65843844d0c92bd1a6f2f21d158a963ba856b15e"
+  integrity sha512-fH0QXxGlGEPbLvPggesyxSGBfGOBiiblrwoG9Tjn66efkMFCjOOq+BqOtMOtrFd6AyI19KsxaknU3Ub6h+D++A==
   dependencies:
     "@types/dockerode" "^2.5.34"
     byline "^5.0.0"
@@ -5761,6 +5784,7 @@ testcontainers@5.0.0:
     get-port "^5.1.1"
     glob "^7.1.6"
     slash "^3.0.0"
+    ssh-remote-port-forward "^1.0.3"
     stream-to-array "^2.3.0"
     tar-fs "^2.1.0"
 

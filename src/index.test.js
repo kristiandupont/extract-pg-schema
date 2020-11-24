@@ -27,7 +27,7 @@ beforeAll(async () => {
   config = {
     client: 'postgres',
     connection: {
-      host: startedContainer.getContainerIpAddress(),
+      host: startedContainer.getHost(),
       database: 'postgres',
       port: startedContainer.getMappedPort(5432),
       password: 'postgres',
