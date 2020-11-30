@@ -1,6 +1,8 @@
 const { GenericContainer, Wait } = require('testcontainers');
 const index = require('./index');
 
+const timeout = 5 * 60 * 1000;
+
 const containerLogPrefix = 'postgres-container>>> ';
 
 /** @type {import('testcontainers').StartedTestContainer} */
@@ -9,7 +11,7 @@ let startedContainer;
 let genericContainer = new GenericContainer('postgres')
   .withExposedPorts(5432)
   .withEnv('POSTGRES_PASSWORD', 'postgres')
-  .withStartupTimeout(50000)
+  .withStartupTimeout(timeout)
   .withWaitStrategy(
     Wait.forLogMessage('database system is ready to accept connections')
   );
@@ -17,7 +19,7 @@ let genericContainer = new GenericContainer('postgres')
 let config;
 
 beforeAll(async () => {
-  jest.setTimeout(50000);
+  jest.setTimeout(timeout);
   startedContainer = await genericContainer.start();
   const stream = await startedContainer.logs();
   stream
