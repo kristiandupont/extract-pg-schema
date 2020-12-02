@@ -44,7 +44,7 @@
     "ramda": "^0.27.0"
   },
   "devDependencies": {
-    "@types/jest": "26.0.15",
+    "@types/jest": "26.0.16",
     "@types/knex": "0.16.1",
     "@types/ramda": "0.27.32",
     "@typescript-eslint/parser": "4.9.0",
