@@ -75,6 +75,9 @@ The `tables` array consists of objects that correspond to the tables in the sche
       "nullable": false,
       "defaultValue": "nextval('person_id_seq'::regclass)",
       "isPrimary": true,
+      "isIdentity": false,
+      "generated": "NEVER",
+      "isUpdatable": true,
       "type": "int4",
       "comment": null,
       "rawInfo": {...},
@@ -86,6 +89,9 @@ The `tables` array consists of objects that correspond to the tables in the sche
       "maxLength": null,
       "nullable": false,
       "defaultValue": null,
+      "isIdentity": false,
+      "generated": "NEVER",
+      "isUpdatable": true,
       "type": "timestamptz",
       "comment": null
     },
@@ -96,6 +102,9 @@ The `tables` array consists of objects that correspond to the tables in the sche
       "maxLength": null,
       "nullable": false,
       "defaultValue": null,
+      "isIdentity": false,
+      "generated": "NEVER",
+      "isUpdatable": true,
       "type": "text",
       "comment": "Name that will be displayed in the UI",
       "rawInfo": {...},
@@ -119,6 +128,9 @@ The `tables` array consists of objects that correspond to the tables in the sche
       "maxLength": null,
       "nullable": false,
       "defaultValue": null,
+      "isIdentity": false,
+      "generated": "NEVER",
+      "isUpdatable": true,
       "type": "int4",
       "comment": null,
       "rawInfo": {...},
@@ -151,6 +163,9 @@ The `columns` array on a `table` has the following properties:
 - `maxLength`, which specifies the max string length the column has if that applies.
 - `nullable` which indicates if the column is nullable,
 - `defaultValue` which states the possible default value for the column,
+- `isIdentity` which states whether this is an identity column,
+- `generated` representing the enum `ALWAYS`, `BY DEFAULT` or `NEVER` as to whether the column is generated
+- `isUpdatable` specifying whether the column (in an updatable view in particular) can be updated
 - `type` which specifies the [datatype](https://www.postgresql.org/docs/9.5/datatype.html) of the column
 - `comment` which specifies the column comment.
 - `tags` which is a map of tags parsed from the column comment
