@@ -9,6 +9,8 @@ export type UpdateAction =
   | 'NO ACTION'
   | 'CASCADE';
 
+export type GenerationType = 'ALWAYS' | 'BY DEFAULT' | 'NEVER';
+
 export type Reference = {
   schema: string;
   table: string;
@@ -30,7 +32,7 @@ export type Column = {
   defaultValue: any;
   isPrimary: boolean;
   isIdentity: boolean;
-  isGenerated: boolean;
+  generated: GenerationType;
   isUpdatable: boolean;
   type: string;
   comment: string;
