@@ -29,6 +29,9 @@ export type Column = {
   nullable: boolean;
   defaultValue: any;
   isPrimary: boolean;
+  isIdentity: boolean;
+  isGenerated: boolean;
+  isUpdatable: boolean;
   type: string;
   comment: string;
   tags: TagMap;
