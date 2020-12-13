@@ -134,7 +134,10 @@ FROM
         indexMap[column.column_name] || []
       ),
       isIdentity: column.is_identity === 'YES',
-      isGenerated: column.is_generated === 'ALWAYS',
+      generated:
+        column.is_identity === 'YES'
+          ? column.identity_generation
+          : column.is_generated,
       isUpdatable: column.is_updatable === 'YES',
       type: column.data_type === 'ARRAY' ? column.regtype : column.udt_name,
       ...parseComment(commentMap[column.column_name]),
