@@ -16,19 +16,31 @@ async function extractViews(schemaName, db) {
     .where('schemaname', schemaName);
 
   for (const view of dbViews) {
-    const viewName = view.viewname;
+    const name = view.viewname;
     const viewCommentQuery = await db.schema.raw(
-      `SELECT obj_description('"${schemaName}"."${viewName}"'::regclass)`
+      `SELECT obj_description('"${schemaName}"."${name}"'::regclass)`
     );
     const rawViewComment =
       viewCommentQuery.rows.length > 0 &&
       viewCommentQuery.rows[0].obj_description;
 
-    const columns = await extractColumns(schemaName, viewName, db);
+    const columns = await extractColumns(schemaName, name, db);
+
+    const { comment, tags } = parseComment(rawViewComment);
+
+    console.error('VIEW: ', name);
+    if (tags.inferColumnReferences) {
+      const viewDefinitionQuery = await db.schema.raw(
+        `select pg_get_viewdef('"${schemaName}"."${name}"', true)`
+      );
+      const viewDefinitionString = viewDefinitionQuery.rows[0].pg_get_viewdef;
+      const originalColumns = await parseViewDefinition(viewDefinitionString);
+    }
 
     views.push({
-      name: viewName,
-      ...parseComment(rawViewComment),
+      name,
+      comment,
+      tags,
       columns,
     });
   }
