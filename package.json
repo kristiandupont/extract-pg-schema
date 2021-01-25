@@ -47,7 +47,7 @@
     "@types/jest": "26.0.20",
     "@types/knex": "0.16.1",
     "@types/ramda": "0.27.34",
-    "@typescript-eslint/parser": "4.12.0",
+    "@typescript-eslint/parser": "4.14.1",
     "eslint": "7.17.0",
     "eslint-plugin-prettier": "3.3.1",
     "jest": "26.6.3",
