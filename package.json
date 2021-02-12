@@ -52,7 +52,7 @@
     "eslint-plugin-prettier": "3.3.1",
     "jest": "26.6.3",
     "knex": "0.21.17",
-    "np": "7.2.0",
+    "np": "7.4.0",
     "pg": "8.5.1",
     "prettier": "2.2.1",
     "testcontainers": "7.3.0",
