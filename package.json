@@ -51,7 +51,7 @@
     "eslint": "7.24.0",
     "eslint-plugin-prettier": "3.4.0",
     "jest": "26.6.3",
-    "knex": "0.21.17",
+    "knex": "0.95.4",
     "np": "7.4.0",
     "pg": "8.6.0",
     "prettier": "2.2.1",
