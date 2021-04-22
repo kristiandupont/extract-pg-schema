@@ -3,33 +3,28 @@
 This will read various metadata from your postgres database and return a js object.
 This module is being used by [Kanel](https://github.com/kristiandupont/kanel) to generate Typescript types and [Schemalint](https://github.com/kristiandupont/schemalint) to provide linting of database schemas.
 
-You hand it an initialized [knex](https://knexjs.org/) instance and the name of the schema you want to read.
+You hand it a [postgres connection config object](https://node-postgres.com/api/client) and the name of the schema you want to read.
 
 ## Installation
 
 ```
-npm i extract-pg-schema knex pg
+npm i extract-pg-schema
 ```
 
 ## Usage
 
 ```javascript
-const knex = require('knex');
 const { extractSchema } = require('extract-pg-schema');
 
 async function run() {
-  const knexConfig = {
-    client: 'pg',
-    connection: {
-      host: 'localhost',
-      database: 'postgres',
-      user: 'postgres',
-      password: 'postgres',
-    },
+  const connection = {
+    host: 'localhost',
+    database: 'postgres',
+    user: 'postgres',
+    password: 'postgres',
   };
-  const db = knex(knexConfig);
 
-  const { tables, views, types } = await extractSchema('public', db);
+  const { tables, views, types } = await extractSchema('public', connection);
 
   console.log('Tables:');
   console.log(tables);
