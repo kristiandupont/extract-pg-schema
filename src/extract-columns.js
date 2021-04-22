@@ -1,5 +1,5 @@
 import R from 'ramda';
-import Knex from 'knex'; // import type
+import { Knex } from 'knex'; // import type
 import parseComment from './parseComment';
 
 /**
@@ -11,7 +11,7 @@ import parseComment from './parseComment';
 /**
  * @param {string} schemaName
  * @param {string} tableOrViewName
- * @param {Knex} db
+ * @param {Knex<any, unknown[]>} db
  * @returns {Promise<Column[]>}
  */
 async function extractColumns(schemaName, tableOrViewName, db) {
