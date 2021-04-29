@@ -130,9 +130,10 @@ FROM
       nullable: column.is_nullable === 'YES',
       defaultValue: column.column_default,
       isArray: column.data_type === 'ARRAY',
-      subType: column.data_type === 'ARRAY'
-                ? column.udt_name.slice(1)
-                : column.udt_name,
+      subType:
+        column.data_type === 'ARRAY'
+          ? column.udt_name.slice(1)
+          : column.udt_name,
       isPrimary: !!R.find(
         R.prop('isPrimary'),
         indexMap[column.column_name] || []
