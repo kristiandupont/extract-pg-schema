@@ -40,6 +40,18 @@ export type Column = {
   rawInfo: object;
 };
 
+export type Attribute = {
+  name: string;
+
+  maxLength: number;
+  nullable: boolean;
+  defaultValue: any;
+  type: string;
+  comment: string;
+  tags: TagMap;
+  rawInfo: object;
+};
+
 export type TableOrView = {
   name: string;
   columns: Column[];
@@ -47,10 +59,20 @@ export type TableOrView = {
   tags: TagMap;
 };
 
-export type Type = {
+export type Type = EnumType | CompositeType;
+
+export type EnumType = {
   name: string;
-  type: string;
+  type: 'enum';
   values: string[];
+  comment: string;
+  tags: TagMap;
+};
+
+export type CompositeType = {
+  name: string;
+  type: 'composite';
+  attributes: Attribute[];
   comment: string;
   tags: TagMap;
 };
