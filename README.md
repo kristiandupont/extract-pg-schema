@@ -178,14 +178,15 @@ Views have exactly the same shape as tables.
 
 ### Type
 
-The second property in the result is the `types` array. This contains the user-specified types, currently only postgres [enum](https://www.postgresql.org/docs/9.2/datatype-enum.html) types.
-A type could look like this:
+The second property in the result is the `types` array. This contains the user-specified types, currently only postgres [enum](https://www.postgresql.org/docs/9.2/datatype-enum.html) types and [composite](https://www.postgresql.org/docs/9.2/rowtypes.html).
+An enum type could look like this:
 
 ```javascript
 {
   "type": "enum",
   "name": "AccountState",
   "comment": "Determines the state of an account",
+  "tags": {},
   "values": [
     "active",
     "pending",
@@ -201,5 +202,82 @@ CREATE TYPE "AccountState" AS ENUM ('active', 'pending', 'closed');
 
 COMMENT ON TYPE "AccountState" IS 'Determines the state of an account';
 ```
+
+A composite type could look like this:
+
+```javascript
+{
+  "type": "composite",
+  "name": "AccountData",
+  "comment": "Commonly used data for an account",
+  "tags": {},
+  "attributes": [
+    {
+      "name": "id",
+      "maxLength": null,
+      "nullable": true,
+      "defaultValue": null,
+      "type": "uuid",
+      "tags": {},
+      "rawInfo": {...}
+    },
+    {
+      "name": "name",
+      "maxLength": null,
+      "nullable": true,
+      "defaultValue": null,
+      "type": "text",
+      "tags": {},
+      "rawInfo": {...}
+    },
+    {
+      "name": "status",
+      "maxLength": null,
+      "nullable": true,
+      "defaultValue": null,
+      "type": "AccountState",
+      "tags": {},
+      "rawInfo": {...}
+    },
+    {
+      "name": "address",
+      "maxLength": null,
+      "nullable": true,
+      "defaultValue": null,
+      "type": "jsonb",
+      "tags": {},
+      "rawInfo": {...}
+    }
+  ]
+}
+```
+
+This would be the output if you had created the type with the following:
+
+```SQL
+CREATE TYPE "AccountData" AS (
+  id      UUID,
+  name    TEXT,
+  status  "AccountState",
+  address JSONB
+);
+
+COMMENT ON TYPE "AccountData" IS 'Commonly used data for an account';
+```
+
+### Attributes
+
+The `attributes` array on a `type=composite` has the following properties:
+
+- `name` which is the attribute name,
+- `maxLength`, which specifies the max string length the attribute has if that applies.
+- `nullable` which indicates if the attribute is nullable,
+- `defaultValue` which states the possible default value for the attribute,
+- `type` which specifies the [datatype](https://www.postgresql.org/docs/9.5/datatype.html) of the attribute
+- `comment` which specifies the attribute comment.
+- `tags` which is a map of tags parsed from the attribute comment
+- `rawInfo` which contains all the attribute information that is extracted from postgres.
+
+Type attribute comments work the same way as table column comments.
 
 For an example of a generated object, take a look at [dvdrental.json](./dvdrental.json) file which is generated from the [sample Database](https://www.postgresqltutorial.com/postgresql-sample-database/) from www.postgresqltutorial.com.

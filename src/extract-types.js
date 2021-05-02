@@ -1,5 +1,6 @@
 import { Knex } from 'knex'; // import type
 import R from 'ramda';
+import extractAttributes from './extract-attributes';
 import parseComment from './parseComment';
 
 /**
@@ -21,12 +22,7 @@ async function extractTypes(schemaName, db) {
   }
   const enumTypes = await enumsQuery;
   for (const enumType of enumTypes) {
-    const typeCommentQuery = await db.schema.raw(
-      `SELECT obj_description(${enumType.oid})`
-    );
-    const rawTypeComment =
-      typeCommentQuery.rows.length > 0 &&
-      typeCommentQuery.rows[0].obj_description;
+    const rawTypeComment = await getTypeRawComment(enumType.oid, db);
     const values = await db
       .select(['enumlabel', 'enumsortorder'])
       .from('pg_enum')
@@ -39,7 +35,49 @@ async function extractTypes(schemaName, db) {
     });
   }
 
+  const compositeTypesQuery = db
+    .select(['t.oid', 't.typname'])
+    .from('pg_type as t')
+    .join('pg_namespace as n', 'n.oid', 't.typnamespace')
+    .join('pg_class as c', 'c.reltype', 't.oid')
+    .where('t.typtype', 'c')
+    .andWhere('c.relkind', 'c');
+  if (schemaName) {
+    compositeTypesQuery.andWhere('n.nspname', schemaName);
+  }
+  const compositeTypes = await compositeTypesQuery;
+  for (const compositeType of compositeTypes) {
+    const rawTypeComment = await getTypeRawComment(compositeType.oid, db);
+    const attributes = await extractAttributes(
+      schemaName,
+      compositeType.typname,
+      db
+    );
+
+    types.push({
+      type: 'composite',
+      name: compositeType.typname,
+      ...parseComment(rawTypeComment),
+      attributes,
+    });
+  }
+
   return types;
+}
+
+/**
+ * @param oid: number
+ * @param {Knex<any, unknown[]>} db
+ * @return {Promise<string|undefined>}
+ */
+async function getTypeRawComment(oid, db) {
+  const typeCommentQuery = await db.schema.raw(
+    `SELECT obj_description(${oid})`
+  );
+  const rawTypeComment =
+    typeCommentQuery.rows.length > 0 &&
+    typeCommentQuery.rows[0].obj_description;
+  return rawTypeComment;
 }
 
 export default extractTypes;
