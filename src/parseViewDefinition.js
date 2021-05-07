@@ -1,22 +1,55 @@
 import pgQuery from 'pg-query-emscripten';
 import jp from 'jsonpath';
+import { last } from 'ramda';
 
-function parseViewDefinition(viewDefinitionString) {
-  const ast = pgQuery.parse(viewDefinitionString).parse_tree[0];
+function parseViewDefinition(selectStatement) {
+  const ast = pgQuery.parse(selectStatement).parse_tree[0];
+  const selectAst = ast.RawStmt?.stmt?.SelectStmt;
 
-  console.log(JSON.stringify(ast, null, 2));
+  if (!selectAst) {
+    throw new Error(
+      `The string '${selectStatement}' doesn't parse as a select statement.`
+    );
+  }
+
+  const firstFromTable = selectAst.fromClause[0].RangeVar;
+
+  const aliasDefinitions = jp.query(
+    ast,
+    '$.RawStmt.stmt.SelectStmt.fromClause..[?(@.alias)]'
+  );
+
+  const aliases = aliasDefinitions.reduce(
+    (acc, { schemaname, relname, alias }) => ({
+      ...acc,
+      [alias.Alias.aliasname]: { schema: schemaname, table: relname },
+    }),
+    {}
+  );
+
   const selectTargets = jp.query(
     ast,
     '$.RawStmt.stmt.SelectStmt.targetList[*].ResTarget'
   );
-
   const viewColumns = selectTargets.map((selectTarget) => {
     const fields = jp.query(selectTarget, '$.val[*].fields[*].String.str');
-    const [table, column] = fields;
+    let table = firstFromTable?.relname;
+    let schema = firstFromTable?.schemaname;
+    if (fields.length === 2) {
+      const tableRel = fields[0];
+      if (tableRel in aliases) {
+        table = aliases[tableRel].table;
+        schema = aliases[tableRel].schema ?? schema;
+      } else {
+        table = tableRel;
+      }
+    }
     return {
-      name: selectTarget.name || column,
+      name: selectTarget.name || last(fields),
+      schema,
       table,
-      column,
+      column: last(fields),
+      // x,
     };
   });
 

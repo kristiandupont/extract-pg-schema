@@ -1,6 +1,7 @@
 import { Knex } from 'knex'; // import type
 import parseComment from './parseComment';
 import extractColumns from './extract-columns';
+import parseViewDefinition from './parseViewDefinition';
 
 /**
  * @param {string} schemaName
@@ -29,13 +30,13 @@ async function extractViews(schemaName, db) {
     const { comment, tags } = parseComment(rawViewComment);
 
     console.error('VIEW: ', name);
-    if (tags.inferColumnReferences) {
-      const viewDefinitionQuery = await db.schema.raw(
-        `select pg_get_viewdef('"${schemaName}"."${name}"', true)`
-      );
-      const viewDefinitionString = viewDefinitionQuery.rows[0].pg_get_viewdef;
-      const originalColumns = await parseViewDefinition(viewDefinitionString);
-    }
+    // if (tags.inferColumnReferences) {
+    const viewDefinitionQuery = await db.schema.raw(
+      `select pg_get_viewdef('"${schemaName}"."${name}"', true)`
+    );
+    const viewDefinitionString = viewDefinitionQuery.rows[0].pg_get_viewdef;
+    const originalColumns = await parseViewDefinition(viewDefinitionString);
+    // }
 
     views.push({
       name,
