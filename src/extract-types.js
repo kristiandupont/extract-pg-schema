@@ -19,9 +19,7 @@ async function extractTypes(schemaName, db) {
     .join('pg_type as t', 't.oid', 'd.objid')
     .join('pg_namespace as ns', 'ns.oid', 'e.extnamespace')
     .where('d.deptype', 'e');
-
   const extensionTypeOids = extensionTypes.map(({ oid }) => oid);
-  console.log(extensionTypeOids);
 
   /** @type {import('./types').Type[]} */
   const types = [];
@@ -60,7 +58,6 @@ async function extractTypes(schemaName, db) {
   if (schemaName) {
     compositeTypesQuery.andWhere('n.nspname', schemaName);
   }
-  console.log(compositeTypesQuery.toString());
   const compositeTypes = await compositeTypesQuery;
   for (const compositeType of compositeTypes) {
     const rawTypeComment = await getTypeRawComment(compositeType.oid, db);
