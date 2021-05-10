@@ -10,13 +10,27 @@ import parseComment from './parseComment';
  * @returns {Promise<import('./types').Type[]>}
  */
 async function extractTypes(schemaName, db) {
+  // PG Extensions can add types to the schema. We probably don't want to
+  // include those, so filter them out. Todo: should this be optional?
+  const extensionTypes = await db
+    .select(['t.oid'])
+    .from('pg_extension as e')
+    .join('pg_depend as d', 'd.refobjid', 'e.oid')
+    .join('pg_type as t', 't.oid', 'd.objid')
+    .join('pg_namespace as ns', 'ns.oid', 'e.extnamespace')
+    .where('d.deptype', 'e');
+
+  const extensionTypeOids = extensionTypes.map(({ oid }) => oid);
+  console.log(extensionTypeOids);
+
   /** @type {import('./types').Type[]} */
   const types = [];
   const enumsQuery = db
     .select(['t.oid', 't.typname'])
     .from('pg_type as t')
     .join('pg_namespace as n', 'n.oid', 't.typnamespace')
-    .where('t.typtype', 'e');
+    .where('t.typtype', 'e')
+    .andWhere('t.oid', 'not in', extensionTypeOids);
   if (schemaName) {
     enumsQuery.andWhere('n.nspname', schemaName);
   }
@@ -41,10 +55,12 @@ async function extractTypes(schemaName, db) {
     .join('pg_namespace as n', 'n.oid', 't.typnamespace')
     .join('pg_class as c', 'c.reltype', 't.oid')
     .where('t.typtype', 'c')
-    .andWhere('c.relkind', 'c');
+    .andWhere('c.relkind', 'c')
+    .andWhere('t.oid', 'not in', extensionTypeOids);
   if (schemaName) {
     compositeTypesQuery.andWhere('n.nspname', schemaName);
   }
+  console.log(compositeTypesQuery.toString());
   const compositeTypes = await compositeTypesQuery;
   for (const compositeType of compositeTypes) {
     const rawTypeComment = await getTypeRawComment(compositeType.oid, db);
