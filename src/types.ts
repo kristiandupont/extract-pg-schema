@@ -32,9 +32,11 @@ export type Column = {
   defaultValue: any;
   isPrimary: boolean;
   isIdentity: boolean;
+  isArray: boolean;
   generated: GenerationType;
   isUpdatable: boolean;
   type: string;
+  subType: string;
   comment: string;
   tags: TagMap;
   rawInfo: object;
