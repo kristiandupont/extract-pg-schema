@@ -39,6 +39,13 @@ export type Column = {
   subType: string;
   comment: string;
   tags: TagMap;
+
+  /**
+   * For views, this will contain the original column, if it could be determined.
+   * If schema is undefined, it means "same schema as the view".
+   */
+  source?: { schema: string | undefined; table: string; column: string };
+
   rawInfo: object;
 };
 
