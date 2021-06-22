@@ -1,6 +1,6 @@
 import R from 'ramda';
 import { Knex } from 'knex'; // import type
-import parseComment from './parseComment';
+import parseComment from './parse-comment';
 
 /**
  * @typedef {{ name: string, maxLength: number, nullable: boolean, defaultValue: any, type: string, comment: string, tags: TagMap, rawInfo: object }} Attribute

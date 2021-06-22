@@ -1,5 +1,5 @@
 const { GenericContainer, Wait } = require('testcontainers');
-const index = require('./index');
+const extractSchema = require('../extract-schema').default;
 
 const timeout = 5 * 60 * 1000;
 const containerLogPrefix = 'postgres-container>>> ';
@@ -13,6 +13,11 @@ describe('extractSchema', () => {
 
   beforeAll(async () => {
     jest.setTimeout(timeout);
+    if (process.arch === 'arm64') {
+      // The Ruyk thing doesn't work on arm64 at the time of writing.
+      // Disable and prune docker images manually
+      process.env['TESTCONTAINERS_RYUK_DISABLED'] = true;
+    }
     const genericContainer = new GenericContainer(
       'kristiandupont/dvdrental-image'
     )
@@ -98,7 +103,7 @@ describe('extractSchema', () => {
   });
 
   test('in default schema', async () => {
-    let extracted = await index.extractSchema('public', connection);
+    let extracted = await extractSchema('public', connection);
 
     expect(extracted.tables.length).toBe(1);
     expect(extracted.tables[0].name).toBe('default_table');
@@ -116,7 +121,7 @@ describe('extractSchema', () => {
   });
 
   test('in not default schema', async () => {
-    let extracted = await index.extractSchema('not_default', connection);
+    let extracted = await extractSchema('not_default', connection);
 
     expect(extracted.tables.length).toBe(1);
     expect(extracted.tables[0].name).toBe('not_default_table');
@@ -149,7 +154,7 @@ CREATE TABLE test2.user_managers (
 `);
     await db.destroy();
 
-    let extracted = await index.extractSchema('test2', connection);
+    let extracted = await extractSchema('test2', connection);
 
     expect(extracted.tables[0].columns[1].reference).toEqual({
       schema: 'test1',
@@ -160,9 +165,49 @@ CREATE TABLE test2.user_managers (
     });
   });
 
+  describe('view column resolution', () => {
+    it('should resolve foreign keys and other properties in simple views', async () => {
+      const db = require('knex')(config);
+      await db.raw(`
+CREATE TABLE secondary (
+    id integer PRIMARY KEY
+);
+
+CREATE TABLE source (
+    id integer PRIMARY KEY,
+    name text,
+    secondary_ref integer REFERENCES secondary(id) NOT NULL
+);
+
+CREATE VIEW v AS SELECT * FROM source;
+`);
+      await db.destroy();
+
+      let extracted = await extractSchema('public', connection);
+
+      const s = extracted.tables.find((table) => table.name === 'source');
+      const v = extracted.views.find((view) => view.name === 'v');
+      // expect(s).toMatchObject(v);
+
+      const id = v.columns.find((column) => column.name === 'id');
+      expect(id.isPrimary).toBe(true);
+      expect(id.nullable).toBe(false);
+
+      const ref = v.columns.find((column) => column.name === 'secondary_ref');
+      expect(ref.nullable).toBe(false);
+      expect(ref.reference).toMatchObject({
+        column: 'id',
+        onDelete: 'NO ACTION',
+        onUpdate: 'NO ACTION',
+        schema: 'public',
+        table: 'secondary',
+      });
+    });
+  });
+
   describe('dvd-rental database', () => {
     it('Should match snapshot', async () => {
-      const extracted = await index.extractSchema('public', connection);
+      const extracted = await extractSchema('public', connection);
       expect(extracted).toMatchSnapshot();
     });
   });

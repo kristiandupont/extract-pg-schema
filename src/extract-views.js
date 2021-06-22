@@ -1,7 +1,7 @@
 import { Knex } from 'knex'; // import type
-import parseComment from './parseComment';
+import parseComment from './parse-comment';
 import extractColumns from './extract-columns';
-import parseViewDefinition from './parseViewDefinition';
+import parseViewDefinition from './parse-view-definition';
 
 /**
  * @param {string} schemaName
@@ -29,14 +29,20 @@ async function extractViews(schemaName, db) {
 
     const { comment, tags } = parseComment(rawViewComment);
 
-    console.error('VIEW: ', name);
-    // if (tags.inferColumnReferences) {
-    const viewDefinitionQuery = await db.schema.raw(
-      `select pg_get_viewdef('"${schemaName}"."${name}"', true)`
-    );
-    const viewDefinitionString = viewDefinitionQuery.rows[0].pg_get_viewdef;
-    const originalColumns = await parseViewDefinition(viewDefinitionString);
-    // }
+    try {
+      const viewDefinitionQuery = await db.schema.raw(
+        `select pg_get_viewdef('"${schemaName}"."${name}"', true)`
+      );
+      const viewDefinitionString = viewDefinitionQuery.rows[0].pg_get_viewdef;
+      const originalColumns = await parseViewDefinition(viewDefinitionString);
+
+      originalColumns.forEach(({ name, schema, table, column }) => {
+        const col = columns.find((c) => c.name === name);
+        col.source = { schema, table, column };
+      });
+    } catch (error) {
+      console.log('Error parsing view definition. Falling back to raw data');
+    }
 
     views.push({
       name,

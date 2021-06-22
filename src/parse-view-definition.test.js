@@ -1,4 +1,4 @@
-import parseViewDefinition from './parseViewDefinition';
+import parseViewDefinition from './parse-view-definition';
 
 describe('parseViewDefinition', () => {
   it('should understand a trivial select', () => {
