@@ -1,4 +1,4 @@
-import parseComment from './parseComment';
+import parseComment from './parse-comment';
 
 describe('parseComment', () => {
   it('should return a simple string', () => {

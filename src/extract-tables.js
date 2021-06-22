@@ -1,6 +1,6 @@
 import { Knex } from 'knex'; // import type
 import extractColumns from './extract-columns';
-import parseComment from './parseComment';
+import parseComment from './parse-comment';
 
 /**
  * @param {string} schemaName

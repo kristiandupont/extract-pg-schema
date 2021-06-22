@@ -1,7 +1,7 @@
 import { Knex } from 'knex'; // import type
 import R from 'ramda';
 import extractAttributes from './extract-attributes';
-import parseComment from './parseComment';
+import parseComment from './parse-comment';
 
 /**
  * @param {string | undefined} schemaName Name of the schema or `undefined` to

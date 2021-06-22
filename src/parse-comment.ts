@@ -1,6 +1,6 @@
 /**
  * Parse a possibly tagged string.
- * Example: "This is a comment that has tags @a and @b:123"
+ * Example: "This is a comment that has tags @a @b:123"
  * returns: { comment: "This is a comment that has tags", tags: { a: true, b: '123' }}
  */
 const parseComment = (

@@ -1,6 +1,6 @@
 import R from 'ramda';
 import { Knex } from 'knex'; // import type
-import parseComment from './parseComment';
+import parseComment from './parse-comment';
 
 /**
  * @typedef {{ name: string, isPrimary: boolean }} Index
