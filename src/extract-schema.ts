@@ -9,8 +9,8 @@ import { Schema } from './types';
 
 async function extractSchema(
   schemaName: string,
-  resolveViews: boolean,
-  connectionConfig: ConnectionConfig
+  connectionConfig: ConnectionConfig,
+  resolveViews: boolean
 ): Promise<Schema> {
   const connection = connectionConfig as Knex.PgConnectionConfig;
   const db = knex({ client: 'postgres', connection });
