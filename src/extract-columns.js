@@ -1,5 +1,5 @@
 import R from 'ramda';
-import { Knex } from 'knex'; // import type
+
 import parseComment from './parse-comment';
 
 /**
@@ -11,7 +11,7 @@ import parseComment from './parse-comment';
 /**
  * @param {string} schemaName
  * @param {string} tableOrViewName
- * @param {Knex<any, unknown[]>} db
+ * @param {import('knex').Knex<any, unknown[]>} db
  * @returns {Promise<Column[]>}
  */
 async function extractColumns(schemaName, tableOrViewName, db) {
@@ -134,9 +134,8 @@ FROM
         column.data_type === 'ARRAY'
           ? column.udt_name.slice(1)
           : column.udt_name,
-      isPrimary: !!R.find(
-        R.prop('isPrimary'),
-        indexMap[column.column_name] || []
+      isPrimary: Boolean(
+        R.find(R.prop('isPrimary'), indexMap[column.column_name] || [])
       ),
       isIdentity: column.is_identity === 'YES',
       generated:

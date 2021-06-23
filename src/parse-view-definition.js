@@ -1,5 +1,5 @@
-import pgQuery from 'pg-query-emscripten';
 import jp from 'jsonpath';
+import pgQuery from 'pg-query-emscripten';
 import { last } from 'ramda';
 
 function parseViewDefinition(selectStatement) {

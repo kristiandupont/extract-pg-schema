@@ -1,5 +1,5 @@
 import R from 'ramda';
-import { Knex } from 'knex'; // import type
+
 import parseComment from './parse-comment';
 
 /**
@@ -9,7 +9,7 @@ import parseComment from './parse-comment';
 /**
  * @param {string} schemaName
  * @param {string} typeName
- * @param {Knex<any, unknown[]>} db
+ * @param {import('knex').Knex<any, unknown[]>} db
  * @returns {Promise<Attribute[]>}
  */
 async function extractAttributes(schemaName, typeName, db) {
