@@ -36,6 +36,9 @@ async function extractViews(schemaName, db) {
       const originalColumns = await parseViewDefinition(viewDefinitionString);
 
       originalColumns.forEach(({ name, schema, table, column }) => {
+        if (!table || !column) {
+          return;
+        }
         const col = columns.find((c) => c.name === name);
         col.source = { schema, table, column };
       });

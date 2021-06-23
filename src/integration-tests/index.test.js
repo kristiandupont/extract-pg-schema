@@ -38,7 +38,7 @@ describe('extractSchema', () => {
 
     connection = {
       host: startedContainer.getHost(),
-      database: 'postgres',
+      database: 'dvdrental',
       port: startedContainer.getMappedPort(5432),
       password: 'postgres',
       user: 'postgres',
@@ -51,8 +51,9 @@ describe('extractSchema', () => {
 
     const setupDB = require('knex')(config);
 
+    await setupDB.schema.createSchemaIfNotExists('some_schema');
     await setupDB.schema
-      .withSchema('public')
+      .withSchema('some_schema')
       .createTable('default_table', (table) => {
         table.increments();
         table.enu('cust_type', ['value1', 'value2'], {
@@ -67,7 +68,7 @@ describe('extractSchema', () => {
       });
 
     await setupDB.schema.raw(
-      'CREATE VIEW public.default_view AS select * from public.default_table'
+      'CREATE VIEW some_schema.default_view AS select * from some_schema.default_table'
     );
 
     await setupDB.schema.createSchemaIfNotExists('not_default');
@@ -104,8 +105,8 @@ describe('extractSchema', () => {
     });
   });
 
-  test('in default schema', async () => {
-    let extracted = await extractSchema('public', connection, false);
+  test('in first schema', async () => {
+    let extracted = await extractSchema('some_schema', connection, false);
 
     expect(extracted.tables).toHaveLength(1);
     expect(extracted.tables[0].name).toBe('default_table');
@@ -122,7 +123,7 @@ describe('extractSchema', () => {
     ).toHaveLength(0);
   });
 
-  test('in not default schema', async () => {
+  test('in secondary schema', async () => {
     let extracted = await extractSchema('not_default', connection, false);
 
     expect(extracted.tables).toHaveLength(1);
@@ -171,21 +172,23 @@ CREATE TABLE test2.user_managers (
     it('should resolve foreign keys and other properties in simple views', async () => {
       const db = require('knex')(config);
       await db.raw(`
-CREATE TABLE secondary (
+DROP SCHEMA some_schema CASCADE;
+CREATE SCHEMA some_schema;
+CREATE TABLE some_schema.secondary (
     id integer PRIMARY KEY
 );
 
-CREATE TABLE source (
+CREATE TABLE some_schema.source (
     id integer PRIMARY KEY,
     name text,
-    secondary_ref integer REFERENCES secondary(id) NOT NULL
+    secondary_ref integer REFERENCES some_schema.secondary(id) NOT NULL
 );
 
-CREATE VIEW v AS SELECT * FROM source;
+CREATE VIEW some_schema.v AS SELECT * FROM some_schema.source;
 `);
       await db.destroy();
 
-      let extracted = await extractSchema('public', connection, true);
+      let extracted = await extractSchema('some_schema', connection, true);
 
       const v = extracted.views.find((view) => view.name === 'v');
 
@@ -199,7 +202,7 @@ CREATE VIEW v AS SELECT * FROM source;
         column: 'id',
         onDelete: 'NO ACTION',
         onUpdate: 'NO ACTION',
-        schema: 'public',
+        schema: 'some_schema',
         table: 'secondary',
       });
     });
