@@ -1,6 +1,6 @@
 {
   "name": "extract-pg-schema",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "keywords": [
     "postgresql",
     "schema"
@@ -42,8 +42,8 @@
   },
   "dependencies": {
     "@types/pg": "^8.0.0",
-    "knex": "0.95.6",
     "jsonpath": "^1.0.2",
+    "knex": "0.95.6",
     "pg-query-emscripten": "^0.1.0",
     "ramda": "^0.27.0"
   },
