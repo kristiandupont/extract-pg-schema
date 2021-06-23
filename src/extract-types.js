@@ -1,12 +1,12 @@
-import { Knex } from 'knex'; // import type
 import R from 'ramda';
+
 import extractAttributes from './extract-attributes';
 import parseComment from './parse-comment';
 
 /**
  * @param {string | undefined} schemaName Name of the schema or `undefined` to
  *   extract types from all schemas.
- * @param {Knex<any, unknown[]>} db
+ * @param {import('knex').Knex<any, unknown[]>} db
  * @returns {Promise<import('./types').Type[]>}
  */
 async function extractTypes(schemaName, db) {

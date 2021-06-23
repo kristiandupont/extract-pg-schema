@@ -1,10 +1,9 @@
-import { Knex } from 'knex'; // import type
 import extractColumns from './extract-columns';
 import parseComment from './parse-comment';
 
 /**
  * @param {string} schemaName
- * @param {Knex<any, unknown[]>} db
+ * @param {import('knex').Knex<any, unknown[]>} db
  * @returns {Promise<import('./types').TableOrView[]>}
  */
 async function extractTables(schemaName, db) {

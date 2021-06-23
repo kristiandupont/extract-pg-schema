@@ -1,4 +1,4 @@
-const { GenericContainer, Wait } = require('testcontainers');
+const { GenericContainer } = require('testcontainers');
 const extractSchema = require('../extract-schema').default;
 
 const timeout = 5 * 60 * 1000;
@@ -16,6 +16,7 @@ describe('extractSchema', () => {
     if (process.arch === 'arm64') {
       // The Ruyk thing doesn't work on arm64 at the time of writing.
       // Disable and prune docker images manually
+      // eslint-disable-next-line no-process-env
       process.env['TESTCONTAINERS_RYUK_DISABLED'] = true;
     }
     const genericContainer = new GenericContainer(
@@ -32,6 +33,7 @@ describe('extractSchema', () => {
     stream
       // .on('data', (line) => console.log(containerLogPrefix + line))
       .on('err', (line) => console.error(containerLogPrefix + line))
+      // eslint-disable-next-line no-console
       .on('end', () => console.log(containerLogPrefix + 'Stream closed'));
 
     connection = {
@@ -105,13 +107,13 @@ describe('extractSchema', () => {
   test('in default schema', async () => {
     let extracted = await extractSchema('public', connection, false);
 
-    expect(extracted.tables.length).toBe(1);
+    expect(extracted.tables).toHaveLength(1);
     expect(extracted.tables[0].name).toBe('default_table');
 
-    expect(extracted.views.length).toBe(1);
+    expect(extracted.views).toHaveLength(1);
     expect(extracted.views[0].name).toBe('default_view');
 
-    expect(extracted.types.length).toBe(1);
+    expect(extracted.types).toHaveLength(1);
     expect(extracted.types.filter((t) => t.name === 'cust_type')).toHaveLength(
       1
     );
@@ -123,13 +125,13 @@ describe('extractSchema', () => {
   test('in not default schema', async () => {
     let extracted = await extractSchema('not_default', connection, false);
 
-    expect(extracted.tables.length).toBe(1);
+    expect(extracted.tables).toHaveLength(1);
     expect(extracted.tables[0].name).toBe('not_default_table');
 
-    expect(extracted.views.length).toBe(1);
+    expect(extracted.views).toHaveLength(1);
     expect(extracted.views[0].name).toBe('not_default_view');
 
-    expect(extracted.types.length).toBe(1);
+    expect(extracted.types).toHaveLength(1);
     expect(extracted.types.filter((t) => t.name === 'cust_type')).toHaveLength(
       0
     );
@@ -185,9 +187,7 @@ CREATE VIEW v AS SELECT * FROM source;
 
       let extracted = await extractSchema('public', connection, true);
 
-      const s = extracted.tables.find((table) => table.name === 'source');
       const v = extracted.views.find((view) => view.name === 'v');
-      // expect(s).toMatchObject(v);
 
       const id = v.columns.find((column) => column.name === 'id');
       expect(id.isPrimary).toBe(true);

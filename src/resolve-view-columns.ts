@@ -1,4 +1,5 @@
 import R from 'ramda';
+
 import { TableOrView } from './types';
 
 const resolveViewColumns = (
@@ -13,7 +14,7 @@ const resolveViewColumns = (
       let source = column.source;
       while (source) {
         if (source.schema && source.schema !== schemaName) {
-          console.log(
+          console.error(
             `Could not follow source of ${schemaName}.${view.name}.${column.name} because it references a different schema: ${source.schema}.`
           );
           source = undefined;

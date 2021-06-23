@@ -1,6 +1,7 @@
 import knex, { Knex } from 'knex';
 import { ConnectionConfig } from 'pg';
 import R from 'ramda';
+
 import extractTables from './extract-tables';
 import extractTypes from './extract-types';
 import extractViews from './extract-views';

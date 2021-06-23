@@ -1,11 +1,10 @@
-import { Knex } from 'knex'; // import type
-import parseComment from './parse-comment';
 import extractColumns from './extract-columns';
+import parseComment from './parse-comment';
 import parseViewDefinition from './parse-view-definition';
 
 /**
  * @param {string} schemaName
- * @param {Knex<any, unknown[]>} db
+ * @param {import('knex').Knex<any, unknown[]>} db
  * @returns {Promise<import('./types').TableOrView[]>}
  */
 async function extractViews(schemaName, db) {
@@ -41,6 +40,7 @@ async function extractViews(schemaName, db) {
         col.source = { schema, table, column };
       });
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log('Error parsing view definition. Falling back to raw data');
     }
 
