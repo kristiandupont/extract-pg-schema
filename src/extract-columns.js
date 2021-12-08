@@ -4,7 +4,7 @@ import parseComment from './parse-comment';
 
 /**
  * @typedef {{ name: string, isPrimary: boolean }} Index
- * @typedef {{ [index: string]: string | boolean }} TagMap
+ * @typedef {{ [index: string]: string | boolean }} TagMap
  * @typedef {{ name: string, parent: string, indices: Index[], maxLength: number, nullable: boolean, defaultValue: any, isPrimary: boolean, type: string, comment: string, tags: TagMap, rawInfo: object }} Column
  */
 
