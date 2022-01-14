@@ -10,10 +10,10 @@ import { Schema } from './types';
 
 async function extractSchema(
   schemaName: string,
-  connectionConfig: ConnectionConfig,
+  connectionConfig: string | ConnectionConfig,
   resolveViews: boolean
 ): Promise<Schema> {
-  const connection = connectionConfig as Knex.PgConnectionConfig;
+  const connection = connectionConfig as (string | Knex.PgConnectionConfig);
   const db = knex({ client: 'postgres', connection });
 
   const tables = await extractTables(schemaName, db);
