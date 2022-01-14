@@ -106,7 +106,7 @@ describe('extractSchema', () => {
   });
 
   test('in first schema', async () => {
-    let extracted = await extractSchema('some_schema', connection, false);
+    const extracted = await extractSchema('some_schema', connection, false);
 
     expect(extracted.tables).toHaveLength(1);
     expect(extracted.tables[0].name).toBe('default_table');
@@ -124,7 +124,7 @@ describe('extractSchema', () => {
   });
 
   test('in secondary schema', async () => {
-    let extracted = await extractSchema('not_default', connection, false);
+    const extracted = await extractSchema('not_default', connection, false);
 
     expect(extracted.tables).toHaveLength(1);
     expect(extracted.tables[0].name).toBe('not_default_table');
@@ -157,7 +157,7 @@ CREATE TABLE test2.user_managers (
 `);
     await db.destroy();
 
-    let extracted = await extractSchema('test2', connection, false);
+    const extracted = await extractSchema('test2', connection, false);
 
     expect(extracted.tables[0].columns[1].reference).toEqual({
       schema: 'test1',
@@ -188,7 +188,7 @@ CREATE VIEW some_schema.v AS SELECT * FROM some_schema.source;
 `);
       await db.destroy();
 
-      let extracted = await extractSchema('some_schema', connection, true);
+      const extracted = await extractSchema('some_schema', connection, true);
 
       const v = extracted.views.find((view) => view.name === 'v');
 
