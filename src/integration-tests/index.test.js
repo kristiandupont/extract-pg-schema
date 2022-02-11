@@ -242,11 +242,11 @@ CREATE VIEW some_schema.v AS SELECT * FROM some_schema.source;
   describe('Triggers', () => {
     it('Should create only one object per table even if there are triggers', async () => {
       const db = require('knex')(config);
-      await db.raw(`CREATE SCHEMA trigger_test 
+      await db.raw(`CREATE SCHEMA trigger_test
    CREATE TABLE test (id int);
 
-   CREATE FUNCTION test_function() RETURNS TRIGGER LANGUAGE plpgsql 
-     AS $$ begin 
+   CREATE FUNCTION test_function() RETURNS TRIGGER LANGUAGE plpgsql
+     AS $$ begin
       return null;
      end; $$;
 
@@ -255,12 +255,7 @@ CREATE VIEW some_schema.v AS SELECT * FROM some_schema.source;
      FOR EACH ROW execute function test_function()
  ;`);
       await db.destroy();
-      const extracted = await extractSchema(
-        'trigger_test',
-        connection,
-        false
-      );
-
+      const extracted = await extractSchema('trigger_test', connection, false);
       expect(extracted.tables).toHaveLength(1);
     });
   });
