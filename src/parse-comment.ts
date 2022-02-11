@@ -13,7 +13,7 @@ const parseComment = (
     return { comment: undefined, tags: {} };
   }
 
-  const matches = source.match(/(@(\S*))/g) || [];
+  const matches = source.match(/(@(\S*))/g) ?? [];
   const tags = matches.reduce((acc, elem) => {
     const [name, value = true] = elem.substr(1).split(':');
     acc[name] = value;

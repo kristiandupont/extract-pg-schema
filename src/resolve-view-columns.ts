@@ -24,7 +24,7 @@ const resolveViewColumns = (
           );
           if (!sourceColumn) {
             throw new Error(
-              `Column ${source.schema || schemaName}.${source.table}.${
+              `Column ${source.schema ?? schemaName}.${source.table}.${
                 source.column
               } was not found..`
             );
