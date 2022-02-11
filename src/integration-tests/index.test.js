@@ -228,7 +228,38 @@ CREATE VIEW some_schema.v AS SELECT * FROM some_schema.source;
    CREATE TABLE test_a PARTITION OF test FOR VALUES IN ('a')
  ;`);
       await db.destroy();
-      let extracted = await extractSchema('partition_test', connection, false);
+      const extracted = await extractSchema(
+        'partition_test',
+        connection,
+        false
+      );
+
+      expect(extracted.tables).toHaveLength(1);
+    });
+  });
+
+  // Confirms the use of distinct extractTables()
+  describe('Triggers', () => {
+    it('Should create only one object per table even if there are triggers', async () => {
+      const db = require('knex')(config);
+      await db.raw(`CREATE SCHEMA trigger_test 
+   CREATE TABLE test (id int);
+
+   CREATE FUNCTION test_function() RETURNS TRIGGER LANGUAGE plpgsql 
+     AS $$ begin 
+      return null;
+     end; $$;
+
+   CREATE TRIGGER test_trigger AFTER INSERT OR UPDATE
+     ON trigger_test.test
+     FOR EACH ROW execute function test_function()
+ ;`);
+      await db.destroy();
+      const extracted = await extractSchema(
+        'trigger_test',
+        connection,
+        false
+      );
 
       expect(extracted.tables).toHaveLength(1);
     });

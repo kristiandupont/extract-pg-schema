@@ -9,13 +9,14 @@ import parseComment from './parse-comment';
 async function extractTables(schemaName, db) {
   /** @type {import('./types').TableOrView[]} */
   const tables = [];
-  // Exclude partition tables
+  // Exclude partition tables. The distinct filters triggers relations
   const dbTables = await db
     .select('tablename')
+    .distinct()
     .from('pg_catalog.pg_tables')
     .join('pg_catalog.pg_class', 'tablename', '=', 'pg_class.relname')
     .where('schemaname', schemaName)
-    .andWhere('relispartition', '=', false)
+    .andWhere('relispartition', '=', false);
 
   for (const table of dbTables) {
     const tableName = table.tablename;
