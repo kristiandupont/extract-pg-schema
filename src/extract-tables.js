@@ -9,7 +9,7 @@ import parseComment from './parse-comment';
 async function extractTables(schemaName, db) {
   /** @type {import('./types').TableOrView[]} */
   const tables = [];
-  // Exclude partition tables. The distinct filters triggers relations
+  // Exclude partition tables
   const dbTables = await db
     .select('tablename')
     .distinct()

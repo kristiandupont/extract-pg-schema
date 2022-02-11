@@ -238,7 +238,7 @@ CREATE VIEW some_schema.v AS SELECT * FROM some_schema.source;
     });
   });
 
-  // Confirms the use of distinct extractTables()
+  // Confirms the use of distinct in extractTables()
   describe('Triggers', () => {
     it('Should create only one object per table even if there are triggers', async () => {
       const db = require('knex')(config);
