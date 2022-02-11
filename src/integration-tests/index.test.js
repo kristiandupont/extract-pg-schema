@@ -228,7 +228,11 @@ CREATE VIEW some_schema.v AS SELECT * FROM some_schema.source;
    CREATE TABLE test_a PARTITION OF test FOR VALUES IN ('a')
  ;`);
       await db.destroy();
-      let extracted = await extractSchema('partition_test', connection, false);
+      const extracted = await extractSchema(
+        'partition_test',
+        connection,
+        false
+      );
 
       expect(extracted.tables).toHaveLength(1);
     });
