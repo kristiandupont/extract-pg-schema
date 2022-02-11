@@ -9,10 +9,13 @@ import parseComment from './parse-comment';
 async function extractTables(schemaName, db) {
   /** @type {import('./types').TableOrView[]} */
   const tables = [];
+  // Exclude partition tables
   const dbTables = await db
     .select('tablename')
     .from('pg_catalog.pg_tables')
-    .where('schemaname', schemaName);
+    .join('pg_catalog.pg_class', 'tablename', '=', 'pg_class.relname')
+    .where('schemaname', schemaName)
+    .andWhere('relispartition', '=', false);
 
   for (const table of dbTables) {
     const tableName = table.tablename;

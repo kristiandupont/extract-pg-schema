@@ -55,7 +55,8 @@ FROM
   AND att.attnum = con.child
   JOIN pg_class cl ON cl.oid = con.confrelid
   JOIN pg_attribute att2 ON att2.attrelid = con.conrelid
-  AND att2.attnum = con.parent;
+  AND att2.attnum = con.parent
+  where cl.relispartition = false;
     `);
   const relationsMap = R.indexBy(R.prop('column_name'), relationsQuery.rows);
   const parentMap = R.pluck('parent', relationsMap);

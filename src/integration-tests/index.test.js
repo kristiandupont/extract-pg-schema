@@ -215,22 +215,26 @@ CREATE VIEW some_schema.v AS SELECT * FROM some_schema.source;
     });
   });
 
-  //   describe('Partitions', () => {
-  //     it('Should create only one object per table even if there are partitions', async () => {
-  //       const db = require('knex')(config);
-  //       await db.raw(`CREATE SCHEMA partition_test
-  //     CREATE TABLE test (
-  //       id SERIAL,
-  //       type TEXT NOT NULL,
-  //       PRIMARY KEY(id, type)
-  //     ) PARTITION BY LIST(type)
+  describe('Partitions', () => {
+    it('Should create only one object per table even if there are partitions', async () => {
+      const db = require('knex')(config);
+      await db.raw(`CREATE SCHEMA partition_test
+   CREATE TABLE test (
+     id SERIAL,
+     type TEXT NOT NULL,
+     PRIMARY KEY(id, type)
+   ) PARTITION BY LIST(type)
 
-  //     CREATE TABLE test_a PARTITION OF test FOR VALUES IN ('a')
-  //   ;`);
-  //       await db.destroy();
-  //       let extracted = await extractSchema('partition_test', connection, false);
+   CREATE TABLE test_a PARTITION OF test FOR VALUES IN ('a')
+ ;`);
+      await db.destroy();
+      const extracted = await extractSchema(
+        'partition_test',
+        connection,
+        false
+      );
 
-  //       expect(extracted.tables).toHaveLength(1);
-  //     });
-  //   });
+      expect(extracted.tables).toHaveLength(1);
+    });
+  });
 });
