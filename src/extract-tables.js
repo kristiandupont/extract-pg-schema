@@ -12,6 +12,7 @@ async function extractTables(schemaName, db) {
   // Exclude partition tables
   const dbTables = await db
     .select('tablename')
+    .distinct()
     .from('pg_catalog.pg_tables')
     .join('pg_catalog.pg_class', 'tablename', '=', 'pg_class.relname')
     .where('schemaname', schemaName)
