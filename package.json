@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "jsonpath": "^1.0.2",
-    "knex": "1.0.3",
+    "knex": "1.0.4",
     "pg": "8.7.3",
     "pg-query-emscripten": "^0.1.0",
     "ramda": "^0.28.0"
