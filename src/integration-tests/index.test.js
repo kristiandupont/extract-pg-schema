@@ -71,6 +71,10 @@ describe('extractSchema', () => {
       'CREATE VIEW some_schema.default_view AS select * from some_schema.default_table'
     );
 
+    await setupDB.schema.raw(
+      'CREATE MATERIALIZED VIEW some_schema.default_matview AS select * from some_schema.default_table'
+    );
+
     await setupDB.schema.createSchemaIfNotExists('not_default');
     await setupDB.schema.raw(
       "CREATE TYPE not_default.cust_type_not_default as ENUM ('custom1', 'custom2');"
@@ -111,8 +115,10 @@ describe('extractSchema', () => {
     expect(extracted.tables).toHaveLength(1);
     expect(extracted.tables[0].name).toBe('default_table');
 
-    expect(extracted.views).toHaveLength(1);
-    expect(extracted.views[0].name).toBe('default_view');
+    expect(extracted.views).toHaveLength(2);
+    const extractedViewNames = extracted.views.map((view) => view.name);
+    expect(extractedViewNames).toContain('default_view');
+    expect(extractedViewNames).toContain('default_matview');
 
     expect(extracted.types).toHaveLength(1);
     expect(extracted.types.filter((t) => t.name === 'cust_type')).toHaveLength(

@@ -10,13 +10,23 @@ import parseViewDefinition from './parse-view-definition';
 async function extractViews(schemaName, db) {
   /** @type {import('./types').TableOrView[]} */
   const views = [];
-  const dbViews = await db
-    .select('viewname')
-    .from('pg_catalog.pg_views')
-    .where('schemaname', schemaName);
+  const [dbViews, dbMaterializedViews] = await Promise.all([
+    db
+      .select('viewname')
+      .from('pg_catalog.pg_views')
+      .where('schemaname', schemaName),
+    db
+      .select('matviewname')
+      .from('pg_catalog.pg_matviews')
+      .where('schemaname', schemaName),
+  ]);
 
-  for (const view of dbViews) {
-    const name = view.viewname;
+  const dbViewNames = [
+    ...dbViews.map(({ viewname }) => viewname),
+    ...dbMaterializedViews.map(({ matviewname }) => matviewname),
+  ];
+
+  for (const name of dbViewNames) {
     const viewCommentQuery = await db.schema.raw(
       `SELECT obj_description('"${schemaName}"."${name}"'::regclass)`
     );
