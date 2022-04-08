@@ -53,8 +53,9 @@ async function extractViews(schemaName, db) {
         col.source = { schema, table, column };
       });
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log('Error parsing view definition. Falling back to raw data');
+      console.warn(
+        `Error parsing view definition for "${name}". Falling back to raw data`
+      );
     }
 
     views.push({
