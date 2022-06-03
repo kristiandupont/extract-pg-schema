@@ -51,7 +51,7 @@
     "@kristiandupont/eslint-config": "1.2.6",
     "@types/jest": "26.0.24",
     "@types/pg": "8.6.5",
-    "@types/ramda": "0.28.12",
+    "@types/ramda": "0.28.13",
     "eslint": "8.16.0",
     "jest": "26.6.3",
     "np": "7.6.1",
