@@ -274,4 +274,37 @@ CREATE VIEW some_schema.v AS SELECT * FROM some_schema.source;
       expect(extracted.tables).toHaveLength(1);
     });
   });
+
+  describe('selected tables', async () => {
+    const db = require('knex')(config);
+    await db.raw(`CREATE SCHEMA test3;
+
+CREATE TABLE test3.users (
+    id integer PRIMARY KEY
+);
+
+CREATE TABLE test3.credentials (
+    id integer PRIMARY KEY,
+    user_id integer REFERENCES test3.users(id),
+    password text
+);
+`);
+    await db.destroy();
+
+    it('by default get all tables', async () => {
+      const all = await extractSchema('test3', connection, false);
+      expect(all.tables).toHaveLength(2);
+      const tableNames = all.tables.map((t) => t.name);
+      expect(tableNames).toContain('users');
+      expect(tableNames).toContain('credentials');
+    });
+
+    it('should get only selected tables', async () => {
+      const selected = await extractSchema('test3', connection, false, [
+        'users',
+      ]);
+      expect(selected.tables).toHaveLength(1);
+      expect(selected.tables[0].name).toBe('users');
+    });
+  });
 });
