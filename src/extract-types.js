@@ -1,4 +1,4 @@
-import R from 'ramda';
+import * as R from 'ramda';
 
 import extractAttributes from './extract-attributes';
 import parseComment from './parse-comment';

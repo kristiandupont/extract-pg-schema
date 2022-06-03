@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest';
+
 import parseViewDefinition from './parse-view-definition';
 
 describe('parseViewDefinition', () => {

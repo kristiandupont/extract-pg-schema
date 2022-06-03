@@ -1,5 +1,8 @@
-const { GenericContainer } = require('testcontainers');
-const extractSchema = require('../extract-schema').default;
+import knex from 'knex';
+import { GenericContainer } from 'testcontainers';
+import { afterAll, beforeAll, describe, expect, it, test } from 'vitest';
+
+import extractSchema from '../extract-schema';
 
 const timeout = 5 * 60 * 1000;
 const containerLogPrefix = 'postgres-container>>> ';
@@ -12,7 +15,7 @@ describe('extractSchema', () => {
   let config;
 
   beforeAll(async () => {
-    jest.setTimeout(timeout);
+    // jest.setTimeout(timeout);
     if (process.arch === 'arm64') {
       // The Ruyk thing doesn't work on arm64 at the time of writing.
       // Disable and prune docker images manually
@@ -49,7 +52,7 @@ describe('extractSchema', () => {
       connection,
     };
 
-    const setupDB = require('knex')(config);
+    const setupDB = knex(config);
 
     await setupDB.schema.createSchemaIfNotExists('some_schema');
     await setupDB.schema
@@ -157,7 +160,7 @@ describe('extractSchema', () => {
   });
 
   test('references should contain schema, table and column', async () => {
-    const db = require('knex')(config);
+    const db = knex(config);
     await db.raw(`CREATE SCHEMA test1;
 CREATE SCHEMA test2;
 
@@ -185,7 +188,7 @@ CREATE TABLE test2.user_managers (
 
   describe('view column resolution', () => {
     it('should resolve foreign keys and other properties in simple views', async () => {
-      const db = require('knex')(config);
+      const db = knex(config);
       await db.raw(`
 DROP SCHEMA some_schema CASCADE;
 CREATE SCHEMA some_schema;
@@ -232,7 +235,7 @@ CREATE VIEW some_schema.v AS SELECT * FROM some_schema.source;
 
   describe('Partitions', () => {
     it('Should create only one object per table even if there are partitions', async () => {
-      const db = require('knex')(config);
+      const db = knex(config);
       await db.raw(`CREATE SCHEMA partition_test
    CREATE TABLE test (
      id SERIAL,
@@ -256,7 +259,7 @@ CREATE VIEW some_schema.v AS SELECT * FROM some_schema.source;
   // Confirms the use of distinct in extractTables()
   describe('Triggers', () => {
     it('Should create only one object per table even if there are triggers', async () => {
-      const db = require('knex')(config);
+      const db = knex(config);
       await db.raw(`CREATE SCHEMA trigger_test
    CREATE TABLE test (id int);
 
@@ -275,9 +278,10 @@ CREATE VIEW some_schema.v AS SELECT * FROM some_schema.source;
     });
   });
 
-  describe('selected tables', async () => {
-    const db = require('knex')(config);
-    await db.raw(`CREATE SCHEMA test3;
+  describe('selected tables', () => {
+    beforeAll(async () => {
+      const db = knex(config);
+      await db.raw(`CREATE SCHEMA test3;
 
 CREATE TABLE test3.users (
     id integer PRIMARY KEY
@@ -289,7 +293,8 @@ CREATE TABLE test3.credentials (
     password text
 );
 `);
-    await db.destroy();
+      await db.destroy();
+    });
 
     it('by default get all tables', async () => {
       const all = await extractSchema('test3', connection, false);
