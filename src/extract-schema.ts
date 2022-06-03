@@ -11,23 +11,24 @@ import { Schema } from './types';
 async function extractSchema(
   schemaName: string,
   connectionConfig: string | ConnectionConfig,
-  resolveViews: boolean
+  resolveViews: boolean,
+  tables?: string[]
 ): Promise<Schema> {
   const connection = connectionConfig as string | Knex.PgConnectionConfig;
   const db = knex({ client: 'postgres', connection });
 
-  const tables = await extractTables(schemaName, db);
+  const extractedTables = await extractTables(schemaName, db, tables);
   const rawViews = await extractViews(schemaName, db);
   const types = await extractTypes(schemaName, db);
 
   const views = resolveViews
-    ? resolveViewColumns(rawViews, tables, schemaName)
+    ? resolveViewColumns(rawViews, extractedTables, schemaName)
     : rawViews;
 
   await db.destroy();
 
   return {
-    tables: R.sortBy(R.prop('name'), tables),
+    tables: R.sortBy(R.prop('name'), extractedTables),
     views: R.sortBy(R.prop('name'), views),
     types: R.sortBy(R.prop('name'), types),
   };
