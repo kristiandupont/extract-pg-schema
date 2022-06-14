@@ -51,7 +51,7 @@
     "@kristiandupont/eslint-config": "1.2.7",
     "@types/pg": "8.6.5",
     "@types/ramda": "0.28.14",
-    "eslint": "8.16.0",
+    "eslint": "8.17.0",
     "np": "7.6.1",
     "prettier": "2.7.0",
     "testcontainers": "8.10.1",
