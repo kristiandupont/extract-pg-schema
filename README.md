@@ -42,7 +42,7 @@ run();
 This module exposes one function:
 
 ```
-async extractSchema(schemaName, knexInstance)
+async extractSchema(schemaName, connectionConfig, resolveViews, tables)
 ```
 
 It returns an object that has three properties: `tables`, `views` and `types`. All arrays.
