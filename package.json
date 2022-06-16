@@ -27,19 +27,6 @@
     "trailingComma": "es5",
     "endOfLine": "auto"
   },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "ts"
-    ],
-    "testEnvironment": "node",
-    "testMatch": [
-      "<rootDir>/src/**/*.test.js"
-    ],
-    "transform": {
-      "^.+\\.(ts|js)$": "ts-jest"
-    }
-  },
   "dependencies": {
     "jsonpath": "^1.0.2",
     "knex": "2.1.0",
