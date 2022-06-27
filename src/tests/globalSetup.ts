@@ -1,0 +1,30 @@
+import { StartedTestContainer } from 'testcontainers';
+
+import { startTestContainer } from './usePostgresContainer';
+
+const containerLogPrefix = 'postgres-container>>> ';
+
+let container: StartedTestContainer;
+
+export const setup = async () => {
+  if (process.arch === 'arm64') {
+    // Ryuk doesn't work on arm64 at the time of writing.
+    // Disable and prune docker images manually
+    // eslint-disable-next-line no-process-env
+    process.env['TESTCONTAINERS_RYUK_DISABLED'] = 'true';
+  }
+
+  container = await startTestContainer();
+
+  const stream = await container.logs();
+  stream
+    // .on('data', (line) => console.log(containerLogPrefix + line))
+    .on('err', (line) => console.error(containerLogPrefix + line))
+    .on('end', () => console.info(containerLogPrefix + 'Stream closed'));
+};
+
+export const teardown = async () => {
+  await container.stop({
+    timeout: 10000,
+  });
+};

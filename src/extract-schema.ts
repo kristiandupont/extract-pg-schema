@@ -1,37 +1,22 @@
-import knex, { Knex } from 'knex';
 import { ConnectionConfig } from 'pg';
-import * as R from 'ramda';
 
-import extractTables from './extract-tables';
-import extractTypes from './extract-types';
-import extractViews from './extract-views';
-import resolveViewColumns from './resolve-view-columns';
+import extractSchemas from './extractSchemas';
 import { Schema } from './types';
 
-async function extractSchema(
+/** @deprecated - use extractSchemas instead */
+const extractSchema = async (
   schemaName: string,
   connectionConfig: string | ConnectionConfig,
   resolveViews: boolean,
   tables?: string[]
-): Promise<Schema> {
-  const connection = connectionConfig as string | Knex.PgConnectionConfig;
-  const db = knex({ client: 'postgres', connection });
+): Promise<Schema> => {
+  console.warn('NOTE: extractSchema is deprecated, use extractSchemas instead');
 
-  const extractedTables = await extractTables(schemaName, db, tables);
-  const rawViews = await extractViews(schemaName, db);
-  const types = await extractTypes(schemaName, db);
-
-  const views = resolveViews
-    ? resolveViewColumns(rawViews, extractedTables, schemaName)
-    : rawViews;
-
-  await db.destroy();
-
-  return {
-    tables: R.sortBy(R.prop('name'), extractedTables),
-    views: R.sortBy(R.prop('name'), views),
-    types: R.sortBy(R.prop('name'), types),
-  };
-}
+  const r = await extractSchemas(connectionConfig, {
+    schemas: [schemaName],
+    resolveViews,
+  });
+  return r[schemaName];
+};
 
 export default extractSchema;
