@@ -2,8 +2,9 @@ import knex, { Knex } from 'knex';
 import { ConnectionConfig } from 'pg';
 import * as R from 'ramda';
 
-import extractTable from './extractTable';
-import fetchTypes, { PgType } from './fetchTypes';
+import extractTable from './kinds/extractTable';
+import fetchTypes from './kinds/fetchTypes';
+import PgType from './kinds/PgType';
 import resolveViewColumns from './resolve-view-columns';
 import { Schema } from './types';
 
@@ -24,7 +25,7 @@ const makePopulator =
   };
 
 const extractTables = makePopulator(extractTable);
-// const extractDomains = hydratePgTypes(extractDomain);
+const extractDomains = makePopulator(extractDomain);
 
 export type ExtractSchemaOptions = {
   schemas?: string[];

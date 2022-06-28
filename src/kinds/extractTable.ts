@@ -1,70 +1,8 @@
 import { Knex } from 'knex';
 
-import { PgType } from './fetchTypes';
-
-type YesNo = 'YES' | 'NO';
-
-type InformationSchemaTable = {
-  table_catalog: string;
-  table_schema: string;
-  table_name: string;
-  table_type: 'BASE TABLE' | 'VIEW' | 'FOREIGN' | 'LOCAL TEMPORARY';
-  self_referencing_column_name: string | null;
-  reference_generation: string | null;
-  user_defined_type_catalog: string | null;
-  user_defined_type_schema: string | null;
-  user_defined_type_name: string | null;
-  is_insertable_into: YesNo;
-  is_typed: YesNo;
-  commit_action: any;
-};
-
-type InformationSchemaColumn = {
-  table_catalog: string;
-  table_schema: string;
-  table_name: string;
-  column_name: string;
-  ordinal_position: number;
-  column_default: any;
-  is_nullable: YesNo;
-  data_type: string;
-  character_maximum_length: number | null;
-  character_octet_length: number | null;
-  numeric_precision: number | null;
-  numeric_precision_radix: number;
-  numeric_scale: number | null;
-  datetime_precision: number | null;
-  interval_type: string | null;
-  interval_precision: number | null;
-  character_set_catalog: string | null;
-  character_set_schema: string | null;
-  character_set_name: string | null;
-  collation_catalog: string | null;
-  collation_schema: string | null;
-  collation_name: string | null;
-  domain_catalog: string | null;
-  domain_schema: string | null;
-  domain_name: string | null;
-  udt_catalog: string;
-  udt_schema: string;
-  udt_name: string;
-  scope_catalog: string | null;
-  scope_schema: string | null;
-  scope_name: string | null;
-  maximum_cardinality: null;
-  dtd_identifier: string;
-  is_self_referencing: YesNo;
-  is_identity: YesNo;
-  identity_generation: 'ALWAYS' | 'BY DEFAULT' | null;
-  identity_start: string | null;
-  identity_increment: string | null;
-  identity_maximum: string | null;
-  identity_minimum: string | null;
-  identity_cycle: string;
-  is_generated: 'ALWAYS' | 'NEVER';
-  generation_expression: any;
-  is_updatable: YesNo;
-};
+import InformationSchemaColumn from '../information_schema/InformationSchemaColumn';
+import InformationSchemaTable from '../information_schema/InformationSchemaTable';
+import PgType from './PgType';
 
 const updateActionMap = {
   a: 'NO ACTION',
@@ -92,6 +30,8 @@ type Index = {
 type Column = {
   name: string;
   type: string;
+  comment: string;
+  defaultValue: any;
   isArray: boolean;
   reference: ColumnReference | null;
   indices: Index[];
@@ -120,13 +60,13 @@ export type TableDetails = {
 
 const extractTable = async (
   db: Knex,
-  tableOrView: PgType
+  table: PgType<'table'>
 ): Promise<TableDetails> => {
   const [informationSchemaValue] = await db
     .from('information_schema.tables')
     .where({
-      table_name: tableOrView.name,
-      table_schema: tableOrView.schemaName,
+      table_name: table.name,
+      table_schema: table.schemaName,
     })
     .select<InformationSchemaTable[]>('*');
 
@@ -205,12 +145,19 @@ const extractTable = async (
     )
     SELECT
       columns.column_name AS name,
+      ('"' || "domain_schema" || '"."' || "domain_name" || '"')::regtype::text AS "domain__",
+      udt_name::text,
+        ('"' || "udt_schema" || '"."' || "udt_name" || '"')::regtype::text as __type__,
       CASE WHEN data_type = 'ARRAY' THEN 
         ('"' || "udt_schema" || '"."' || "udt_name" || '"')::regtype::text
       ELSE
         udt_name::text
       END AS "type", 
-      udt_name AS "subType", 
+      CASE WHEN data_type = 'ARRAY' THEN 
+        SUBSTRING(udt_name::text, 2)
+      ELSE
+        udt_name::text
+      END AS "subType", 
       character_maximum_length AS "maxLength", 
       column_default AS "defaultValue", 
       is_nullable = 'YES' AS "isNullable", 
@@ -235,9 +182,8 @@ const extractTable = async (
     WHERE
       table_name = :table_name
       AND table_schema = :schema_name;
-    
   `,
-    { table_name: tableOrView.name, schema_name: tableOrView.schemaName }
+    { table_name: table.name, schema_name: table.schemaName }
   );
 
   const columns = columnsQuery.rows;

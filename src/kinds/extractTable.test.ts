@@ -1,19 +1,18 @@
 import { expect, it } from 'vitest';
 
-import extractTable from './extractTable';
-import { Kind, PgType } from './fetchTypes';
-import { describe } from './tests/fixture';
-import useSchema from './tests/useSchema';
-import useTestKnex from './tests/useTestKnex';
+import { describe } from '../tests/fixture';
+import useSchema from '../tests/useSchema';
+import useTestKnex from '../tests/useTestKnex';
+import extractTable, { TableDetails } from './extractTable';
+import PgType from './PgType';
 
 const makePgType = (
   name: string,
-  schemaName: string = 'test',
-  kind: Kind = 'table'
-): PgType => ({
+  schemaName: string = 'test'
+): PgType<'table'> => ({
   schemaName,
-  kind,
   name,
+  kind: 'table',
   comment: null,
 });
 
@@ -27,7 +26,7 @@ describe('extractTable', () => {
 
     const result = await extractTable(db, makePgType('some_table'));
 
-    expect(result).toEqual({
+    const expected: TableDetails = {
       informationSchemaValue: {
         table_catalog: 'postgres',
         table_schema: 'test',
@@ -107,31 +106,115 @@ describe('extractTable', () => {
           },
         },
       ],
-    });
+    };
+
+    expect(result).toStrictEqual(expected);
   });
 
-  it('should handle arrays', async () => {
+  it('should fetch column comments', async () => {
     const db = getKnex();
-    await db.raw('create table test.some_table (id integer[])');
+    await db.raw('create table test.some_table (id integer)');
+    await db.raw("comment on column test.some_table.id is 'id column'");
 
     const result = await extractTable(db, makePgType('some_table'));
 
-    expect(result.columns[0]).toEqual({
-      name: 'id',
-      type: 'int4[]',
-      isArray: true,
-      reference: null,
-      defaultValue: null,
-      indices: [],
-      isNullable: true,
-      isPrimaryKey: false,
-      generated: 'NEVER',
-      isUpdatable: true,
-      isIdentity: false,
-      ordinalPosition: 1,
-      maxLength: null,
-      subType: 'int4',
-    });
+    expect(result.columns[0].comment).toBe('id column');
+  });
+
+  it('should handle arrays of primitive types', async () => {
+    const db = getKnex();
+    await db.raw(
+      'create table test.some_table (array_of_ints int4[], array_of_strings text[])'
+    );
+
+    const result = await extractTable(db, makePgType('some_table'));
+
+    expect(result.columns).toMatchObject([
+      {
+        name: 'array_of_ints',
+        type: 'int4[]',
+        isArray: true,
+        subType: 'int4',
+      },
+      {
+        name: 'array_of_strings',
+        type: 'text[]',
+        isArray: true,
+        subType: 'text',
+      },
+    ]);
+  });
+
+  it('should handle domains, composite types and enums as well as arrays of those', async () => {
+    const db = getKnex();
+    await db.raw('create domain test.some_domain as text');
+    await db.raw('create type test.some_composite as (id integer, name text)');
+    await db.raw("create type test.some_enum as enum ('a', 'b', 'c')");
+
+    await db.raw(
+      `create table test.some_table (
+        d test.some_domain,
+        c test.some_composite,
+        e test.some_enum,
+        d_a test.some_domain[],
+        c_a test.some_composite[],
+        e_a test.some_enum[]
+    )`
+    );
+
+    const result = await extractTable(db, makePgType('some_table'));
+
+    console.log(result.columns);
+    expect(result.columns).toMatchObject([
+      {
+        name: 'd',
+        domain: 'test.some_domain',
+        type: 'text',
+        isArray: false,
+        subDomain: null,
+        subType: null,
+      },
+      {
+        name: 'c',
+        domain: null,
+        type: 'test.some_composite',
+        isArray: false,
+        subDomain: null,
+        subType: null,
+      },
+      {
+        name: 'e',
+        domain: null,
+        type: 'test.some_enum',
+        isArray: false,
+        subDomain: null,
+        subType: null,
+      },
+      {
+        name: 'd_a',
+        domain: 'test.some_domain',
+        type: 'text',
+        isArray: false,
+        subDomain: null,
+        subType: null,
+      },
+      {
+        name: 'c_a',
+        domain: null,
+        type: 'test.some_composite',
+        isArray: false,
+        subDomain: null,
+        subType: null,
+      },
+      {
+        name: 'e_a',
+        domain: null,
+        type: 'test.some_enum',
+        isArray: false,
+        subDomain: null,
+        subType: null,
+      },
+    ]);
   });
 
   describe('references', () => {

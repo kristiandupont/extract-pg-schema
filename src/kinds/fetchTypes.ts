@@ -1,32 +1,7 @@
 import { Knex } from 'knex';
 
-import fetchExtensionItemIds from './fetchExtensionItemIds';
-
-const typeKindMap = {
-  d: 'domain',
-  e: 'enum',
-  r: 'range',
-  m: 'multiRange',
-} as const;
-type TypeKind = typeof typeKindMap[keyof typeof typeKindMap];
-
-const classKindMap = {
-  r: 'table',
-  p: 'table', // Partitioned tables are also considered tables.
-  v: 'view',
-  m: 'materializedView',
-  c: 'compositeType',
-} as const;
-type ClassKind = typeof classKindMap[keyof typeof classKindMap];
-
-export type Kind = TypeKind | ClassKind;
-
-export type PgType = {
-  name: string;
-  schemaName: string;
-  kind: Kind;
-  comment: string | null;
-};
+import fetchExtensionItemIds from '../fetchExtensionItemIds';
+import PgType, { classKindMap, typeKindMap } from './PgType';
 
 const fetchTypes = async (
   db: Knex,
