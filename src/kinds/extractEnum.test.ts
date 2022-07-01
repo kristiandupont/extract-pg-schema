@@ -17,7 +17,7 @@ const makePgType = (
 });
 
 describe('extractEnum', () => {
-  const getKnex = useTestKnex();
+  const [getKnex] = useTestKnex();
   useSchema(getKnex, 'test');
 
   it('should extract enum values', async () => {
