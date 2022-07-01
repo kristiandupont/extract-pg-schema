@@ -3,6 +3,10 @@ export const typeKindMap = {
   e: 'enum',
   r: 'range',
   m: 'multiRange',
+
+  // Not supported (yet):
+  // b: 'base',
+  // p: 'pseudo',
 } as const;
 type TypeKind = typeof typeKindMap[keyof typeof typeKindMap];
 
@@ -12,6 +16,13 @@ export const classKindMap = {
   v: 'view',
   m: 'materializedView',
   c: 'compositeType',
+
+  // Not supported (yet):
+  // i: 'index',
+  // S: 'sequence',
+  // t: 'toastTable',
+  // f: 'foreignTable',
+  // I: 'partitionedIndex',
 } as const;
 type ClassKind = typeof classKindMap[keyof typeof classKindMap];
 
@@ -19,7 +30,9 @@ export const routineKindMap = {
   p: 'procedure',
   f: 'function',
   a: 'aggregate',
-  // Window functions are not included because they cannnot be user defined.
+
+  // Not supported (yet):
+  // w: 'windowFunction',
 };
 type RoutineKind = typeof routineKindMap[keyof typeof routineKindMap];
 
