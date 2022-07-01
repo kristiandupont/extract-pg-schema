@@ -35,6 +35,15 @@ describe('fetchTypes', () => {
     await db.raw("create type test.some_enum as enum ('a', 'b')");
     await db.raw('create domain test.some_domain as text');
     await db.raw('create type test.some_range as range (subtype = integer)');
+    await db.raw(
+      'create procedure test.some_procedure() language sql as $$ select 1 as id $$'
+    );
+    await db.raw(
+      'create function test.some_function() returns integer language sql as $$ select 1 as id $$'
+    );
+    await db.raw(
+      "create aggregate test.some_aggregate (numeric) ( sfunc = numeric_add, stype = numeric, initcond = '0');"
+    );
 
     const types = await fetchTypes(db, ['test']);
     expect(types.map((t) => [t.name, t.kind])).toEqual([
@@ -46,6 +55,9 @@ describe('fetchTypes', () => {
       ['some_domain', 'domain'],
       ['some_range', 'range'],
       ['some_multirange', 'multiRange'],
+      ['some_procedure', 'procedure'],
+      ['some_function', 'function'],
+      ['some_aggregate', 'aggregate'],
     ]);
   });
 
