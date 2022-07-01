@@ -6,7 +6,7 @@ import useTestKnex from '../tests/useTestKnex';
 import fetchTypes from './fetchTypes';
 
 describe('fetchTypes', () => {
-  const getKnex = useTestKnex();
+  const [getKnex] = useTestKnex();
   useSchema(getKnex, 'test');
 
   it('should fetch a simple type', async () => {
@@ -27,7 +27,7 @@ describe('fetchTypes', () => {
   it('should fetch all kinds', async () => {
     const db = getKnex();
     await db.raw('create table test.some_table (id integer)');
-    await db.raw('create view test.some_view_ as select 1 as id');
+    await db.raw('create view test.some_view as select 1 as id');
     await db.raw(
       'create materialized view test.some_materialized_view as select 1 as id'
     );
@@ -48,7 +48,7 @@ describe('fetchTypes', () => {
     const types = await fetchTypes(db, ['test']);
     expect(types.map((t) => [t.name, t.kind])).toEqual([
       ['some_table', 'table'],
-      ['some_view_', 'view'],
+      ['some_view', 'view'],
       ['some_materialized_view', 'materializedView'],
       ['some_composite_type', 'compositeType'],
       ['some_enum', 'enum'],

@@ -193,7 +193,8 @@ const extractTable = async (
 
   const columnsQuery = await db.raw(
     `
-    WITH reference_map AS (
+    WITH 
+    reference_map AS (
       ${referenceMapQueryPart}
     ),
     index_map AS (

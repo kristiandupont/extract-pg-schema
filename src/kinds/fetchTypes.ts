@@ -16,10 +16,10 @@ const fetchTypes = async (
       'nspname as schemaName',
       db.raw(`case typtype
         when 'c' then case relkind
-      ${Object.entries(classKindMap)
-        .map(([key, classKind]) => `when '${key}' then '${classKind}'`)
-        .join('\n')}
-       end
+          ${Object.entries(classKindMap)
+            .map(([key, classKind]) => `when '${key}' then '${classKind}'`)
+            .join('\n')}
+          end
       ${Object.entries(typeKindMap)
         .map(([key, typeKind]) => `when '${key}' then '${typeKind}'`)
         .join('\n')}

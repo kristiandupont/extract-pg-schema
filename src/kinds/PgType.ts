@@ -7,6 +7,8 @@ export const typeKindMap = {
   // Not supported (yet):
   // b: 'base',
   // p: 'pseudo',
+
+  // c: 'composite', -- is also a class, handled below.
 } as const;
 type TypeKind = typeof typeKindMap[keyof typeof typeKindMap];
 
