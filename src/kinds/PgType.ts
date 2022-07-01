@@ -15,7 +15,15 @@ export const classKindMap = {
 } as const;
 type ClassKind = typeof classKindMap[keyof typeof classKindMap];
 
-export type Kind = TypeKind | ClassKind;
+export const routineKindMap = {
+  p: 'procedure',
+  f: 'function',
+  a: 'aggregate',
+  // Window functions are not included because they cannnot be user defined.
+};
+type RoutineKind = typeof routineKindMap[keyof typeof routineKindMap];
+
+export type Kind = TypeKind | ClassKind | RoutineKind;
 
 type PgType<K extends Kind = Kind> = {
   name: string;
