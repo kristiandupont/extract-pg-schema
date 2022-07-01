@@ -5,7 +5,7 @@ import PgType from './PgType';
 
 export type DomainDetails = {
   name: string;
-  type: string;
+  innerType: string;
 
   informationSchemaValue: InformationSchemaDomain;
 };
@@ -18,13 +18,18 @@ const extractDomain = async (
     `
     SELECT
       domain_name as "name",
-      udt_name as "type",
+      i.typnamespace::regnamespace::text||'.'||i.typname as "innerType",
       row_to_json(domains.*) AS "informationSchemaValue"
     FROM
-      information_schema.domains
+      information_schema.domains,
+      pg_type t
+    JOIN pg_type i on t.typbasetype = i.oid
     WHERE
       domain_name = :domain_name
-      AND domain_schema = :schema_name;
+      AND t.typname = :domain_name
+      AND t.typtype = 'd'
+      AND domain_schema = :schema_name
+      AND t.typnamespace::regnamespace::text = :schema_name
     `,
     { domain_name: domain.name, schema_name: domain.schemaName }
   );
