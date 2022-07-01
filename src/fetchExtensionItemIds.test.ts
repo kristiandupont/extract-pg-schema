@@ -6,7 +6,7 @@ import useSchema from './tests/useSchema';
 import useTestKnex from './tests/useTestKnex';
 
 describe('fetchExtensionItemIds', () => {
-  const getKnex = useTestKnex();
+  const [getKnex] = useTestKnex();
   useSchema(getKnex, 'test');
 
   // NOTE: be aware that this test depends on specifics of certain Postgres extensions.
@@ -16,7 +16,6 @@ describe('fetchExtensionItemIds', () => {
     const db = getKnex();
 
     await db.raw('create extension if not exists pg_trgm');
-    await db.raw('create extension if not exists fuzzystrmatch');
     await db.raw('create extension if not exists pg_stat_statements');
     await db.raw('create extension if not exists citext');
 
@@ -50,14 +49,10 @@ describe('fetchExtensionItemIds', () => {
       procs.push(c.rows[0].proname);
     }
     expect(procs).toContain('pg_stat_statements_info');
-    expect(procs).toContain('pg_stat_statements');
     expect(procs).toContain('gtrgm_in');
-    expect(procs).toContain('gtrgm_out');
     expect(procs).toContain('citextin');
-    expect(procs).toContain('citextout');
 
     await db.raw('drop extension pg_trgm');
-    await db.raw('drop extension fuzzystrmatch');
     await db.raw('drop extension pg_stat_statements');
     await db.raw('drop extension citext');
   });
