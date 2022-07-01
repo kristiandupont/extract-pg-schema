@@ -22,7 +22,7 @@ const makePgType = (
 });
 
 describe('extractTable', () => {
-  const getKnex = useTestKnex();
+  const [getKnex, databaseName] = useTestKnex();
   useSchema(getKnex, 'test');
 
   it('should extract simplified as well as full information_schema information', async () => {
@@ -33,7 +33,7 @@ describe('extractTable', () => {
 
     const expected: TableDetails = {
       informationSchemaValue: {
-        table_catalog: 'postgres',
+        table_catalog: databaseName,
         table_schema: 'test',
         table_name: 'some_table',
         table_type: 'BASE TABLE',
@@ -66,7 +66,7 @@ describe('extractTable', () => {
           comment: null,
 
           informationSchemaValue: {
-            table_catalog: 'postgres',
+            table_catalog: databaseName,
             table_schema: 'test',
             table_name: 'some_table',
             column_name: 'id',
@@ -91,7 +91,7 @@ describe('extractTable', () => {
             domain_catalog: null,
             domain_schema: null,
             domain_name: null,
-            udt_catalog: 'postgres',
+            udt_catalog: databaseName,
             udt_schema: 'pg_catalog',
             udt_name: 'int4',
             scope_catalog: null,
