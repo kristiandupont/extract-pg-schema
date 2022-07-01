@@ -26,7 +26,16 @@ const fetchExtensionItemIds = async (db: Knex) => {
     .where('d.deptype', 'e');
   const extTypeOids = tq.map(({ oid }) => oid);
 
-  return { extClassOids, extTypeOids };
+  const rq = await db
+    .select('p.oid')
+    .from('pg_extension as e')
+    .join('pg_depend as d', 'd.refobjid', 'e.oid')
+    .join('pg_proc as p', 'p.oid', 'd.objid')
+    .join('pg_namespace as ns', 'ns.oid', 'e.extnamespace')
+    .where('d.deptype', 'e');
+  const extProcOids = rq.map(({ oid }) => oid);
+
+  return { extClassOids, extTypeOids, extProcOids };
 };
 
 export default fetchExtensionItemIds;
