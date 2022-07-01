@@ -14,31 +14,37 @@ const updateActionMap = {
 
 type UpdateAction = typeof updateActionMap[keyof typeof updateActionMap];
 
-type ColumnReference = {
-  schemanName: string;
+export type ColumnReference = {
+  schemaName: string;
   tableName: string;
   columnName: string;
   onDelete: UpdateAction;
   onUpdate: UpdateAction;
 };
 
-type Index = {
+export type Index = {
   name: string;
   isPrimary: boolean;
 };
 
-type Column = {
+type Type = {
+  fullName: string;
+  kind: 'base' | 'range' | 'domain' | 'composite' | 'enum';
+};
+
+export type Column = {
   name: string;
-  type: string;
-  comment: string;
+  expandedType: string;
+  type: Type;
+  comment: string | null;
   defaultValue: any;
   isArray: boolean;
+  dimensions: number;
   reference: ColumnReference | null;
   indices: Index[];
+  maxLength: number | null;
   isNullable: boolean;
   isPrimaryKey: boolean;
-  isUnique: boolean;
-  isForeignKey: boolean;
   generated: 'ALWAYS' | 'NEVER' | 'BY DEFAULT';
   isUpdatable: boolean;
   isIdentity: boolean;
@@ -58,38 +64,24 @@ export type TableDetails = {
   columns: Column[];
 };
 
-const extractTable = async (
-  db: Knex,
-  table: PgType<'table'>
-): Promise<TableDetails> => {
-  const [informationSchemaValue] = await db
-    .from('information_schema.tables')
-    .where({
-      table_name: table.name,
-      table_schema: table.schemaName,
-    })
-    .select<InformationSchemaTable[]>('*');
-
-  const columnsQuery = await db.raw(
-    `
-    WITH reference_map AS (
+const referenceMapQueryPart = `
       SELECT
         source_attr.attname AS "column_name",
         json_build_object(
-            'schema', expanded_constraint.target_schema,
-            'table', expanded_constraint.target_table,
-          'column', target_attr.attname,
-          'onUpdate', case expanded_constraint.confupdtype
-            ${Object.entries(updateActionMap)
-              .map(([key, action]) => `when '${key}' then '${action}'`)
-              .join('\n')}
-            end,
-          'onDelete', case expanded_constraint.confdeltype
-            ${Object.entries(updateActionMap)
-              .map(([key, action]) => `when '${key}' then '${action}'`)
-              .join('\n')}
-            end
-          ) AS reference
+            'schemaName', expanded_constraint.target_schema,
+            'tableName', expanded_constraint.target_table,
+            'columnName', target_attr.attname,
+            'onUpdate', case expanded_constraint.confupdtype
+              ${Object.entries(updateActionMap)
+                .map(([key, action]) => `when '${key}' then '${action}'`)
+                .join('\n')}
+              end,
+            'onDelete', case expanded_constraint.confdeltype
+              ${Object.entries(updateActionMap)
+                .map(([key, action]) => `when '${key}' then '${action}'`)
+                .join('\n')}
+              end
+            ) AS reference
       FROM (
         SELECT
           unnest(conkey) AS "source_attnum",
@@ -119,8 +111,9 @@ const extractTable = async (
         JOIN pg_class target_class ON target_class.oid = expanded_constraint.confrelid
       WHERE
         target_class.relispartition = FALSE
-    ),
-    index_map AS (
+`;
+
+const indexMapQueryPart = `
       SELECT
         a.attname AS column_name,
         bool_or(ix.indisprimary) AS is_primary,
@@ -142,22 +135,82 @@ const extractTable = async (
         AND t.relname = :table_name
       GROUP BY
         a.attname
+`;
+
+const typeMapQueryPart = `
+select
+  pg_attribute.attname as "column_name",
+  typnamespace::regnamespace::text||'.'||substring(typname, (case when attndims > 0 then 2 else 1 end))::text||repeat('[]', attndims) as "expanded_name",
+  attndims as "dimensions",
+  json_build_object(
+	  'fullName', typnamespace::regnamespace::text||'.'||substring(typname, (case when attndims > 0 then 2 else 1 end))::text,
+    'kind', case 
+      when typtype = 'd' then 'domain'
+      when typtype = 'r' then 'range'
+      when typtype = 'c' then 'composite'
+      when typtype = 'e' then 'enum'
+      when typtype = 'b' then COALESCE((select case 
+        when i.typtype = 'r' then 'range' 
+        when i.typtype = 'd' then 'domain' 
+        when i.typtype = 'c' then 'composite' 
+        when i.typtype = 'e' then 'enum' 
+      end as inner_kind from pg_type i where i.oid = t.typelem), 'base')
+    ELSE 'unknown'
+    end
+  ) as "type_info"
+from pg_type t
+join pg_attribute on pg_attribute.atttypid = t.oid
+join pg_class on pg_attribute.attrelid = pg_class.oid
+join pg_namespace on pg_class.relnamespace = pg_namespace.oid
+WHERE
+  pg_namespace.nspname = :schema_name
+  and pg_class.relname = :table_name
+`;
+
+const commentMapQueryPart = `
+  SELECT
+    cols.column_name,
+    col_description(c.oid, cols.ordinal_position::int) as "comment"
+  FROM
+    information_schema.columns cols
+    JOIN pg_class c ON cols.table_name = c.relname
+    JOIN pg_namespace n ON c.relnamespace = n.oid
+  WHERE
+    n.nspname = :schema_name
+`;
+
+const extractTable = async (
+  db: Knex,
+  table: PgType<'table'>
+): Promise<TableDetails> => {
+  const [informationSchemaValue] = await db
+    .from('information_schema.tables')
+    .where({
+      table_name: table.name,
+      table_schema: table.schemaName,
+    })
+    .select<InformationSchemaTable[]>('*');
+
+  const columnsQuery = await db.raw(
+    `
+    WITH reference_map AS (
+      ${referenceMapQueryPart}
+    ),
+    index_map AS (
+      ${indexMapQueryPart}
+    ),
+    type_map AS (
+      ${typeMapQueryPart}
+    ),
+    comment_map AS (
+      ${commentMapQueryPart}
     )
     SELECT
-      columns.column_name AS name,
-      ('"' || "domain_schema" || '"."' || "domain_name" || '"')::regtype::text AS "domain__",
-      udt_name::text,
-        ('"' || "udt_schema" || '"."' || "udt_name" || '"')::regtype::text as __type__,
-      CASE WHEN data_type = 'ARRAY' THEN 
-        ('"' || "udt_schema" || '"."' || "udt_name" || '"')::regtype::text
-      ELSE
-        udt_name::text
-      END AS "type", 
-      CASE WHEN data_type = 'ARRAY' THEN 
-        SUBSTRING(udt_name::text, 2)
-      ELSE
-        udt_name::text
-      END AS "subType", 
+      columns.column_name AS "name",
+      type_map.expanded_name AS "expandedType",
+      type_map.dimensions AS "dimensions",
+      type_map.type_info AS "type",
+      comment_map.comment AS "comment",
       character_maximum_length AS "maxLength", 
       column_default AS "defaultValue", 
       is_nullable = 'YES' AS "isNullable", 
@@ -179,6 +232,8 @@ const extractTable = async (
       information_schema.columns
       LEFT JOIN index_map ON index_map.column_name = columns.column_name
       LEFT JOIN reference_map ON reference_map.column_name = columns.column_name
+      LEFT JOIN type_map ON type_map.column_name = columns.column_name
+      LEFT JOIN comment_map ON comment_map.column_name = columns.column_name
     WHERE
       table_name = :table_name
       AND table_schema = :schema_name;

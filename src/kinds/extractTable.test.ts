@@ -1,9 +1,14 @@
+import * as R from 'ramda';
 import { expect, it } from 'vitest';
 
 import { describe } from '../tests/fixture';
 import useSchema from '../tests/useSchema';
 import useTestKnex from '../tests/useTestKnex';
-import extractTable, { TableDetails } from './extractTable';
+import extractTable, {
+  Column,
+  ColumnReference,
+  TableDetails,
+} from './extractTable';
 import PgType from './PgType';
 
 const makePgType = (
@@ -44,8 +49,10 @@ describe('extractTable', () => {
       columns: [
         {
           name: 'id',
-          type: 'int4',
+          expandedType: 'pg_catalog.int4',
+          type: { fullName: 'pg_catalog.int4', kind: 'base' },
           isArray: false,
+          dimensions: 0,
           reference: null,
           defaultValue: null,
           indices: [],
@@ -56,7 +63,7 @@ describe('extractTable', () => {
           isIdentity: false,
           ordinalPosition: 1,
           maxLength: null,
-          subType: 'int4',
+          comment: null,
 
           informationSchemaValue: {
             table_catalog: 'postgres',
@@ -124,97 +131,128 @@ describe('extractTable', () => {
   it('should handle arrays of primitive types', async () => {
     const db = getKnex();
     await db.raw(
-      'create table test.some_table (array_of_ints int4[], array_of_strings text[])'
+      'create table test.some_table (array_of_ints integer[], array_of_strings text[], two_dimensional_array integer[][])'
     );
 
     const result = await extractTable(db, makePgType('some_table'));
+    const actual = R.map(
+      R.pick(['name', 'expandedType', 'type', 'dimensions']),
+      result.columns
+    );
 
-    expect(result.columns).toMatchObject([
+    const expected: Partial<Column>[] = [
       {
         name: 'array_of_ints',
-        type: 'int4[]',
-        isArray: true,
-        subType: 'int4',
+        expandedType: 'pg_catalog.int4[]',
+        type: { fullName: 'pg_catalog.int4', kind: 'base' },
+        dimensions: 1,
       },
       {
         name: 'array_of_strings',
-        type: 'text[]',
-        isArray: true,
-        subType: 'text',
+        expandedType: 'pg_catalog.text[]',
+        type: { fullName: 'pg_catalog.text', kind: 'base' },
+        dimensions: 1,
       },
-    ]);
+      {
+        name: 'two_dimensional_array',
+        expandedType: 'pg_catalog.int4[][]',
+        type: { fullName: 'pg_catalog.int4', kind: 'base' },
+        dimensions: 2,
+      },
+    ];
+    expect(actual).toEqual(expected);
   });
 
-  it('should handle domains, composite types and enums as well as arrays of those', async () => {
+  it('should handle domains, composite types, ranges and enums as well as arrays of those', async () => {
     const db = getKnex();
     await db.raw('create domain test.some_domain as text');
     await db.raw('create type test.some_composite as (id integer, name text)');
+    await db.raw('create type test.some_range as range(subtype=timestamptz)');
     await db.raw("create type test.some_enum as enum ('a', 'b', 'c')");
 
     await db.raw(
       `create table test.some_table (
         d test.some_domain,
         c test.some_composite,
+        r test.some_range,
         e test.some_enum,
         d_a test.some_domain[],
         c_a test.some_composite[],
+        r_a test.some_range[],
         e_a test.some_enum[]
     )`
     );
 
     const result = await extractTable(db, makePgType('some_table'));
+    const actual = R.map(
+      R.pick(['name', 'expandedType', 'type', 'dimensions']),
+      result.columns
+    );
 
-    console.log(result.columns);
-    expect(result.columns).toMatchObject([
+    const expected: Partial<Column>[] = [
       {
         name: 'd',
-        domain: 'test.some_domain',
-        type: 'text',
-        isArray: false,
-        subDomain: null,
-        subType: null,
+        expandedType: 'test.some_domain',
+        type: {
+          fullName: 'test.some_domain',
+          kind: 'domain',
+        },
+        dimensions: 0,
       },
       {
         name: 'c',
-        domain: null,
-        type: 'test.some_composite',
-        isArray: false,
-        subDomain: null,
-        subType: null,
+        expandedType: 'test.some_composite',
+        type: { fullName: 'test.some_composite', kind: 'composite' },
+        dimensions: 0,
+      },
+      {
+        name: 'r',
+        expandedType: 'test.some_range',
+        type: {
+          fullName: 'test.some_range',
+          kind: 'range',
+        },
+        dimensions: 0,
       },
       {
         name: 'e',
-        domain: null,
-        type: 'test.some_enum',
-        isArray: false,
-        subDomain: null,
-        subType: null,
+        expandedType: 'test.some_enum',
+        type: { fullName: 'test.some_enum', kind: 'enum' },
+        dimensions: 0,
       },
       {
         name: 'd_a',
-        domain: 'test.some_domain',
-        type: 'text',
-        isArray: false,
-        subDomain: null,
-        subType: null,
+        expandedType: 'test.some_domain[]',
+        type: {
+          fullName: 'test.some_domain',
+          kind: 'domain',
+        },
+        dimensions: 1,
       },
       {
         name: 'c_a',
-        domain: null,
-        type: 'test.some_composite',
-        isArray: false,
-        subDomain: null,
-        subType: null,
+        expandedType: 'test.some_composite[]',
+        type: { fullName: 'test.some_composite', kind: 'composite' },
+        dimensions: 1,
+      },
+      {
+        name: 'r_a',
+        expandedType: 'test.some_range[]',
+        type: {
+          fullName: 'test.some_range',
+          kind: 'range',
+        },
+        dimensions: 1,
       },
       {
         name: 'e_a',
-        domain: null,
-        type: 'test.some_enum',
-        isArray: false,
-        subDomain: null,
-        subType: null,
+        expandedType: 'test.some_enum[]',
+        type: { fullName: 'test.some_enum', kind: 'enum' },
+        dimensions: 1,
       },
-    ]);
+    ];
+
+    expect(actual).toEqual(expected);
   });
 
   describe('references', () => {
@@ -223,60 +261,63 @@ describe('extractTable', () => {
     it('should extract a simple foreign key', async () => {
       const db = getKnex();
 
-      await db.raw('create table test.some_table (id int4 primary key)');
+      await db.raw('create table test.some_table (id integer primary key)');
       await db.raw(
-        'create table test.linking_table (some_table_id int4 references test.some_table(id))'
+        'create table test.linking_table (some_table_id integer references test.some_table(id))'
       );
 
       const result = await extractTable(db, makePgType('linking_table'));
 
-      expect(result.columns[0].reference).toEqual({
-        schema: 'test',
-        table: 'some_table',
-        column: 'id',
+      const expected: ColumnReference = {
+        schemaName: 'test',
+        tableName: 'some_table',
+        columnName: 'id',
         onDelete: 'NO ACTION',
         onUpdate: 'NO ACTION',
-      });
+      };
+      expect(result.columns[0].reference).toEqual(expected);
     });
 
     it('should extract a foreign key with a different schema', async () => {
       const db = getKnex();
 
       await db.raw(
-        'create table secondary_schema.some_table (id int4 primary key)'
+        'create table secondary_schema.some_table (id integer primary key)'
       );
       await db.raw(
-        'create table test.linking_table (some_table_id int4 references secondary_schema.some_table(id))'
+        'create table test.linking_table (some_table_id integer references secondary_schema.some_table(id))'
       );
 
       const result = await extractTable(db, makePgType('linking_table'));
 
-      expect(result.columns[0].reference).toEqual({
-        schema: 'secondary_schema',
-        table: 'some_table',
-        column: 'id',
+      const expected: ColumnReference = {
+        schemaName: 'secondary_schema',
+        tableName: 'some_table',
+        columnName: 'id',
         onDelete: 'NO ACTION',
         onUpdate: 'NO ACTION',
-      });
+      };
+      expect(result.columns[0].reference).toEqual(expected);
     });
 
     it('should get the onDelete and onUpdate actions', async () => {
       const db = getKnex();
 
-      await db.raw('create table test.some_table (id int4 primary key)');
+      await db.raw('create table test.some_table (id integer primary key)');
       await db.raw(
-        'create table test.linking_table (some_table_id int4 references test.some_table(id) on delete cascade on update set null)'
+        'create table test.linking_table (some_table_id integer references test.some_table(id) on delete cascade on update set null)'
       );
 
       const result = await extractTable(db, makePgType('linking_table'));
 
-      expect(result.columns[0].reference).toEqual({
-        schema: 'test',
-        table: 'some_table',
-        column: 'id',
+      const expected: ColumnReference = {
+        schemaName: 'test',
+        tableName: 'some_table',
+        columnName: 'id',
         onDelete: 'CASCADE',
         onUpdate: 'SET NULL',
-      });
+      };
+      expect(result.columns[0].reference).toEqual(expected);
     });
   });
 });
