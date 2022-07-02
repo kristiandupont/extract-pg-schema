@@ -2,9 +2,10 @@ import { Knex } from 'knex';
 
 import InformationSchemaColumn from '../information_schema/InformationSchemaColumn';
 import InformationSchemaView from '../information_schema/InformationSchemaView';
-import commentMapQueryPart from './query-parts/commentMapQueryPart';
 import PgType from './PgType';
-import fakeInformationSchemaQueryPart from './query-parts/fakeInformationSchemaQueryPart';
+import commentMapQueryPart from './query-parts/commentMapQueryPart';
+import fakeInformationSchemaColumnsQueryPart from './query-parts/fakeInformationSchemaColumnsQueryPart';
+import fakeInformationSchemaViewsQueryPart from './query-parts/fakeInformationSchemaViewsQueryPart';
 
 type Type = {
   fullName: string;
@@ -31,14 +32,29 @@ export type MaterializedViewColumn = {
    */
   source?: { schema: string | undefined; table: string; column: string };
 
-  informationSchemaValue: InformationSchemaColumn;
+  /**
+   * The Postgres information_schema views do not contain info about materialized views.
+   * This value is the result of a query that matches the one for regular views.
+   * Use with caution, not all fields are guaranteed to be meaningful and/or accurate.
+   */
+  fakeInformationSchemaValue: InformationSchemaColumn;
 };
 
 export type MaterializedViewDetails = {
   definition: string;
   columns: MaterializedViewColumn[];
+
+  /**
+   * The Postgres information_schema views do not contain info about materialized views.
+   * This value is the result of a query that matches the one for regular views.
+   * Use with caution, not all fields are guaranteed to be meaningful and/or accurate.
+   */
+  fakeInformationSchemaValue: InformationSchemaView;
 };
 
+// NOTE: This is NOT identical for the one for tables.
+// The dimension field is not present for materialized views, so we
+// deduce whether or not it is an array by checking the type.
 const typeMapQueryPart = `
 select
   pg_attribute.attname as "column_name",
@@ -72,19 +88,25 @@ const extractMaterializedView = async (
   db: Knex,
   view: PgType<'materializedView'>
 ): Promise<MaterializedViewDetails> => {
-  const [{ definition }] = await db
-    .select<{ definition: string }[]>('definition')
-    .from('pg_matviews')
-    .where({
-      matviewname: view.name,
-      schemaname: view.schemaName,
-    });
+  const fakeInformationSchemaValueQuery = await db.raw(
+    fakeInformationSchemaViewsQueryPart
+  );
+  const fakeInformationSchemaValue: InformationSchemaView =
+    fakeInformationSchemaValueQuery.rows[0];
+
+  // const [{ definition }] = await db
+  //   .select<{ definition: string }[]>('definition')
+  //   .from('pg_matviews')
+  //   .where({
+  //     matviewname: view.name,
+  //     schemaname: view.schemaName,
+  //   });
 
   const columnsQuery = await db.raw(
     `
     WITH 
     fake_info_schema_columns AS (
-      ${fakeInformationSchemaQueryPart}
+      ${fakeInformationSchemaColumnsQueryPart}
     ),
     type_map AS (
       ${typeMapQueryPart}
@@ -110,7 +132,7 @@ const extractMaterializedView = async (
         is_generated
       END AS "generated", 
       
-      row_to_json(columns.*) AS "informationSchemaValue"
+      row_to_json(columns.*) AS "fakeInformationSchemaValue"
     FROM
       fake_info_schema_columns columns
       LEFT JOIN type_map ON type_map.column_name = columns.column_name
@@ -125,8 +147,9 @@ const extractMaterializedView = async (
   const columns = columnsQuery.rows;
 
   return {
-    definition,
+    definition: fakeInformationSchemaValue.view_definition,
     columns,
+    fakeInformationSchemaValue,
   };
 };
 

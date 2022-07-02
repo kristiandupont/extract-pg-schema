@@ -1,7 +1,8 @@
 // This is a modified version of the information_schema.columns definition in PostgreSQL v10.17.
 // It allows materialized views and composite types to be queried.
+// BEWARE: I am not sure that all of the fields return valid data.
 
-const fakeInformationSchemaQueryPart = `
+const fakeInformationSchemaColumnsQueryPart = `
   SELECT current_database()::information_schema.sql_identifier AS table_catalog,
     nc.nspname::information_schema.sql_identifier AS table_schema,
     c.relname::information_schema.sql_identifier AS table_name,
@@ -102,4 +103,4 @@ const fakeInformationSchemaQueryPart = `
   WHERE NOT pg_is_other_temp_schema(nc.oid) AND a.attnum > 0 AND NOT a.attisdropped AND (c.relkind = ANY (ARRAY['r'::"char", 'v'::"char", 'f'::"char", 'p'::"char", 'm'::"char", 'c'::"char"])) AND (pg_has_role(c.relowner, 'USAGE'::text) OR has_column_privilege(c.oid, a.attnum, 'SELECT, INSERT, UPDATE, REFERENCES'::text))
 `;
 
-export default fakeInformationSchemaQueryPart;
+export default fakeInformationSchemaColumnsQueryPart;

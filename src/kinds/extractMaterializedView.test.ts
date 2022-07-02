@@ -54,7 +54,7 @@ describe('extractView', () => {
           isUpdatable: false,
           ordinalPosition: 1,
           generated: 'NEVER',
-          informationSchemaValue: {
+          fakeInformationSchemaValue: {
             table_catalog: databaseName,
             table_schema: 'test',
             table_name: 'some_materialized_view',
@@ -102,6 +102,18 @@ describe('extractView', () => {
           },
         },
       ],
+      fakeInformationSchemaValue: {
+        table_catalog: databaseName,
+        table_schema: 'test',
+        table_name: 'some_materialized_view',
+        view_definition: ' SELECT 1 AS id;',
+        check_option: 'NONE',
+        is_updatable: 'NO',
+        is_insertable_into: 'NO',
+        is_trigger_updatable: 'NO',
+        is_trigger_deletable: 'NO',
+        is_trigger_insertable_into: 'NO',
+      },
     };
 
     expect(result).toStrictEqual(expected);
