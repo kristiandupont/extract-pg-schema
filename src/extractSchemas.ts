@@ -2,15 +2,20 @@ import knex, { Knex } from 'knex';
 import { ConnectionConfig } from 'pg';
 import * as R from 'ramda';
 
+import extractCompositeType from './kinds/extractCompositeType';
+import extractDomain from './kinds/extractDomain';
+import extractEnum from './kinds/extractEnum';
+import extractMaterializedView from './kinds/extractMaterializedView';
+import extractRange from './kinds/extractRange';
 import extractTable from './kinds/extractTable';
+import extractView from './kinds/extractView';
 import fetchTypes from './kinds/fetchTypes';
-import PgType from './kinds/PgType';
-import resolveViewColumns from './resolve-view-columns';
-import { Schema } from './types';
+import PgType, { Kind } from './kinds/PgType';
+// import resolveViewColumns from './resolveViewColumns';
 
 const makePopulator =
-  <T>(populate: (db: Knex, pgType: PgType) => Promise<T>) =>
-  async (db: Knex, pgTypes: PgType[], onProgress?: () => void) => {
+  <K extends Kind, T>(populate: (db: Knex, pgType: PgType<K>) => Promise<T>) =>
+  async (db: Knex, pgTypes: PgType<K>[], onProgress?: () => void) => {
     const res = await Promise.all(
       pgTypes.map(async (pgType) => {
         const populatedResult = await populate(db, pgType);
@@ -24,8 +29,14 @@ const makePopulator =
     return res;
   };
 
-const extractTables = makePopulator(extractTable);
 const extractDomains = makePopulator(extractDomain);
+const extractEnums = makePopulator(extractEnum);
+const extractRanges = makePopulator(extractRange);
+
+const extractTables = makePopulator(extractTable);
+const extractViews = makePopulator(extractView);
+const extractMaterializedViews = makePopulator(extractMaterializedView);
+const extractCompositeTypes = makePopulator(extractCompositeType);
 
 export type ExtractSchemaOptions = {
   schemas?: string[];
@@ -35,6 +46,8 @@ export type ExtractSchemaOptions = {
   onProgress?: () => void;
   onProgressEnd?: () => void;
 };
+
+type Schema = any;
 
 async function extractSchemas(
   connectionConfig: string | ConnectionConfig,
@@ -65,11 +78,54 @@ async function extractSchemas(
 
   const groups = R.groupBy(R.prop('kind'), typesToExtract);
 
-  const tables = extractTables(db, groups.table, options?.onProgress);
-  const domains = extractDomains(db, groups.domain, options?.onProgress);
+  const domains = await extractDomains(
+    db,
+    groups.domain as PgType<'domain'>[],
+    options?.onProgress
+  );
+  const enums = await extractEnums(
+    db,
+    groups.enum as PgType<'enum'>[],
+    options?.onProgress
+  );
+  const ranges = await extractRanges(
+    db,
+    groups.range as PgType<'range'>[],
+    options?.onProgress
+  );
 
-  console.log(groups);
-  return {};
+  const tables = await extractTables(
+    db,
+    groups.table as PgType<'table'>[],
+    options?.onProgress
+  );
+  const views = await extractViews(
+    db,
+    groups.view as PgType<'view'>[],
+    options?.onProgress
+  );
+  const materializedViews = await extractMaterializedViews(
+    db,
+    groups.materializedView as PgType<'materializedView'>[],
+    options?.onProgress
+  );
+  const compositeTypes = await extractCompositeTypes(
+    db,
+    groups.compositeType as PgType<'compositeType'>[],
+    options?.onProgress
+  );
+
+  await db.destroy();
+
+  return {
+    domains,
+    enums,
+    ranges,
+    tables,
+    views,
+    materializedViews,
+    compositeTypes,
+  };
 
   // schemas.forEach(async (schema) => {
   //   const schemaName = typeof schema === 'string' ? schema : schema.name;
