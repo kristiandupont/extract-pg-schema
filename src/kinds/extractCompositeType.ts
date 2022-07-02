@@ -1,11 +1,9 @@
 import { Knex } from 'knex';
 
 import InformationSchemaColumn from '../information_schema/InformationSchemaColumn';
-import InformationSchemaView from '../information_schema/InformationSchemaView';
 import PgType from './PgType';
 import commentMapQueryPart from './query-parts/commentMapQueryPart';
 import fakeInformationSchemaColumnsQueryPart from './query-parts/fakeInformationSchemaColumnsQueryPart';
-import fakeInformationSchemaViewsQueryPart from './query-parts/fakeInformationSchemaViewsQueryPart';
 
 type Type = {
   fullName: string;

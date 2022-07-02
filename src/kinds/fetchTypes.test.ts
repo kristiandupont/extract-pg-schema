@@ -54,7 +54,7 @@ describe('fetchTypes', () => {
       ['some_enum', 'enum'],
       ['some_domain', 'domain'],
       ['some_range', 'range'],
-      ['some_multirange', 'multiRange'],
+      // ['some_multirange', 'multiRange'],
       // ['some_procedure', 'procedure'],
       // ['some_function', 'function'],
       // ['some_aggregate', 'aggregate'],

@@ -5,8 +5,8 @@ import { describe } from '../tests/fixture';
 import useSchema from '../tests/useSchema';
 import useTestKnex from '../tests/useTestKnex';
 import extractTable, {
-  TableColumn,
   ColumnReference,
+  TableColumn,
   TableDetails,
 } from './extractTable';
 import PgType from './PgType';
