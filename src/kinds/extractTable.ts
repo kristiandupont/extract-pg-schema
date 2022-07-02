@@ -3,6 +3,7 @@ import { Knex } from 'knex';
 import InformationSchemaColumn from '../information_schema/InformationSchemaColumn';
 import InformationSchemaTable from '../information_schema/InformationSchemaTable';
 import PgType from './PgType';
+import commentMapQueryPart from './query-parts/commentMapQueryPart';
 
 const updateActionMap = {
   a: 'NO ACTION',
@@ -32,7 +33,7 @@ type Type = {
   kind: 'base' | 'range' | 'domain' | 'composite' | 'enum';
 };
 
-export type Column = {
+export type TableColumn = {
   name: string;
   expandedType: string;
   type: Type;
@@ -61,7 +62,7 @@ export type Column = {
 
 export type TableDetails = {
   informationSchemaValue: InformationSchemaTable;
-  columns: Column[];
+  columns: TableColumn[];
 };
 
 const referenceMapQueryPart = `
@@ -165,18 +166,6 @@ join pg_namespace on pg_class.relnamespace = pg_namespace.oid
 WHERE
   pg_namespace.nspname = :schema_name
   and pg_class.relname = :table_name
-`;
-
-const commentMapQueryPart = `
-  SELECT
-    cols.column_name,
-    col_description(c.oid, cols.ordinal_position::int) as "comment"
-  FROM
-    information_schema.columns cols
-    JOIN pg_class c ON cols.table_name = c.relname
-    JOIN pg_namespace n ON c.relnamespace = n.oid
-  WHERE
-    n.nspname = :schema_name
 `;
 
 const extractTable = async (

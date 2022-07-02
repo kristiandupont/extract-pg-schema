@@ -5,7 +5,7 @@ import { describe } from '../tests/fixture';
 import useSchema from '../tests/useSchema';
 import useTestKnex from '../tests/useTestKnex';
 import extractTable, {
-  Column,
+  TableColumn,
   ColumnReference,
   TableDetails,
 } from './extractTable';
@@ -140,7 +140,7 @@ describe('extractTable', () => {
       result.columns
     );
 
-    const expected: Partial<Column>[] = [
+    const expected: Partial<TableColumn>[] = [
       {
         name: 'array_of_ints',
         expandedType: 'pg_catalog.int4[]',
@@ -189,7 +189,7 @@ describe('extractTable', () => {
       result.columns
     );
 
-    const expected: Partial<Column>[] = [
+    const expected: Partial<TableColumn>[] = [
       {
         name: 'd',
         expandedType: 'test.some_domain',

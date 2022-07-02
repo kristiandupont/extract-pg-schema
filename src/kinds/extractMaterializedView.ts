@@ -2,15 +2,16 @@ import { Knex } from 'knex';
 
 import InformationSchemaColumn from '../information_schema/InformationSchemaColumn';
 import InformationSchemaView from '../information_schema/InformationSchemaView';
-import PgType from './PgType';
 import commentMapQueryPart from './query-parts/commentMapQueryPart';
+import PgType from './PgType';
+import fakeInformationSchemaQueryPart from './query-parts/fakeInformationSchemaQueryPart';
 
 type Type = {
   fullName: string;
   kind: 'base' | 'range' | 'domain' | 'composite' | 'enum';
 };
 
-export type ViewColumn = {
+export type MaterializedViewColumn = {
   name: string;
   expandedType: string;
   type: Type;
@@ -33,10 +34,9 @@ export type ViewColumn = {
   informationSchemaValue: InformationSchemaColumn;
 };
 
-export type ViewDetails = {
+export type MaterializedViewDetails = {
   definition: string;
-  informationSchemaValue: InformationSchemaView;
-  columns: ViewColumn[];
+  columns: MaterializedViewColumn[];
 };
 
 const typeMapQueryPart = `
@@ -68,21 +68,24 @@ WHERE
   and pg_class.relname = :table_name
 `;
 
-const extractView = async (
+const extractMaterializedView = async (
   db: Knex,
-  view: PgType<'view'>
-): Promise<ViewDetails> => {
-  const [informationSchemaValue] = await db
-    .from('information_schema.views')
+  view: PgType<'materializedView'>
+): Promise<MaterializedViewDetails> => {
+  const [{ definition }] = await db
+    .select<{ definition: string }[]>('definition')
+    .from('pg_matviews')
     .where({
-      table_name: view.name,
-      table_schema: view.schemaName,
-    })
-    .select<InformationSchemaView[]>('*');
+      matviewname: view.name,
+      schemaname: view.schemaName,
+    });
 
   const columnsQuery = await db.raw(
     `
     WITH 
+    fake_info_schema_columns AS (
+      ${fakeInformationSchemaQueryPart}
+    ),
     type_map AS (
       ${typeMapQueryPart}
     ),
@@ -109,7 +112,7 @@ const extractView = async (
       
       row_to_json(columns.*) AS "informationSchemaValue"
     FROM
-      information_schema.columns
+      fake_info_schema_columns columns
       LEFT JOIN type_map ON type_map.column_name = columns.column_name
       LEFT JOIN comment_map ON comment_map.column_name = columns.column_name
     WHERE
@@ -122,10 +125,9 @@ const extractView = async (
   const columns = columnsQuery.rows;
 
   return {
-    definition: informationSchemaValue.view_definition,
-    informationSchemaValue,
+    definition,
     columns,
   };
 };
 
-export default extractView;
+export default extractMaterializedView;
