@@ -7,15 +7,15 @@ import commentMapQueryPart from './query-parts/commentMapQueryPart';
 import fakeInformationSchemaColumnsQueryPart from './query-parts/fakeInformationSchemaColumnsQueryPart';
 import fakeInformationSchemaViewsQueryPart from './query-parts/fakeInformationSchemaViewsQueryPart';
 
-type Type = {
+type MaterializedViewColumnType = {
   fullName: string;
   kind: 'base' | 'range' | 'domain' | 'composite' | 'enum';
 };
 
-export type MaterializedViewColumn = {
+export interface MaterializedViewColumn {
   name: string;
   expandedType: string;
-  type: Type;
+  type: MaterializedViewColumnType;
   comment: string | null;
   defaultValue: any;
   isArray: boolean;
@@ -38,9 +38,9 @@ export type MaterializedViewColumn = {
    * Use with caution, not all fields are guaranteed to be meaningful and/or accurate.
    */
   fakeInformationSchemaValue: InformationSchemaColumn;
-};
+}
 
-export type MaterializedViewDetails = {
+export interface MaterializedViewDetails {
   definition: string;
   columns: MaterializedViewColumn[];
 
@@ -50,7 +50,7 @@ export type MaterializedViewDetails = {
    * Use with caution, not all fields are guaranteed to be meaningful and/or accurate.
    */
   fakeInformationSchemaValue: InformationSchemaView;
-};
+}
 
 // NOTE: This is NOT identical for the one for tables.
 // The dimension field is not present for materialized views, so we

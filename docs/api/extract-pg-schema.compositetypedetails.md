@@ -2,14 +2,17 @@
 
 [Home](./index.md) &gt; [extract-pg-schema](./extract-pg-schema.md) &gt; [CompositeTypeDetails](./extract-pg-schema.compositetypedetails.md)
 
-## CompositeTypeDetails type
+## CompositeTypeDetails interface
 
 <b>Signature:</b>
 
 ```typescript
-export declare type CompositeTypeDetails = {
-    attributes: CompositeTypeAttribute[];
-};
+export interface CompositeTypeDetails 
 ```
-<b>References:</b> [CompositeTypeAttribute](./extract-pg-schema.compositetypeattribute.md)
+
+## Properties
+
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [attributes](./extract-pg-schema.compositetypedetails.attributes.md) |  | [CompositeTypeAttribute](./extract-pg-schema.compositetypeattribute.md)<!-- -->\[\] |  |
 

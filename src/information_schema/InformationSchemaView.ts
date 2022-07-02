@@ -3,7 +3,7 @@ import YesNo from './YesNo';
 /**
  * The view tables contains all tables and views defined in the current database. Only those tables and views are shown that the current user has access to (by way of being the owner or having some privilege).
  */
-type InformationSchemaView = {
+interface InformationSchemaView {
   /** Name of the database that contains the table (always the current database) */
   table_catalog: string;
   /** Name of the schema that contains the table */
@@ -24,6 +24,6 @@ type InformationSchemaView = {
   is_trigger_deletable: YesNo;
   /** YES if the view has an INSTEAD OF INSERT trigger defined on it, NO if not */
   is_trigger_insertable_into: YesNo;
-};
+}
 
 export default InformationSchemaView;

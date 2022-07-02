@@ -2,14 +2,19 @@
 
 [Home](./index.md) &gt; [extract-pg-schema](./extract-pg-schema.md) &gt; [DomainDetails](./extract-pg-schema.domaindetails.md)
 
-## DomainDetails type
+## DomainDetails interface
 
 <b>Signature:</b>
 
 ```typescript
-export declare type DomainDetails = {
-    name: string;
-    innerType: string;
-    informationSchemaValue: InformationSchemaDomain;
-};
+export interface DomainDetails 
 ```
+
+## Properties
+
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [informationSchemaValue](./extract-pg-schema.domaindetails.informationschemavalue.md) |  | InformationSchemaDomain |  |
+|  [innerType](./extract-pg-schema.domaindetails.innertype.md) |  | string |  |
+|  [name](./extract-pg-schema.domaindetails.name.md) |  | string |  |
+

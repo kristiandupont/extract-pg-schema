@@ -2,9 +2,9 @@ import { Knex } from 'knex';
 
 import PgType from './PgType';
 
-export type EnumDetails = {
+export interface EnumDetails {
   values: string[];
-};
+}
 
 const extractEnum = async (
   db: Knex,

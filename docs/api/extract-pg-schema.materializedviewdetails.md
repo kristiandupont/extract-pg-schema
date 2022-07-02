@@ -2,14 +2,19 @@
 
 [Home](./index.md) &gt; [extract-pg-schema](./extract-pg-schema.md) &gt; [MaterializedViewDetails](./extract-pg-schema.materializedviewdetails.md)
 
-## MaterializedViewDetails type
+## MaterializedViewDetails interface
 
 <b>Signature:</b>
 
 ```typescript
-export declare type MaterializedViewDetails = {
-    definition: string;
-    columns: MaterializedViewColumn[];
-    fakeInformationSchemaValue: InformationSchemaView;
-};
+export interface MaterializedViewDetails 
 ```
+
+## Properties
+
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [columns](./extract-pg-schema.materializedviewdetails.columns.md) |  | MaterializedViewColumn\[\] |  |
+|  [definition](./extract-pg-schema.materializedviewdetails.definition.md) |  | string |  |
+|  [fakeInformationSchemaValue](./extract-pg-schema.materializedviewdetails.fakeinformationschemavalue.md) |  | InformationSchemaView | The Postgres information\_schema views do not contain info about materialized views. This value is the result of a query that matches the one for regular views. Use with caution, not all fields are guaranteed to be meaningful and/or accurate. |
+

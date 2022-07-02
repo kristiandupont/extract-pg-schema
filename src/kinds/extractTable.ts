@@ -34,7 +34,7 @@ export type TableColumnType = {
   kind: 'base' | 'range' | 'domain' | 'composite' | 'enum';
 };
 
-export type TableColumn = {
+export interface TableColumn {
   name: string;
   expandedType: string;
   type: TableColumnType;
@@ -53,12 +53,12 @@ export type TableColumn = {
   ordinalPosition: number;
 
   informationSchemaValue: InformationSchemaColumn;
-};
+}
 
-export type TableDetails = {
+export interface TableDetails {
   columns: TableColumn[];
   informationSchemaValue: InformationSchemaTable;
-};
+}
 
 const referenceMapQueryPart = `
       SELECT

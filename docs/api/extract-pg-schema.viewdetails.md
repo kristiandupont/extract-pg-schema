@@ -2,14 +2,19 @@
 
 [Home](./index.md) &gt; [extract-pg-schema](./extract-pg-schema.md) &gt; [ViewDetails](./extract-pg-schema.viewdetails.md)
 
-## ViewDetails type
+## ViewDetails interface
 
 <b>Signature:</b>
 
 ```typescript
-export declare type ViewDetails = {
-    definition: string;
-    informationSchemaValue: InformationSchemaView;
-    columns: ViewColumn[];
-};
+export interface ViewDetails 
 ```
+
+## Properties
+
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [columns](./extract-pg-schema.viewdetails.columns.md) |  | ViewColumn\[\] |  |
+|  [definition](./extract-pg-schema.viewdetails.definition.md) |  | string |  |
+|  [informationSchemaValue](./extract-pg-schema.viewdetails.informationschemavalue.md) |  | InformationSchemaView |  |
+

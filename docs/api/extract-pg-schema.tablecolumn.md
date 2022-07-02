@@ -2,30 +2,33 @@
 
 [Home](./index.md) &gt; [extract-pg-schema](./extract-pg-schema.md) &gt; [TableColumn](./extract-pg-schema.tablecolumn.md)
 
-## TableColumn type
+## TableColumn interface
 
 <b>Signature:</b>
 
 ```typescript
-export declare type TableColumn = {
-    name: string;
-    expandedType: string;
-    type: TableColumnType;
-    comment: string | null;
-    defaultValue: any;
-    isArray: boolean;
-    dimensions: number;
-    reference: ColumnReference | null;
-    indices: Index[];
-    maxLength: number | null;
-    isNullable: boolean;
-    isPrimaryKey: boolean;
-    generated: 'ALWAYS' | 'NEVER' | 'BY DEFAULT';
-    isUpdatable: boolean;
-    isIdentity: boolean;
-    ordinalPosition: number;
-    informationSchemaValue: InformationSchemaColumn;
-};
+export interface TableColumn 
 ```
-<b>References:</b> [TableColumnType](./extract-pg-schema.tablecolumntype.md)<!-- -->, [ColumnReference](./extract-pg-schema.columnreference.md)
+
+## Properties
+
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [comment](./extract-pg-schema.tablecolumn.comment.md) |  | string \| null |  |
+|  [defaultValue](./extract-pg-schema.tablecolumn.defaultvalue.md) |  | any |  |
+|  [dimensions](./extract-pg-schema.tablecolumn.dimensions.md) |  | number |  |
+|  [expandedType](./extract-pg-schema.tablecolumn.expandedtype.md) |  | string |  |
+|  [generated](./extract-pg-schema.tablecolumn.generated.md) |  | 'ALWAYS' \| 'NEVER' \| 'BY DEFAULT' |  |
+|  [indices](./extract-pg-schema.tablecolumn.indices.md) |  | Index\[\] |  |
+|  [informationSchemaValue](./extract-pg-schema.tablecolumn.informationschemavalue.md) |  | InformationSchemaColumn |  |
+|  [isArray](./extract-pg-schema.tablecolumn.isarray.md) |  | boolean |  |
+|  [isIdentity](./extract-pg-schema.tablecolumn.isidentity.md) |  | boolean |  |
+|  [isNullable](./extract-pg-schema.tablecolumn.isnullable.md) |  | boolean |  |
+|  [isPrimaryKey](./extract-pg-schema.tablecolumn.isprimarykey.md) |  | boolean |  |
+|  [isUpdatable](./extract-pg-schema.tablecolumn.isupdatable.md) |  | boolean |  |
+|  [maxLength](./extract-pg-schema.tablecolumn.maxlength.md) |  | number \| null |  |
+|  [name](./extract-pg-schema.tablecolumn.name.md) |  | string |  |
+|  [ordinalPosition](./extract-pg-schema.tablecolumn.ordinalposition.md) |  | number |  |
+|  [reference](./extract-pg-schema.tablecolumn.reference.md) |  | [ColumnReference](./extract-pg-schema.columnreference.md) \| null |  |
+|  [type](./extract-pg-schema.tablecolumn.type.md) |  | [TableColumnType](./extract-pg-schema.tablecolumntype.md) |  |
 

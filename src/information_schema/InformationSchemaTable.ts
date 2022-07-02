@@ -3,7 +3,7 @@ import YesNo from './YesNo';
 /**
  * The view tables contains all tables and views defined in the current database. Only those tables and views are shown that the current user has access to (by way of being the owner or having some privilege).
  */
-type InformationSchemaTable = {
+interface InformationSchemaTable {
   /** Name of the database that contains the table (always the current database) */
   table_catalog: string;
   /** Name of the schema that contains the table */
@@ -28,6 +28,6 @@ type InformationSchemaTable = {
   is_typed: YesNo;
   /** Not yet implemented */
   commit_action: any;
-};
+}
 
 export default InformationSchemaTable;

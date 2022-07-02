@@ -6,15 +6,15 @@ import PgType from './PgType';
 import commentMapQueryPart from './query-parts/commentMapQueryPart';
 import indexMapQueryPart from './query-parts/indexMapQueryPart';
 
-type Type = {
+type ViewColumnType = {
   fullName: string;
   kind: 'base' | 'range' | 'domain' | 'composite' | 'enum';
 };
 
-export type ViewColumn = {
+export interface ViewColumn {
   name: string;
   expandedType: string;
-  type: Type;
+  type: ViewColumnType;
   comment: string | null;
   defaultValue: any;
   isArray: boolean;
@@ -29,16 +29,16 @@ export type ViewColumn = {
    * For views, this will contain the original column, if it could be determined.
    * If schema is undefined, it means "same schema as the view".
    */
-  source?: { schema: string | undefined; table: string; column: string };
+  source: { schema: string | undefined; table: string; column: string } | null;
 
   informationSchemaValue: InformationSchemaColumn;
-};
+}
 
-export type ViewDetails = {
+export interface ViewDetails {
   definition: string;
   informationSchemaValue: InformationSchemaView;
   columns: ViewColumn[];
-};
+}
 
 // NOTE: This is NOT identical for the one for tables.
 // The dimension field is not present for materialized views, so we

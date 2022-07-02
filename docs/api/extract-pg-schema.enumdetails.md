@@ -2,12 +2,17 @@
 
 [Home](./index.md) &gt; [extract-pg-schema](./extract-pg-schema.md) &gt; [EnumDetails](./extract-pg-schema.enumdetails.md)
 
-## EnumDetails type
+## EnumDetails interface
 
 <b>Signature:</b>
 
 ```typescript
-export declare type EnumDetails = {
-    values: string[];
-};
+export interface EnumDetails 
 ```
+
+## Properties
+
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [values](./extract-pg-schema.enumdetails.values.md) |  | string\[\] |  |
+

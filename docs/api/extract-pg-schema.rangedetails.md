@@ -2,12 +2,17 @@
 
 [Home](./index.md) &gt; [extract-pg-schema](./extract-pg-schema.md) &gt; [RangeDetails](./extract-pg-schema.rangedetails.md)
 
-## RangeDetails type
+## RangeDetails interface
 
 <b>Signature:</b>
 
 ```typescript
-export declare type RangeDetails = {
-    innerType: string;
-};
+export interface RangeDetails 
 ```
+
+## Properties
+
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [innerType](./extract-pg-schema.rangedetails.innertype.md) |  | string |  |
+

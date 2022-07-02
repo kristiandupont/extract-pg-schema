@@ -2,9 +2,9 @@ import { Knex } from 'knex';
 
 import PgType from './PgType';
 
-export type RangeDetails = {
+export interface RangeDetails {
   innerType: string;
-};
+}
 
 const extractRange = async (
   db: Knex,

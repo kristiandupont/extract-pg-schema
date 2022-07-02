@@ -10,6 +10,24 @@
 |  --- | --- |
 |  [extractSchemas(connectionConfig, options)](./extract-pg-schema.extractschemas.md) |  |
 
+## Interfaces
+
+|  Interface | Description |
+|  --- | --- |
+|  [CompositeTypeAttribute](./extract-pg-schema.compositetypeattribute.md) |  |
+|  [CompositeTypeDetails](./extract-pg-schema.compositetypedetails.md) |  |
+|  [DomainDetails](./extract-pg-schema.domaindetails.md) |  |
+|  [EnumDetails](./extract-pg-schema.enumdetails.md) |  |
+|  [InformationSchemaColumn](./extract-pg-schema.informationschemacolumn.md) | The view columns contains information about all table columns (or view columns) in the database. System columns (ctid, etc.) are not included. Only those columns are shown that the current user has access to (by way of being the owner or having some privilege). |
+|  [InformationSchemaDomain](./extract-pg-schema.informationschemadomain.md) | The view domains contains all domains defined in the current database. Only those domains are shown that the current user has access to (by way of being the owner or having some privilege). |
+|  [InformationSchemaTable](./extract-pg-schema.informationschematable.md) | The view tables contains all tables and views defined in the current database. Only those tables and views are shown that the current user has access to (by way of being the owner or having some privilege). |
+|  [InformationSchemaView](./extract-pg-schema.informationschemaview.md) | The view tables contains all tables and views defined in the current database. Only those tables and views are shown that the current user has access to (by way of being the owner or having some privilege). |
+|  [MaterializedViewDetails](./extract-pg-schema.materializedviewdetails.md) |  |
+|  [RangeDetails](./extract-pg-schema.rangedetails.md) |  |
+|  [TableColumn](./extract-pg-schema.tablecolumn.md) |  |
+|  [TableDetails](./extract-pg-schema.tabledetails.md) |  |
+|  [ViewDetails](./extract-pg-schema.viewdetails.md) |  |
+
 ## Variables
 
 |  Variable | Description |
@@ -22,24 +40,11 @@
 |  --- | --- |
 |  [AttributeType](./extract-pg-schema.attributetype.md) |  |
 |  [ColumnReference](./extract-pg-schema.columnreference.md) |  |
-|  [CompositeTypeAttribute](./extract-pg-schema.compositetypeattribute.md) |  |
-|  [CompositeTypeDetails](./extract-pg-schema.compositetypedetails.md) |  |
 |  [Details](./extract-pg-schema.details.md) |  |
-|  [DomainDetails](./extract-pg-schema.domaindetails.md) |  |
-|  [EnumDetails](./extract-pg-schema.enumdetails.md) |  |
 |  [ExtractSchemaOptions](./extract-pg-schema.extractschemaoptions.md) |  |
-|  [InformationSchemaColumn](./extract-pg-schema.informationschemacolumn.md) | The view columns contains information about all table columns (or view columns) in the database. System columns (ctid, etc.) are not included. Only those columns are shown that the current user has access to (by way of being the owner or having some privilege). |
-|  [InformationSchemaDomain](./extract-pg-schema.informationschemadomain.md) | The view domains contains all domains defined in the current database. Only those domains are shown that the current user has access to (by way of being the owner or having some privilege). |
-|  [InformationSchemaTable](./extract-pg-schema.informationschematable.md) | The view tables contains all tables and views defined in the current database. Only those tables and views are shown that the current user has access to (by way of being the owner or having some privilege). |
-|  [InformationSchemaView](./extract-pg-schema.informationschemaview.md) | The view tables contains all tables and views defined in the current database. Only those tables and views are shown that the current user has access to (by way of being the owner or having some privilege). |
-|  [MaterializedViewDetails](./extract-pg-schema.materializedviewdetails.md) |  |
 |  [PopulatedType](./extract-pg-schema.populatedtype.md) |  |
-|  [RangeDetails](./extract-pg-schema.rangedetails.md) |  |
 |  [Schema](./extract-pg-schema.schema.md) |  |
-|  [TableColumn](./extract-pg-schema.tablecolumn.md) |  |
 |  [TableColumnType](./extract-pg-schema.tablecolumntype.md) |  |
-|  [TableDetails](./extract-pg-schema.tabledetails.md) |  |
 |  [UpdateAction](./extract-pg-schema.updateaction.md) |  |
-|  [ViewDetails](./extract-pg-schema.viewdetails.md) |  |
 |  [YesNo](./extract-pg-schema.yesno.md) |  |
 

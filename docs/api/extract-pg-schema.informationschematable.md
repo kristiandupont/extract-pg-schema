@@ -2,25 +2,30 @@
 
 [Home](./index.md) &gt; [extract-pg-schema](./extract-pg-schema.md) &gt; [InformationSchemaTable](./extract-pg-schema.informationschematable.md)
 
-## InformationSchemaTable type
+## InformationSchemaTable interface
 
 The view tables contains all tables and views defined in the current database. Only those tables and views are shown that the current user has access to (by way of being the owner or having some privilege).
 
 <b>Signature:</b>
 
 ```typescript
-declare type InformationSchemaTable = {
-    table_catalog: string;
-    table_schema: string;
-    table_name: string;
-    table_type: 'BASE TABLE' | 'VIEW' | 'FOREIGN' | 'LOCAL TEMPORARY';
-    self_referencing_column_name: string | null;
-    reference_generation: string | null;
-    user_defined_type_catalog: string | null;
-    user_defined_type_schema: string | null;
-    user_defined_type_name: string | null;
-    is_insertable_into: YesNo;
-    is_typed: YesNo;
-    commit_action: any;
-};
+interface InformationSchemaTable 
 ```
+
+## Properties
+
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [commit\_action](./extract-pg-schema.informationschematable.commit_action.md) |  | any | Not yet implemented |
+|  [is\_insertable\_into](./extract-pg-schema.informationschematable.is_insertable_into.md) |  | YesNo | YES if the table is insertable into, NO if not (Base tables are always insertable into, views not necessarily.) |
+|  [is\_typed](./extract-pg-schema.informationschematable.is_typed.md) |  | YesNo | YES if the table is a typed table, NO if not |
+|  [reference\_generation](./extract-pg-schema.informationschematable.reference_generation.md) |  | string \| null | Applies to a feature not available in PostgreSQL |
+|  [self\_referencing\_column\_name](./extract-pg-schema.informationschematable.self_referencing_column_name.md) |  | string \| null | Applies to a feature not available in PostgreSQL |
+|  [table\_catalog](./extract-pg-schema.informationschematable.table_catalog.md) |  | string | Name of the database that contains the table (always the current database) |
+|  [table\_name](./extract-pg-schema.informationschematable.table_name.md) |  | string | Name of the table |
+|  [table\_schema](./extract-pg-schema.informationschematable.table_schema.md) |  | string | Name of the schema that contains the table |
+|  [table\_type](./extract-pg-schema.informationschematable.table_type.md) |  | 'BASE TABLE' \| 'VIEW' \| 'FOREIGN' \| 'LOCAL TEMPORARY' | Type of the table: BASE TABLE for a persistent base table (the normal table type), VIEW for a view, FOREIGN for a foreign table, or LOCAL TEMPORARY for a temporary table |
+|  [user\_defined\_type\_catalog](./extract-pg-schema.informationschematable.user_defined_type_catalog.md) |  | string \| null | If the table is a typed table, the name of the database that contains the underlying data type (always the current database), else null. |
+|  [user\_defined\_type\_name](./extract-pg-schema.informationschematable.user_defined_type_name.md) |  | string \| null | If the table is a typed table, the name of the underlying data type, else null. |
+|  [user\_defined\_type\_schema](./extract-pg-schema.informationschematable.user_defined_type_schema.md) |  | string \| null | If the table is a typed table, the name of the schema that contains the underlying data type, else null. |
+

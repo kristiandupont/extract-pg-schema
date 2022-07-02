@@ -58,6 +58,7 @@ describe('extractView', () => {
           isUpdatable: false,
           ordinalPosition: 1,
           generated: 'NEVER',
+          source: null,
           informationSchemaValue: {
             table_catalog: databaseName,
             table_schema: 'test',

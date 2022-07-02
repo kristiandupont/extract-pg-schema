@@ -2,26 +2,29 @@
 
 [Home](./index.md) &gt; [extract-pg-schema](./extract-pg-schema.md) &gt; [CompositeTypeAttribute](./extract-pg-schema.compositetypeattribute.md)
 
-## CompositeTypeAttribute type
+## CompositeTypeAttribute interface
 
 <b>Signature:</b>
 
 ```typescript
-export declare type CompositeTypeAttribute = {
-    name: string;
-    expandedType: string;
-    type: AttributeType;
-    comment: string | null;
-    defaultValue: any;
-    isArray: boolean;
-    maxLength: number | null;
-    isNullable: boolean;
-    generated: 'ALWAYS' | 'NEVER' | 'BY DEFAULT';
-    isUpdatable: boolean;
-    isIdentity: boolean;
-    ordinalPosition: number;
-    fakeInformationSchemaValue: InformationSchemaColumn;
-};
+export interface CompositeTypeAttribute 
 ```
-<b>References:</b> [AttributeType](./extract-pg-schema.attributetype.md)
+
+## Properties
+
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [comment](./extract-pg-schema.compositetypeattribute.comment.md) |  | string \| null |  |
+|  [defaultValue](./extract-pg-schema.compositetypeattribute.defaultvalue.md) |  | any |  |
+|  [expandedType](./extract-pg-schema.compositetypeattribute.expandedtype.md) |  | string |  |
+|  [fakeInformationSchemaValue](./extract-pg-schema.compositetypeattribute.fakeinformationschemavalue.md) |  | InformationSchemaColumn | The Postgres information\_schema views do not contain info about materialized views. This value is the result of a query that matches the one for regular views. Use with caution, not all fields are guaranteed to be meaningful and/or accurate. |
+|  [generated](./extract-pg-schema.compositetypeattribute.generated.md) |  | 'ALWAYS' \| 'NEVER' \| 'BY DEFAULT' |  |
+|  [isArray](./extract-pg-schema.compositetypeattribute.isarray.md) |  | boolean |  |
+|  [isIdentity](./extract-pg-schema.compositetypeattribute.isidentity.md) |  | boolean |  |
+|  [isNullable](./extract-pg-schema.compositetypeattribute.isnullable.md) |  | boolean |  |
+|  [isUpdatable](./extract-pg-schema.compositetypeattribute.isupdatable.md) |  | boolean |  |
+|  [maxLength](./extract-pg-schema.compositetypeattribute.maxlength.md) |  | number \| null |  |
+|  [name](./extract-pg-schema.compositetypeattribute.name.md) |  | string |  |
+|  [ordinalPosition](./extract-pg-schema.compositetypeattribute.ordinalposition.md) |  | number |  |
+|  [type](./extract-pg-schema.compositetypeattribute.type.md) |  | [AttributeType](./extract-pg-schema.attributetype.md) |  |
 

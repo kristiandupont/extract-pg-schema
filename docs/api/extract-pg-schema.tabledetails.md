@@ -2,15 +2,18 @@
 
 [Home](./index.md) &gt; [extract-pg-schema](./extract-pg-schema.md) &gt; [TableDetails](./extract-pg-schema.tabledetails.md)
 
-## TableDetails type
+## TableDetails interface
 
 <b>Signature:</b>
 
 ```typescript
-export declare type TableDetails = {
-    columns: TableColumn[];
-    informationSchemaValue: InformationSchemaTable;
-};
+export interface TableDetails 
 ```
-<b>References:</b> [TableColumn](./extract-pg-schema.tablecolumn.md)
+
+## Properties
+
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [columns](./extract-pg-schema.tabledetails.columns.md) |  | [TableColumn](./extract-pg-schema.tablecolumn.md)<!-- -->\[\] |  |
+|  [informationSchemaValue](./extract-pg-schema.tabledetails.informationschemavalue.md) |  | InformationSchemaTable |  |
 

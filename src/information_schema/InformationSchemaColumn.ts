@@ -3,7 +3,7 @@ import YesNo from './YesNo';
 /**
  * The view columns contains information about all table columns (or view columns) in the database. System columns (ctid, etc.) are not included. Only those columns are shown that the current user has access to (by way of being the owner or having some privilege).
  */
-type InformationSchemaColumn = {
+interface InformationSchemaColumn {
   /** Name of the database containing the table (always the current database) */
   table_catalog: string;
   /** Name of the schema containing the table */
@@ -92,6 +92,6 @@ type InformationSchemaColumn = {
   generation_expression: any;
   /** YES if the column is updatable, NO if not (Columns in base tables are always updatable, columns in views not necessarily) */
   is_updatable: YesNo;
-};
+}
 
 export default InformationSchemaColumn;

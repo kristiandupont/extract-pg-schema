@@ -3,12 +3,12 @@ import { Knex } from 'knex';
 import InformationSchemaDomain from '../information_schema/InformationSchemaDomain';
 import PgType from './PgType';
 
-export type DomainDetails = {
+export interface DomainDetails {
   name: string;
   innerType: string;
 
   informationSchemaValue: InformationSchemaDomain;
-};
+}
 
 const extractDomain = async (
   db: Knex,

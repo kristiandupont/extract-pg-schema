@@ -10,7 +10,7 @@ export type AttributeType = {
   kind: 'base' | 'range' | 'domain' | 'composite' | 'enum';
 };
 
-export type CompositeTypeAttribute = {
+export interface CompositeTypeAttribute {
   name: string;
   expandedType: string;
   type: AttributeType;
@@ -30,42 +30,42 @@ export type CompositeTypeAttribute = {
    * Use with caution, not all fields are guaranteed to be meaningful and/or accurate.
    */
   fakeInformationSchemaValue: InformationSchemaColumn;
-};
+}
 
-export type CompositeTypeDetails = {
+export interface CompositeTypeDetails {
   attributes: CompositeTypeAttribute[];
-};
+}
 
 // NOTE: This is NOT identical for the one for tables.
 // The dimension field is not present for materialized views, so we
 // deduce whether or not it is an array by checking the type.
 const typeMapQueryPart = `
-select
-  pg_attribute.attname as "column_name",
-  typnamespace::regnamespace::text||'.'||(case when (t.typelem <> 0::oid AND t.typlen = '-1'::integer) then substring(typname, 2)||'[]' else typname end)::text as "expanded_name",
-  json_build_object(
-	  'fullName', typnamespace::regnamespace::text||'.'||substring(typname, (case when (t.typelem <> 0::oid AND t.typlen = '-1'::integer) then 2 else 1 end))::text,
-    'kind', case 
-      when typtype = 'd' then 'domain'
-      when typtype = 'r' then 'range'
-      when typtype = 'c' then 'composite'
-      when typtype = 'e' then 'enum'
-      when typtype = 'b' then COALESCE((select case 
-        when i.typtype = 'r' then 'range' 
-        when i.typtype = 'd' then 'domain' 
-        when i.typtype = 'c' then 'composite' 
-        when i.typtype = 'e' then 'enum' 
-      end as inner_kind from pg_type i where i.oid = t.typelem), 'base')
-    ELSE 'unknown'
-    end
-  ) as "type_info"
-from pg_type t
-join pg_attribute on pg_attribute.atttypid = t.oid
-join pg_class on pg_attribute.attrelid = pg_class.oid
-join pg_namespace on pg_class.relnamespace = pg_namespace.oid
-WHERE
-  pg_namespace.nspname = :schema_name
-  and pg_class.relname = :table_name
+  select
+    pg_attribute.attname as "column_name",
+    typnamespace::regnamespace::text||'.'||(case when (t.typelem <> 0::oid AND t.typlen = '-1'::integer) then substring(typname, 2)||'[]' else typname end)::text as "expanded_name",
+    json_build_object(
+      'fullName', typnamespace::regnamespace::text||'.'||substring(typname, (case when (t.typelem <> 0::oid AND t.typlen = '-1'::integer) then 2 else 1 end))::text,
+      'kind', case 
+        when typtype = 'd' then 'domain'
+        when typtype = 'r' then 'range'
+        when typtype = 'c' then 'composite'
+        when typtype = 'e' then 'enum'
+        when typtype = 'b' then COALESCE((select case 
+          when i.typtype = 'r' then 'range' 
+          when i.typtype = 'd' then 'domain' 
+          when i.typtype = 'c' then 'composite' 
+          when i.typtype = 'e' then 'enum' 
+        end as inner_kind from pg_type i where i.oid = t.typelem), 'base')
+      ELSE 'unknown'
+      end
+    ) as "type_info"
+  from pg_type t
+  join pg_attribute on pg_attribute.atttypid = t.oid
+  join pg_class on pg_attribute.attrelid = pg_class.oid
+  join pg_namespace on pg_class.relnamespace = pg_namespace.oid
+  WHERE
+    pg_namespace.nspname = :schema_name
+    and pg_class.relname = :table_name
 `;
 
 const extractCompositeType = async (

@@ -1,7 +1,7 @@
 /**
  * The view domains contains all domains defined in the current database. Only those domains are shown that the current user has access to (by way of being the owner or having some privilege).
  */
-type InformationSchemaDomain = {
+interface InformationSchemaDomain {
   /** Name of the database that contains the domain (always the current database) */
   domain_catalog: string;
   /** Name of the schema that contains the domain */
@@ -56,6 +56,6 @@ type InformationSchemaDomain = {
   maximum_cardinality: number | null;
   /** An identifier of the data type descriptor of the domain, unique among the data type descriptors pertaining to the domain (which is trivial, because a domain only contains one data type descriptor). This is mainly useful for joining with other instances of such identifiers. (The specific format of the identifier is not defined and not guaranteed to remain the same in future versions.) */
   dtd_identifier: string | null;
-};
+}
 
 export default InformationSchemaDomain;

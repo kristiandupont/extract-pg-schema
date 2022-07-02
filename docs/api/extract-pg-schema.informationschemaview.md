@@ -2,23 +2,28 @@
 
 [Home](./index.md) &gt; [extract-pg-schema](./extract-pg-schema.md) &gt; [InformationSchemaView](./extract-pg-schema.informationschemaview.md)
 
-## InformationSchemaView type
+## InformationSchemaView interface
 
 The view tables contains all tables and views defined in the current database. Only those tables and views are shown that the current user has access to (by way of being the owner or having some privilege).
 
 <b>Signature:</b>
 
 ```typescript
-declare type InformationSchemaView = {
-    table_catalog: string;
-    table_schema: string;
-    table_name: string;
-    view_definition: string;
-    check_option: 'CASCADED' | 'LOCAL' | 'NONE';
-    is_updatable: YesNo;
-    is_insertable_into: YesNo;
-    is_trigger_updatable: YesNo;
-    is_trigger_deletable: YesNo;
-    is_trigger_insertable_into: YesNo;
-};
+interface InformationSchemaView 
 ```
+
+## Properties
+
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [check\_option](./extract-pg-schema.informationschemaview.check_option.md) |  | 'CASCADED' \| 'LOCAL' \| 'NONE' | CASCADED or LOCAL if the view has a CHECK OPTION defined on it, NONE if not |
+|  [is\_insertable\_into](./extract-pg-schema.informationschemaview.is_insertable_into.md) |  | YesNo | YES if the table is insertable into, NO if not (Base tables are always insertable into, views not necessarily.) |
+|  [is\_trigger\_deletable](./extract-pg-schema.informationschemaview.is_trigger_deletable.md) |  | YesNo | YES if the view has an INSTEAD OF DELETE trigger defined on it, NO if not |
+|  [is\_trigger\_insertable\_into](./extract-pg-schema.informationschemaview.is_trigger_insertable_into.md) |  | YesNo | YES if the view has an INSTEAD OF INSERT trigger defined on it, NO if not |
+|  [is\_trigger\_updatable](./extract-pg-schema.informationschemaview.is_trigger_updatable.md) |  | YesNo | YES if the view has an INSTEAD OF UPDATE trigger defined on it, NO if not |
+|  [is\_updatable](./extract-pg-schema.informationschemaview.is_updatable.md) |  | YesNo | ES if the view is updatable (allows UPDATE and DELETE), NO if not |
+|  [table\_catalog](./extract-pg-schema.informationschemaview.table_catalog.md) |  | string | Name of the database that contains the table (always the current database) |
+|  [table\_name](./extract-pg-schema.informationschemaview.table_name.md) |  | string | Name of the table |
+|  [table\_schema](./extract-pg-schema.informationschemaview.table_schema.md) |  | string | Name of the schema that contains the table |
+|  [view\_definition](./extract-pg-schema.informationschemaview.view_definition.md) |  | string | Query expression defining the view (null if the view is not owned by a currently enabled role) |
+

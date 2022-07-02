@@ -2,40 +2,45 @@
 
 [Home](./index.md) &gt; [extract-pg-schema](./extract-pg-schema.md) &gt; [InformationSchemaDomain](./extract-pg-schema.informationschemadomain.md)
 
-## InformationSchemaDomain type
+## InformationSchemaDomain interface
 
 The view domains contains all domains defined in the current database. Only those domains are shown that the current user has access to (by way of being the owner or having some privilege).
 
 <b>Signature:</b>
 
 ```typescript
-declare type InformationSchemaDomain = {
-    domain_catalog: string;
-    domain_schema: string;
-    domain_name: string;
-    data_type: string;
-    character_maximum_length: number | null;
-    character_octet_length: number | null;
-    character_set_catalog: string | null;
-    character_set_schema: string | null;
-    character_set_name: string | null;
-    collation_catalog: string | null;
-    collation_schema: string | null;
-    collation_name: string | null;
-    numeric_precision: number | null;
-    numeric_precision_radix: number | null;
-    numeric_scale: number | null;
-    datetime_precision: number | null;
-    interval_type: string | null;
-    interval_precision: number | null;
-    domain_default: string | null;
-    udt_catalog: string | null;
-    udt_schema: string | null;
-    udt_name: string | null;
-    scope_catalog: string | null;
-    scope_schema: string | null;
-    scope_name: string | null;
-    maximum_cardinality: number | null;
-    dtd_identifier: string | null;
-};
+interface InformationSchemaDomain 
 ```
+
+## Properties
+
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [character\_maximum\_length](./extract-pg-schema.informationschemadomain.character_maximum_length.md) |  | number \| null | If the domain has a character or bit string type, the declared maximum length; null for all other data types or if no maximum length was declared. |
+|  [character\_octet\_length](./extract-pg-schema.informationschemadomain.character_octet_length.md) |  | number \| null | If the domain has a character type, the maximum possible length in octets (bytes) of a datum; null for all other data types. The maximum octet length depends on the declared character maximum length (see above) and the server encoding. |
+|  [character\_set\_catalog](./extract-pg-schema.informationschemadomain.character_set_catalog.md) |  | string \| null | Applies to a feature not available in PostgreSQL |
+|  [character\_set\_name](./extract-pg-schema.informationschemadomain.character_set_name.md) |  | string \| null | Applies to a feature not available in PostgreSQL |
+|  [character\_set\_schema](./extract-pg-schema.informationschemadomain.character_set_schema.md) |  | string \| null | Applies to a feature not available in PostgreSQL |
+|  [collation\_catalog](./extract-pg-schema.informationschemadomain.collation_catalog.md) |  | string \| null | Name of the database containing the collation of the domain (always the current database), null if default or the data type of the domain is not collatable |
+|  [collation\_name](./extract-pg-schema.informationschemadomain.collation_name.md) |  | string \| null | Name of the collation of the domain, null if default or the data type of the domain is not collatable |
+|  [collation\_schema](./extract-pg-schema.informationschemadomain.collation_schema.md) |  | string \| null | Name of the schema containing the collation of the domain, null if default or the data type of the domain is not collatable |
+|  [data\_type](./extract-pg-schema.informationschemadomain.data_type.md) |  | string | Data type of the domain, if it is a built-in type, or ARRAY if it is some array (in that case, see the view element\_types), else USER-DEFINED (in that case, the type is identified in udt\_name and associated columns). |
+|  [datetime\_precision](./extract-pg-schema.informationschemadomain.datetime_precision.md) |  | number \| null | If data\_type identifies a date, time, timestamp, or interval type, this column contains the (declared or implicit) fractional seconds precision of the type for this domain, that is, the number of decimal digits maintained following the decimal point in the seconds value. For all other data types, this column is null. |
+|  [domain\_catalog](./extract-pg-schema.informationschemadomain.domain_catalog.md) |  | string | Name of the database that contains the domain (always the current database) |
+|  [domain\_default](./extract-pg-schema.informationschemadomain.domain_default.md) |  | string \| null | Default expression of the domain |
+|  [domain\_name](./extract-pg-schema.informationschemadomain.domain_name.md) |  | string | Name of the domain |
+|  [domain\_schema](./extract-pg-schema.informationschemadomain.domain_schema.md) |  | string | Name of the schema that contains the domain |
+|  [dtd\_identifier](./extract-pg-schema.informationschemadomain.dtd_identifier.md) |  | string \| null | An identifier of the data type descriptor of the domain, unique among the data type descriptors pertaining to the domain (which is trivial, because a domain only contains one data type descriptor). This is mainly useful for joining with other instances of such identifiers. (The specific format of the identifier is not defined and not guaranteed to remain the same in future versions.) |
+|  [interval\_precision](./extract-pg-schema.informationschemadomain.interval_precision.md) |  | number \| null | Applies to a feature not available in PostgreSQL (see datetime\_precision for the fractional seconds precision of interval type domains) |
+|  [interval\_type](./extract-pg-schema.informationschemadomain.interval_type.md) |  | string \| null | If data\_type identifies an interval type, this column contains the specification which fields the intervals include for this domain, e.g., YEAR TO MONTH, DAY TO SECOND, etc. If no field restrictions were specified (that is, the interval accepts all fields), and for all other data types, this field is null. |
+|  [maximum\_cardinality](./extract-pg-schema.informationschemadomain.maximum_cardinality.md) |  | number \| null | Always null, because arrays always have unlimited maximum cardinality in PostgreSQL |
+|  [numeric\_precision\_radix](./extract-pg-schema.informationschemadomain.numeric_precision_radix.md) |  | number \| null | If the domain has a numeric type, this column indicates in which base the values in the columns numeric\_precision and numeric\_scale are expressed. The value is either 2 or 10. For all other data types, this column is null. |
+|  [numeric\_precision](./extract-pg-schema.informationschemadomain.numeric_precision.md) |  | number \| null | If the domain has a numeric type, this column contains the (declared or implicit) precision of the type for this domain. The precision indicates the number of significant digits. It can be expressed in decimal (base 10) or binary (base 2) terms, as specified in the column numeric\_precision\_radix. For all other data types, this column is null. |
+|  [numeric\_scale](./extract-pg-schema.informationschemadomain.numeric_scale.md) |  | number \| null | If the domain has an exact numeric type, this column contains the (declared or implicit) scale of the type for this domain. The scale indicates the number of significant digits to the right of the decimal point. It can be expressed in decimal (base 10) or binary (base 2) terms, as specified in the column numeric\_precision\_radix. For all other data types, this column is null. |
+|  [scope\_catalog](./extract-pg-schema.informationschemadomain.scope_catalog.md) |  | string \| null | Applies to a feature not available in PostgreSQL |
+|  [scope\_name](./extract-pg-schema.informationschemadomain.scope_name.md) |  | string \| null | Applies to a feature not available in PostgreSQL |
+|  [scope\_schema](./extract-pg-schema.informationschemadomain.scope_schema.md) |  | string \| null | Applies to a feature not available in PostgreSQL |
+|  [udt\_catalog](./extract-pg-schema.informationschemadomain.udt_catalog.md) |  | string \| null | Name of the database that the domain data type is defined in (always the current database) |
+|  [udt\_name](./extract-pg-schema.informationschemadomain.udt_name.md) |  | string \| null | Name of the domain data type |
+|  [udt\_schema](./extract-pg-schema.informationschemadomain.udt_schema.md) |  | string \| null | Name of the schema that the domain data type is defined in |
+
