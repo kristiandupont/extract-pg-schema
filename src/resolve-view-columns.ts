@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-import { TableOrView } from './types';
+type TableOrView = any;
 
 const resolveViewColumns = (
   views: TableOrView[],
@@ -10,7 +10,7 @@ const resolveViewColumns = (
   const everything = R.indexBy(R.prop('name'), [...tables, ...views]);
 
   return views.map((view) => {
-    const columns = view.columns.map((column) => {
+    const columns = view.columns.map((column: any) => {
       let source = column.source;
       while (source) {
         if (source.schema && source.schema !== schemaName) {
@@ -20,7 +20,7 @@ const resolveViewColumns = (
           source = undefined;
         } else {
           const sourceColumn = everything[source.table].columns.find(
-            (col) => col.name === source!.column
+            (col: any) => col.name === source!.column
           );
           if (!sourceColumn) {
             throw new Error(

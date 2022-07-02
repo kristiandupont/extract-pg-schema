@@ -1,7 +1,6 @@
 import { ConnectionConfig } from 'pg';
 
-import extractSchemas from './extractSchemas';
-import { Schema } from './types';
+import extractSchemas from '../extractSchemas';
 
 /** @deprecated - use extractSchemas instead */
 const extractSchema = async (
@@ -9,14 +8,22 @@ const extractSchema = async (
   connectionConfig: string | ConnectionConfig,
   resolveViews: boolean,
   tables?: string[]
-): Promise<Schema> => {
+) => {
   console.warn('NOTE: extractSchema is deprecated, use extractSchemas instead');
 
   const r = await extractSchemas(connectionConfig, {
     schemas: [schemaName],
     resolveViews,
   });
-  return r[schemaName];
+  const result = {
+    tables: r[schemaName].table,
+    views: r[schemaName].view,
+    types: [
+      ...(r[schemaName].enum ?? []),
+      ...(r[schemaName].compositeType ?? []),
+    ],
+  };
+  return result;
 };
 
 export default extractSchema;

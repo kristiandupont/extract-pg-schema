@@ -6,6 +6,8 @@ import {
   describe as viDescribe,
 } from 'vitest';
 
+export { expect, it, test } from 'vitest';
+
 export let describe: (name: string, fn: () => void) => void;
 
 let globalScope = '';

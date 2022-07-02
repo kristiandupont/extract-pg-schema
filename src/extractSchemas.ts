@@ -13,30 +13,18 @@ import fetchTypes from './kinds/fetchTypes';
 import PgType, { Kind } from './kinds/PgType';
 // import resolveViewColumns from './resolveViewColumns';
 
-const makePopulator =
-  <K extends Kind, T>(populate: (db: Knex, pgType: PgType<K>) => Promise<T>) =>
-  async (db: Knex, pgTypes: PgType<K>[], onProgress?: () => void) => {
-    const res = await Promise.all(
-      pgTypes.map(async (pgType) => {
-        const populatedResult = await populate(db, pgType);
-        onProgress?.();
-        return {
-          ...pgType,
-          ...populatedResult,
-        };
-      })
-    );
-    return res;
-  };
+type Populator = <K extends Kind>(db: Knex, pgType: PgType<K>) => Promise<any>;
 
-const extractDomains = makePopulator(extractDomain);
-const extractEnums = makePopulator(extractEnum);
-const extractRanges = makePopulator(extractRange);
+const populatorMap: Record<Kind, Populator<Kind>> = {
+  domain: extractDomain,
+  enum: extractEnum,
+  range: extractRange,
 
-const extractTables = makePopulator(extractTable);
-const extractViews = makePopulator(extractView);
-const extractMaterializedViews = makePopulator(extractMaterializedView);
-const extractCompositeTypes = makePopulator(extractCompositeType);
+  table: extractTable,
+  view: extractView,
+  materializedView: extractMaterializedView,
+  compositeType: extractCompositeType,
+} as const;
 
 export type ExtractSchemaOptions = {
   schemas?: string[];
@@ -56,14 +44,26 @@ async function extractSchemas(
   const connection = connectionConfig as string | Knex.PgConnectionConfig;
   const db = knex({ client: 'postgres', connection });
 
-  let schemaNames = options?.schemas;
-  if (!schemaNames) {
-    const q = await db
-      .select<{ nspname: string }[]>('nspname')
-      .from('pg_catalog.pg_namespace')
-      .whereNot('nspname', '=', 'information_schema')
-      .whereNot('nspname', 'LIKE', 'pg_%');
-    schemaNames = R.pluck('nspname', q);
+  const q = await db
+    .select<{ nspname: string }[]>('nspname')
+    .from('pg_catalog.pg_namespace')
+    .whereNot('nspname', '=', 'information_schema')
+    .whereNot('nspname', 'LIKE', 'pg_%');
+  const allSchemaNames = R.pluck('nspname', q);
+
+  const schemaNames = options?.schemas ?? allSchemaNames;
+  if (options?.schemas) {
+    if (schemaNames.length === 0) {
+      throw new Error(`No schemas found for ${options.schemas}`);
+    }
+
+    const missingSchemas = schemaNames.filter(
+      (schemaName) => !allSchemaNames.includes(schemaName)
+    );
+
+    if (missingSchemas.length > 0) {
+      throw new Error(`No schemas found for ${missingSchemas}`);
+    }
   }
 
   const pgTypes = await fetchTypes(db, schemaNames);
@@ -76,56 +76,29 @@ async function extractSchemas(
     options.onProgressStart(typesToExtract.length);
   }
 
-  const groups = R.groupBy(R.prop('kind'), typesToExtract);
+  // const groups = R.groupBy(R.prop('kind'), typesToExtract);
 
-  const domains = await extractDomains(
-    db,
-    groups.domain as PgType<'domain'>[],
-    options?.onProgress
-  );
-  const enums = await extractEnums(
-    db,
-    groups.enum as PgType<'enum'>[],
-    options?.onProgress
-  );
-  const ranges = await extractRanges(
-    db,
-    groups.range as PgType<'range'>[],
-    options?.onProgress
+  const populated = await Promise.all(
+    typesToExtract.map(async (pgType) => {
+      const populator = populatorMap[pgType.kind];
+      if (!populator) {
+        throw new Error(`No populator for kind ${pgType.kind}`);
+      }
+      const p = await populator(db, pgType);
+      return { ...pgType, ...p };
+    })
   );
 
-  const tables = await extractTables(
-    db,
-    groups.table as PgType<'table'>[],
-    options?.onProgress
-  );
-  const views = await extractViews(
-    db,
-    groups.view as PgType<'view'>[],
-    options?.onProgress
-  );
-  const materializedViews = await extractMaterializedViews(
-    db,
-    groups.materializedView as PgType<'materializedView'>[],
-    options?.onProgress
-  );
-  const compositeTypes = await extractCompositeTypes(
-    db,
-    groups.compositeType as PgType<'compositeType'>[],
-    options?.onProgress
-  );
+  const schemas: Record<string, Schema> = R.pipe(
+    // @ts-ignore
+    R.groupBy(R.prop('schemaName')),
+    // @ts-ignore
+    R.map(R.groupBy(R.prop('kind')))
+  )(populated) as Record<string, Record<Kind, PgType<Kind>>>;
 
   await db.destroy();
 
-  return {
-    domains,
-    enums,
-    ranges,
-    tables,
-    views,
-    materializedViews,
-    compositeTypes,
-  };
+  return schemas;
 
   // schemas.forEach(async (schema) => {
   //   const schemaName = typeof schema === 'string' ? schema : schema.name;

@@ -2,9 +2,9 @@ export const typeKindMap = {
   d: 'domain',
   e: 'enum',
   r: 'range',
-  m: 'multiRange',
 
   // Not supported (yet):
+  // m: 'multiRange',
   // b: 'base',
   // p: 'pseudo',
 

@@ -73,9 +73,9 @@ describe('extractSchema', () => {
       'CREATE VIEW some_schema.default_view AS select * from some_schema.default_table'
     );
 
-    await setupDB.schema.raw(
-      'CREATE MATERIALIZED VIEW some_schema.default_matview AS select * from some_schema.default_table'
-    );
+    // await setupDB.schema.raw(
+    //   'CREATE MATERIALIZED VIEW some_schema.default_matview AS select * from some_schema.default_table'
+    // );
 
     await setupDB.schema.createSchemaIfNotExists('not_default');
     await setupDB.schema.raw(
@@ -117,7 +117,7 @@ describe('extractSchema', () => {
     expect(extracted.tables).toHaveLength(1);
     expect(extracted.tables[0].name).toBe('default_table');
 
-    expect(extracted.views).toHaveLength(2);
+    expect(extracted.views).toHaveLength(1);
 
     const extractedViewNames = extracted.views.map((view) => view.name);
     expect(extractedViewNames).toContain('default_view');

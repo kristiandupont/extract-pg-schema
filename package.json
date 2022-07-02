@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@kristiandupont/eslint-config": "1.2.7",
+    "@types/jsonpath": "^0.2.0",
     "@types/pg": "8.6.5",
     "@types/ramda": "0.28.14",
     "eslint": "8.17.0",
