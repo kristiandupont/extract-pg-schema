@@ -20,7 +20,10 @@
     "build": "tsc",
     "lint": "yarn eslint . -f visualstudio --report-unused-disable-directives --ext .js,.ts",
     "test": "vitest run",
-    "version": "yarn build"
+    "version": "yarn build",
+    "docs:prep": "tsc && yarn api-extractor run --local --verbose && yarn api-documenter markdown --input-folder=./temp/ --output-folder=./docs/api && rm -rf ./temp",
+    "docs:dev": "yarn docs:prep && vitepress dev docs",
+    "docs:build": "yarn docs:prep && vitepress build docs"
   },
   "prettier": {
     "singleQuote": true,
@@ -36,6 +39,8 @@
   },
   "devDependencies": {
     "@kristiandupont/eslint-config": "1.2.7",
+    "@microsoft/api-documenter": "^7.18.0",
+    "@microsoft/api-extractor": "^7.28.2",
     "@types/jsonpath": "^0.2.0",
     "@types/pg": "8.6.5",
     "@types/ramda": "0.28.14",
@@ -44,7 +49,9 @@
     "prettier": "2.7.0",
     "testcontainers": "8.10.1",
     "typescript": "4.7.3",
-    "vitest": "0.14.2"
+    "vitepress": "^1.0.0-alpha.4",
+    "vitest": "0.14.2",
+    "vue": "^3.2.37"
   },
   "np": {}
 }
