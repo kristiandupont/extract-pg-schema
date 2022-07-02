@@ -4,6 +4,7 @@ import InformationSchemaColumn from '../information_schema/InformationSchemaColu
 import InformationSchemaView from '../information_schema/InformationSchemaView';
 import PgType from './PgType';
 import commentMapQueryPart from './query-parts/commentMapQueryPart';
+import indexMapQueryPart from './query-parts/indexMapQueryPart';
 
 type Type = {
   fullName: string;
@@ -86,6 +87,9 @@ const extractView = async (
   const columnsQuery = await db.raw(
     `
     WITH 
+    index_map AS (
+      ${indexMapQueryPart}
+    ),
     type_map AS (
       ${typeMapQueryPart}
     ),
@@ -109,10 +113,13 @@ const extractView = async (
       ELSE
         is_generated
       END AS "generated", 
+      COALESCE(index_map.is_primary, FALSE) AS "isPrimaryKey", 
+      COALESCE(index_map.indices, '[]'::json) AS "indices", 
       
       row_to_json(columns.*) AS "informationSchemaValue"
     FROM
       information_schema.columns
+      LEFT JOIN index_map ON index_map.column_name = columns.column_name
       LEFT JOIN type_map ON type_map.column_name = columns.column_name
       LEFT JOIN comment_map ON comment_map.column_name = columns.column_name
     WHERE

@@ -7,5 +7,16 @@
 <b>Signature:</b>
 
 ```typescript
-export declare type Schema = any;
+export declare type Schema = {
+    name: string;
+    domain: PopulatedType[];
+    enum: PopulatedType[];
+    range: PopulatedType[];
+    table: PopulatedType[];
+    view: PopulatedType[];
+    materializedView: PopulatedType[];
+    compositeType: PopulatedType[];
+};
 ```
+<b>References:</b> [PopulatedType](./extract-pg-schema.populatedtype.md)
+

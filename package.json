@@ -35,7 +35,8 @@
     "knex": "2.1.0",
     "pg": "8.7.3",
     "pg-query-emscripten": "^0.1.0",
-    "ramda": "^0.28.0"
+    "ramda": "^0.28.0",
+    "tagged-comment-parser": "^1.1.1"
   },
   "devDependencies": {
     "@kristiandupont/eslint-config": "1.2.7",

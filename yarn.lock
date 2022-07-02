@@ -4569,6 +4569,11 @@ symbol-observable@^3.0.0:
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-3.0.0.tgz#eea8f6478c651018e059044268375c408c15c533"
   integrity sha512-6tDOXSHiVjuCaasQSWTmHUWn4PuG7qa3+1WT031yTc/swT7+rLiw3GOrFxaH1E3lLP09dH3bVuVDf2gK5rxG3Q==
 
+tagged-comment-parser@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/tagged-comment-parser/-/tagged-comment-parser-1.1.1.tgz#d834d382783bf37e716f3835367c926c8e0dec26"
+  integrity sha512-YU/dkS7zCqrlrvhY/4xDnMWvYsXxwPlndEIzfn7pq29MjnJSiQcMtPZqO6rBBf6F1V47LnctNrsMo2pPIgWv5A==
+
 tar-fs@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/tar-fs/-/tar-fs-2.1.1.tgz#489a15ab85f1f0befabb370b7de4f9eb5cbe8784"

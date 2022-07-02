@@ -4,6 +4,7 @@ import InformationSchemaColumn from '../information_schema/InformationSchemaColu
 import InformationSchemaTable from '../information_schema/InformationSchemaTable';
 import PgType from './PgType';
 import commentMapQueryPart from './query-parts/commentMapQueryPart';
+import indexMapQueryPart from './query-parts/indexMapQueryPart';
 
 const updateActionMap = {
   a: 'NO ACTION',
@@ -13,7 +14,7 @@ const updateActionMap = {
   d: 'SET DEFAULT',
 } as const;
 
-type UpdateAction = typeof updateActionMap[keyof typeof updateActionMap];
+export type UpdateAction = typeof updateActionMap[keyof typeof updateActionMap];
 
 export type ColumnReference = {
   schemaName: string;
@@ -28,7 +29,7 @@ export type Index = {
   isPrimary: boolean;
 };
 
-type Type = {
+export type TableColumnType = {
   fullName: string;
   kind: 'base' | 'range' | 'domain' | 'composite' | 'enum';
 };
@@ -36,7 +37,7 @@ type Type = {
 export type TableColumn = {
   name: string;
   expandedType: string;
-  type: Type;
+  type: TableColumnType;
   comment: string | null;
   defaultValue: any;
   isArray: boolean;
@@ -106,30 +107,6 @@ const referenceMapQueryPart = `
         JOIN pg_class target_class ON target_class.oid = expanded_constraint.confrelid
       WHERE
         target_class.relispartition = FALSE
-`;
-
-const indexMapQueryPart = `
-      SELECT
-        a.attname AS column_name,
-        bool_or(ix.indisprimary) AS is_primary,
-        json_agg(json_build_object(
-            'name', i.relname,
-            'isPrimary', ix.indisprimary)
-            ) AS indices
-      FROM
-        pg_class t,
-        pg_class i,
-        pg_index ix,
-        pg_attribute a
-      WHERE
-        t.oid = ix.indrelid
-        AND i.oid = ix.indexrelid
-        AND a.attrelid = t.oid
-        AND a.attnum = ANY (ix.indkey)
-        AND t.relkind = 'r'
-        AND t.relname = :table_name
-      GROUP BY
-        a.attname
 `;
 
 const typeMapQueryPart = `

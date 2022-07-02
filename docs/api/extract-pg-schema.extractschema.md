@@ -13,8 +13,8 @@
 
 ```typescript
 extractSchema: (schemaName: string, connectionConfig: string | ConnectionConfig, resolveViews: boolean, tables?: string[]) => Promise<{
-    tables: any;
-    views: any;
+    tables: any[];
+    views: any[];
     types: any[];
 }>
 ```

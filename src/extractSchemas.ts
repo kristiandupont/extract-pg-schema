@@ -17,7 +17,7 @@ import fetchTypes from './kinds/fetchTypes';
 import PgType, { Kind } from './kinds/PgType';
 // import resolveViewColumns from './resolveViewColumns';
 
-type Details =
+export type Details =
   | DomainDetails
   | EnumDetails
   | RangeDetails
@@ -26,7 +26,20 @@ type Details =
   | MaterializedViewDetails
   | CompositeTypeDetails;
 
-const emptySchema: Record<Kind, []> = {
+export type PopulatedType = PgType & Details;
+
+export type Schema = {
+  name: string;
+  domain: PopulatedType[];
+  enum: PopulatedType[];
+  range: PopulatedType[];
+  table: PopulatedType[];
+  view: PopulatedType[];
+  materializedView: PopulatedType[];
+  compositeType: PopulatedType[];
+};
+
+const emptySchema: Omit<Schema, 'name'> = {
   domain: [],
   enum: [],
   range: [],
@@ -58,8 +71,6 @@ export type ExtractSchemaOptions = {
   onProgress?: () => void;
   onProgressEnd?: () => void;
 };
-
-type Schema = any;
 
 async function extractSchemas(
   connectionConfig: string | ConnectionConfig,
@@ -107,7 +118,10 @@ async function extractSchemas(
   const schemas: Record<string, Schema> = {};
   populated.forEach((p: PgType & Details) => {
     if (!(p.schemaName in schemas)) {
-      schemas[p.schemaName] = emptySchema;
+      schemas[p.schemaName] = {
+        name: p.schemaName,
+        ...emptySchema,
+      };
     }
     schemas[p.schemaName][p.kind] = [...schemas[p.schemaName][p.kind], p];
   });

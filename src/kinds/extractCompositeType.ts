@@ -5,7 +5,7 @@ import PgType from './PgType';
 import commentMapQueryPart from './query-parts/commentMapQueryPart';
 import fakeInformationSchemaColumnsQueryPart from './query-parts/fakeInformationSchemaColumnsQueryPart';
 
-type Type = {
+export type AttributeType = {
   fullName: string;
   kind: 'base' | 'range' | 'domain' | 'composite' | 'enum';
 };
@@ -13,7 +13,7 @@ type Type = {
 export type CompositeTypeAttribute = {
   name: string;
   expandedType: string;
-  type: Type;
+  type: AttributeType;
   comment: string | null;
   defaultValue: any;
   isArray: boolean;
