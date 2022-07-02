@@ -39,6 +39,9 @@ export type ViewDetails = {
   columns: ViewColumn[];
 };
 
+// NOTE: This is NOT identical for the one for tables.
+// The dimension field is not present for materialized views, so we
+// deduce whether or not it is an array by checking the type.
 const typeMapQueryPart = `
 select
   pg_attribute.attname as "column_name",
