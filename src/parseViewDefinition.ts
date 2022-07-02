@@ -2,7 +2,7 @@ import jp from 'jsonpath';
 import pgQuery from 'pg-query-emscripten';
 import { last } from 'ramda';
 
-function parseViewDefinition(selectStatement) {
+function parseViewDefinition(selectStatement: string) {
   const ast = pgQuery.parse(selectStatement).parse_tree[0];
   const selectAst = ast.RawStmt?.stmt?.SelectStmt;
 

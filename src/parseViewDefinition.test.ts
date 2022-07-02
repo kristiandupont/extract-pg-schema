@@ -1,6 +1,5 @@
-import { describe, expect, it } from 'vitest';
-
-import parseViewDefinition from './parse-view-definition';
+import parseViewDefinition from './parseViewDefinition';
+import { describe, expect, it } from './tests/fixture';
 
 describe('parseViewDefinition', () => {
   it('should understand a trivial select', () => {
