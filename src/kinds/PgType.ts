@@ -14,7 +14,7 @@ type TypeKind = typeof typeKindMap[keyof typeof typeKindMap];
 
 export const classKindMap = {
   r: 'table',
-  p: 'table',
+  p: 'table', // Treat partitioned tables as tables
   v: 'view',
   m: 'materializedView',
   c: 'compositeType',
@@ -28,17 +28,18 @@ export const classKindMap = {
 } as const;
 type ClassKind = typeof classKindMap[keyof typeof classKindMap];
 
-export const routineKindMap = {
-  p: 'procedure',
-  f: 'function',
-  a: 'aggregate',
+// Routines are not supported yet.
+// export const routineKindMap = {
+//   p: 'procedure',
+//   f: 'function',
+//   a: 'aggregate',
 
-  // Not supported (yet):
-  // w: 'windowFunction',
-};
-type RoutineKind = typeof routineKindMap[keyof typeof routineKindMap];
+//   // Not supported (yet):
+//   // w: 'windowFunction',
+// };
+// type RoutineKind = typeof routineKindMap[keyof typeof routineKindMap];
 
-export type Kind = TypeKind | ClassKind | RoutineKind;
+export type Kind = TypeKind | ClassKind; //  | RoutineKind;
 
 type PgType<K extends Kind = Kind> = {
   name: string;
