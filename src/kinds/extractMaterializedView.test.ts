@@ -20,7 +20,7 @@ const makePgType = (
   comment: null,
 });
 
-describe('extractView', () => {
+describe('extractMaterializedView', () => {
   const [getKnex, databaseName] = useTestKnex();
   useSchema(getKnex, 'test');
 
