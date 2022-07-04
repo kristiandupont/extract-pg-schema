@@ -28,6 +28,10 @@ describe('extractView', () => {
     const result = await extractView(db, makePgType('some_view'));
 
     const expected: ViewDetails = {
+      name: 'some_view',
+      schemaName: 'test',
+      kind: 'view',
+      comment: null,
       definition: ' SELECT 1 AS id;',
       informationSchemaValue: {
         table_catalog: databaseName,

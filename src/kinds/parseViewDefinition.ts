@@ -2,14 +2,21 @@ import jp from 'jsonpath';
 import pgQuery from 'pg-query-emscripten';
 import { last } from 'ramda';
 
-type ViewReference = {
-  sourceColumn: string;
-  targetSchema: string | undefined;
-  targetTable: string;
-  targetColumn: string;
+export type ViewReference = {
+  viewColumn: string;
+  source:
+    | {
+        schema: string;
+        table: string;
+        column: string;
+      }
+    | undefined;
 };
 
-function parseViewDefinition(selectStatement: string): ViewReference[] {
+function parseViewDefinition(
+  selectStatement: string,
+  defaultSchema: string
+): ViewReference[] {
   const ast = pgQuery.parse(selectStatement).parse_tree[0];
   const selectAst = ast.RawStmt?.stmt?.SelectStmt;
 
@@ -40,22 +47,29 @@ function parseViewDefinition(selectStatement: string): ViewReference[] {
   );
   const viewReferences = selectTargets.map((selectTarget) => {
     const fields = jp.query(selectTarget, '$.val[*].fields[*].String.str');
-    let targetTable = firstFromTable?.relname;
-    let targetSchema = firstFromTable?.schemaname;
+    let sourceTable = firstFromTable?.relname;
+    let sourceSchema = firstFromTable?.schemaname;
     if (fields.length === 2) {
       const tableRel = fields[0];
       if (tableRel in aliases) {
-        targetTable = aliases[tableRel].table;
-        targetSchema = aliases[tableRel].schema ?? targetSchema;
+        sourceTable = aliases[tableRel].table;
+        sourceSchema = aliases[tableRel].schema ?? sourceSchema;
       } else {
-        targetTable = tableRel;
+        sourceTable = tableRel;
       }
     }
+    const sourceColumn = last(fields);
+
     const viewReference: ViewReference = {
-      sourceColumn: selectTarget.name || last(fields),
-      targetSchema,
-      targetTable,
-      targetColumn: last(fields),
+      viewColumn: selectTarget.name || last(fields),
+      source:
+        sourceTable && sourceColumn
+          ? {
+              schema: sourceSchema ?? defaultSchema,
+              table: sourceTable,
+              column: last(fields),
+            }
+          : undefined,
     };
     return viewReference;
   });

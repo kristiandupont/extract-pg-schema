@@ -1,12 +1,14 @@
 import { Knex } from 'knex';
+import * as R from 'ramda';
 
 import InformationSchemaColumn from '../information_schema/InformationSchemaColumn';
 import InformationSchemaView from '../information_schema/InformationSchemaView';
+import { ColumnReference, Index } from './extractTable';
+import parseViewDefinition, { ViewReference } from './parseViewDefinition';
 import PgType from './PgType';
 import commentMapQueryPart from './query-parts/commentMapQueryPart';
-import indexMapQueryPart from './query-parts/indexMapQueryPart';
 
-type ViewColumnType = {
+export type ViewColumnType = {
   fullName: string;
   kind: 'base' | 'range' | 'domain' | 'composite' | 'enum';
 };
@@ -19,22 +21,32 @@ export interface ViewColumn {
   defaultValue: any;
   isArray: boolean;
   maxLength: number | null;
-  isNullable: boolean;
   generated: 'ALWAYS' | 'NEVER' | 'BY DEFAULT';
   isUpdatable: boolean;
   isIdentity: boolean;
   ordinalPosition: number;
 
   /**
-   * For views, this will contain the original column, if it could be determined.
-   * If schema is undefined, it means "same schema as the view".
+   * This will contain a "link" to the source table or view and column,
+   * if it can be determined.
    */
-  source: { schema: string | undefined; table: string; column: string } | null;
+  source: { schema: string; table: string; column: string } | null;
+
+  /**
+   * If views are resolved, this will contain the reference from the source
+   * column in the table that this view references. Note that if the source
+   * is another view, that view in turn will be resolved if possible, leading
+   * us to a table in the end.
+   */
+  reference?: ColumnReference | null;
+  indices?: Index[];
+  isNullable?: boolean;
+  isPrimaryKey?: boolean;
 
   informationSchemaValue: InformationSchemaColumn;
 }
 
-export interface ViewDetails {
+export interface ViewDetails extends PgType<'view'> {
   definition: string;
   informationSchemaValue: InformationSchemaView;
   columns: ViewColumn[];
@@ -72,6 +84,14 @@ WHERE
   and pg_class.relname = :table_name
 `;
 
+const resolveSource = (
+  column: ViewColumn,
+  sourceMapping?: Record<string, ViewReference>
+): ViewColumn => ({
+  ...column,
+  source: sourceMapping?.[column.name].source ?? null,
+});
+
 const extractView = async (
   db: Knex,
   view: PgType<'view'>
@@ -87,9 +107,6 @@ const extractView = async (
   const columnsQuery = await db.raw(
     `
     WITH 
-    index_map AS (
-      ${indexMapQueryPart}
-    ),
     type_map AS (
       ${typeMapQueryPart}
     ),
@@ -103,7 +120,6 @@ const extractView = async (
       comment_map.comment AS "comment",
       character_maximum_length AS "maxLength", 
       column_default AS "defaultValue", 
-      is_nullable = 'YES' AS "isNullable", 
       data_type = 'ARRAY' AS "isArray", 
       is_identity = 'YES' AS "isIdentity", 
       is_updatable = 'YES' AS "isUpdatable", 
@@ -113,13 +129,10 @@ const extractView = async (
       ELSE
         is_generated
       END AS "generated", 
-      COALESCE(index_map.is_primary, FALSE) AS "isPrimaryKey", 
-      COALESCE(index_map.indices, '[]'::json) AS "indices", 
       
       row_to_json(columns.*) AS "informationSchemaValue"
     FROM
       information_schema.columns
-      LEFT JOIN index_map ON index_map.column_name = columns.column_name
       LEFT JOIN type_map ON type_map.column_name = columns.column_name
       LEFT JOIN comment_map ON comment_map.column_name = columns.column_name
     WHERE
@@ -129,9 +142,26 @@ const extractView = async (
     { table_name: view.name, schema_name: view.schemaName }
   );
 
-  const columns = columnsQuery.rows;
+  const unresolvedColumns: ViewColumn[] = columnsQuery.rows;
+  let sourceMapping: Record<string, ViewReference> | undefined;
+  try {
+    const viewReferences = await parseViewDefinition(
+      informationSchemaValue.view_definition,
+      view.schemaName
+    );
+    sourceMapping = R.indexBy(R.prop('viewColumn'), viewReferences);
+  } catch (e) {
+    console.warn(
+      `Error parsing view definition for "${view.name}". Falling back to raw data`
+    );
+  }
+
+  const columns = unresolvedColumns.map((column) =>
+    resolveSource(column, sourceMapping)
+  );
 
   return {
+    ...view,
     definition: informationSchemaValue.view_definition,
     informationSchemaValue,
     columns,
