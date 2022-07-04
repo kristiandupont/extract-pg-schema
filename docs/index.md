@@ -1,7 +1,7 @@
 # Extract Schema from Postgres Database
 
-This will read various metadata from your postgres database and return a js object.
-This module is being used by [Kanel](https://github.com/kristiandupont/kanel) to generate Typescript types and [Schemalint](https://github.com/kristiandupont/schemalint) to provide linting of database schemas.
+Reads various metadata from your postgres database and returns a js object.
+This package is used by [Kanel](https://github.com/kristiandupont/kanel) to generate Typescript types and [Schemalint](https://github.com/kristiandupont/schemalint) to provide linting of database schemas.
 
 ## Installation
 
@@ -31,3 +31,5 @@ async function run() {
 
 run();
 ```
+
+The generated output is a record of schemas, described with the [Schema](/api/extract-pg-schema.schema.html) type.

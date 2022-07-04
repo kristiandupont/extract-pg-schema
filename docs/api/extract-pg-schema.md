@@ -48,7 +48,7 @@
 |  [Kind](./extract-pg-schema.kind.md) |  |
 |  [MaterializedViewColumnType](./extract-pg-schema.materializedviewcolumntype.md) |  |
 |  [PgType](./extract-pg-schema.pgtype.md) |  |
-|  [Schema](./extract-pg-schema.schema.md) | This is the result produced by the extractSchemas function. |
+|  [Schema](./extract-pg-schema.schema.md) | extractSchemas generates a record of all the schemas extracted, indexed by schema name. The schemas are instances of this type. |
 |  [TableColumnType](./extract-pg-schema.tablecolumntype.md) |  |
 |  [UpdateAction](./extract-pg-schema.updateaction.md) |  |
 |  [ViewColumnType](./extract-pg-schema.viewcolumntype.md) |  |

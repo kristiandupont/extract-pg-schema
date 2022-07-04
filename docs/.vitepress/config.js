@@ -1,6 +1,7 @@
 export default {
   title: 'extract-pg-schema',
-  description: 'Just playing around.',
+  description: 'Extract Schema from Postgres Database',
+  base: '/extract-pg-schema/',
   themeConfig: {
     sidebar: [
       {
@@ -11,7 +12,7 @@ export default {
             text: 'extractSchemas',
             link: '/api/extract-pg-schema.extractschemas.html',
           },
-          { text: 'output', link: '/api/extract-pg-schema.schema.html' },
+          { text: 'Output', link: '/api/extract-pg-schema.schema.html' },
         ],
       },
     ],

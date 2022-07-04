@@ -4,7 +4,7 @@
 
 ## Schema type
 
-This is the result produced by the extractSchemas function.
+extractSchemas generates a record of all the schemas extracted, indexed by schema name. The schemas are instances of this type.
 
 <b>Signature:</b>
 
