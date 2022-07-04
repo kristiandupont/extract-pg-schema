@@ -3,7 +3,7 @@
 Reads various metadata from your postgres database and return a Javascript object.
 This package is used by [Kanel](https://github.com/kristiandupont/kanel) to generate Typescript types and [Schemalint](https://github.com/kristiandupont/schemalint) to provide linting of database schemas.
 
-View the documentation [here](kristiandupont.github.io/extract-pg-schema)
+View the documentation [here](https://kristiandupont.github.io/extract-pg-schema)
 
 ## Installation
 
