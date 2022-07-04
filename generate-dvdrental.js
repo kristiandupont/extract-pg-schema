@@ -8,7 +8,7 @@ const connection = {
   password: 'postgres',
   port: 54321,
 };
-l.extractSchema('public', connection).then((r) =>
+l.extractSchemas(connection).then((r) =>
   // eslint-disable-next-line no-console
   console.log(JSON.stringify(r, null, 2))
 );
