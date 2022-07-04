@@ -7,8 +7,9 @@
 <b>Signature:</b>
 
 ```typescript
-export interface TableDetails 
+export interface TableDetails extends PgType<'table'> 
 ```
+<b>Extends:</b> PgType
 
 ## Properties
 

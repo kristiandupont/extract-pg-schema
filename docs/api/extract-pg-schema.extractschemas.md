@@ -4,6 +4,8 @@
 
 ## extractSchemas() function
 
+Perform the extraction
+
 <b>Signature:</b>
 
 ```typescript
@@ -14,10 +16,12 @@ declare function extractSchemas(connectionConfig: string | ConnectionConfig, opt
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  connectionConfig | string \| ConnectionConfig |  |
-|  options | [ExtractSchemaOptions](./extract-pg-schema.extractschemaoptions.md) | <i>(Optional)</i> |
+|  connectionConfig | string \| ConnectionConfig | Connection string or configuration object for Postgres connection |
+|  options | [ExtractSchemaOptions](./extract-pg-schema.extractschemaoptions.md) | <i>(Optional)</i> Optional options |
 
 <b>Returns:</b>
 
 Promise&lt;Record&lt;string, [Schema](./extract-pg-schema.schema.md)<!-- -->&gt;&gt;
+
+A record of all the schemas extracted, indexed by schema name.
 

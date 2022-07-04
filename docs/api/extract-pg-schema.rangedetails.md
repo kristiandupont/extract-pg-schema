@@ -7,8 +7,9 @@
 <b>Signature:</b>
 
 ```typescript
-export interface RangeDetails 
+export interface RangeDetails extends PgType<'range'> 
 ```
+<b>Extends:</b> PgType
 
 ## Properties
 

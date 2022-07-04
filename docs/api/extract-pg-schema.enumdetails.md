@@ -7,8 +7,9 @@
 <b>Signature:</b>
 
 ```typescript
-export interface EnumDetails 
+export interface EnumDetails extends PgType<'enum'> 
 ```
+<b>Extends:</b> PgType
 
 ## Properties
 

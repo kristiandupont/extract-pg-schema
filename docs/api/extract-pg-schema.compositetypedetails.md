@@ -7,8 +7,9 @@
 <b>Signature:</b>
 
 ```typescript
-export interface CompositeTypeDetails 
+export interface CompositeTypeDetails extends PgType<'compositeType'> 
 ```
+<b>Extends:</b> PgType
 
 ## Properties
 

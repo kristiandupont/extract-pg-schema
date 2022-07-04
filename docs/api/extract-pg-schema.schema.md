@@ -4,19 +4,21 @@
 
 ## Schema type
 
+This is the result produced by the extractSchemas function.
+
 <b>Signature:</b>
 
 ```typescript
 export declare type Schema = {
     name: string;
-    domain: PopulatedType[];
-    enum: PopulatedType[];
-    range: PopulatedType[];
-    table: PopulatedType[];
-    view: PopulatedType[];
-    materializedView: PopulatedType[];
-    compositeType: PopulatedType[];
+    domains: DomainDetails[];
+    enums: EnumDetails[];
+    ranges: RangeDetails[];
+    tables: TableDetails[];
+    views: ViewDetails[];
+    materializedViews: MaterializedViewDetails[];
+    compositeTypes: CompositeTypeDetails[];
 };
 ```
-<b>References:</b> [PopulatedType](./extract-pg-schema.populatedtype.md)
+<b>References:</b> [DomainDetails](./extract-pg-schema.domaindetails.md)<!-- -->, [EnumDetails](./extract-pg-schema.enumdetails.md)<!-- -->, [RangeDetails](./extract-pg-schema.rangedetails.md)<!-- -->, [TableDetails](./extract-pg-schema.tabledetails.md)<!-- -->, [ViewDetails](./extract-pg-schema.viewdetails.md)<!-- -->, [MaterializedViewDetails](./extract-pg-schema.materializedviewdetails.md)<!-- -->, [CompositeTypeDetails](./extract-pg-schema.compositetypedetails.md)
 

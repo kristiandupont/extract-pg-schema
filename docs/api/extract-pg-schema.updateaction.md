@@ -9,3 +9,5 @@
 ```typescript
 export declare type UpdateAction = typeof updateActionMap[keyof typeof updateActionMap];
 ```
+<b>References:</b> [updateActionMap](./extract-pg-schema.updateactionmap.md)
+
