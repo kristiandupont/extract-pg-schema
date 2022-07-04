@@ -5,7 +5,14 @@ export default {
     sidebar: [
       {
         text: 'Guide',
-        items: [{ text: 'API', link: '/api/' }],
+        items: [
+          { text: 'API', link: '/api/' },
+          {
+            text: 'extractSchemas',
+            link: '/api/extract-pg-schema.extractschemas.html',
+          },
+          { text: 'output', link: '/api/extract-pg-schema.schema.html' },
+        ],
       },
     ],
     socialLinks: [
