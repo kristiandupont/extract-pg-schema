@@ -45,13 +45,7 @@
         "schemaName": "public",
         "kind": "enum",
         "comment": null,
-        "values": [
-          "G",
-          "PG",
-          "PG-13",
-          "R",
-          "NC-17"
-        ]
+        "values": ["G", "PG", "PG-13", "R", "NC-17"]
       }
     ],
     "ranges": [],
@@ -9367,4 +9361,3 @@
     "compositeTypes": []
   }
 }
-Done in 3.54s.
