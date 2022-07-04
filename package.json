@@ -21,7 +21,7 @@
     "lint": "yarn eslint . -f visualstudio --report-unused-disable-directives --ext .js,.ts",
     "test": "vitest run",
     "version": "yarn build",
-    "docs:prep": "tsc && yarn api-extractor run --local --verbose && yarn api-documenter markdown --input-folder=./temp/ --output-folder=./docs/api && rm -rf ./temp",
+    "docs:prep": "tsc && yarn api-extractor run --local --verbose && yarn api-documenter markdown --input-folder=./temp/ --output-folder=./docs-src/api && rm -rf ./temp",
     "docs:dev": "yarn docs:prep && vitepress dev docs",
     "docs:build": "yarn docs:prep && vitepress build docs"
   },
