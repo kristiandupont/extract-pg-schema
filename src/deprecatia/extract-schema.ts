@@ -117,13 +117,13 @@ const extractSchema = async (
   });
 
   const result = {
-    tables: R.sortBy(R.prop('name'), r[schemaName].table.map(mapTable)),
-    views: R.sortBy(R.prop('name'), r[schemaName].view.map(mapTable)),
+    tables: R.sortBy(R.prop('name'), r[schemaName].tables.map(mapTable)),
+    views: R.sortBy(R.prop('name'), r[schemaName].views.map(mapTable)),
     types: R.sortBy(
       R.prop('name'),
       [
-        ...(r[schemaName].enum ?? []),
-        ...(r[schemaName].compositeType ?? []),
+        ...(r[schemaName].enums ?? []),
+        ...(r[schemaName].compositeTypes ?? []),
       ].map(mapType)
     ),
   };
