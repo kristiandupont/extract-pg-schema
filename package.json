@@ -22,8 +22,8 @@
     "test": "vitest run",
     "version": "yarn build",
     "docs:prep": "tsc && yarn api-extractor run --local --verbose && yarn api-documenter markdown --input-folder=./temp/ --output-folder=./docs-src/api && rm -rf ./temp",
-    "docs:dev": "yarn docs:prep && vitepress dev docs",
-    "docs:build": "yarn docs:prep && vitepress build docs"
+    "docs:dev": "yarn docs:prep && vitepress dev docs-src",
+    "docs:build": "yarn docs:prep && vitepress build docs-src"
   },
   "prettier": {
     "singleQuote": true,
