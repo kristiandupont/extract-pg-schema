@@ -15,6 +15,7 @@ import extractTable, { TableDetails } from './kinds/extractTable';
 import extractView, { ViewDetails } from './kinds/extractView';
 import fetchTypes from './kinds/fetchTypes';
 import PgType, { Kind } from './kinds/PgType';
+import resolveViewColumns from './resolveViewColumns';
 
 interface DetailsMap {
   domain: DomainDetails;
@@ -171,8 +172,10 @@ async function extractSchemas(
     ];
   });
 
+  const result = options?.resolveViews ? resolveViewColumns(schemas) : schemas;
+
   await db.destroy();
-  return schemas;
+  return result;
 }
 
 export default extractSchemas;

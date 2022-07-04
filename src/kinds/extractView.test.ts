@@ -57,7 +57,6 @@ describe('extractView', () => {
           comment: null,
           maxLength: null,
           defaultValue: null,
-          isNullable: true,
           isIdentity: false,
           isUpdatable: false,
           ordinalPosition: 1,
