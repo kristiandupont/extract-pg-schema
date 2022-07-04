@@ -1,9 +1,7 @@
 export { default as extractSchema } from './deprecatia/extract-schema';
 export {
-  Details,
   ExtractSchemaOptions,
   default as extractSchemas,
-  PopulatedType,
   Schema,
 } from './extractSchemas';
 export { type default as InformationSchemaColumn } from './information_schema/InformationSchemaColumn';
@@ -18,7 +16,11 @@ export {
 } from './kinds/extractCompositeType';
 export { type DomainDetails } from './kinds/extractDomain';
 export { type EnumDetails } from './kinds/extractEnum';
-export { type MaterializedViewDetails } from './kinds/extractMaterializedView';
+export {
+  type MaterializedViewColumn,
+  type MaterializedViewColumnType,
+  type MaterializedViewDetails,
+} from './kinds/extractMaterializedView';
 export { type RangeDetails } from './kinds/extractRange';
 export {
   type ColumnReference,
@@ -26,5 +28,12 @@ export {
   type TableColumnType,
   type TableDetails,
   type UpdateAction,
+  Index,
+  updateActionMap,
 } from './kinds/extractTable';
-export { type ViewDetails } from './kinds/extractView';
+export {
+  type ViewColumn,
+  type ViewColumnType,
+  type ViewDetails,
+} from './kinds/extractView';
+export { type Kind, type default as PgType } from './kinds/PgType';
