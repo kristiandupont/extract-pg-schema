@@ -6,7 +6,7 @@ import PgType from './PgType';
 import commentMapQueryPart from './query-parts/commentMapQueryPart';
 import indexMapQueryPart from './query-parts/indexMapQueryPart';
 
-const updateActionMap = {
+export const updateActionMap = {
   a: 'NO ACTION',
   r: 'RESTRICT',
   c: 'CASCADE',
@@ -55,7 +55,7 @@ export interface TableColumn {
   informationSchemaValue: InformationSchemaColumn;
 }
 
-export interface TableDetails {
+export interface TableDetails extends PgType<'table'> {
   columns: TableColumn[];
   informationSchemaValue: InformationSchemaTable;
 }
@@ -204,7 +204,7 @@ const extractTable = async (
 
   const columns = columnsQuery.rows;
 
-  return { informationSchemaValue, columns };
+  return { ...table, informationSchemaValue, columns };
 };
 
 export default extractTable;

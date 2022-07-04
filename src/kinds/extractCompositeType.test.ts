@@ -33,6 +33,10 @@ describe('extractCompositeType', () => {
     );
 
     const expected: CompositeTypeDetails = {
+      name: 'some_composite_type',
+      schemaName: 'test',
+      kind: 'compositeType',
+      comment: null,
       attributes: [
         {
           name: 'id',

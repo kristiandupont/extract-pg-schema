@@ -27,6 +27,10 @@ describe('extractRange', () => {
     const result = await extractRange(db, makePgType('some_range'));
 
     const expected: RangeDetails = {
+      name: 'some_range',
+      schemaName: 'test',
+      kind: 'range',
+      comment: null,
       innerType: 'timestamptz',
     };
     expect(result).toStrictEqual(expected);

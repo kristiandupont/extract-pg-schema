@@ -2,12 +2,13 @@ import { Knex } from 'knex';
 
 import InformationSchemaColumn from '../information_schema/InformationSchemaColumn';
 import InformationSchemaView from '../information_schema/InformationSchemaView';
+import { ColumnReference, Index } from './extractTable';
 import PgType from './PgType';
 import commentMapQueryPart from './query-parts/commentMapQueryPart';
 import fakeInformationSchemaColumnsQueryPart from './query-parts/fakeInformationSchemaColumnsQueryPart';
 import fakeInformationSchemaViewsQueryPart from './query-parts/fakeInformationSchemaViewsQueryPart';
 
-type MaterializedViewColumnType = {
+export type MaterializedViewColumnType = {
   fullName: string;
   kind: 'base' | 'range' | 'domain' | 'composite' | 'enum';
 };
@@ -20,17 +21,27 @@ export interface MaterializedViewColumn {
   defaultValue: any;
   isArray: boolean;
   maxLength: number | null;
-  isNullable: boolean;
   generated: 'ALWAYS' | 'NEVER' | 'BY DEFAULT';
   isUpdatable: boolean;
   isIdentity: boolean;
   ordinalPosition: number;
 
   /**
-   * For views, this will contain the original column, if it could be determined.
-   * If schema is undefined, it means "same schema as the view".
+   * This will contain a "link" to the source table or view and column,
+   * if it can be determined.
    */
-  source?: { schema: string | undefined; table: string; column: string };
+  source?: { schema: string; table: string; column: string };
+
+  /**
+   * If views are resolved, this will contain the reference from the source
+   * column in the table that this view references. Note that if the source
+   * is another view, that view in turn will be resolved if possible, leading
+   * us to a table in the end.
+   */
+  reference?: ColumnReference | null;
+  indices?: Index[];
+  isNullable?: boolean;
+  isPrimaryKey?: boolean;
 
   /**
    * The Postgres information_schema views do not contain info about materialized views.
@@ -40,7 +51,7 @@ export interface MaterializedViewColumn {
   fakeInformationSchemaValue: InformationSchemaColumn;
 }
 
-export interface MaterializedViewDetails {
+export interface MaterializedViewDetails extends PgType<'materializedView'> {
   definition: string;
   columns: MaterializedViewColumn[];
 
@@ -86,7 +97,7 @@ WHERE
 
 const extractMaterializedView = async (
   db: Knex,
-  view: PgType<'materializedView'>
+  materializedView: PgType<'materializedView'>
 ): Promise<MaterializedViewDetails> => {
   const fakeInformationSchemaValueQuery = await db.raw(
     fakeInformationSchemaViewsQueryPart
@@ -141,12 +152,16 @@ const extractMaterializedView = async (
       table_name = :table_name
       AND table_schema = :schema_name;
   `,
-    { table_name: view.name, schema_name: view.schemaName }
+    {
+      table_name: materializedView.name,
+      schema_name: materializedView.schemaName,
+    }
   );
 
   const columns = columnsQuery.rows;
 
   return {
+    ...materializedView,
     definition: fakeInformationSchemaValue.view_definition,
     columns,
     fakeInformationSchemaValue,

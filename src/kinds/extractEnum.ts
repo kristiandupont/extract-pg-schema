@@ -2,7 +2,7 @@ import { Knex } from 'knex';
 
 import PgType from './PgType';
 
-export interface EnumDetails {
+export interface EnumDetails extends PgType<'enum'> {
   values: string[];
 }
 
@@ -26,9 +26,10 @@ const extractEnum = async (
     { type_name: pgEnum.name, schema_name: pgEnum.schemaName }
   );
 
-  const enumDetails: EnumDetails = query.rows[0];
-
-  return enumDetails;
+  return {
+    ...pgEnum,
+    ...query.rows[0],
+  };
 };
 
 export default extractEnum;

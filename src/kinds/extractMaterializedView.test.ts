@@ -36,6 +36,10 @@ describe('extractMaterializedView', () => {
     );
 
     const expected: MaterializedViewDetails = {
+      name: 'some_materialized_view',
+      schemaName: 'test',
+      kind: 'materializedView',
+      comment: null,
       definition: ' SELECT 1 AS id;',
       columns: [
         {

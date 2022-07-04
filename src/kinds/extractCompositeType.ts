@@ -32,7 +32,7 @@ export interface CompositeTypeAttribute {
   fakeInformationSchemaValue: InformationSchemaColumn;
 }
 
-export interface CompositeTypeDetails {
+export interface CompositeTypeDetails extends PgType<'compositeType'> {
   attributes: CompositeTypeAttribute[];
 }
 
@@ -116,7 +116,7 @@ const extractCompositeType = async (
 
   const attributes = columnsQuery.rows;
 
-  return { attributes };
+  return { ...compositeType, attributes };
 };
 
 export default extractCompositeType;

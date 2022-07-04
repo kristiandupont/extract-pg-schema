@@ -3,8 +3,7 @@ import { Knex } from 'knex';
 import InformationSchemaDomain from '../information_schema/InformationSchemaDomain';
 import PgType from './PgType';
 
-export interface DomainDetails {
-  name: string;
+export interface DomainDetails extends PgType<'domain'> {
   innerType: string;
 
   informationSchemaValue: InformationSchemaDomain;
@@ -17,7 +16,6 @@ const extractDomain = async (
   const query = await db.raw(
     `
     SELECT
-      domain_name as "name",
       i.typnamespace::regnamespace::text||'.'||i.typname as "innerType",
       row_to_json(domains.*) AS "informationSchemaValue"
     FROM
@@ -34,9 +32,10 @@ const extractDomain = async (
     { domain_name: domain.name, schema_name: domain.schemaName }
   );
 
-  const domainDetails: DomainDetails = query.rows[0];
-
-  return domainDetails;
+  return {
+    ...domain,
+    ...query.rows[0],
+  };
 };
 
 export default extractDomain;

@@ -28,6 +28,9 @@ describe('extractDomain', () => {
 
     const expected: DomainDetails = {
       name: 'some_domain',
+      schemaName: 'test',
+      kind: 'domain',
+      comment: null,
       innerType: 'pg_catalog.int4',
       informationSchemaValue: {
         domain_catalog: databaseName,

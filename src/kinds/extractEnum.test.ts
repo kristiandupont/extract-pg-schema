@@ -27,6 +27,10 @@ describe('extractEnum', () => {
     const result = await extractEnum(db, makePgType('some_enum'));
 
     const expected: EnumDetails = {
+      name: 'some_enum',
+      schemaName: 'test',
+      kind: 'enum',
+      comment: null,
       values: ['a', 'b', 'c'],
     };
     expect(result).toStrictEqual(expected);

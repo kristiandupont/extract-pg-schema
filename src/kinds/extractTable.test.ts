@@ -32,6 +32,10 @@ describe('extractTable', () => {
     const result = await extractTable(db, makePgType('some_table'));
 
     const expected: TableDetails = {
+      name: 'some_table',
+      schemaName: 'test',
+      kind: 'table',
+      comment: null,
       informationSchemaValue: {
         table_catalog: databaseName,
         table_schema: 'test',
