@@ -456,10 +456,10 @@
     eslint-plugin-simple-import-sort "^7.0.0"
     typescript "4.6.4"
 
-"@microsoft/api-documenter@^7.18.0":
-  version "7.18.0"
-  resolved "https://registry.yarnpkg.com/@microsoft/api-documenter/-/api-documenter-7.18.0.tgz#d81de81dab98b675d23adf2868d16da84fb36dee"
-  integrity sha512-O2IlE1G6xpa5xoTw1fDflSJBrTT5zMkZj9nMNFXhIYpU5YgpCet+ugnC/cGTjH+0W2lu69asBWJZiMUZ7F1a4w==
+"@microsoft/api-documenter@7.18.1":
+  version "7.18.1"
+  resolved "https://registry.yarnpkg.com/@microsoft/api-documenter/-/api-documenter-7.18.1.tgz#1faa9bf7db14c2a3ace63c05ced20e57b8d64a7a"
+  integrity sha512-IN/vEgBVDe5xIyi72MmLXAF73aBBXZJmqK1jI06SrUMYKqtry1oJszjIuZiVPaP/PM9EIOm7At37hJefyX88xw==
   dependencies:
     "@microsoft/api-extractor-model" "7.21.0"
     "@microsoft/tsdoc" "0.14.1"
