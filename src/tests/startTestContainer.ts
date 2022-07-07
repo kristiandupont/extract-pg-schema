@@ -1,8 +1,10 @@
-import { GenericContainer } from 'testcontainers';
+import { GenericContainer, StartedTestContainer } from 'testcontainers';
 
 const timeout = 5 * 60 * 1000;
 
-const startTestContainer = async (image: string) =>
+const startTestContainer = async (
+  image: string
+): Promise<StartedTestContainer> =>
   // Starting this with withReuse() enabled will spin up the container
   // on the first call and then reuse it on subsequent calls.
   new GenericContainer(image)
