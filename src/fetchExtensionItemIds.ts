@@ -7,7 +7,13 @@ import { Knex } from 'knex';
  * @param db Knex instance
  * @returns the oids of the Postgres extension classes and types
  */
-const fetchExtensionItemIds = async (db: Knex) => {
+const fetchExtensionItemIds = async (
+  db: Knex
+): Promise<{
+  extClassOids: number[];
+  extTypeOids: number[];
+  extProcOids: number[];
+}> => {
   const cq = await db
     .select('c.oid')
     .from('pg_extension as e')

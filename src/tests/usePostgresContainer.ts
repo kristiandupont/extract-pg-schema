@@ -5,7 +5,9 @@ import startTestContainer from './startTestContainer';
 
 const timeout = 5 * 60 * 1000;
 
-const usePostgresContainer = (image: string = 'postgres') => {
+const usePostgresContainer = (
+  image: string = 'postgres'
+): (() => StartedTestContainer) => {
   let container: StartedTestContainer;
 
   beforeAll(async () => {
