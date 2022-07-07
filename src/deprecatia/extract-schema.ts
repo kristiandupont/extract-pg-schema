@@ -99,7 +99,11 @@ const extractSchema = async (
   connectionConfig: string | ConnectionConfig,
   resolveViews: boolean,
   tables?: string[]
-) => {
+): Promise<{
+  tables: any[];
+  views: any[];
+  types: any[];
+}> => {
   console.warn('NOTE: extractSchema is deprecated, use extractSchemas instead');
 
   const r = await extractSchemas(connectionConfig, {

@@ -3,7 +3,7 @@ import knex, { Knex } from 'knex';
 import { afterAll, beforeAll } from './fixture';
 import usePostgresContainer from './usePostgresContainer';
 
-const useTestKnex = () => {
+const useTestKnex = (): readonly [() => Knex<any, any[]>, string] => {
   let knexInstance: Knex;
   const databaseName = `test_${Math.ceil(Math.random() * 1000)}`;
 

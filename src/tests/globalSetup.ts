@@ -5,7 +5,7 @@ import startTestContainer from './startTestContainer';
 const containerLogPrefix = 'postgres-container>>> ';
 let container: StartedTestContainer;
 
-export const setup = async () => {
+export const setup = async (): Promise<void> => {
   if (process.arch === 'arm64') {
     // Ryuk doesn't work on arm64 at the time of writing.
     // Disable and prune docker images manually
@@ -22,7 +22,7 @@ export const setup = async () => {
     .on('end', () => console.info(containerLogPrefix + 'Stream closed'));
 };
 
-export const teardown = async () => {
+export const teardown = async (): Promise<void> => {
   await container.stop({
     timeout: 10000,
   });
