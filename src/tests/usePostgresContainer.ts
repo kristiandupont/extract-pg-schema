@@ -6,14 +6,16 @@ const timeout = 5 * 60 * 1000;
 
 import { test as base } from './fixture';
 
-const image = 'postgres'; // TODO
+export const testWith = (image: string) => {
+  return base.extend<{ container: StartedTestContainer }>({
+    container: [
+      async ({}, use) => {
+        const container = await startTestContainer(image);
+        await use(container);
+      },
+      { scope: 'worker' },
+    ],
+  });
+};
 
-export const test = base.extend<{ container: StartedTestContainer }>({
-  container: [
-    async ({}, use) => {
-      const container = await startTestContainer(image);
-      await use(container);
-    },
-    { scope: 'worker' },
-  ],
-});
+export const test = testWith('postgres');

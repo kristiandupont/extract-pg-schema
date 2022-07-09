@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import { describe, expect } from 'vitest';
 
-import { test } from '../tests/useSchema';
+import { test, testWith } from '../tests/useSchema';
 
 import extractTable, {
   ColumnReference,
@@ -20,6 +20,7 @@ const makePgType = (
   comment: null,
 });
 
+// const test = testWith({ schemaNames: ['test'] });
 test.describe('extractTable', () => {
   test('should extract simplified as well as full information_schema information', async ({
     knex: [db, databaseName],
@@ -255,8 +256,8 @@ test.describe('extractTable', () => {
     expect(actual).toEqual(expected);
   });
 
-  describe.skip('references', () => {
-    // TODO: test.use({ schemaName: 'secondary_schema' });
+  describe('references', () => {
+    const test = testWith({ schemaNames: ['test', 'secondary_schema'] });
 
     test('should extract a simple foreign key', async ({ knex: [db] }) => {
       await db.raw('create table test.some_table (id integer primary key)');

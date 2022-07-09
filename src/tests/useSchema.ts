@@ -1,14 +1,18 @@
-import { Knex } from 'knex';
-
 import { test as base } from './useTestKnex';
 
-const schemaName = 'test'; // TODO
+export const testWith = ({ schemaNames }: { schemaNames: string[] }) => {
+  return base.extend<{ schema: void }>({
+    schema: async ({ knex: [db] }, use) => {
+      for (const schemaName of schemaNames) {
+        await db.schema.createSchemaIfNotExists(schemaName);
+      }
+      await use(undefined, async () => {
+        for (const schemaName of schemaNames) {
+          await db.schema.dropSchemaIfExists(schemaName, true);
+        }
+      });
+    },
+  });
+};
 
-export const test = base.extend<{ schema: void }>({
-  schema: async ({ knex: [db] }, use) => {
-    await db.schema.createSchemaIfNotExists(schemaName);
-    await use(undefined, async () => {
-      await db.schema.dropSchemaIfExists(schemaName, true);
-    });
-  },
-});
+export const test = testWith({ schemaNames: ['test'] });
