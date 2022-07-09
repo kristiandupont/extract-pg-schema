@@ -1,17 +1,14 @@
 import { Knex } from 'knex';
 
-import { afterEach, beforeEach } from './fixture';
+import { test as base } from './useTestKnex';
 
-const useSchema = (getKnex: () => Knex, schemaName: string): void => {
-  beforeEach(async () => {
-    const db = getKnex();
+const schemaName = 'test'; // TODO
+
+export const test = base.extend<{ schema: void }>({
+  schema: async ({ db }, use) => {
     await db.schema.createSchemaIfNotExists(schemaName);
-  });
-
-  afterEach(async () => {
-    const db = getKnex();
-    await db.schema.dropSchemaIfExists(schemaName, true);
-  });
-};
-
-export default useSchema;
+    await use(undefined, async () => {
+      await db.schema.dropSchemaIfExists(schemaName, true);
+    });
+  },
+});

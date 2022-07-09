@@ -1,20 +1,19 @@
 import { StartedTestContainer } from 'testcontainers';
 
-import { beforeAll } from './fixture';
 import startTestContainer from './startTestContainer';
 
 const timeout = 5 * 60 * 1000;
 
-const usePostgresContainer = (
-  image: string = 'postgres'
-): (() => StartedTestContainer) => {
-  let container: StartedTestContainer;
+import { test as base } from './fixture';
 
-  beforeAll(async () => {
-    container = await startTestContainer(image);
-  }, timeout);
+const image = 'postgres'; // TODO
 
-  return () => container;
-};
-
-export default usePostgresContainer;
+export const test = base.extend<{ container: StartedTestContainer }>({
+  container: [
+    async ({}, use) => {
+      const container = await startTestContainer(image);
+      await use(container);
+    },
+    { scope: 'worker' },
+  ],
+});
