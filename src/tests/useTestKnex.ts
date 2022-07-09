@@ -2,8 +2,8 @@ import knex, { Knex } from 'knex';
 
 import { test as base } from './usePostgresContainer';
 
-export const test = base.extend<{ db: Knex }>({
-  db: [
+export const test = base.extend<{ knex: [db: Knex, databaseName: string] }>({
+  knex: [
     async ({ container }, use) => {
       const databaseName = `test_${Math.ceil(Math.random() * 1000)}`;
       const connection = {
@@ -25,7 +25,7 @@ export const test = base.extend<{ db: Knex }>({
         connection: { ...connection, database: databaseName },
       });
 
-      await use(knexInstance, async () => {
+      await use([knexInstance, databaseName], async () => {
         const connection = {
           host: container.getHost(),
           port: container.getMappedPort(5432),

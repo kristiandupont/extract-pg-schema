@@ -1,9 +1,8 @@
 import * as R from 'ramda';
-import { expect, it } from 'vitest';
+import { describe, expect } from 'vitest';
 
-import { describe } from '../tests/fixture';
-import useSchema from '../tests/useSchema';
-import useTestKnex from '../tests/useTestKnex';
+import { test } from '../tests/useSchema';
+
 import extractTable, {
   ColumnReference,
   TableColumn,
@@ -21,12 +20,10 @@ const makePgType = (
   comment: null,
 });
 
-describe('extractTable', () => {
-  const [getKnex, databaseName] = useTestKnex();
-  useSchema(getKnex, 'test');
-
-  it('should extract simplified as well as full information_schema information', async () => {
-    const db = getKnex();
+test.describe('extractTable', () => {
+  test('should extract simplified as well as full information_schema information', async ({
+    knex: [db, databaseName],
+  }) => {
     await db.raw('create table test.some_table (id integer)');
 
     const result = await extractTable(db, makePgType('some_table'));
@@ -122,8 +119,7 @@ describe('extractTable', () => {
     expect(result).toStrictEqual(expected);
   });
 
-  it('should fetch column comments', async () => {
-    const db = getKnex();
+  test('should fetch column comments', async ({ knex: [db] }) => {
     await db.raw('create table test.some_table (id integer)');
     await db.raw("comment on column test.some_table.id is 'id column'");
 
@@ -132,8 +128,7 @@ describe('extractTable', () => {
     expect(result.columns[0].comment).toBe('id column');
   });
 
-  it('should handle arrays of primitive types', async () => {
-    const db = getKnex();
+  test('should handle arrays of primitive types', async ({ knex: [db] }) => {
     await db.raw(
       'create table test.some_table (array_of_ints integer[], array_of_strings text[], two_dimensional_array integer[][])'
     );
@@ -167,8 +162,9 @@ describe('extractTable', () => {
     expect(actual).toEqual(expected);
   });
 
-  it('should handle domains, composite types, ranges and enums as well as arrays of those', async () => {
-    const db = getKnex();
+  test('should handle domains, composite types, ranges and enums as well as arrays of those', async ({
+    knex: [db],
+  }) => {
     await db.raw('create domain test.some_domain as text');
     await db.raw('create type test.some_composite as (id integer, name text)');
     await db.raw('create type test.some_range as range(subtype=timestamptz)');
@@ -259,12 +255,10 @@ describe('extractTable', () => {
     expect(actual).toEqual(expected);
   });
 
-  describe('references', () => {
-    useSchema(getKnex, 'secondary_schema');
+  describe.skip('references', () => {
+    // TODO: test.use({ schemaName: 'secondary_schema' });
 
-    it('should extract a simple foreign key', async () => {
-      const db = getKnex();
-
+    test('should extract a simple foreign key', async ({ knex: [db] }) => {
       await db.raw('create table test.some_table (id integer primary key)');
       await db.raw(
         'create table test.linking_table (some_table_id integer references test.some_table(id))'
@@ -282,9 +276,9 @@ describe('extractTable', () => {
       expect(result.columns[0].reference).toEqual(expected);
     });
 
-    it('should extract a foreign key with a different schema', async () => {
-      const db = getKnex();
-
+    test('should extract a foreign key with a different schema', async ({
+      knex: [db],
+    }) => {
       await db.raw(
         'create table secondary_schema.some_table (id integer primary key)'
       );
@@ -304,9 +298,9 @@ describe('extractTable', () => {
       expect(result.columns[0].reference).toEqual(expected);
     });
 
-    it('should get the onDelete and onUpdate actions', async () => {
-      const db = getKnex();
-
+    test('should get the onDelete and onUpdate actions', async ({
+      knex: [db],
+    }) => {
       await db.raw('create table test.some_table (id integer primary key)');
       await db.raw(
         'create table test.linking_table (some_table_id integer references test.some_table(id) on delete cascade on update set null)'

@@ -1,4 +1,4 @@
-import { describe, expect, it } from '../tests/fixture';
+import { describe, expect, it } from 'vitest';
 import parseViewDefinition from './parseViewDefinition';
 
 describe('parseViewDefinition', () => {

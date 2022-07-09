@@ -10,7 +10,7 @@ test.describe('fetchExtensionItemIds', () => {
   // NOTE: be aware that this test depends on specifics of certain Postgres extensions.
   // If it fails there is a chance that it's because the extensions themselves have changed,
   // not necessarily the test.
-  test('should fetch extension item ids', async ({ db }) => {
+  test('should fetch extension item ids', async ({ knex: [db] }) => {
     await db.raw('create extension if not exists pg_trgm');
     await db.raw('create extension if not exists pg_stat_statements');
     await db.raw('create extension if not exists citext');
