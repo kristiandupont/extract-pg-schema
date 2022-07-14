@@ -7,7 +7,7 @@ import extractSchema from '../extract-schema';
 const timeout = 5 * 60 * 1000;
 const containerLogPrefix = 'postgres-container>>> ';
 
-describe.skip('extractSchema', () => {
+describe('extractSchema', () => {
   /** @type {import('testcontainers').StartedTestContainer} */
   let startedContainer;
 
