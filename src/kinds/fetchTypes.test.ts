@@ -1,10 +1,10 @@
-import { expect } from 'vitest';
+import { describe, expect } from 'vitest';
 
 import { test } from '../tests/useSchema';
 
 import fetchTypes from './fetchTypes';
 
-test.describe('fetchTypes', () => {
+describe('fetchTypes', () => {
   test('should fetch a simple type', async ({ knex: [db] }) => {
     await db.raw('create table test.some_table (id integer)');
 

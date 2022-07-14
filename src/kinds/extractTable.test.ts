@@ -21,7 +21,7 @@ const makePgType = (
 });
 
 // const test = testWith({ schemaNames: ['test'] });
-test.describe('extractTable', () => {
+describe('extractTable', () => {
   test('should extract simplified as well as full information_schema information', async ({
     knex: [db, databaseName],
   }) => {

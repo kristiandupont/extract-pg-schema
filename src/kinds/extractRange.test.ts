@@ -1,4 +1,4 @@
-import { expect } from 'vitest';
+import { describe, expect } from 'vitest';
 
 import { test } from '../tests/useSchema';
 
@@ -15,7 +15,7 @@ const makePgType = (
   comment: null,
 });
 
-test.describe('extractRange', () => {
+describe('extractRange', () => {
   test('should extract range values', async ({ knex: [db] }) => {
     await db.raw('create type test.some_range as range(subtype=timestamptz)');
 

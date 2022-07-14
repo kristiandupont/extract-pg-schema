@@ -1,4 +1,4 @@
-import { expect } from 'vitest';
+import { describe, expect } from 'vitest';
 
 import { test } from '../tests/useSchema';
 
@@ -15,7 +15,7 @@ const makePgType = (
   comment: null,
 });
 
-test.describe('extractEnum', () => {
+describe('extractEnum', () => {
   test('should extract enum values', async ({ knex: [db] }) => {
     await db.raw("create type test.some_enum as enum('a', 'b', 'c')");
 

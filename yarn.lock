@@ -4737,7 +4737,12 @@
     "vite" "^2.9.7"
     "vue" "^3.2.33"
 
-"vitest@0.17.0":
+"vitest-fixture@^0.4.0":
+  "integrity" "sha512-FAeTsbSlc1IbCiU4aGiH6EGAOR9YsbdycTT7x3DdYJxzF5+XAu46w02jVUcIlFqRlF3F0Ow6y6XIZLiEUn1Glg=="
+  "resolved" "https://registry.npmjs.org/vitest-fixture/-/vitest-fixture-0.4.0.tgz"
+  "version" "0.4.0"
+
+"vitest@>=0.17.0", "vitest@0.17.0":
   "integrity" "sha512-5YO9ubHo0Zg35mea3+zZAr4sCku32C3usvIH5COeJB48TZV/R0J9aGNtGOOqEWZYfOKP0pGZUvTokne3x/QEFg=="
   "resolved" "https://registry.npmjs.org/vitest/-/vitest-0.17.0.tgz"
   "version" "0.17.0"

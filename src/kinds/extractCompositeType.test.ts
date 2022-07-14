@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import { expect } from 'vitest';
+import { describe, expect } from 'vitest';
 
 import { test } from '../tests/useSchema';
 
@@ -19,7 +19,7 @@ const makePgType = (
   comment: null,
 });
 
-test.describe('extractCompositeType', () => {
+describe('extractCompositeType', () => {
   test('should extract simplified information', async ({
     knex: [db, databaseName],
   }) => {

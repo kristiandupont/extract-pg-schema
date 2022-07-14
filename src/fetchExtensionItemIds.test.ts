@@ -1,12 +1,10 @@
-import { expect } from 'vitest';
+import { describe, expect } from 'vitest';
 
 import fetchExtensionItemIds from './fetchExtensionItemIds';
 
 import { test } from './tests/useSchema';
 
-// test.use({ schemaName: 'test' }); // TODO
-
-test.describe('fetchExtensionItemIds', () => {
+describe('fetchExtensionItemIds', () => {
   // NOTE: be aware that this test depends on specifics of certain Postgres extensions.
   // If it fails there is a chance that it's because the extensions themselves have changed,
   // not necessarily the test.
