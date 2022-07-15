@@ -725,10 +725,10 @@
     pg-protocol "*"
     pg-types "^2.2.0"
 
-"@types/ramda@0.28.14":
-  version "0.28.14"
-  resolved "https://registry.npmjs.org/@types/ramda/-/ramda-0.28.14.tgz"
-  integrity sha512-hLgAeKxS5MpIEROaIRHscFqWf+V04CB+A0Kq+OjnTs1fEGHXEs4aeOhXIRovAPe6PfWYKHEwEkVIYWf98OjxnA==
+"@types/ramda@0.28.15":
+  version "0.28.15"
+  resolved "https://registry.npmjs.org/@types/ramda/-/ramda-0.28.15.tgz"
+  integrity sha512-FCaLNVZry65jW8x/FDnKgjgkCNQxgc5AYMQwdNn6yW5M+62R+0nt2Y36U43dTNora9hcquemfrY5gxhE5pcilQ==
   dependencies:
     ts-toolbelt "^6.15.1"
 
