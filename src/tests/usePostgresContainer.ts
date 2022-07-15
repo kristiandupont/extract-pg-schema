@@ -1,20 +1,19 @@
 import { StartedTestContainer } from 'testcontainers';
+import { test as base, TestType } from 'vitest-fixture';
 
-import { beforeAll } from './fixture';
 import startTestContainer from './startTestContainer';
 
-const timeout = 5 * 60 * 1000;
+export const testWith = (
+  image: string
+): TestType<{}, { container: StartedTestContainer }> =>
+  base.extend<{}, { container: StartedTestContainer }>({
+    container: [
+      async (_, use) => {
+        const container = await startTestContainer(image);
+        await use(container);
+      },
+      { scope: 'worker' },
+    ],
+  });
 
-const usePostgresContainer = (
-  image: string = 'postgres'
-): (() => StartedTestContainer) => {
-  let container: StartedTestContainer;
-
-  beforeAll(async () => {
-    container = await startTestContainer(image);
-  }, timeout);
-
-  return () => container;
-};
-
-export default usePostgresContainer;
+export const test = testWith('postgres');

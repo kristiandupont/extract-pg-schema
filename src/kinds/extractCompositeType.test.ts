@@ -1,8 +1,7 @@
 import * as R from 'ramda';
+import { describe, expect } from 'vitest';
 
-import { describe, expect, it } from '../tests/fixture';
-import useSchema from '../tests/useSchema';
-import useTestKnex from '../tests/useTestKnex';
+import { test } from '../tests/useSchema';
 import extractCompositeType, {
   CompositeTypeAttribute,
   CompositeTypeDetails,
@@ -20,11 +19,9 @@ const makePgType = (
 });
 
 describe('extractCompositeType', () => {
-  const [getKnex, databaseName] = useTestKnex();
-  useSchema(getKnex, 'test');
-
-  it('should extract simplified information', async () => {
-    const db = getKnex();
+  test('it should extract simplified information', async ({
+    knex: [db, databaseName],
+  }) => {
     await db.raw('create type test.some_composite_type as (id integer)');
 
     const result = await extractCompositeType(
@@ -107,8 +104,7 @@ describe('extractCompositeType', () => {
     expect(result).toStrictEqual(expected);
   });
 
-  it('should fetch column comments', async () => {
-    const db = getKnex();
+  test('it should fetch column comments', async ({ knex: [db] }) => {
     await db.raw(
       'create type test.some_composite_type as (id integer, name text)'
     );
@@ -124,8 +120,9 @@ describe('extractCompositeType', () => {
     expect(result.attributes[0].comment).toBe('id column');
   });
 
-  it('should handle domains, composite types, ranges and enums as well as arrays of those', async () => {
-    const db = getKnex();
+  test('it should handle domains, composite types, ranges and enums as well as arrays of those', async ({
+    knex: [db],
+  }) => {
     await db.raw('create domain test.some_domain as text');
     await db.raw('create type test.some_composite as (id integer, name text)');
     await db.raw('create type test.some_range as range(subtype=timestamptz)');

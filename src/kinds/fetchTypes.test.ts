@@ -1,16 +1,10 @@
-import { expect, it } from 'vitest';
+import { describe, expect } from 'vitest';
 
-import { describe } from '../tests/fixture';
-import useSchema from '../tests/useSchema';
-import useTestKnex from '../tests/useTestKnex';
+import { test } from '../tests/useSchema';
 import fetchTypes from './fetchTypes';
 
 describe('fetchTypes', () => {
-  const [getKnex] = useTestKnex();
-  useSchema(getKnex, 'test');
-
-  it('should fetch a simple type', async () => {
-    const db = getKnex();
+  test('it should fetch a simple type', async ({ knex: [db] }) => {
     await db.raw('create table test.some_table (id integer)');
 
     const types = await fetchTypes(db, ['test']);
@@ -24,8 +18,7 @@ describe('fetchTypes', () => {
     });
   });
 
-  it('should fetch all kinds', async () => {
-    const db = getKnex();
+  test('it should fetch all kinds', async ({ knex: [db] }) => {
     await db.raw('create table test.some_table (id integer)');
     await db.raw('create view test.some_view as select 1 as id');
     await db.raw(
@@ -61,9 +54,7 @@ describe('fetchTypes', () => {
     ]);
   });
 
-  it('should fetch comments', async () => {
-    const db = getKnex();
-
+  test('it should fetch comments', async ({ knex: [db] }) => {
     // Tables are a "class" in postgres.
     await db.raw('create table test.some_table (id integer)');
     await db.raw("comment on table test.some_table is 'some table comment'");
