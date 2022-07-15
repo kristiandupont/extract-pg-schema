@@ -2,7 +2,6 @@ import * as R from 'ramda';
 import { describe, expect } from 'vitest';
 
 import { test } from '../tests/useSchema';
-
 import extractMaterializedView, {
   MaterializedViewColumn,
   MaterializedViewDetails,
@@ -20,7 +19,7 @@ const makePgType = (
 });
 
 describe('extractMaterializedView', () => {
-  test('should extract simplified information', async ({
+  test('it should extract simplified information', async ({
     knex: [db, databaseName],
   }) => {
     await db.raw(
@@ -120,7 +119,7 @@ describe('extractMaterializedView', () => {
     expect(result).toStrictEqual(expected);
   });
 
-  test('should fetch column comments', async ({ knex: [db] }) => {
+  test('it should fetch column comments', async ({ knex: [db] }) => {
     await db.raw(
       'create materialized view test.some_materialized_view as select 1 as id'
     );
@@ -136,7 +135,7 @@ describe('extractMaterializedView', () => {
     expect(result.columns[0].comment).toBe('id column');
   });
 
-  test('should handle domains, composite types, ranges and enums as well as arrays of those', async ({
+  test('it should handle domains, composite types, ranges and enums as well as arrays of those', async ({
     knex: [db],
   }) => {
     await db.raw('create domain test.some_domain as text');

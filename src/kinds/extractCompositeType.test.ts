@@ -2,7 +2,6 @@ import * as R from 'ramda';
 import { describe, expect } from 'vitest';
 
 import { test } from '../tests/useSchema';
-
 import extractCompositeType, {
   CompositeTypeAttribute,
   CompositeTypeDetails,
@@ -20,7 +19,7 @@ const makePgType = (
 });
 
 describe('extractCompositeType', () => {
-  test('should extract simplified information', async ({
+  test('it should extract simplified information', async ({
     knex: [db, databaseName],
   }) => {
     await db.raw('create type test.some_composite_type as (id integer)');
@@ -105,7 +104,7 @@ describe('extractCompositeType', () => {
     expect(result).toStrictEqual(expected);
   });
 
-  test('should fetch column comments', async ({ knex: [db] }) => {
+  test('it should fetch column comments', async ({ knex: [db] }) => {
     await db.raw(
       'create type test.some_composite_type as (id integer, name text)'
     );
@@ -121,7 +120,7 @@ describe('extractCompositeType', () => {
     expect(result.attributes[0].comment).toBe('id column');
   });
 
-  test('should handle domains, composite types, ranges and enums as well as arrays of those', async ({
+  test('it should handle domains, composite types, ranges and enums as well as arrays of those', async ({
     knex: [db],
   }) => {
     await db.raw('create domain test.some_domain as text');

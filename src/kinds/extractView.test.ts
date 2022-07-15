@@ -2,7 +2,6 @@ import * as R from 'ramda';
 import { describe, expect } from 'vitest';
 
 import { test } from '../tests/useSchema';
-
 import extractView, { ViewColumn, ViewDetails } from './extractView';
 import PgType from './PgType';
 
@@ -17,7 +16,7 @@ const makePgType = (
 });
 
 describe('extractView', () => {
-  test('should extract simplified as well as full information_schema information', async ({
+  test('it should extract simplified as well as full information_schema information', async ({
     knex: [db, databaseName],
   }) => {
     await db.raw('create view test.some_view as select 1 as id');
@@ -112,7 +111,7 @@ describe('extractView', () => {
     expect(result).toStrictEqual(expected);
   });
 
-  test('should fetch column comments', async ({ knex: [db] }) => {
+  test('it should fetch column comments', async ({ knex: [db] }) => {
     await db.raw('create view test.some_view as select 1 as id');
     await db.raw("comment on column test.some_view.id is 'id column'");
 
@@ -121,7 +120,7 @@ describe('extractView', () => {
     expect(result.columns[0].comment).toBe('id column');
   });
 
-  test('should handle domains, composite types, ranges and enums as well as arrays of those', async ({
+  test('it should handle domains, composite types, ranges and enums as well as arrays of those', async ({
     knex: [db],
   }) => {
     await db.raw('create domain test.some_domain as text');
