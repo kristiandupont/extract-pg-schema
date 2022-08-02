@@ -13,7 +13,7 @@ const extractRange = async (
   const query = await db.raw(
     `
     SELECT
-      subtype.typname as "innerType"
+      subtype.typnamespace::regnamespace::text||'.'||subtype.typname as "innerType"
     FROM
       pg_type range_type
       JOIN pg_namespace ON range_type.typnamespace = pg_namespace.oid

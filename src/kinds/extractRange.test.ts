@@ -25,7 +25,7 @@ describe('extractRange', () => {
       schemaName: 'test',
       kind: 'range',
       comment: null,
-      innerType: 'timestamptz',
+      innerType: 'pg_catalog.timestamptz',
     };
     expect(result).toStrictEqual(expected);
   });
