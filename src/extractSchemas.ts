@@ -149,12 +149,14 @@ async function extractSchemas(
     ? pgTypes.filter(options.typeFilter)
     : pgTypes;
 
-  if (options?.onProgressStart) {
-    options.onProgressStart(typesToExtract.length);
-  }
+  options?.onProgressStart?.(typesToExtract.length);
 
   const populated = await Promise.all(
-    typesToExtract.map(async (pgType) => populatorMap[pgType.kind](db, pgType))
+    typesToExtract.map(async (pgType) => {
+      const result = await populatorMap[pgType.kind](db, pgType);
+      options?.onProgress?.();
+      return result;
+    })
   );
 
   const schemas: Record<string, Schema> = {};
@@ -173,6 +175,8 @@ async function extractSchemas(
   });
 
   const result = options?.resolveViews ? resolveViewColumns(schemas) : schemas;
+
+  options?.onProgressEnd?.();
 
   await db.destroy();
   return result;
