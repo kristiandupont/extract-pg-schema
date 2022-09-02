@@ -9,7 +9,7 @@
 ```typescript
 export interface DomainDetails extends PgType<'domain'> 
 ```
-<b>Extends:</b> PgType
+<b>Extends:</b> PgType&lt;'domain'&gt;
 
 ## Properties
 

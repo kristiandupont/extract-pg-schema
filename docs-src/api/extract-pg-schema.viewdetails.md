@@ -9,7 +9,7 @@
 ```typescript
 export interface ViewDetails extends PgType<'view'> 
 ```
-<b>Extends:</b> PgType
+<b>Extends:</b> PgType&lt;'view'&gt;
 
 ## Properties
 
