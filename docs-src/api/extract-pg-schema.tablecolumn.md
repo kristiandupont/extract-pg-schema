@@ -30,5 +30,6 @@ export interface TableColumn
 |  [name](./extract-pg-schema.tablecolumn.name.md) |  | string |  |
 |  [ordinalPosition](./extract-pg-schema.tablecolumn.ordinalposition.md) |  | number |  |
 |  [reference](./extract-pg-schema.tablecolumn.reference.md) |  | [ColumnReference](./extract-pg-schema.columnreference.md) \| null |  |
+|  [references](./extract-pg-schema.tablecolumn.references.md) |  | [ColumnReference](./extract-pg-schema.columnreference.md)<!-- -->\[\] |  |
 |  [type](./extract-pg-schema.tablecolumn.type.md) |  | [TableColumnType](./extract-pg-schema.tablecolumntype.md) |  |
 

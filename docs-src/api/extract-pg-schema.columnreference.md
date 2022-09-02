@@ -13,6 +13,7 @@ export declare type ColumnReference = {
     columnName: string;
     onDelete: UpdateAction;
     onUpdate: UpdateAction;
+    name: string;
 };
 ```
 <b>References:</b> [UpdateAction](./extract-pg-schema.updateaction.md)
