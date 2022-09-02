@@ -9,7 +9,7 @@
 ```typescript
 export interface RangeDetails extends PgType<'range'> 
 ```
-<b>Extends:</b> PgType
+<b>Extends:</b> PgType&lt;'range'&gt;
 
 ## Properties
 

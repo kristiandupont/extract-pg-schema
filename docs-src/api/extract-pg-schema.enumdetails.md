@@ -9,7 +9,7 @@
 ```typescript
 export interface EnumDetails extends PgType<'enum'> 
 ```
-<b>Extends:</b> PgType
+<b>Extends:</b> PgType&lt;'enum'&gt;
 
 ## Properties
 

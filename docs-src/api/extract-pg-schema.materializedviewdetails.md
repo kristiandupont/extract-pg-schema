@@ -9,7 +9,7 @@
 ```typescript
 export interface MaterializedViewDetails extends PgType<'materializedView'> 
 ```
-<b>Extends:</b> PgType
+<b>Extends:</b> PgType&lt;'materializedView'&gt;
 
 ## Properties
 

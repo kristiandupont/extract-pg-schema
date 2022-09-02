@@ -9,7 +9,7 @@
 ```typescript
 export interface CompositeTypeDetails extends PgType<'compositeType'> 
 ```
-<b>Extends:</b> PgType
+<b>Extends:</b> PgType&lt;'compositeType'&gt;
 
 ## Properties
 

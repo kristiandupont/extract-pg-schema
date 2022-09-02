@@ -9,7 +9,7 @@
 ```typescript
 export interface TableDetails extends PgType<'table'> 
 ```
-<b>Extends:</b> PgType
+<b>Extends:</b> PgType&lt;'table'&gt;
 
 ## Properties
 
