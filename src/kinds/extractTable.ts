@@ -22,6 +22,7 @@ export type ColumnReference = {
   columnName: string;
   onDelete: UpdateAction;
   onUpdate: UpdateAction;
+  name: string;
 };
 
 export type Index = {
@@ -42,6 +43,8 @@ export interface TableColumn {
   defaultValue: any;
   isArray: boolean;
   dimensions: number;
+  references: ColumnReference[];
+  /** @deprecated use references instead */
   reference: ColumnReference | null;
   indices: Index[];
   maxLength: number | null;
@@ -63,7 +66,7 @@ export interface TableDetails extends PgType<'table'> {
 const referenceMapQueryPart = `
       SELECT
         source_attr.attname AS "column_name",
-        json_build_object(
+        json_agg(json_build_object(
             'schemaName', expanded_constraint.target_schema,
             'tableName', expanded_constraint.target_table,
             'columnName', target_attr.attname,
@@ -76,8 +79,9 @@ const referenceMapQueryPart = `
               ${Object.entries(updateActionMap)
                 .map(([key, action]) => `when '${key}' then '${action}'`)
                 .join('\n')}
-              end
-            ) AS reference
+              end,
+            'name', expanded_constraint.conname
+            )) AS references
       FROM (
         SELECT
           unnest(conkey) AS "source_attnum",
@@ -107,6 +111,8 @@ const referenceMapQueryPart = `
         JOIN pg_class target_class ON target_class.oid = expanded_constraint.confrelid
       WHERE
         target_class.relispartition = FALSE
+      GROUP BY
+        source_attr.attname
 `;
 
 const typeMapQueryPart = `
@@ -186,7 +192,7 @@ const extractTable = async (
       END AS "generated", 
       COALESCE(index_map.is_primary, FALSE) AS "isPrimaryKey", 
       COALESCE(index_map.indices, '[]'::json) AS "indices", 
-      reference_map.reference AS "reference", 
+      COALESCE(reference_map.references, '[]'::json) AS "references", 
       
       row_to_json(columns.*) AS "informationSchemaValue"
     FROM
@@ -202,7 +208,11 @@ const extractTable = async (
     { table_name: table.name, schema_name: table.schemaName }
   );
 
-  const columns = columnsQuery.rows;
+  const columns = columnsQuery.rows.map((row: any) => ({
+    ...row,
+    // Add this deprecated field for backwards compatibility
+    reference: row.references[0] ?? null,
+  }));
 
   return { ...table, informationSchemaValue, columns };
 };

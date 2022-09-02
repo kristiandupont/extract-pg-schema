@@ -54,6 +54,7 @@ describe('extractTable', () => {
           type: { fullName: 'pg_catalog.int4', kind: 'base' },
           isArray: false,
           dimensions: 0,
+          references: [],
           reference: null,
           defaultValue: null,
           indices: [],
@@ -272,7 +273,11 @@ describe('extractTable', () => {
         columnName: 'id',
         onDelete: 'NO ACTION',
         onUpdate: 'NO ACTION',
+        name: 'linking_table_some_table_id_fkey',
       };
+      expect(result.columns[0].references).toEqual([expected]);
+
+      // Check that deprecated version still works:
       expect(result.columns[0].reference).toEqual(expected);
     });
 
@@ -294,8 +299,9 @@ describe('extractTable', () => {
         columnName: 'id',
         onDelete: 'NO ACTION',
         onUpdate: 'NO ACTION',
+        name: 'linking_table_some_table_id_fkey',
       };
-      expect(result.columns[0].reference).toEqual(expected);
+      expect(result.columns[0].references).toEqual([expected]);
     });
 
     test('it should get the onDelete and onUpdate actions', async ({
@@ -314,8 +320,57 @@ describe('extractTable', () => {
         columnName: 'id',
         onDelete: 'CASCADE',
         onUpdate: 'SET NULL',
+        name: 'linking_table_some_table_id_fkey',
       };
-      expect(result.columns[0].reference).toEqual(expected);
+      expect(result.columns[0].references).toEqual([expected]);
+    });
+  });
+
+  describe('bugfixes', () => {
+    test('should not report duplicate columns when a column has multiple foreign key constraints', async ({
+      knex: [db],
+    }) => {
+      await db.raw('create table test.some_table (id integer primary key)');
+      await db.raw(
+        `create table test.linking_table (
+          some_table_id integer,
+          constraint "fk_1" foreign key ("some_table_id") references test.some_table(id),
+          constraint "fk_2" foreign key ("some_table_id") references test.some_table(id)
+        )`
+      );
+
+      const result = await extractTable(db, makePgType('linking_table'));
+
+      expect(result.columns).toHaveLength(1);
+
+      expect(result.columns[0].references).toStrictEqual([
+        {
+          schemaName: 'test',
+          tableName: 'some_table',
+          columnName: 'id',
+          onDelete: 'NO ACTION',
+          onUpdate: 'NO ACTION',
+          name: 'fk_1',
+        },
+        {
+          schemaName: 'test',
+          tableName: 'some_table',
+          columnName: 'id',
+          onDelete: 'NO ACTION',
+          onUpdate: 'NO ACTION',
+          name: 'fk_2',
+        },
+      ]);
+
+      // Check deprecated version still works:
+      expect(result.columns[0].reference).toEqual({
+        schemaName: 'test',
+        tableName: 'some_table',
+        columnName: 'id',
+        onDelete: 'NO ACTION',
+        onUpdate: 'NO ACTION',
+        name: 'fk_1',
+      });
     });
   });
 });
