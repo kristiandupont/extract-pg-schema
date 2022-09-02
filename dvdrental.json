@@ -45,7 +45,13 @@
         "schemaName": "public",
         "kind": "enum",
         "comment": null,
-        "values": ["G", "PG", "PG-13", "R", "NC-17"]
+        "values": [
+          "G",
+          "PG",
+          "PG-13",
+          "R",
+          "NC-17"
+        ]
       }
     ],
     "ranges": [],
@@ -94,7 +100,7 @@
                 "isPrimary": true
               }
             ],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -140,7 +146,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "store_id",
@@ -166,7 +173,7 @@
                 "isPrimary": false
               }
             ],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -212,7 +219,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "first_name",
@@ -233,7 +241,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -279,7 +287,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "last_name",
@@ -305,7 +314,7 @@
                 "isPrimary": false
               }
             ],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -351,7 +360,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "email",
@@ -372,7 +382,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -418,7 +428,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "address_id",
@@ -444,13 +455,16 @@
                 "isPrimary": false
               }
             ],
-            "reference": {
-              "schemaName": "public",
-              "tableName": "address",
-              "columnName": "address_id",
-              "onUpdate": "CASCADE",
-              "onDelete": "RESTRICT"
-            },
+            "references": [
+              {
+                "schemaName": "public",
+                "tableName": "address",
+                "columnName": "address_id",
+                "onUpdate": "CASCADE",
+                "onDelete": "RESTRICT",
+                "name": "customer_address_id_fkey"
+              }
+            ],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -496,6 +510,14 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
+            },
+            "reference": {
+              "schemaName": "public",
+              "tableName": "address",
+              "columnName": "address_id",
+              "onUpdate": "CASCADE",
+              "onDelete": "RESTRICT",
+              "name": "customer_address_id_fkey"
             }
           },
           {
@@ -517,7 +539,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -563,7 +585,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "create_date",
@@ -584,7 +607,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -630,7 +653,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "last_update",
@@ -651,7 +675,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -697,7 +721,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "active",
@@ -718,7 +743,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -764,7 +789,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           }
         ]
       },
@@ -812,7 +838,7 @@
                 "isPrimary": true
               }
             ],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -858,7 +884,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "first_name",
@@ -879,7 +906,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -925,7 +952,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "last_name",
@@ -951,7 +979,7 @@
                 "isPrimary": false
               }
             ],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -997,7 +1025,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "last_update",
@@ -1018,7 +1047,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -1064,7 +1093,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           }
         ]
       },
@@ -1112,7 +1142,7 @@
                 "isPrimary": true
               }
             ],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -1158,7 +1188,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "name",
@@ -1179,7 +1210,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -1225,7 +1256,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "last_update",
@@ -1246,7 +1278,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -1292,7 +1324,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           }
         ]
       },
@@ -1340,7 +1373,7 @@
                 "isPrimary": true
               }
             ],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -1386,7 +1419,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "title",
@@ -1412,7 +1446,7 @@
                 "isPrimary": false
               }
             ],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -1458,7 +1492,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "description",
@@ -1479,7 +1514,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -1525,7 +1560,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "release_year",
@@ -1546,7 +1582,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -1592,7 +1628,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "language_id",
@@ -1618,13 +1655,16 @@
                 "isPrimary": false
               }
             ],
-            "reference": {
-              "schemaName": "public",
-              "tableName": "language",
-              "columnName": "language_id",
-              "onUpdate": "CASCADE",
-              "onDelete": "RESTRICT"
-            },
+            "references": [
+              {
+                "schemaName": "public",
+                "tableName": "language",
+                "columnName": "language_id",
+                "onUpdate": "CASCADE",
+                "onDelete": "RESTRICT",
+                "name": "film_language_id_fkey"
+              }
+            ],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -1670,6 +1710,14 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
+            },
+            "reference": {
+              "schemaName": "public",
+              "tableName": "language",
+              "columnName": "language_id",
+              "onUpdate": "CASCADE",
+              "onDelete": "RESTRICT",
+              "name": "film_language_id_fkey"
             }
           },
           {
@@ -1691,7 +1739,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -1737,7 +1785,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "rental_rate",
@@ -1758,7 +1807,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -1804,7 +1853,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "length",
@@ -1825,7 +1875,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -1871,7 +1921,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "replacement_cost",
@@ -1892,7 +1943,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -1938,7 +1989,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "rating",
@@ -1959,7 +2011,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -2005,7 +2057,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "last_update",
@@ -2026,7 +2079,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -2072,7 +2125,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "special_features",
@@ -2093,7 +2147,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -2139,7 +2193,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "fulltext",
@@ -2165,7 +2220,7 @@
                 "isPrimary": false
               }
             ],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -2211,7 +2266,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           }
         ]
       },
@@ -2259,13 +2315,16 @@
                 "isPrimary": true
               }
             ],
-            "reference": {
-              "schemaName": "public",
-              "tableName": "actor",
-              "columnName": "actor_id",
-              "onUpdate": "CASCADE",
-              "onDelete": "RESTRICT"
-            },
+            "references": [
+              {
+                "schemaName": "public",
+                "tableName": "actor",
+                "columnName": "actor_id",
+                "onUpdate": "CASCADE",
+                "onDelete": "RESTRICT",
+                "name": "film_actor_actor_id_fkey"
+              }
+            ],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -2311,6 +2370,14 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
+            },
+            "reference": {
+              "schemaName": "public",
+              "tableName": "actor",
+              "columnName": "actor_id",
+              "onUpdate": "CASCADE",
+              "onDelete": "RESTRICT",
+              "name": "film_actor_actor_id_fkey"
             }
           },
           {
@@ -2341,13 +2408,16 @@
                 "isPrimary": false
               }
             ],
-            "reference": {
-              "schemaName": "public",
-              "tableName": "film",
-              "columnName": "film_id",
-              "onUpdate": "CASCADE",
-              "onDelete": "RESTRICT"
-            },
+            "references": [
+              {
+                "schemaName": "public",
+                "tableName": "film",
+                "columnName": "film_id",
+                "onUpdate": "CASCADE",
+                "onDelete": "RESTRICT",
+                "name": "film_actor_film_id_fkey"
+              }
+            ],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -2393,6 +2463,14 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
+            },
+            "reference": {
+              "schemaName": "public",
+              "tableName": "film",
+              "columnName": "film_id",
+              "onUpdate": "CASCADE",
+              "onDelete": "RESTRICT",
+              "name": "film_actor_film_id_fkey"
             }
           },
           {
@@ -2414,7 +2492,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -2460,7 +2538,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           }
         ]
       },
@@ -2508,13 +2587,16 @@
                 "isPrimary": true
               }
             ],
-            "reference": {
-              "schemaName": "public",
-              "tableName": "film",
-              "columnName": "film_id",
-              "onUpdate": "CASCADE",
-              "onDelete": "RESTRICT"
-            },
+            "references": [
+              {
+                "schemaName": "public",
+                "tableName": "film",
+                "columnName": "film_id",
+                "onUpdate": "CASCADE",
+                "onDelete": "RESTRICT",
+                "name": "film_category_film_id_fkey"
+              }
+            ],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -2560,6 +2642,14 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
+            },
+            "reference": {
+              "schemaName": "public",
+              "tableName": "film",
+              "columnName": "film_id",
+              "onUpdate": "CASCADE",
+              "onDelete": "RESTRICT",
+              "name": "film_category_film_id_fkey"
             }
           },
           {
@@ -2586,13 +2676,16 @@
                 "isPrimary": true
               }
             ],
-            "reference": {
-              "schemaName": "public",
-              "tableName": "category",
-              "columnName": "category_id",
-              "onUpdate": "CASCADE",
-              "onDelete": "RESTRICT"
-            },
+            "references": [
+              {
+                "schemaName": "public",
+                "tableName": "category",
+                "columnName": "category_id",
+                "onUpdate": "CASCADE",
+                "onDelete": "RESTRICT",
+                "name": "film_category_category_id_fkey"
+              }
+            ],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -2638,6 +2731,14 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
+            },
+            "reference": {
+              "schemaName": "public",
+              "tableName": "category",
+              "columnName": "category_id",
+              "onUpdate": "CASCADE",
+              "onDelete": "RESTRICT",
+              "name": "film_category_category_id_fkey"
             }
           },
           {
@@ -2659,7 +2760,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -2705,7 +2806,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           }
         ]
       },
@@ -2753,7 +2855,7 @@
                 "isPrimary": true
               }
             ],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -2799,7 +2901,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "address",
@@ -2820,7 +2923,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -2866,7 +2969,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "address2",
@@ -2887,7 +2991,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -2933,7 +3037,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "district",
@@ -2954,7 +3059,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -3000,7 +3105,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "city_id",
@@ -3026,13 +3132,16 @@
                 "isPrimary": false
               }
             ],
-            "reference": {
-              "schemaName": "public",
-              "tableName": "city",
-              "columnName": "city_id",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            },
+            "references": [
+              {
+                "schemaName": "public",
+                "tableName": "city",
+                "columnName": "city_id",
+                "onUpdate": "NO ACTION",
+                "onDelete": "NO ACTION",
+                "name": "fk_address_city"
+              }
+            ],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -3078,6 +3187,14 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
+            },
+            "reference": {
+              "schemaName": "public",
+              "tableName": "city",
+              "columnName": "city_id",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION",
+              "name": "fk_address_city"
             }
           },
           {
@@ -3099,7 +3216,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -3145,7 +3262,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "phone",
@@ -3166,7 +3284,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -3212,7 +3330,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "last_update",
@@ -3233,7 +3352,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -3279,7 +3398,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           }
         ]
       },
@@ -3327,7 +3447,7 @@
                 "isPrimary": true
               }
             ],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -3373,7 +3493,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "city",
@@ -3394,7 +3515,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -3440,7 +3561,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "country_id",
@@ -3466,13 +3588,16 @@
                 "isPrimary": false
               }
             ],
-            "reference": {
-              "schemaName": "public",
-              "tableName": "country",
-              "columnName": "country_id",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            },
+            "references": [
+              {
+                "schemaName": "public",
+                "tableName": "country",
+                "columnName": "country_id",
+                "onUpdate": "NO ACTION",
+                "onDelete": "NO ACTION",
+                "name": "fk_city"
+              }
+            ],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -3518,6 +3643,14 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
+            },
+            "reference": {
+              "schemaName": "public",
+              "tableName": "country",
+              "columnName": "country_id",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION",
+              "name": "fk_city"
             }
           },
           {
@@ -3539,7 +3672,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -3585,7 +3718,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           }
         ]
       },
@@ -3633,7 +3767,7 @@
                 "isPrimary": true
               }
             ],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -3679,7 +3813,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "country",
@@ -3700,7 +3835,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -3746,7 +3881,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "last_update",
@@ -3767,7 +3903,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -3813,7 +3949,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           }
         ]
       },
@@ -3861,7 +3998,7 @@
                 "isPrimary": true
               }
             ],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -3907,7 +4044,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "film_id",
@@ -3933,13 +4071,16 @@
                 "isPrimary": false
               }
             ],
-            "reference": {
-              "schemaName": "public",
-              "tableName": "film",
-              "columnName": "film_id",
-              "onUpdate": "CASCADE",
-              "onDelete": "RESTRICT"
-            },
+            "references": [
+              {
+                "schemaName": "public",
+                "tableName": "film",
+                "columnName": "film_id",
+                "onUpdate": "CASCADE",
+                "onDelete": "RESTRICT",
+                "name": "inventory_film_id_fkey"
+              }
+            ],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -3985,6 +4126,14 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
+            },
+            "reference": {
+              "schemaName": "public",
+              "tableName": "film",
+              "columnName": "film_id",
+              "onUpdate": "CASCADE",
+              "onDelete": "RESTRICT",
+              "name": "inventory_film_id_fkey"
             }
           },
           {
@@ -4011,7 +4160,7 @@
                 "isPrimary": false
               }
             ],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -4057,7 +4206,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "last_update",
@@ -4078,7 +4228,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -4124,7 +4274,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           }
         ]
       },
@@ -4172,7 +4323,7 @@
                 "isPrimary": true
               }
             ],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -4218,7 +4369,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "name",
@@ -4239,7 +4391,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -4285,7 +4437,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "last_update",
@@ -4306,7 +4459,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -4352,7 +4505,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           }
         ]
       },
@@ -4400,7 +4554,7 @@
                 "isPrimary": true
               }
             ],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -4446,7 +4600,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "customer_id",
@@ -4472,13 +4627,16 @@
                 "isPrimary": false
               }
             ],
-            "reference": {
-              "schemaName": "public",
-              "tableName": "customer",
-              "columnName": "customer_id",
-              "onUpdate": "CASCADE",
-              "onDelete": "RESTRICT"
-            },
+            "references": [
+              {
+                "schemaName": "public",
+                "tableName": "customer",
+                "columnName": "customer_id",
+                "onUpdate": "CASCADE",
+                "onDelete": "RESTRICT",
+                "name": "payment_customer_id_fkey"
+              }
+            ],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -4524,6 +4682,14 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
+            },
+            "reference": {
+              "schemaName": "public",
+              "tableName": "customer",
+              "columnName": "customer_id",
+              "onUpdate": "CASCADE",
+              "onDelete": "RESTRICT",
+              "name": "payment_customer_id_fkey"
             }
           },
           {
@@ -4550,13 +4716,16 @@
                 "isPrimary": false
               }
             ],
-            "reference": {
-              "schemaName": "public",
-              "tableName": "staff",
-              "columnName": "staff_id",
-              "onUpdate": "CASCADE",
-              "onDelete": "RESTRICT"
-            },
+            "references": [
+              {
+                "schemaName": "public",
+                "tableName": "staff",
+                "columnName": "staff_id",
+                "onUpdate": "CASCADE",
+                "onDelete": "RESTRICT",
+                "name": "payment_staff_id_fkey"
+              }
+            ],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -4602,6 +4771,14 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
+            },
+            "reference": {
+              "schemaName": "public",
+              "tableName": "staff",
+              "columnName": "staff_id",
+              "onUpdate": "CASCADE",
+              "onDelete": "RESTRICT",
+              "name": "payment_staff_id_fkey"
             }
           },
           {
@@ -4628,13 +4805,16 @@
                 "isPrimary": false
               }
             ],
-            "reference": {
-              "schemaName": "public",
-              "tableName": "rental",
-              "columnName": "rental_id",
-              "onUpdate": "CASCADE",
-              "onDelete": "SET NULL"
-            },
+            "references": [
+              {
+                "schemaName": "public",
+                "tableName": "rental",
+                "columnName": "rental_id",
+                "onUpdate": "CASCADE",
+                "onDelete": "SET NULL",
+                "name": "payment_rental_id_fkey"
+              }
+            ],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -4680,6 +4860,14 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
+            },
+            "reference": {
+              "schemaName": "public",
+              "tableName": "rental",
+              "columnName": "rental_id",
+              "onUpdate": "CASCADE",
+              "onDelete": "SET NULL",
+              "name": "payment_rental_id_fkey"
             }
           },
           {
@@ -4701,7 +4889,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -4747,7 +4935,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "payment_date",
@@ -4768,7 +4957,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -4814,7 +5003,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           }
         ]
       },
@@ -4862,7 +5052,7 @@
                 "isPrimary": true
               }
             ],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -4908,7 +5098,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "rental_date",
@@ -4934,7 +5125,7 @@
                 "isPrimary": false
               }
             ],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -4980,7 +5171,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "inventory_id",
@@ -5010,13 +5202,16 @@
                 "isPrimary": false
               }
             ],
-            "reference": {
-              "schemaName": "public",
-              "tableName": "inventory",
-              "columnName": "inventory_id",
-              "onUpdate": "CASCADE",
-              "onDelete": "RESTRICT"
-            },
+            "references": [
+              {
+                "schemaName": "public",
+                "tableName": "inventory",
+                "columnName": "inventory_id",
+                "onUpdate": "CASCADE",
+                "onDelete": "RESTRICT",
+                "name": "rental_inventory_id_fkey"
+              }
+            ],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -5062,6 +5257,14 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
+            },
+            "reference": {
+              "schemaName": "public",
+              "tableName": "inventory",
+              "columnName": "inventory_id",
+              "onUpdate": "CASCADE",
+              "onDelete": "RESTRICT",
+              "name": "rental_inventory_id_fkey"
             }
           },
           {
@@ -5088,13 +5291,16 @@
                 "isPrimary": false
               }
             ],
-            "reference": {
-              "schemaName": "public",
-              "tableName": "customer",
-              "columnName": "customer_id",
-              "onUpdate": "CASCADE",
-              "onDelete": "RESTRICT"
-            },
+            "references": [
+              {
+                "schemaName": "public",
+                "tableName": "customer",
+                "columnName": "customer_id",
+                "onUpdate": "CASCADE",
+                "onDelete": "RESTRICT",
+                "name": "rental_customer_id_fkey"
+              }
+            ],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -5140,6 +5346,14 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
+            },
+            "reference": {
+              "schemaName": "public",
+              "tableName": "customer",
+              "columnName": "customer_id",
+              "onUpdate": "CASCADE",
+              "onDelete": "RESTRICT",
+              "name": "rental_customer_id_fkey"
             }
           },
           {
@@ -5161,7 +5375,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -5207,7 +5421,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "staff_id",
@@ -5228,13 +5443,16 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": {
-              "schemaName": "public",
-              "tableName": "staff",
-              "columnName": "staff_id",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            },
+            "references": [
+              {
+                "schemaName": "public",
+                "tableName": "staff",
+                "columnName": "staff_id",
+                "onUpdate": "NO ACTION",
+                "onDelete": "NO ACTION",
+                "name": "rental_staff_id_key"
+              }
+            ],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -5280,6 +5498,14 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
+            },
+            "reference": {
+              "schemaName": "public",
+              "tableName": "staff",
+              "columnName": "staff_id",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION",
+              "name": "rental_staff_id_key"
             }
           },
           {
@@ -5301,7 +5527,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -5347,7 +5573,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           }
         ]
       },
@@ -5395,7 +5622,7 @@
                 "isPrimary": true
               }
             ],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -5441,7 +5668,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "first_name",
@@ -5462,7 +5690,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -5508,7 +5736,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "last_name",
@@ -5529,7 +5758,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -5575,7 +5804,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "address_id",
@@ -5596,13 +5826,16 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": {
-              "schemaName": "public",
-              "tableName": "address",
-              "columnName": "address_id",
-              "onUpdate": "CASCADE",
-              "onDelete": "RESTRICT"
-            },
+            "references": [
+              {
+                "schemaName": "public",
+                "tableName": "address",
+                "columnName": "address_id",
+                "onUpdate": "CASCADE",
+                "onDelete": "RESTRICT",
+                "name": "staff_address_id_fkey"
+              }
+            ],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -5648,6 +5881,14 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
+            },
+            "reference": {
+              "schemaName": "public",
+              "tableName": "address",
+              "columnName": "address_id",
+              "onUpdate": "CASCADE",
+              "onDelete": "RESTRICT",
+              "name": "staff_address_id_fkey"
             }
           },
           {
@@ -5669,7 +5910,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -5715,7 +5956,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "store_id",
@@ -5736,7 +5978,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -5782,7 +6024,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "active",
@@ -5803,7 +6046,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -5849,7 +6092,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "username",
@@ -5870,7 +6114,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -5916,7 +6160,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "password",
@@ -5937,7 +6182,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -5983,7 +6228,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "last_update",
@@ -6004,7 +6250,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -6050,7 +6296,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "picture",
@@ -6071,7 +6318,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -6117,7 +6364,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           }
         ]
       },
@@ -6165,7 +6413,7 @@
                 "isPrimary": true
               }
             ],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -6211,7 +6459,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           },
           {
             "name": "manager_staff_id",
@@ -6237,13 +6486,16 @@
                 "isPrimary": false
               }
             ],
-            "reference": {
-              "schemaName": "public",
-              "tableName": "staff",
-              "columnName": "staff_id",
-              "onUpdate": "CASCADE",
-              "onDelete": "RESTRICT"
-            },
+            "references": [
+              {
+                "schemaName": "public",
+                "tableName": "staff",
+                "columnName": "staff_id",
+                "onUpdate": "CASCADE",
+                "onDelete": "RESTRICT",
+                "name": "store_manager_staff_id_fkey"
+              }
+            ],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -6289,6 +6541,14 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
+            },
+            "reference": {
+              "schemaName": "public",
+              "tableName": "staff",
+              "columnName": "staff_id",
+              "onUpdate": "CASCADE",
+              "onDelete": "RESTRICT",
+              "name": "store_manager_staff_id_fkey"
             }
           },
           {
@@ -6310,13 +6570,16 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": {
-              "schemaName": "public",
-              "tableName": "address",
-              "columnName": "address_id",
-              "onUpdate": "CASCADE",
-              "onDelete": "RESTRICT"
-            },
+            "references": [
+              {
+                "schemaName": "public",
+                "tableName": "address",
+                "columnName": "address_id",
+                "onUpdate": "CASCADE",
+                "onDelete": "RESTRICT",
+                "name": "store_address_id_fkey"
+              }
+            ],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -6362,6 +6625,14 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
+            },
+            "reference": {
+              "schemaName": "public",
+              "tableName": "address",
+              "columnName": "address_id",
+              "onUpdate": "CASCADE",
+              "onDelete": "RESTRICT",
+              "name": "store_address_id_fkey"
             }
           },
           {
@@ -6383,7 +6654,7 @@
             "generated": "NEVER",
             "isPrimaryKey": false,
             "indices": [],
-            "reference": null,
+            "references": [],
             "informationSchemaValue": {
               "table_catalog": "dvdrental",
               "table_schema": "public",
@@ -6429,7 +6700,8 @@
               "is_generated": "NEVER",
               "generation_expression": null,
               "is_updatable": "YES"
-            }
+            },
+            "reference": null
           }
         ]
       }

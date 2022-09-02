@@ -4,6 +4,11 @@
 
 ## TableColumn.reference property
 
+> Warning: This API is now obsolete.
+> 
+> use references instead
+> 
+
 <b>Signature:</b>
 
 ```typescript
