@@ -53,7 +53,7 @@
     "vitepress": "1.0.0-alpha.26",
     "vitest": "0.23.4",
     "vitest-fixture": "0.5.1",
-    "vue": "3.2.40"
+    "vue": "3.2.41"
   },
   "np": {}
 }
