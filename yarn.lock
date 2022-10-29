@@ -4527,10 +4527,10 @@ terminal-link@^2.1.1:
     ansi-escapes "^4.2.1"
     supports-hyperlinks "^2.0.0"
 
-testcontainers@8.14.0:
-  version "8.14.0"
-  resolved "https://registry.npmjs.org/testcontainers/-/testcontainers-8.14.0.tgz"
-  integrity sha512-lPlZeSwkYwulAqHU+c5xtSe4eRv/R/fZIAmjM6+DkWR3kthnzI1kYnEWTvO4jTQzITkxj4BJ25WdTYIEe81EgQ==
+testcontainers@8.16.0:
+  version "8.16.0"
+  resolved "https://registry.npmjs.org/testcontainers/-/testcontainers-8.16.0.tgz"
+  integrity sha512-4wVmnzj4mAVXSQ8kU4uyNiXPs5W8UHdwCRbUuyeOSSODcgmDGQ8Te/YOYuF12HnxyzABEm1nR2I0ZCsQw/GZ/Q==
   dependencies:
     "@balena/dockerignore" "^1.0.2"
     "@types/archiver" "^5.3.1"
