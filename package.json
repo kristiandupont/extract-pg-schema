@@ -44,7 +44,7 @@
     "@microsoft/api-extractor": "7.33.5",
     "@types/jsonpath": "0.2.0",
     "@types/pg": "8.6.5",
-    "@types/ramda": "0.28.15",
+    "@types/ramda": "0.28.18",
     "eslint": "8.26.0",
     "np": "7.6.2",
     "prettier": "2.7.1",
