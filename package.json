@@ -51,7 +51,7 @@
     "testcontainers": "8.16.0",
     "typescript": "4.9.3",
     "vitepress": "1.0.0-alpha.26",
-    "vitest": "0.24.3",
+    "vitest": "0.25.3",
     "vitest-fixture": "0.5.1",
     "vue": "3.2.41"
   },
