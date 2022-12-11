@@ -1247,10 +1247,10 @@ acorn-walk@^8.2.0:
   resolved "https://registry.npmjs.org/acorn-walk/-/acorn-walk-8.2.0.tgz"
   integrity sha512-k+iyHEuPgSw6SbuDpGQM+06HQUa04DZ3o+F6CSzXMvvI5KMvnaEqXe+YVe555R9nn6GPt404fos4wcgpw12SDA==
 
-acorn@^8.8.0:
-  version "8.8.0"
-  resolved "https://registry.npmjs.org/acorn/-/acorn-8.8.0.tgz"
-  integrity sha512-QOxyigPVrpZ2GXT+PFyZTl6TtOFc5egxHIP9IlQ+RbupQuX4RkT/Bee4/kQuC02Xkzg84JcT7oLYtDIQxp+v7w==
+acorn@^8.8.0, acorn@^8.8.1:
+  version "8.8.1"
+  resolved "https://registry.npmjs.org/acorn/-/acorn-8.8.1.tgz"
+  integrity sha512-7zFpHzhnqYKrkYdUjF1HI1bzd0VygEGX8lFk4k5zVMqHEoES+P+7TKI+EvLO9WVMJ8eekdO0aDEK044xTXwPPA==
 
 aggregate-error@^3.0.0:
   version "3.0.1"
@@ -4634,12 +4634,12 @@ strip-json-comments@~2.0.1:
   resolved "https://registry.npmjs.org/strip-json-comments/-/strip-json-comments-2.0.1.tgz"
   integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
 
-strip-literal@^0.4.2:
-  version "0.4.2"
-  resolved "https://registry.npmjs.org/strip-literal/-/strip-literal-0.4.2.tgz"
-  integrity sha512-pv48ybn4iE1O9RLgCAN0iU4Xv7RlBTiit6DKmMiErbs9x1wH6vXBs45tWc0H5wUIF6TLTrKweqkmYF/iraQKNw==
+strip-literal@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/strip-literal/-/strip-literal-1.0.0.tgz"
+  integrity sha512-5o4LsH1lzBzO9UFH63AJ2ad2/S2AVx6NtjOcaz+VTT2h1RiRvbipW72z8M/lxEhcPHDBQwpDrnTF7sXy/7OwCQ==
   dependencies:
-    acorn "^8.8.0"
+    acorn "^8.8.1"
 
 supports-color@^2.0.0:
   version "2.0.0"
@@ -5020,7 +5020,7 @@ validator@^13.7.0:
   resolved "https://registry.npmjs.org/validator/-/validator-13.7.0.tgz"
   integrity sha512-nYXQLCBkpJ8X6ltALua9dRrZDHVYxjJ1wgskNt1lH9fzGjs3tgojGSCBjmEPwkWS1y29+DrizMTW19Pr9uB2nw==
 
-vite@^3.0.0:
+"vite@^3.0.0 || ^4.0.0":
   version "3.2.0"
   resolved "https://registry.npmjs.org/vite/-/vite-3.2.0.tgz"
   integrity sha512-Ovj7+cqIdM1I0LPCk2CWxzgADXMix3NLXpUT6g7P7zg/a9grk/TaC3qn9YMg7w7M0POIVCBOp1aBANJW+RH7oA==
@@ -5064,10 +5064,10 @@ vitest-fixture@0.5.1:
   resolved "https://registry.npmjs.org/vitest-fixture/-/vitest-fixture-0.5.1.tgz"
   integrity sha512-qvgrLfoM2WZn9I13jO0qIuOTxsqY3eyaXdn/sC4+KuUX5nFXKmOgTLdpS6VDMSkdjA3mvPJ3shHIEgg7+wYBCQ==
 
-vitest@0.25.3:
-  version "0.25.3"
-  resolved "https://registry.npmjs.org/vitest/-/vitest-0.25.3.tgz"
-  integrity sha512-/UzHfXIKsELZhL7OaM2xFlRF8HRZgAHtPctacvNK8H4vOcbJJAMEgbWNGSAK7Y9b1NBe5SeM7VTuz2RsTHFJJA==
+vitest@0.25.7:
+  version "0.25.7"
+  resolved "https://registry.npmjs.org/vitest/-/vitest-0.25.7.tgz"
+  integrity sha512-lJ+Ue+v8kHl2JzjaKHJ9u5Yo/loU7zrWK2/Whn8OKQjtq5G7nkeWfXuq3elZaC8xKdkdIuWiiIicaNBG1F5yzg==
   dependencies:
     "@types/chai" "^4.3.3"
     "@types/chai-subset" "^1.3.3"
@@ -5078,11 +5078,11 @@ vitest@0.25.3:
     debug "^4.3.4"
     local-pkg "^0.4.2"
     source-map "^0.6.1"
-    strip-literal "^0.4.2"
+    strip-literal "^1.0.0"
     tinybench "^2.3.1"
     tinypool "^0.3.0"
     tinyspy "^1.0.2"
-    vite "^3.0.0"
+    vite "^3.0.0 || ^4.0.0"
 
 vscode-oniguruma@^1.6.1:
   version "1.7.0"
