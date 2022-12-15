@@ -39,19 +39,15 @@
     "tagged-comment-parser": "^1.1.1"
   },
   "devDependencies": {
-    "@kristiandupont/eslint-config": "1.3.2",
+    "@kristiandupont/dev-deps": "^1.1.0",
     "@microsoft/api-documenter": "7.19.26",
     "@microsoft/api-extractor": "7.33.7",
     "@types/jsonpath": "0.2.0",
     "@types/pg": "8.6.5",
     "@types/ramda": "0.28.20",
-    "eslint": "8.29.0",
     "np": "7.6.2",
-    "prettier": "2.8.1",
     "testcontainers": "8.16.0",
-    "typescript": "4.9.4",
     "vitepress": "1.0.0-alpha.31",
-    "vitest": "0.25.7",
     "vitest-fixture": "0.5.1",
     "vue": "3.2.45"
   },
