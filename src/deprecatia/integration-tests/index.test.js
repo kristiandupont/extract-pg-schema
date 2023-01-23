@@ -25,7 +25,7 @@ describe('extractSchema', () => {
       'kristiandupont/dvdrental-image'
     )
       .withExposedPorts(5432)
-      .withEnv('POSTGRES_PASSWORD', 'postgres')
+      .withEnvironment({ POSTGRES_PASSWORD: 'postgres' })
       .withStartupTimeout(timeout);
     // .withWaitStrategy(
     //   Wait.forLogMessage('database system is ready to accept connections')
