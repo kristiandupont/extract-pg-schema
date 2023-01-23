@@ -10,7 +10,7 @@ const startTestContainer = async (
   new GenericContainer(image)
     .withReuse()
     .withExposedPorts(5432)
-    .withEnv('POSTGRES_PASSWORD', 'postgres')
+    .withEnvironment({ POSTGRES_PASSWORD: 'postgres' })
     .withStartupTimeout(timeout)
     .start();
 
