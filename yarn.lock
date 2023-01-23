@@ -576,10 +576,10 @@
     eslint-plugin-simple-import-sort "^8.0.0"
     typescript "4.8.3"
 
-"@microsoft/api-documenter@7.19.26":
-  version "7.19.26"
-  resolved "https://registry.npmjs.org/@microsoft/api-documenter/-/api-documenter-7.19.26.tgz"
-  integrity sha512-sFhYmO8k6CMFJ20D/LP1B7GdH+JfwmSKO/xTXnm63WA3+AX7g94G4TlKlc1FXdHFS2qhHnlm4qZUD3fgfs1vqg==
+"@microsoft/api-documenter@7.19.28":
+  version "7.19.28"
+  resolved "https://registry.npmjs.org/@microsoft/api-documenter/-/api-documenter-7.19.28.tgz"
+  integrity sha512-m9FG5vj8d5Zf3N7UV/Xuau/17Loe32A+nEsY4Pgyye+9gR12yz6LAyunUOehNjgDav0C4edy+qtrxOvXyGu7aA==
   dependencies:
     "@microsoft/api-extractor-model" "7.25.3"
     "@microsoft/tsdoc" "0.14.2"
@@ -587,7 +587,7 @@
     "@rushstack/ts-command-line" "4.13.1"
     colors "~1.2.1"
     js-yaml "~3.13.1"
-    resolve "~1.17.0"
+    resolve "~1.22.1"
 
 "@microsoft/api-extractor-model@7.25.3":
   version "7.25.3"
