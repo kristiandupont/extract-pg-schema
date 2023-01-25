@@ -856,10 +856,10 @@
     pg-protocol "*"
     pg-types "^2.2.0"
 
-"@types/ramda@0.28.21":
-  version "0.28.21"
-  resolved "https://registry.npmjs.org/@types/ramda/-/ramda-0.28.21.tgz"
-  integrity sha512-yim1qtioaA304Px6eZ72WvE3D41+Ay696/VpSZ54VcY8DUZ6BCDbkE/Zvc0iudK8aXXXhEWV4opoKnlphxyRQw==
+"@types/ramda@0.28.22":
+  version "0.28.22"
+  resolved "https://registry.npmjs.org/@types/ramda/-/ramda-0.28.22.tgz"
+  integrity sha512-DoIfh0sBxrL/aqADk+SGrfjJT9cB8modg+4NRlF7/Tfg4N2+KBEkAgpYYzrjiZxxR5YzWizjfVrTEdVDwYK7xQ==
   dependencies:
     ts-toolbelt "^6.15.1"
 
