@@ -589,15 +589,6 @@
     js-yaml "~3.13.1"
     resolve "~1.22.1"
 
-"@microsoft/api-extractor-model@7.25.3":
-  version "7.25.3"
-  resolved "https://registry.npmjs.org/@microsoft/api-extractor-model/-/api-extractor-model-7.25.3.tgz"
-  integrity sha512-WWxBUq77p2iZ+5VF7Nmrm3y/UtqCh5bYV8ii3khwq3w99+fXWpvfsAhgSLsC7k8XDQc6De4ssMxH6He/qe1pzg==
-  dependencies:
-    "@microsoft/tsdoc" "0.14.2"
-    "@microsoft/tsdoc-config" "~0.16.1"
-    "@rushstack/node-core-library" "3.53.3"
-
 "@microsoft/api-extractor-model@7.26.0":
   version "7.26.0"
   resolved "https://registry.npmjs.org/@microsoft/api-extractor-model/-/api-extractor-model-7.26.0.tgz"
@@ -607,12 +598,12 @@
     "@microsoft/tsdoc-config" "~0.16.1"
     "@rushstack/node-core-library" "3.53.3"
 
-"@microsoft/api-extractor@7.33.8":
-  version "7.33.8"
-  resolved "https://registry.npmjs.org/@microsoft/api-extractor/-/api-extractor-7.33.8.tgz"
-  integrity sha512-lNscBtYcNwJ4t9kKt6AdYA+FGDG6S8a2EhHdggxgn+rkcTzQ9P6ZsDBSjXa+r+E8qdZjOLP5J1rxohH7t+FTJg==
+"@microsoft/api-extractor@7.34.0":
+  version "7.34.0"
+  resolved "https://registry.npmjs.org/@microsoft/api-extractor/-/api-extractor-7.34.0.tgz"
+  integrity sha512-U9opcYpFrN0eIVunEx90SDSYzmjgO2mEVbttHwtJBjOHUhK2cY2QykH8uiBnJuVtuBvHVCdEFUGt6i/8LVexYA==
   dependencies:
-    "@microsoft/api-extractor-model" "7.25.3"
+    "@microsoft/api-extractor-model" "7.26.0"
     "@microsoft/tsdoc" "0.14.2"
     "@microsoft/tsdoc-config" "~0.16.1"
     "@rushstack/node-core-library" "3.53.3"
