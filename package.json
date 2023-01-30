@@ -44,7 +44,7 @@
     "@microsoft/api-extractor": "7.33.8",
     "@types/jsonpath": "0.2.0",
     "@types/pg": "8.6.6",
-    "@types/ramda": "0.28.21",
+    "@types/ramda": "0.28.22",
     "np": "7.6.3",
     "testcontainers": "9.1.1",
     "vitepress": "1.0.0-alpha.40",
