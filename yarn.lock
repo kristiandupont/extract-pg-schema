@@ -576,14 +576,14 @@
     eslint-plugin-simple-import-sort "^8.0.0"
     typescript "4.8.3"
 
-"@microsoft/api-documenter@7.21.1":
-  version "7.21.1"
-  resolved "https://registry.npmjs.org/@microsoft/api-documenter/-/api-documenter-7.21.1.tgz"
-  integrity sha512-Jme4ehP1Vl7h5sZ+K49432FO5BgmCsBMIn6zqKk9xQus8S5Mj31xSy5uMieqBsTOq/I/+P5FQ/UYf6Ie9NgeJw==
+"@microsoft/api-documenter@7.21.3":
+  version "7.21.3"
+  resolved "https://registry.npmjs.org/@microsoft/api-documenter/-/api-documenter-7.21.3.tgz"
+  integrity sha512-kkuuork6xGeqDR3IIgnzmYDBgj0KLd5i7H7OehtlZ0LlXeu8i5zl26gSc+UesLaJ+M2vGH9QAvcIAf+hdPSFDw==
   dependencies:
-    "@microsoft/api-extractor-model" "7.26.0"
+    "@microsoft/api-extractor-model" "7.26.2"
     "@microsoft/tsdoc" "0.14.2"
-    "@rushstack/node-core-library" "3.53.3"
+    "@rushstack/node-core-library" "3.55.0"
     "@rushstack/ts-command-line" "4.13.1"
     colors "~1.2.1"
     js-yaml "~3.13.1"
@@ -597,6 +597,15 @@
     "@microsoft/tsdoc" "0.14.2"
     "@microsoft/tsdoc-config" "~0.16.1"
     "@rushstack/node-core-library" "3.53.3"
+
+"@microsoft/api-extractor-model@7.26.2":
+  version "7.26.2"
+  resolved "https://registry.npmjs.org/@microsoft/api-extractor-model/-/api-extractor-model-7.26.2.tgz"
+  integrity sha512-V9tTHbYTNelTrNDXBzeDlszq29nQcjJdP6s27QJiATbqSRjEbKTeztlSVsCRHL2Wkkv5IN5jT4xkYjnFFPbK0A==
+  dependencies:
+    "@microsoft/tsdoc" "0.14.2"
+    "@microsoft/tsdoc-config" "~0.16.1"
+    "@rushstack/node-core-library" "3.55.0"
 
 "@microsoft/api-extractor@7.34.0":
   version "7.34.0"
@@ -668,6 +677,19 @@
     import-lazy "~4.0.0"
     jju "~1.4.0"
     resolve "~1.17.0"
+    semver "~7.3.0"
+    z-schema "~5.0.2"
+
+"@rushstack/node-core-library@3.55.0":
+  version "3.55.0"
+  resolved "https://registry.npmjs.org/@rushstack/node-core-library/-/node-core-library-3.55.0.tgz"
+  integrity sha512-6lSel8w3DeGaD/JCKw64wfezEBijlCQlMwBoYg9Ci5VPy+dZ+FpBkIBrY8mi3Ge4xNzr4gyTbQ5XEt0QP1Kv/w==
+  dependencies:
+    colors "~1.2.1"
+    fs-extra "~7.0.1"
+    import-lazy "~4.0.0"
+    jju "~1.4.0"
+    resolve "~1.22.1"
     semver "~7.3.0"
     z-schema "~5.0.2"
 
@@ -828,9 +850,9 @@
   integrity sha1-aaI6OtKcrwCX8G7aWbNh7i8GOfY=
 
 "@types/node@*":
-  version "14.0.18"
-  resolved "https://registry.npmjs.org/@types/node/-/node-14.0.18.tgz"
-  integrity sha512-0Z3nS5acM0cIV4JPzrj9g/GH0Et5vmADWtip3YOXOp1NpOLU8V3KoZDc8ny9c1pe/YSYYzQkAWob6dyV/EWg4g==
+  version "14.18.36"
+  resolved "https://registry.npmjs.org/@types/node/-/node-14.18.36.tgz"
+  integrity sha512-FXKWbsJ6a1hIrRxv+FoukuHnGTgEzKYGi7kilfMae96AL9UNkPFNWJEEYWzdRI9ooIkbr4AKldyuSTLql06vLQ==
 
 "@types/node@12.20.24":
   version "12.20.24"
