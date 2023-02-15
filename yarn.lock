@@ -750,7 +750,7 @@
     "@types/node" "*"
     "@types/ssh2" "*"
 
-"@types/dockerode@^3.3.12":
+"@types/dockerode@^3.3.14":
   version "3.3.14"
   resolved "https://registry.npmjs.org/@types/dockerode/-/dockerode-3.3.14.tgz"
   integrity sha512-PUTwtySPzCbjZ/uqRMBWKHtLGqBAlhnLitzHuom19NEX0KBYsQXqbVlig+zbUgYQU1paDeQURXj7QNglh1RI6A==
@@ -1292,6 +1292,11 @@ async-exit-hook@^2.0.1:
   resolved "https://registry.npmjs.org/async-exit-hook/-/async-exit-hook-2.0.1.tgz"
   integrity sha512-NW2cX8m1Q7KPA7a5M2ULQeZ2wR5qI5PAbw5L0UOMxdioVk9PMZ0h1TmyZEkPYrCvYjDlFICusOu1dlEKAAeXBw==
 
+async-lock@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.npmjs.org/async-lock/-/async-lock-1.4.0.tgz"
+  integrity sha512-coglx5yIWuetakm3/1dsX9hxCNox22h7+V80RQOu2XUUMidtArxKoZoOtHUPuR84SycKTXzgGzAUR5hJxujyJQ==
+
 async@^3.2.3:
   version "3.2.3"
   resolved "https://registry.npmjs.org/async/-/async-3.2.3.tgz"
@@ -1806,10 +1811,10 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
-docker-compose@^0.23.17:
-  version "0.23.17"
-  resolved "https://registry.npmjs.org/docker-compose/-/docker-compose-0.23.17.tgz"
-  integrity sha512-YJV18YoYIcxOdJKeFcCFihE6F4M2NExWM/d4S1ITcS9samHKnNUihz9kjggr0dNtsrbpFNc7/Yzd19DWs+m1xg==
+docker-compose@^0.23.19:
+  version "0.23.19"
+  resolved "https://registry.npmjs.org/docker-compose/-/docker-compose-0.23.19.tgz"
+  integrity sha512-v5vNLIdUqwj4my80wxFDkNH+4S85zsRuH29SO7dCWVWPCMt/ohZBsGN6g6KXWifT0pzQ7uOxqEKCYCDPJ8Vz4g==
   dependencies:
     yaml "^1.10.2"
 
@@ -3295,10 +3300,10 @@ new-github-release-url@^1.0.0:
   dependencies:
     type-fest "^0.4.1"
 
-node-fetch@^2.6.7:
-  version "2.6.8"
-  resolved "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.8.tgz"
-  integrity sha512-RZ6dBYuj8dRSfxpUSu+NsdF1dpPpluJxwOp+6IoDp/sH2QNDSvurYsAa+F1WxY2RjA1iP93xhcsUoYbF2XBqVg==
+node-fetch@^2.6.9:
+  version "2.6.9"
+  resolved "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.9.tgz"
+  integrity sha512-DJm/CJkZkRjKKj4Zi4BsKVZh3ValV5IR5s7LVZnW+6YMh0W1BfNA8XSs6DLMGYlId5F3KnA70uu2qepcR08Qqg==
   dependencies:
     whatwg-url "^5.0.0"
 
@@ -4450,21 +4455,22 @@ terminal-link@^2.1.1:
     ansi-escapes "^4.2.1"
     supports-hyperlinks "^2.0.0"
 
-testcontainers@9.1.1:
-  version "9.1.1"
-  resolved "https://registry.npmjs.org/testcontainers/-/testcontainers-9.1.1.tgz"
-  integrity sha512-4vTjKQWZxpMA+pNFlpupZ3XCdcbisYwbZIVUYFaNxl9bk8Vi/ELDzZJ3Kr14WdG7Q7333BGaZjKgKtx/ouEuMg==
+testcontainers@9.1.3:
+  version "9.1.3"
+  resolved "https://registry.npmjs.org/testcontainers/-/testcontainers-9.1.3.tgz"
+  integrity sha512-Kw7GZC8nD84Uuq2oxa2Ln9F5vIALWIZoQHywOGuiiVthSHzOVl4CtebO25whMf3CrVICwy8CBUimvSdVgU9N7g==
   dependencies:
     "@balena/dockerignore" "^1.0.2"
     "@types/archiver" "^5.3.1"
-    "@types/dockerode" "^3.3.12"
+    "@types/dockerode" "^3.3.14"
     archiver "^5.3.1"
+    async-lock "^1.4.0"
     byline "^5.0.0"
     debug "^4.3.4"
-    docker-compose "^0.23.17"
+    docker-compose "^0.23.19"
     dockerode "^3.3.4"
     get-port "^5.1.1"
-    node-fetch "^2.6.7"
+    node-fetch "^2.6.9"
     properties-reader "^2.2.0"
     ssh-remote-port-forward "^1.0.4"
     tar-fs "^2.1.1"
@@ -4865,12 +4871,7 @@ yallist@^4.0.0:
   resolved "https://registry.npmjs.org/yallist/-/yallist-4.0.0.tgz"
   integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
 
-yaml@^1.10.0:
-  version "1.10.0"
-  resolved "https://registry.npmjs.org/yaml/-/yaml-1.10.0.tgz"
-  integrity sha512-yr2icI4glYaNG+KWONODapy2/jDdMSDnrONSjblABjD9B4Z5LgiircSt8m8sRZFNi08kG9Sm0uSHtEmP3zaEGg==
-
-yaml@^1.10.2:
+yaml@^1.10.0, yaml@^1.10.2:
   version "1.10.2"
   resolved "https://registry.npmjs.org/yaml/-/yaml-1.10.2.tgz"
   integrity sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==
