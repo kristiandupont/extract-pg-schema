@@ -822,10 +822,10 @@
     pg-protocol "*"
     pg-types "^2.2.0"
 
-"@types/ramda@0.28.22":
-  version "0.28.22"
-  resolved "https://registry.npmjs.org/@types/ramda/-/ramda-0.28.22.tgz"
-  integrity sha512-DoIfh0sBxrL/aqADk+SGrfjJT9cB8modg+4NRlF7/Tfg4N2+KBEkAgpYYzrjiZxxR5YzWizjfVrTEdVDwYK7xQ==
+"@types/ramda@0.28.23":
+  version "0.28.23"
+  resolved "https://registry.npmjs.org/@types/ramda/-/ramda-0.28.23.tgz"
+  integrity sha512-9TYWiwkew+mCMsL7jZ+kkzy6QXn8PL5/SKmBPmjgUlTpkokZWTBr+OhiIUDztpAEbslWyt24NNfEmZUBFmnXig==
   dependencies:
     ts-toolbelt "^6.15.1"
 
