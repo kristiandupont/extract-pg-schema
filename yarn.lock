@@ -555,10 +555,10 @@
     eslint-plugin-simple-import-sort "^8.0.0"
     typescript "4.8.3"
 
-"@microsoft/api-documenter@7.21.5":
-  version "7.21.5"
-  resolved "https://registry.npmjs.org/@microsoft/api-documenter/-/api-documenter-7.21.5.tgz"
-  integrity sha512-RTYtqbNqlPvDSqYV2ZCNWSajSieXG58mG1w4MFkHdHhxhWbC9FHqQk7MwIMUKBQBNagW3rE/11Jv5cV0TXuW2Q==
+"@microsoft/api-documenter@7.21.6":
+  version "7.21.6"
+  resolved "https://registry.npmjs.org/@microsoft/api-documenter/-/api-documenter-7.21.6.tgz"
+  integrity sha512-Z7orii4J9nsPfiehngONhKHQJwqfHaqwr8CvhHkgeK1jf1stECBMaej/+iKw/+KzXpP9eDdJDEGCnMprxU0kjg==
   dependencies:
     "@microsoft/api-extractor-model" "7.26.4"
     "@microsoft/tsdoc" "0.14.2"
