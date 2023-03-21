@@ -6,7 +6,7 @@
 
 If the column is an identity column, then YES, else NO.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 is_identity: YesNo;

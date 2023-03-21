@@ -4,7 +4,7 @@
 
 ## ViewColumn.informationSchemaValue property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 informationSchemaValue: InformationSchemaColumn;

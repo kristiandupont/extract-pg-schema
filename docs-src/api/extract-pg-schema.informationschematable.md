@@ -6,7 +6,7 @@
 
 The view tables contains all tables and views defined in the current database. Only those tables and views are shown that the current user has access to (by way of being the owner or having some privilege).
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 interface InformationSchemaTable 
@@ -17,8 +17,8 @@ interface InformationSchemaTable
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
 |  [commit\_action](./extract-pg-schema.informationschematable.commit_action.md) |  | any | Not yet implemented |
-|  [is\_insertable\_into](./extract-pg-schema.informationschematable.is_insertable_into.md) |  | YesNo | YES if the table is insertable into, NO if not (Base tables are always insertable into, views not necessarily.) |
-|  [is\_typed](./extract-pg-schema.informationschematable.is_typed.md) |  | YesNo | YES if the table is a typed table, NO if not |
+|  [is\_insertable\_into](./extract-pg-schema.informationschematable.is_insertable_into.md) |  | [YesNo](./extract-pg-schema.yesno.md) | YES if the table is insertable into, NO if not (Base tables are always insertable into, views not necessarily.) |
+|  [is\_typed](./extract-pg-schema.informationschematable.is_typed.md) |  | [YesNo](./extract-pg-schema.yesno.md) | YES if the table is a typed table, NO if not |
 |  [reference\_generation](./extract-pg-schema.informationschematable.reference_generation.md) |  | string \| null | Applies to a feature not available in PostgreSQL |
 |  [self\_referencing\_column\_name](./extract-pg-schema.informationschematable.self_referencing_column_name.md) |  | string \| null | Applies to a feature not available in PostgreSQL |
 |  [table\_catalog](./extract-pg-schema.informationschematable.table_catalog.md) |  | string | Name of the database that contains the table (always the current database) |

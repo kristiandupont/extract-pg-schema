@@ -4,9 +4,12 @@
 
 ## MaterializedViewColumn.reference property
 
-If views are resolved, this will contain the reference from the source column in the table that this view references. Note that if the source is another view, that view in turn will be resolved if possible, leading us to a table in the end.
+> Warning: This API is now obsolete.
+> 
+> use references instead
+> 
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 reference?: ColumnReference | null;

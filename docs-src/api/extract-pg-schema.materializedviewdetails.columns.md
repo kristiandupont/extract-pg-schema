@@ -4,7 +4,7 @@
 
 ## MaterializedViewDetails.columns property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 columns: MaterializedViewColumn[];

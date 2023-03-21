@@ -6,7 +6,7 @@
 
 Called with the number of types to extract.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 onProgressStart?: (total: number) => void;

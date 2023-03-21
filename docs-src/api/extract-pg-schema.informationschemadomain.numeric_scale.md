@@ -6,7 +6,7 @@
 
 If the domain has an exact numeric type, this column contains the (declared or implicit) scale of the type for this domain. The scale indicates the number of significant digits to the right of the decimal point. It can be expressed in decimal (base 10) or binary (base 2) terms, as specified in the column numeric\_precision\_radix. For all other data types, this column is null.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 numeric_scale: number | null;

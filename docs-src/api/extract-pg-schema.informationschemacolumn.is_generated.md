@@ -6,7 +6,7 @@
 
 If the column is a generated column, then ALWAYS, else NEVER.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 is_generated: 'ALWAYS' | 'NEVER';

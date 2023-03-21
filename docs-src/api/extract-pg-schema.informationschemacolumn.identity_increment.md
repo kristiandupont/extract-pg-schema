@@ -6,7 +6,7 @@
 
 If the column is an identity column, then the increment of the internal sequence, else null.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 identity_increment: string | null;

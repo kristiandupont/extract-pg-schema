@@ -4,8 +4,8 @@
 
 ## YesNo type
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
-declare type YesNo = 'YES' | 'NO';
+type YesNo = 'YES' | 'NO';
 ```

@@ -6,7 +6,7 @@
 
 YES if the column is possibly nullable, NO if it is known not nullable. A not-null constraint is one way a column can be known not nullable, but there can be others.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 is_nullable: YesNo;

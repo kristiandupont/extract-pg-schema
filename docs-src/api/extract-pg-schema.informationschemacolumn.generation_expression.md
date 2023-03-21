@@ -6,7 +6,7 @@
 
 If the column is a generated column, then the generation expression, else null.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 generation_expression: any;

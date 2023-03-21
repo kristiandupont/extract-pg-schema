@@ -6,7 +6,7 @@
 
 If the column is an identity column, then the start value of the internal sequence, else null.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 identity_start: string | null;

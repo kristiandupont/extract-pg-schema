@@ -6,7 +6,7 @@
 
 Name of the column data type (the underlying type of the domain, if applicable)
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 udt_name: string;

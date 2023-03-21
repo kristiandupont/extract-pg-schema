@@ -4,7 +4,7 @@
 
 ## CompositeTypeDetails.attributes property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 attributes: CompositeTypeAttribute[];

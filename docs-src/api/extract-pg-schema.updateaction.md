@@ -4,10 +4,10 @@
 
 ## UpdateAction type
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
-export declare type UpdateAction = typeof updateActionMap[keyof typeof updateActionMap];
+export type UpdateAction = typeof updateActionMap[keyof typeof updateActionMap];
 ```
-<b>References:</b> [updateActionMap](./extract-pg-schema.updateactionmap.md)
+**References:** [updateActionMap](./extract-pg-schema.updateactionmap.md)
 

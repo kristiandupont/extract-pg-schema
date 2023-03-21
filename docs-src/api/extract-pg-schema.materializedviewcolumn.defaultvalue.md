@@ -4,7 +4,7 @@
 
 ## MaterializedViewColumn.defaultValue property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 defaultValue: any;

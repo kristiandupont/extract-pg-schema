@@ -4,10 +4,10 @@
 
 ## ViewColumnType type
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
-export declare type ViewColumnType = {
+export type ViewColumnType = {
     fullName: string;
     kind: 'base' | 'range' | 'domain' | 'composite' | 'enum';
 };

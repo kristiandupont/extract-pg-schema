@@ -4,12 +4,12 @@
 
 ## MaterializedViewDetails interface
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 export interface MaterializedViewDetails extends PgType<'materializedView'> 
 ```
-<b>Extends:</b> PgType&lt;'materializedView'&gt;
+**Extends:** [PgType](./extract-pg-schema.pgtype.md)<!-- -->&lt;'materializedView'&gt;
 
 ## Properties
 
@@ -17,5 +17,5 @@ export interface MaterializedViewDetails extends PgType<'materializedView'>
 |  --- | --- | --- | --- |
 |  [columns](./extract-pg-schema.materializedviewdetails.columns.md) |  | [MaterializedViewColumn](./extract-pg-schema.materializedviewcolumn.md)<!-- -->\[\] |  |
 |  [definition](./extract-pg-schema.materializedviewdetails.definition.md) |  | string |  |
-|  [fakeInformationSchemaValue](./extract-pg-schema.materializedviewdetails.fakeinformationschemavalue.md) |  | InformationSchemaView | The Postgres information\_schema views do not contain info about materialized views. This value is the result of a query that matches the one for regular views. Use with caution, not all fields are guaranteed to be meaningful and/or accurate. |
+|  [fakeInformationSchemaValue](./extract-pg-schema.materializedviewdetails.fakeinformationschemavalue.md) |  | [InformationSchemaView](./extract-pg-schema.informationschemaview.md) | The Postgres information\_schema views do not contain info about materialized views. This value is the result of a query that matches the one for regular views. Use with caution, not all fields are guaranteed to be meaningful and/or accurate. |
 

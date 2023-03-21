@@ -4,7 +4,7 @@
 
 ## TableDetails.informationSchemaValue property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 informationSchemaValue: InformationSchemaTable;

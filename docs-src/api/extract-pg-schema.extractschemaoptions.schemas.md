@@ -6,7 +6,7 @@
 
 Will contain an array of schema names to extract. If undefined, all non-system schemas will be extracted.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 schemas?: string[];

@@ -4,10 +4,10 @@
 
 ## TableColumnType type
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
-export declare type TableColumnType = {
+export type TableColumnType = {
     fullName: string;
     kind: 'base' | 'range' | 'domain' | 'composite' | 'enum';
 };

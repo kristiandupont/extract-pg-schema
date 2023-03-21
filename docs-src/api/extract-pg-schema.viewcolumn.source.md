@@ -6,7 +6,7 @@
 
 This will contain a "link" to the source table or view and column, if it can be determined.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 source: {

@@ -4,7 +4,7 @@
 
 ## MaterializedViewDetails.definition property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 definition: string;

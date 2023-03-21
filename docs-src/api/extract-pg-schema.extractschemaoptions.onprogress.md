@@ -6,7 +6,7 @@
 
 Called once for each type that is extracted.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 onProgress?: () => void;

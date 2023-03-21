@@ -1,0 +1,1 @@
+import{_ as s,c as a,o as n,N as o}from"./chunks/framework.2bebdaf8.js";const d=JSON.parse('{"title":"Extract Schema from Postgres Database","description":"","frontmatter":{},"headers":[],"relativePath":"index.md"}'),e={name:"index.md"},l=o("",8),p=[l];function t(c,r,i,y,F,D){return n(),a("div",null,p)}const C=s(e,[["render",t]]);export{d as __pageData,C as default};

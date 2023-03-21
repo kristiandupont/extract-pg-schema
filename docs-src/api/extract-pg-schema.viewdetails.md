@@ -4,12 +4,12 @@
 
 ## ViewDetails interface
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 export interface ViewDetails extends PgType<'view'> 
 ```
-<b>Extends:</b> PgType&lt;'view'&gt;
+**Extends:** [PgType](./extract-pg-schema.pgtype.md)<!-- -->&lt;'view'&gt;
 
 ## Properties
 
@@ -17,5 +17,5 @@ export interface ViewDetails extends PgType<'view'>
 |  --- | --- | --- | --- |
 |  [columns](./extract-pg-schema.viewdetails.columns.md) |  | [ViewColumn](./extract-pg-schema.viewcolumn.md)<!-- -->\[\] |  |
 |  [definition](./extract-pg-schema.viewdetails.definition.md) |  | string |  |
-|  [informationSchemaValue](./extract-pg-schema.viewdetails.informationschemavalue.md) |  | InformationSchemaView |  |
+|  [informationSchemaValue](./extract-pg-schema.viewdetails.informationschemavalue.md) |  | [InformationSchemaView](./extract-pg-schema.informationschemaview.md) |  |
 

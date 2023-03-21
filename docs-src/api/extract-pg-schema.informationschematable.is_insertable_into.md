@@ -6,7 +6,7 @@
 
 YES if the table is insertable into, NO if not (Base tables are always insertable into, views not necessarily.)
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 is_insertable_into: YesNo;

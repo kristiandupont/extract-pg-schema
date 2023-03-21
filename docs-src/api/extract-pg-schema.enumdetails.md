@@ -4,12 +4,12 @@
 
 ## EnumDetails interface
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 export interface EnumDetails extends PgType<'enum'> 
 ```
-<b>Extends:</b> PgType&lt;'enum'&gt;
+**Extends:** [PgType](./extract-pg-schema.pgtype.md)<!-- -->&lt;'enum'&gt;
 
 ## Properties
 

@@ -4,12 +4,12 @@
 
 ## RangeDetails interface
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 export interface RangeDetails extends PgType<'range'> 
 ```
-<b>Extends:</b> PgType&lt;'range'&gt;
+**Extends:** [PgType](./extract-pg-schema.pgtype.md)<!-- -->&lt;'range'&gt;
 
 ## Properties
 

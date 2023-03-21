@@ -6,7 +6,7 @@
 
 Called when all types have been extracted.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 onProgressEnd?: () => void;

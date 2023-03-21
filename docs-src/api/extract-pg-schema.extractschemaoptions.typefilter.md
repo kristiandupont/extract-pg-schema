@@ -6,7 +6,7 @@
 
 Filter function that you can use if you want to exclude certain items from the schemas.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 typeFilter?: (pgType: PgType) => boolean;

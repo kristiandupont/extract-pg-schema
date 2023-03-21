@@ -4,7 +4,7 @@
 
 ## updateActionMap variable
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 updateActionMap: {

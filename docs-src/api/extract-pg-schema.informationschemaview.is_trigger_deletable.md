@@ -6,7 +6,7 @@
 
 YES if the view has an INSTEAD OF DELETE trigger defined on it, NO if not
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 is_trigger_deletable: YesNo;

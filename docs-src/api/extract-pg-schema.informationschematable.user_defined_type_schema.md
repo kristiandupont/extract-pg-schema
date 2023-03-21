@@ -6,7 +6,7 @@
 
 If the table is a typed table, the name of the schema that contains the underlying data type, else null.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 user_defined_type_schema: string | null;

@@ -4,8 +4,8 @@
 
 ## Kind type
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
-export declare type Kind = TypeKind | ClassKind;
+export type Kind = TypeKind | ClassKind;
 ```

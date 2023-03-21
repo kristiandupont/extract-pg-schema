@@ -4,15 +4,15 @@
 
 ## PgType type
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
-declare type PgType<K extends Kind = Kind> = {
+type PgType<K extends Kind = Kind> = {
     name: string;
     schemaName: string;
     kind: K;
     comment: string | null;
 };
 ```
-<b>References:</b> [Kind](./extract-pg-schema.kind.md)
+**References:** [Kind](./extract-pg-schema.kind.md)
 

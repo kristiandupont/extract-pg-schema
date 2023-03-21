@@ -6,7 +6,7 @@
 
 YES if the table is a typed table, NO if not
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 is_typed: YesNo;

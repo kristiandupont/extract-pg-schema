@@ -4,10 +4,10 @@
 
 ## AttributeType type
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
-export declare type AttributeType = {
+export type AttributeType = {
     fullName: string;
     kind: 'base' | 'range' | 'domain' | 'composite' | 'enum';
 };

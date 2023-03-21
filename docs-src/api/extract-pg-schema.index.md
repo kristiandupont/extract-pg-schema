@@ -4,10 +4,10 @@
 
 ## Index type
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
-export declare type Index = {
+export type Index = {
     name: string;
     isPrimary: boolean;
 };

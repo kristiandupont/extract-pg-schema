@@ -4,7 +4,7 @@
 
 ## TableDetails.columns property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 columns: TableColumn[];

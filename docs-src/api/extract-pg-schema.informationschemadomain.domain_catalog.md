@@ -6,7 +6,7 @@
 
 Name of the database that contains the domain (always the current database)
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 domain_catalog: string;

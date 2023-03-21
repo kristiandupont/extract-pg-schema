@@ -4,7 +4,7 @@
 
 ## DomainDetails.innerType property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 innerType: string;

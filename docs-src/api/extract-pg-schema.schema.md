@@ -6,10 +6,10 @@
 
 extractSchemas generates a record of all the schemas extracted, indexed by schema name. The schemas are instances of this type.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
-export declare type Schema = {
+export type Schema = {
     name: string;
     domains: DomainDetails[];
     enums: EnumDetails[];
@@ -20,5 +20,5 @@ export declare type Schema = {
     compositeTypes: CompositeTypeDetails[];
 };
 ```
-<b>References:</b> [DomainDetails](./extract-pg-schema.domaindetails.md)<!-- -->, [EnumDetails](./extract-pg-schema.enumdetails.md)<!-- -->, [RangeDetails](./extract-pg-schema.rangedetails.md)<!-- -->, [TableDetails](./extract-pg-schema.tabledetails.md)<!-- -->, [ViewDetails](./extract-pg-schema.viewdetails.md)<!-- -->, [MaterializedViewDetails](./extract-pg-schema.materializedviewdetails.md)<!-- -->, [CompositeTypeDetails](./extract-pg-schema.compositetypedetails.md)
+**References:** [DomainDetails](./extract-pg-schema.domaindetails.md)<!-- -->, [EnumDetails](./extract-pg-schema.enumdetails.md)<!-- -->, [RangeDetails](./extract-pg-schema.rangedetails.md)<!-- -->, [TableDetails](./extract-pg-schema.tabledetails.md)<!-- -->, [ViewDetails](./extract-pg-schema.viewdetails.md)<!-- -->, [MaterializedViewDetails](./extract-pg-schema.materializedviewdetails.md)<!-- -->, [CompositeTypeDetails](./extract-pg-schema.compositetypedetails.md)
 

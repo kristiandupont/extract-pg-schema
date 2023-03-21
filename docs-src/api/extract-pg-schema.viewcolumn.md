@@ -4,7 +4,7 @@
 
 ## ViewColumn interface
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 export interface ViewColumn 
@@ -18,17 +18,18 @@ export interface ViewColumn
 |  [defaultValue](./extract-pg-schema.viewcolumn.defaultvalue.md) |  | any |  |
 |  [expandedType](./extract-pg-schema.viewcolumn.expandedtype.md) |  | string |  |
 |  [generated](./extract-pg-schema.viewcolumn.generated.md) |  | 'ALWAYS' \| 'NEVER' \| 'BY DEFAULT' |  |
-|  [indices?](./extract-pg-schema.viewcolumn.indices.md) |  | [Index](./extract-pg-schema.index.md)<!-- -->\[\] | <i>(Optional)</i> |
-|  [informationSchemaValue](./extract-pg-schema.viewcolumn.informationschemavalue.md) |  | InformationSchemaColumn |  |
+|  [indices?](./extract-pg-schema.viewcolumn.indices.md) |  | [Index](./extract-pg-schema.index.md)<!-- -->\[\] | _(Optional)_ |
+|  [informationSchemaValue](./extract-pg-schema.viewcolumn.informationschemavalue.md) |  | [InformationSchemaColumn](./extract-pg-schema.informationschemacolumn.md) |  |
 |  [isArray](./extract-pg-schema.viewcolumn.isarray.md) |  | boolean |  |
 |  [isIdentity](./extract-pg-schema.viewcolumn.isidentity.md) |  | boolean |  |
-|  [isNullable?](./extract-pg-schema.viewcolumn.isnullable.md) |  | boolean | <i>(Optional)</i> |
-|  [isPrimaryKey?](./extract-pg-schema.viewcolumn.isprimarykey.md) |  | boolean | <i>(Optional)</i> |
+|  [isNullable?](./extract-pg-schema.viewcolumn.isnullable.md) |  | boolean | _(Optional)_ |
+|  [isPrimaryKey?](./extract-pg-schema.viewcolumn.isprimarykey.md) |  | boolean | _(Optional)_ |
 |  [isUpdatable](./extract-pg-schema.viewcolumn.isupdatable.md) |  | boolean |  |
 |  [maxLength](./extract-pg-schema.viewcolumn.maxlength.md) |  | number \| null |  |
 |  [name](./extract-pg-schema.viewcolumn.name.md) |  | string |  |
 |  [ordinalPosition](./extract-pg-schema.viewcolumn.ordinalposition.md) |  | number |  |
-|  [reference?](./extract-pg-schema.viewcolumn.reference.md) |  | [ColumnReference](./extract-pg-schema.columnreference.md) \| null | <i>(Optional)</i> If views are resolved, this will contain the reference from the source column in the table that this view references. Note that if the source is another view, that view in turn will be resolved if possible, leading us to a table in the end. |
+|  [reference?](./extract-pg-schema.viewcolumn.reference.md) |  | [ColumnReference](./extract-pg-schema.columnreference.md) \| null | _(Optional)_ |
+|  [references?](./extract-pg-schema.viewcolumn.references.md) |  | [ColumnReference](./extract-pg-schema.columnreference.md)<!-- -->\[\] | _(Optional)_ If views are resolved, this will contain the references from the source column in the table that this view references. Note that if the source is another view, that view in turn will be resolved if possible, leading us to a table in the end. |
 |  [source](./extract-pg-schema.viewcolumn.source.md) |  | { schema: string; table: string; column: string; } \| null | This will contain a "link" to the source table or view and column, if it can be determined. |
 |  [type](./extract-pg-schema.viewcolumn.type.md) |  | [ViewColumnType](./extract-pg-schema.viewcolumntype.md) |  |
 

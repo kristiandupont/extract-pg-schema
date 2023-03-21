@@ -6,7 +6,7 @@
 
 If the column is an identity column, then YES if the internal sequence cycles or NO if it does not; otherwise null.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 identity_cycle: string;

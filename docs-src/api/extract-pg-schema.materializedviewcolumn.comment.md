@@ -4,7 +4,7 @@
 
 ## MaterializedViewColumn.comment property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 comment: string | null;

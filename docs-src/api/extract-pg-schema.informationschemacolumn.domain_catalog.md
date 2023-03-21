@@ -6,7 +6,7 @@
 
 If the column has a domain type, the name of the database that the domain is defined in (always the current database), else null.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 domain_catalog: string | null;

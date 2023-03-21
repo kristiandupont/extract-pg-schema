@@ -6,7 +6,7 @@
 
 Name of the database containing the collation of the domain (always the current database), null if default or the data type of the domain is not collatable
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 collation_catalog: string | null;
