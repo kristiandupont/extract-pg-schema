@@ -6,7 +6,7 @@
 
 Applies to a feature not available in PostgreSQL (see datetime\_precision for the fractional seconds precision of interval type columns)
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 interval_precision: number | null;

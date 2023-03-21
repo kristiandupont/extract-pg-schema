@@ -6,7 +6,7 @@
 
 YES if the column is updatable, NO if not (Columns in base tables are always updatable, columns in views not necessarily)
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 is_updatable: YesNo;

@@ -6,7 +6,7 @@
 
 Query expression defining the view (null if the view is not owned by a currently enabled role)
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 view_definition: string;

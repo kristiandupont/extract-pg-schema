@@ -9,7 +9,7 @@
 > - use extractSchemas instead
 > 
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 extractSchema: (schemaName: string, connectionConfig: string | ConnectionConfig, resolveViews: boolean, tables?: string[]) => Promise<{

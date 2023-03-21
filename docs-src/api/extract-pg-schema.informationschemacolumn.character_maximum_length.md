@@ -6,7 +6,7 @@
 
 If data\_type identifies a character or bit string type, the declared maximum length; null for all other data types or if no maximum length was declared.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 character_maximum_length: number | null;

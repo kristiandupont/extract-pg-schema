@@ -4,7 +4,7 @@
 
 ## TableColumn.ordinalPosition property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 ordinalPosition: number;

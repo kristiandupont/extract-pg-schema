@@ -6,7 +6,7 @@
 
 Data type of the domain, if it is a built-in type, or ARRAY if it is some array (in that case, see the view element\_types), else USER-DEFINED (in that case, the type is identified in udt\_name and associated columns).
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 data_type: string;

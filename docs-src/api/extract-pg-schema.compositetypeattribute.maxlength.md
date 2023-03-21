@@ -4,7 +4,7 @@
 
 ## CompositeTypeAttribute.maxLength property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 maxLength: number | null;

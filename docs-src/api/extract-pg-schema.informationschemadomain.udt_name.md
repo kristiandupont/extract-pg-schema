@@ -6,7 +6,7 @@
 
 Name of the domain data type
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 udt_name: string | null;

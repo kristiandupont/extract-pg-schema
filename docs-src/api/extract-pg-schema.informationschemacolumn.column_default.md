@@ -6,7 +6,7 @@
 
 Default expression of the column
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 column_default: any;

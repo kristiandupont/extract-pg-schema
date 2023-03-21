@@ -6,7 +6,7 @@
 
 Default expression of the domain
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 domain_default: string | null;

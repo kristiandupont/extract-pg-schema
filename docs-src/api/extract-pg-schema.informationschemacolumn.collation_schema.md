@@ -6,7 +6,7 @@
 
 Name of the schema containing the collation of the column, null if default or the data type of the column is not collatable
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 collation_schema: string | null;

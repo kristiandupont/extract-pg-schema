@@ -6,7 +6,7 @@
 
 Name of the schema that contains the domain
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 domain_schema: string;

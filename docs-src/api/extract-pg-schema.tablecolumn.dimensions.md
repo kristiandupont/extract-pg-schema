@@ -4,7 +4,7 @@
 
 ## TableColumn.dimensions property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 dimensions: number;

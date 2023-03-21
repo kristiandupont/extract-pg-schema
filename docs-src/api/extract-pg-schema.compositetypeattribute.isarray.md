@@ -4,7 +4,7 @@
 
 ## CompositeTypeAttribute.isArray property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 isArray: boolean;

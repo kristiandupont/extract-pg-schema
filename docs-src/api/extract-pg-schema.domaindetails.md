@@ -4,17 +4,17 @@
 
 ## DomainDetails interface
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 export interface DomainDetails extends PgType<'domain'> 
 ```
-<b>Extends:</b> PgType&lt;'domain'&gt;
+**Extends:** [PgType](./extract-pg-schema.pgtype.md)<!-- -->&lt;'domain'&gt;
 
 ## Properties
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [informationSchemaValue](./extract-pg-schema.domaindetails.informationschemavalue.md) |  | InformationSchemaDomain |  |
+|  [informationSchemaValue](./extract-pg-schema.domaindetails.informationschemavalue.md) |  | [InformationSchemaDomain](./extract-pg-schema.informationschemadomain.md) |  |
 |  [innerType](./extract-pg-schema.domaindetails.innertype.md) |  | string |  |
 

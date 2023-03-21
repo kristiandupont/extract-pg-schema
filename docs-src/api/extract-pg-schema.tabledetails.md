@@ -4,17 +4,17 @@
 
 ## TableDetails interface
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 export interface TableDetails extends PgType<'table'> 
 ```
-<b>Extends:</b> PgType&lt;'table'&gt;
+**Extends:** [PgType](./extract-pg-schema.pgtype.md)<!-- -->&lt;'table'&gt;
 
 ## Properties
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
 |  [columns](./extract-pg-schema.tabledetails.columns.md) |  | [TableColumn](./extract-pg-schema.tablecolumn.md)<!-- -->\[\] |  |
-|  [informationSchemaValue](./extract-pg-schema.tabledetails.informationschemavalue.md) |  | InformationSchemaTable |  |
+|  [informationSchemaValue](./extract-pg-schema.tabledetails.informationschemavalue.md) |  | [InformationSchemaTable](./extract-pg-schema.informationschematable.md) |  |
 

@@ -4,10 +4,10 @@
 
 ## MaterializedViewColumnType type
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
-export declare type MaterializedViewColumnType = {
+export type MaterializedViewColumnType = {
     fullName: string;
     kind: 'base' | 'range' | 'domain' | 'composite' | 'enum';
 };

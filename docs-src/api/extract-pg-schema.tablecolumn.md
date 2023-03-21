@@ -4,7 +4,7 @@
 
 ## TableColumn interface
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 export interface TableColumn 
@@ -20,7 +20,7 @@ export interface TableColumn
 |  [expandedType](./extract-pg-schema.tablecolumn.expandedtype.md) |  | string |  |
 |  [generated](./extract-pg-schema.tablecolumn.generated.md) |  | 'ALWAYS' \| 'NEVER' \| 'BY DEFAULT' |  |
 |  [indices](./extract-pg-schema.tablecolumn.indices.md) |  | [Index](./extract-pg-schema.index.md)<!-- -->\[\] |  |
-|  [informationSchemaValue](./extract-pg-schema.tablecolumn.informationschemavalue.md) |  | InformationSchemaColumn |  |
+|  [informationSchemaValue](./extract-pg-schema.tablecolumn.informationschemavalue.md) |  | [InformationSchemaColumn](./extract-pg-schema.informationschemacolumn.md) |  |
 |  [isArray](./extract-pg-schema.tablecolumn.isarray.md) |  | boolean |  |
 |  [isIdentity](./extract-pg-schema.tablecolumn.isidentity.md) |  | boolean |  |
 |  [isNullable](./extract-pg-schema.tablecolumn.isnullable.md) |  | boolean |  |

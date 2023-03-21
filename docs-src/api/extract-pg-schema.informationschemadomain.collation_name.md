@@ -6,7 +6,7 @@
 
 Name of the collation of the domain, null if default or the data type of the domain is not collatable
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 collation_name: string | null;

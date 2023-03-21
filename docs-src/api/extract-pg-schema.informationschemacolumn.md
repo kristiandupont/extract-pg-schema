@@ -6,7 +6,7 @@
 
 The view columns contains information about all table columns (or view columns) in the database. System columns (ctid, etc.) are not included. Only those columns are shown that the current user has access to (by way of being the owner or having some privilege).
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 interface InformationSchemaColumn 
@@ -42,10 +42,10 @@ interface InformationSchemaColumn
 |  [interval\_precision](./extract-pg-schema.informationschemacolumn.interval_precision.md) |  | number \| null | Applies to a feature not available in PostgreSQL (see datetime\_precision for the fractional seconds precision of interval type columns) |
 |  [interval\_type](./extract-pg-schema.informationschemacolumn.interval_type.md) |  | string \| null | If data\_type identifies an interval type, this column contains the specification which fields the intervals include for this column, e.g., YEAR TO MONTH, DAY TO SECOND, etc. If no field restrictions were specified (that is, the interval accepts all fields), and for all other data types, this field is null. |
 |  [is\_generated](./extract-pg-schema.informationschemacolumn.is_generated.md) |  | 'ALWAYS' \| 'NEVER' | If the column is a generated column, then ALWAYS, else NEVER. |
-|  [is\_identity](./extract-pg-schema.informationschemacolumn.is_identity.md) |  | YesNo | If the column is an identity column, then YES, else NO. |
-|  [is\_nullable](./extract-pg-schema.informationschemacolumn.is_nullable.md) |  | YesNo | YES if the column is possibly nullable, NO if it is known not nullable. A not-null constraint is one way a column can be known not nullable, but there can be others. |
-|  [is\_self\_referencing](./extract-pg-schema.informationschemacolumn.is_self_referencing.md) |  | YesNo | Applies to a feature not available in PostgreSQL |
-|  [is\_updatable](./extract-pg-schema.informationschemacolumn.is_updatable.md) |  | YesNo | YES if the column is updatable, NO if not (Columns in base tables are always updatable, columns in views not necessarily) |
+|  [is\_identity](./extract-pg-schema.informationschemacolumn.is_identity.md) |  | [YesNo](./extract-pg-schema.yesno.md) | If the column is an identity column, then YES, else NO. |
+|  [is\_nullable](./extract-pg-schema.informationschemacolumn.is_nullable.md) |  | [YesNo](./extract-pg-schema.yesno.md) | YES if the column is possibly nullable, NO if it is known not nullable. A not-null constraint is one way a column can be known not nullable, but there can be others. |
+|  [is\_self\_referencing](./extract-pg-schema.informationschemacolumn.is_self_referencing.md) |  | [YesNo](./extract-pg-schema.yesno.md) | Applies to a feature not available in PostgreSQL |
+|  [is\_updatable](./extract-pg-schema.informationschemacolumn.is_updatable.md) |  | [YesNo](./extract-pg-schema.yesno.md) | YES if the column is updatable, NO if not (Columns in base tables are always updatable, columns in views not necessarily) |
 |  [maximum\_cardinality](./extract-pg-schema.informationschemacolumn.maximum_cardinality.md) |  | null | Always null, because arrays always have unlimited maximum cardinality in PostgreSQL |
 |  [numeric\_precision\_radix](./extract-pg-schema.informationschemacolumn.numeric_precision_radix.md) |  | number | If data\_type identifies a numeric type, this column indicates in which base the values in the columns numeric\_precision and numeric\_scale are expressed. The value is either 2 or 10. For all other data types, this column is null. |
 |  [numeric\_precision](./extract-pg-schema.informationschemacolumn.numeric_precision.md) |  | number \| null | If data\_type identifies a numeric type, this column contains the (declared or implicit) precision of the type for this column. The precision indicates the number of significant digits. It can be expressed in decimal (base 10) or binary (base 2) terms, as specified in the column numeric\_precision\_radix. For all other data types, this column is null. |

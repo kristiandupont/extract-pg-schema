@@ -6,7 +6,7 @@
 
 Name of the column
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 column_name: string;

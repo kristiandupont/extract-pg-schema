@@ -4,7 +4,7 @@
 
 ## ViewColumn.isNullable property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 isNullable?: boolean;

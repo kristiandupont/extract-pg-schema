@@ -6,7 +6,7 @@
 
 Name of the table
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 table_name: string;

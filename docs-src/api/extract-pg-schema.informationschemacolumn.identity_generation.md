@@ -6,7 +6,7 @@
 
 If the column is an identity column, then ALWAYS or BY DEFAULT, reflecting the definition of the column.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 identity_generation: 'ALWAYS' | 'BY DEFAULT' | null;

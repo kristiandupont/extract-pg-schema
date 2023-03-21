@@ -6,7 +6,7 @@
 
 Not yet implemented
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 commit_action: any;

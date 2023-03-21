@@ -4,7 +4,7 @@
 
 ## CompositeTypeAttribute.ordinalPosition property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 ordinalPosition: number;

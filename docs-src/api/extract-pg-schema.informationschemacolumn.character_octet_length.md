@@ -6,7 +6,7 @@
 
 If data\_type identifies a character type, the maximum possible length in octets (bytes) of a datum; null for all other data types. The maximum octet length depends on the declared character maximum length (see above) and the server encoding.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 character_octet_length: number | null;

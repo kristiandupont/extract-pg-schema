@@ -4,10 +4,10 @@
 
 ## ColumnReference type
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
-export declare type ColumnReference = {
+export type ColumnReference = {
     schemaName: string;
     tableName: string;
     columnName: string;
@@ -16,5 +16,5 @@ export declare type ColumnReference = {
     name: string;
 };
 ```
-<b>References:</b> [UpdateAction](./extract-pg-schema.updateaction.md)
+**References:** [UpdateAction](./extract-pg-schema.updateaction.md)
 

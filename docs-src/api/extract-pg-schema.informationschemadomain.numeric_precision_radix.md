@@ -6,7 +6,7 @@
 
 If the domain has a numeric type, this column indicates in which base the values in the columns numeric\_precision and numeric\_scale are expressed. The value is either 2 or 10. For all other data types, this column is null.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 numeric_precision_radix: number | null;

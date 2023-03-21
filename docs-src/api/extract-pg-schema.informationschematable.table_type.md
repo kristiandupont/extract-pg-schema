@@ -6,7 +6,7 @@
 
 Type of the table: BASE TABLE for a persistent base table (the normal table type), VIEW for a view, FOREIGN for a foreign table, or LOCAL TEMPORARY for a temporary table
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 table_type: 'BASE TABLE' | 'VIEW' | 'FOREIGN' | 'LOCAL TEMPORARY';

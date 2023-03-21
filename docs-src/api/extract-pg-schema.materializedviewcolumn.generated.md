@@ -4,7 +4,7 @@
 
 ## MaterializedViewColumn.generated property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 generated: 'ALWAYS' | 'NEVER' | 'BY DEFAULT';

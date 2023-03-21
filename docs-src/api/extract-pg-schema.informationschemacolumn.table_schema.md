@@ -6,7 +6,7 @@
 
 Name of the schema containing the table
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 table_schema: string;

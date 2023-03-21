@@ -6,7 +6,7 @@
 
 Applies to a feature not available in PostgreSQL
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 character_set_catalog: string | null;

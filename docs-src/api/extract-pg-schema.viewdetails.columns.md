@@ -4,7 +4,7 @@
 
 ## ViewDetails.columns property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 columns: ViewColumn[];

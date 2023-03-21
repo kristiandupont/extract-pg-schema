@@ -6,7 +6,7 @@
 
 Name of the database that contains the table (always the current database)
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 table_catalog: string;

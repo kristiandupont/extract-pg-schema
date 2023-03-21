@@ -6,7 +6,7 @@
 
 If data\_type identifies a numeric type, this column contains the (declared or implicit) precision of the type for this column. The precision indicates the number of significant digits. It can be expressed in decimal (base 10) or binary (base 2) terms, as specified in the column numeric\_precision\_radix. For all other data types, this column is null.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 numeric_precision: number | null;

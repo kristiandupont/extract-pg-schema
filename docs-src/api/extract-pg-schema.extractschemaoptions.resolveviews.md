@@ -6,7 +6,7 @@
 
 extractShemas will always attempt to parse view definitions to discover the "source" of each column, i.e. the table or view that it is derived from. If this option is set to `true`<!-- -->, it will attempt to follow this source and copy values like indices, isNullable, etc. so that the view data is closer to what the database reflects.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 resolveViews?: boolean;

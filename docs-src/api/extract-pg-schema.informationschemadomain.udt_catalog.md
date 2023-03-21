@@ -6,7 +6,7 @@
 
 Name of the database that the domain data type is defined in (always the current database)
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 udt_catalog: string | null;

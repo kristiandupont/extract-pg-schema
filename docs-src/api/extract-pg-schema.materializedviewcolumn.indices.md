@@ -4,7 +4,7 @@
 
 ## MaterializedViewColumn.indices property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 indices?: Index[];

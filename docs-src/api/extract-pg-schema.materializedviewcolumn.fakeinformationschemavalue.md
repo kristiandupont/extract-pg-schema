@@ -6,7 +6,7 @@
 
 The Postgres information\_schema views do not contain info about materialized views. This value is the result of a query that matches the one for regular views. Use with caution, not all fields are guaranteed to be meaningful and/or accurate.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 fakeInformationSchemaValue: InformationSchemaColumn;

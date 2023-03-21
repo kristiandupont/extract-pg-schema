@@ -6,7 +6,7 @@
 
 This is the options object that can be passed to `extractSchemas`<!-- -->.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 export interface ExtractSchemaOptions 
@@ -16,10 +16,10 @@ export interface ExtractSchemaOptions
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [onProgress?](./extract-pg-schema.extractschemaoptions.onprogress.md) |  | () =&gt; void | <i>(Optional)</i> Called once for each type that is extracted. |
-|  [onProgressEnd?](./extract-pg-schema.extractschemaoptions.onprogressend.md) |  | () =&gt; void | <i>(Optional)</i> Called when all types have been extracted. |
-|  [onProgressStart?](./extract-pg-schema.extractschemaoptions.onprogressstart.md) |  | (total: number) =&gt; void | <i>(Optional)</i> Called with the number of types to extract. |
-|  [resolveViews?](./extract-pg-schema.extractschemaoptions.resolveviews.md) |  | boolean | <i>(Optional)</i> extractShemas will always attempt to parse view definitions to discover the "source" of each column, i.e. the table or view that it is derived from. If this option is set to <code>true</code>, it will attempt to follow this source and copy values like indices, isNullable, etc. so that the view data is closer to what the database reflects. |
-|  [schemas?](./extract-pg-schema.extractschemaoptions.schemas.md) |  | string\[\] | <i>(Optional)</i> Will contain an array of schema names to extract. If undefined, all non-system schemas will be extracted. |
-|  [typeFilter?](./extract-pg-schema.extractschemaoptions.typefilter.md) |  | (pgType: PgType) =&gt; boolean | <i>(Optional)</i> Filter function that you can use if you want to exclude certain items from the schemas. |
+|  [onProgress?](./extract-pg-schema.extractschemaoptions.onprogress.md) |  | () =&gt; void | _(Optional)_ Called once for each type that is extracted. |
+|  [onProgressEnd?](./extract-pg-schema.extractschemaoptions.onprogressend.md) |  | () =&gt; void | _(Optional)_ Called when all types have been extracted. |
+|  [onProgressStart?](./extract-pg-schema.extractschemaoptions.onprogressstart.md) |  | (total: number) =&gt; void | _(Optional)_ Called with the number of types to extract. |
+|  [resolveViews?](./extract-pg-schema.extractschemaoptions.resolveviews.md) |  | boolean | _(Optional)_ extractShemas will always attempt to parse view definitions to discover the "source" of each column, i.e. the table or view that it is derived from. If this option is set to <code>true</code>, it will attempt to follow this source and copy values like indices, isNullable, etc. so that the view data is closer to what the database reflects. |
+|  [schemas?](./extract-pg-schema.extractschemaoptions.schemas.md) |  | string\[\] | _(Optional)_ Will contain an array of schema names to extract. If undefined, all non-system schemas will be extracted. |
+|  [typeFilter?](./extract-pg-schema.extractschemaoptions.typefilter.md) |  | (pgType: [PgType](./extract-pg-schema.pgtype.md)<!-- -->) =&gt; boolean | _(Optional)_ Filter function that you can use if you want to exclude certain items from the schemas. |
 

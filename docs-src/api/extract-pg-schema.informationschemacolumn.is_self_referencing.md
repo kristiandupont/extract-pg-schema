@@ -6,7 +6,7 @@
 
 Applies to a feature not available in PostgreSQL
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 is_self_referencing: YesNo;

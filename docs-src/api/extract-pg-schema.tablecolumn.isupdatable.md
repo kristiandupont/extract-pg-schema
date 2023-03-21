@@ -4,7 +4,7 @@
 
 ## TableColumn.isUpdatable property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 isUpdatable: boolean;

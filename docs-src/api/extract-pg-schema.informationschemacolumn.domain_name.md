@@ -6,7 +6,7 @@
 
 If the column has a domain type, the name of the domain, else null.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 domain_name: string | null;

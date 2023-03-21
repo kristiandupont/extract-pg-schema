@@ -4,7 +4,7 @@
 
 ## DomainDetails.informationSchemaValue property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 informationSchemaValue: InformationSchemaDomain;

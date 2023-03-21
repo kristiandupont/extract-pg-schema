@@ -6,7 +6,7 @@
 
 If data\_type identifies an interval type, this column contains the specification which fields the intervals include for this column, e.g., YEAR TO MONTH, DAY TO SECOND, etc. If no field restrictions were specified (that is, the interval accepts all fields), and for all other data types, this field is null.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 interval_type: string | null;

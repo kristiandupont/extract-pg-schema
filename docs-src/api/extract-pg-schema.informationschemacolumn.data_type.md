@@ -6,7 +6,7 @@
 
 Data type of the column, if it is a built-in type, or ARRAY if it is some array (in that case, see the view element\_types), else USER-DEFINED (in that case, the type is identified in udt\_name and associated columns). If the column is based on a domain, this column refers to the type underlying the domain (and the domain is identified in domain\_name and associated columns).
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 data_type: string;

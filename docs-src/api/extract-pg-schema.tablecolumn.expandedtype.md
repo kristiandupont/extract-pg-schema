@@ -4,7 +4,7 @@
 
 ## TableColumn.expandedType property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 expandedType: string;

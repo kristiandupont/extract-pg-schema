@@ -6,7 +6,7 @@
 
 CASCADED or LOCAL if the view has a CHECK OPTION defined on it, NONE if not
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 check_option: 'CASCADED' | 'LOCAL' | 'NONE';

@@ -6,7 +6,7 @@
 
 Ordinal position of the column within the table (count starts at 1)
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 ordinal_position: number;

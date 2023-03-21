@@ -6,7 +6,7 @@
 
 Name of the schema that the column data type (the underlying type of the domain, if applicable) is defined in
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 udt_schema: string;

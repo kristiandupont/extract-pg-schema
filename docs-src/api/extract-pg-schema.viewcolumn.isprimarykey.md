@@ -4,7 +4,7 @@
 
 ## ViewColumn.isPrimaryKey property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 isPrimaryKey?: boolean;

@@ -6,7 +6,7 @@
 
 ES if the view is updatable (allows UPDATE and DELETE), NO if not
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 is_updatable: YesNo;

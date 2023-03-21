@@ -6,7 +6,7 @@
 
 If the table is a typed table, the name of the database that contains the underlying data type (always the current database), else null.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 user_defined_type_catalog: string | null;

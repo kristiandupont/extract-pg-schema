@@ -6,7 +6,7 @@
 
 Applies to a feature not available in PostgreSQL
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 reference_generation: string | null;

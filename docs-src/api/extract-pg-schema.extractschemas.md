@@ -6,7 +6,7 @@
 
 Perform the extraction
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 declare function extractSchemas(connectionConfig: string | ConnectionConfig, options?: ExtractSchemaOptions): Promise<Record<string, Schema>>;
@@ -17,9 +17,9 @@ declare function extractSchemas(connectionConfig: string | ConnectionConfig, opt
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  connectionConfig | string \| ConnectionConfig | Connection string or configuration object for Postgres connection |
-|  options | [ExtractSchemaOptions](./extract-pg-schema.extractschemaoptions.md) | <i>(Optional)</i> Optional options |
+|  options | [ExtractSchemaOptions](./extract-pg-schema.extractschemaoptions.md) | _(Optional)_ Optional options |
 
-<b>Returns:</b>
+**Returns:**
 
 Promise&lt;Record&lt;string, [Schema](./extract-pg-schema.schema.md)<!-- -->&gt;&gt;
 

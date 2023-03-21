@@ -6,7 +6,7 @@
 
 Name of the database that the column data type (the underlying type of the domain, if applicable) is defined in (always the current database)
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 udt_catalog: string;

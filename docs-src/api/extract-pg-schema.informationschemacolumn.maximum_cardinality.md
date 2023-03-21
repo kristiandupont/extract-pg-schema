@@ -6,7 +6,7 @@
 
 Always null, because arrays always have unlimited maximum cardinality in PostgreSQL
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 maximum_cardinality: null;

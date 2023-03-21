@@ -6,7 +6,7 @@
 
 Applies to a feature not available in PostgreSQL
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 scope_name: string | null;

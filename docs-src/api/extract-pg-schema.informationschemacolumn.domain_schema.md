@@ -6,7 +6,7 @@
 
 If the column has a domain type, the name of the schema that the domain is defined in, else null.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 domain_schema: string | null;

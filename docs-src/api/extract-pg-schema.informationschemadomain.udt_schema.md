@@ -6,7 +6,7 @@
 
 Name of the schema that the domain data type is defined in
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 udt_schema: string | null;

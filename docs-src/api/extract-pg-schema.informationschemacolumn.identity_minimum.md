@@ -6,7 +6,7 @@
 
 If the column is an identity column, then the minimum value of the internal sequence, else null.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 identity_minimum: string | null;

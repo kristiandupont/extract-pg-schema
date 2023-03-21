@@ -9,7 +9,7 @@
 > use references instead
 > 
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 reference: ColumnReference | null;
