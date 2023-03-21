@@ -4390,10 +4390,10 @@ symbol-observable@^3.0.0:
   resolved "https://registry.npmjs.org/symbol-observable/-/symbol-observable-3.0.0.tgz"
   integrity sha512-6tDOXSHiVjuCaasQSWTmHUWn4PuG7qa3+1WT031yTc/swT7+rLiw3GOrFxaH1E3lLP09dH3bVuVDf2gK5rxG3Q==
 
-tagged-comment-parser@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/tagged-comment-parser/-/tagged-comment-parser-1.1.1.tgz"
-  integrity sha512-YU/dkS7zCqrlrvhY/4xDnMWvYsXxwPlndEIzfn7pq29MjnJSiQcMtPZqO6rBBf6F1V47LnctNrsMo2pPIgWv5A==
+tagged-comment-parser@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/tagged-comment-parser/-/tagged-comment-parser-1.3.0.tgz#ef71d4f8dfb06e835f94e1ed9708ec34259fd278"
+  integrity sha512-x5+9RGzUumA/PAcwHNul2w/dDOx05Rmr03h4YXZFBPKXL534yx6gn9fzXew0gB6jY0Wsd/gurBP1u7lPR4J61w==
 
 tar-fs@^2.1.1:
   version "2.1.1"
