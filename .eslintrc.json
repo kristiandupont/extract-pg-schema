@@ -1,6 +1,12 @@
 {
   "root": true,
   "extends": ["@kristiandupont"],
+  "env": {
+    "node": true
+  },
+  "rules": {
+    "@typescript-eslint/no-non-null-assertion": "off"
+  },
   "overrides": [
     {
       "files": ["*.ts", "*.tsx"],

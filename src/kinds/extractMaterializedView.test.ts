@@ -10,7 +10,7 @@ import PgType from './PgType';
 
 const makePgType = (
   name: string,
-  schemaName: string = 'test'
+  schemaName = 'test'
 ): PgType<'materializedView'> => ({
   schemaName,
   name,

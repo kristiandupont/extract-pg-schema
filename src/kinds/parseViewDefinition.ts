@@ -33,12 +33,11 @@ function parseViewDefinition(
     '$.RawStmt.stmt.SelectStmt.fromClause..[?(@.alias)]'
   );
 
-  const aliases = aliasDefinitions.reduce(
-    (acc, { schemaname, relname, alias }) => ({
-      ...acc,
-      [alias.Alias.aliasname]: { schema: schemaname, table: relname },
-    }),
-    {}
+  const aliases = Object.fromEntries(
+    aliasDefinitions.map(({ schemaname, relname, alias }) => [
+      alias.Alias.aliasname,
+      { schema: schemaname, table: relname },
+    ])
   );
 
   const selectTargets = jp.query(

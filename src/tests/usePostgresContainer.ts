@@ -5,8 +5,8 @@ import startTestContainer from './startTestContainer';
 
 export const testWith = (
   image: string
-): TestType<{}, { container: StartedTestContainer }> =>
-  base.extend<{}, { container: StartedTestContainer }>({
+): TestType<Record<string, unknown>, { container: StartedTestContainer }> =>
+  base.extend<Record<string, unknown>, { container: StartedTestContainer }>({
     container: [
       async (_, use) => {
         const container = await startTestContainer(image);

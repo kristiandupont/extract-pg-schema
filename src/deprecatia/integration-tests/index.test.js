@@ -107,7 +107,7 @@ describe('extractSchema', () => {
 
   afterAll(async () => {
     await startedContainer.stop({
-      timeout: 10000,
+      timeout: 10_000,
     });
   }, timeout);
 

@@ -146,7 +146,7 @@ async function extractSchemas(
   const pgTypes = await fetchTypes(db, schemaNames);
 
   const typesToExtract = options?.typeFilter
-    ? pgTypes.filter(options.typeFilter)
+    ? pgTypes.filter((element) => options.typeFilter!(element))
     : pgTypes;
 
   options?.onProgressStart?.(typesToExtract.length);
@@ -160,7 +160,7 @@ async function extractSchemas(
   );
 
   const schemas: Record<string, Schema> = {};
-  populated.forEach((p) => {
+  for (const p of populated) {
     if (!(p.schemaName in schemas)) {
       schemas[p.schemaName] = {
         name: p.schemaName,
@@ -172,7 +172,7 @@ async function extractSchemas(
       ...schemas[p.schemaName][`${p.kind}s`],
       p,
     ];
-  });
+  }
 
   const result = options?.resolveViews ? resolveViewColumns(schemas) : schemas;
 

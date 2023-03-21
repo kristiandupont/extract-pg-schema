@@ -4,10 +4,7 @@ import { test } from '../tests/useSchema';
 import extractEnum, { EnumDetails } from './extractEnum';
 import PgType from './PgType';
 
-const makePgType = (
-  name: string,
-  schemaName: string = 'test'
-): PgType<'enum'> => ({
+const makePgType = (name: string, schemaName = 'test'): PgType<'enum'> => ({
   schemaName,
   name,
   kind: 'enum',

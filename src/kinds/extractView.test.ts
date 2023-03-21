@@ -5,10 +5,7 @@ import { test } from '../tests/useSchema';
 import extractView, { ViewColumn, ViewDetails } from './extractView';
 import PgType from './PgType';
 
-const makePgType = (
-  name: string,
-  schemaName: string = 'test'
-): PgType<'view'> => ({
+const makePgType = (name: string, schemaName = 'test'): PgType<'view'> => ({
   schemaName,
   name,
   kind: 'view',

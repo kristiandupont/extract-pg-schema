@@ -1,0 +1,9 @@
+{
+  "rules": {
+    "filenames/match-exported": "off",
+    "unicorn/prefer-optional-catch-binding": "off",
+    "unicorn/catch-error-name": "off",
+    "unicorn/no-array-callback-reference": "off",
+    "unicorn/numeric-separators-style": "off"
+  }
+}

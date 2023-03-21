@@ -24,6 +24,6 @@ export const setup = async (): Promise<void> => {
 
 export const teardown = async (): Promise<void> => {
   await container.stop({
-    timeout: 10000,
+    timeout: 10_000,
   });
 };

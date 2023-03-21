@@ -24,11 +24,11 @@ export {
 export { type RangeDetails } from './kinds/extractRange';
 export {
   type ColumnReference,
+  Index,
   type TableColumn,
   type TableColumnType,
   type TableDetails,
   type UpdateAction,
-  Index,
   updateActionMap,
 } from './kinds/extractTable';
 export {
