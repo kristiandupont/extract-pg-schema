@@ -33,11 +33,13 @@ export interface MaterializedViewColumn {
   source?: { schema: string; table: string; column: string };
 
   /**
-   * If views are resolved, this will contain the reference from the source
+   * If views are resolved, this will contain the references from the source
    * column in the table that this view references. Note that if the source
    * is another view, that view in turn will be resolved if possible, leading
    * us to a table in the end.
    */
+  references?: ColumnReference[];
+  /** @deprecated use references instead */
   reference?: ColumnReference | null;
   indices?: Index[];
   isNullable?: boolean;

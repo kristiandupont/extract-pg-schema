@@ -20,16 +20,16 @@ const resolveViewColumns = (
         const predicate = (col: Column) => col.name === source!.column;
         let sourceColumn: Column | undefined = schemas[source.schema].tables
           .find((table) => table.name === source!.table)
-          ?.columns.find(predicate);
+          ?.columns.find((element) => predicate(element));
         if (!sourceColumn) {
           sourceColumn = schemas[source.schema].views
             .find((view) => view.name === source!.table)
-            ?.columns.find(predicate);
+            ?.columns.find((element) => predicate(element));
         }
         if (!sourceColumn) {
           sourceColumn = schemas[source.schema].materializedViews
             .find((view) => view.name === source!.table)
-            ?.columns.find(predicate);
+            ?.columns.find((element) => predicate(element));
         }
         if (!sourceColumn) {
           throw new Error(
@@ -43,6 +43,7 @@ const resolveViewColumns = (
             ...column,
             isNullable: sourceColumn.isNullable,
             reference: sourceColumn.reference,
+            references: sourceColumn.references,
             isPrimaryKey: sourceColumn.isPrimaryKey,
             indices: sourceColumn.indices,
           };
@@ -58,11 +59,14 @@ const resolveViewColumns = (
 
   const result = { ...schemas };
 
-  Object.keys(result).forEach((schema) => {
-    result[schema].views = result[schema].views.map(resolve);
-    result[schema].materializedViews =
-      result[schema].materializedViews.map(resolve);
-  });
+  for (const schema of Object.keys(result)) {
+    result[schema].views = result[schema].views.map((element) =>
+      resolve(element)
+    );
+    result[schema].materializedViews = result[schema].materializedViews.map(
+      (element) => resolve(element)
+    );
+  }
 
   return result;
 };

@@ -9,10 +9,7 @@ import extractTable, {
 } from './extractTable';
 import PgType from './PgType';
 
-const makePgType = (
-  name: string,
-  schemaName: string = 'test'
-): PgType<'table'> => ({
+const makePgType = (name: string, schemaName = 'test'): PgType<'table'> => ({
   schemaName,
   name,
   kind: 'table',

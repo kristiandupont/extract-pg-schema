@@ -4,10 +4,7 @@ import { test } from '../tests/useSchema';
 import extractDomain, { DomainDetails } from './extractDomain';
 import PgType from './PgType';
 
-const makePgType = (
-  name: string,
-  schemaName: string = 'test'
-): PgType<'domain'> => ({
+const makePgType = (name: string, schemaName = 'test'): PgType<'domain'> => ({
   schemaName,
   name,
   kind: 'domain',

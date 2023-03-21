@@ -4,10 +4,7 @@ import { test } from '../tests/useSchema';
 import extractRange, { RangeDetails } from './extractRange';
 import PgType from './PgType';
 
-const makePgType = (
-  name: string,
-  schemaName: string = 'test'
-): PgType<'range'> => ({
+const makePgType = (name: string, schemaName = 'test'): PgType<'range'> => ({
   schemaName,
   name,
   kind: 'range',
