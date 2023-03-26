@@ -25,11 +25,7 @@
     "docs:dev": "yarn docs:prep && vitepress dev docs-src",
     "docs:build": "yarn docs:prep && vitepress build docs-src"
   },
-  "prettier": {
-    "singleQuote": true,
-    "trailingComma": "es5",
-    "endOfLine": "auto"
-  },
+  "prettier": "@kristiandupont/prettier-config",
   "dependencies": {
     "jsonpath": "^1.1.1",
     "knex": "2.4.2",
@@ -39,7 +35,7 @@
     "tagged-comment-parser": "^1.1.1"
   },
   "devDependencies": {
-    "@kristiandupont/dev-deps": "^1.3.0",
+    "@kristiandupont/dev-deps": "^1.5.0",
     "@microsoft/api-documenter": "7.21.6",
     "@microsoft/api-extractor": "7.34.4",
     "@types/jsonpath": "0.2.0",
