@@ -41,7 +41,7 @@
     "@types/jsonpath": "0.2.0",
     "@types/pg": "8.6.6",
     "@types/ramda": "0.28.23",
-    "np": "7.6.4",
+    "np": "7.7.0",
     "testcontainers": "9.3.0",
     "vitepress": "1.0.0-alpha.64",
     "vitest-fixture": "0.5.1",

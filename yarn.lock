@@ -3548,10 +3548,10 @@ normalize-url@^4.1.0:
   resolved "https://registry.npmjs.org/normalize-url/-/normalize-url-4.5.1.tgz"
   integrity sha512-9UZCFRHQdNrfTpGg8+1INIg93B6zE0aXMVFkw1WFwvO4SlZywU6aLg5Of0Ap/PgcbSw4LNxvMWXMeugwMCX0AA==
 
-np@7.6.4:
-  version "7.6.4"
-  resolved "https://registry.npmjs.org/np/-/np-7.6.4.tgz"
-  integrity sha512-w1bwfhN2OCY8VgVdtkSn2vHN+c0KtPnCCWKWvPjuB6WCxMc1bmU797xCc1NZJdRAW2F79zrMMKOIh0N/A1xdXg==
+np@7.7.0:
+  version "7.7.0"
+  resolved "https://registry.yarnpkg.com/np/-/np-7.7.0.tgz#7fbf2495f6395bcc702b84ca38c4a125363fd5a5"
+  integrity sha512-G4HfO6JUl7iKOX1qfYHM/kG5ApqqZ4ma8YjtVAJoyS5VdKkGE/OdSG3cOE9Lwr71klNz9n6KIZmPRnh0L7qM1Q==
   dependencies:
     "@samverschueren/stream-to-observable" "^0.3.1"
     any-observable "^0.5.1"
