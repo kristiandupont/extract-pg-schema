@@ -31,7 +31,7 @@
     "knex": "2.4.2",
     "pg": "8.10.0",
     "pg-query-emscripten": "^0.1.0",
-    "ramda": "^0.28.0",
+    "ramda": "^0.29.0",
     "tagged-comment-parser": "^1.1.1"
   },
   "devDependencies": {
