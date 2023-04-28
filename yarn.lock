@@ -578,27 +578,18 @@
   dependencies:
     prettier-plugin-tailwindcss "^0.2.5"
 
-"@microsoft/api-documenter@7.21.7":
-  version "7.21.7"
-  resolved "https://registry.yarnpkg.com/@microsoft/api-documenter/-/api-documenter-7.21.7.tgz#167785eb4254ea35314eedee12f9a4aa9c72c0c2"
-  integrity sha512-qlCJ9dSefL6Rmuv1FKtxg7i6N7Bv6LUPrA5Bb0dR/9Ffac2xQuXtuSXOJ09seM7G0WkpQOzta2Kc1CPixzDaIw==
+"@microsoft/api-documenter@7.22.1":
+  version "7.22.1"
+  resolved "https://registry.yarnpkg.com/@microsoft/api-documenter/-/api-documenter-7.22.1.tgz#867ce8f3843bc9f576192b62b86f8bf2d1ab4a11"
+  integrity sha512-D7rq2p7aYgceIiEHqIYd87C4G5J9OVak294vDgGOmgxrp0yA3Fi2qDPyZ1aODROi9DWCrcW5xAYcsRjYJw0obQ==
   dependencies:
-    "@microsoft/api-extractor-model" "7.26.4"
+    "@microsoft/api-extractor-model" "7.26.5"
     "@microsoft/tsdoc" "0.14.2"
-    "@rushstack/node-core-library" "3.55.2"
+    "@rushstack/node-core-library" "3.56.0"
     "@rushstack/ts-command-line" "4.13.2"
     colors "~1.2.1"
     js-yaml "~3.13.1"
     resolve "~1.22.1"
-
-"@microsoft/api-extractor-model@7.26.4":
-  version "7.26.4"
-  resolved "https://registry.npmjs.org/@microsoft/api-extractor-model/-/api-extractor-model-7.26.4.tgz"
-  integrity sha512-PDCgCzXDo+SLY5bsfl4bS7hxaeEtnXj7XtuzEE+BtALp7B5mK/NrS2kHWU69pohgsRmEALycQdaQPXoyT2i5MQ==
-  dependencies:
-    "@microsoft/tsdoc" "0.14.2"
-    "@microsoft/tsdoc-config" "~0.16.1"
-    "@rushstack/node-core-library" "3.55.2"
 
 "@microsoft/api-extractor-model@7.26.5":
   version "7.26.5"
@@ -667,19 +658,6 @@
   dependencies:
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
-
-"@rushstack/node-core-library@3.55.2":
-  version "3.55.2"
-  resolved "https://registry.npmjs.org/@rushstack/node-core-library/-/node-core-library-3.55.2.tgz"
-  integrity sha512-SaLe/x/Q/uBVdNFK5V1xXvsVps0y7h1sN7aSJllQyFbugyOaxhNRF25bwEDnicARNEjJw0pk0lYnJQ9Kr6ev0A==
-  dependencies:
-    colors "~1.2.1"
-    fs-extra "~7.0.1"
-    import-lazy "~4.0.0"
-    jju "~1.4.0"
-    resolve "~1.22.1"
-    semver "~7.3.0"
-    z-schema "~5.0.2"
 
 "@rushstack/node-core-library@3.56.0":
   version "3.56.0"
