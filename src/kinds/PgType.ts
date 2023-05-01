@@ -10,7 +10,7 @@ export const typeKindMap = {
 
   // c: 'composite', -- is also a class, handled below.
 } as const;
-type TypeKind = typeof typeKindMap[keyof typeof typeKindMap];
+type TypeKind = (typeof typeKindMap)[keyof typeof typeKindMap];
 
 export const classKindMap = {
   r: 'table',
@@ -26,7 +26,7 @@ export const classKindMap = {
   // f: 'foreignTable',
   // I: 'partitionedIndex',
 } as const;
-type ClassKind = typeof classKindMap[keyof typeof classKindMap];
+type ClassKind = (typeof classKindMap)[keyof typeof classKindMap];
 
 // Routines are not supported yet.
 // export const routineKindMap = {
