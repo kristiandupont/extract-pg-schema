@@ -14,7 +14,8 @@ export const updateActionMap = {
   d: 'SET DEFAULT',
 } as const;
 
-export type UpdateAction = typeof updateActionMap[keyof typeof updateActionMap];
+export type UpdateAction =
+  (typeof updateActionMap)[keyof typeof updateActionMap];
 
 export type ColumnReference = {
   schemaName: string;
