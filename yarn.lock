@@ -591,14 +591,14 @@
   dependencies:
     prettier-plugin-tailwindcss "^0.2.5"
 
-"@microsoft/api-documenter@7.22.3":
-  version "7.22.3"
-  resolved "https://registry.yarnpkg.com/@microsoft/api-documenter/-/api-documenter-7.22.3.tgz#5aaeca4f4bd600d1832588efef7afa7c725c34e8"
-  integrity sha512-K94pvKlePz5ow8KR8+DnjL+PXJX+Iw+C4vRS7tDM0fg17k0LvJn/lzZKQf4S5RaOwDiVjLpXUpngFO+/yURFTg==
+"@microsoft/api-documenter@7.22.5":
+  version "7.22.5"
+  resolved "https://registry.yarnpkg.com/@microsoft/api-documenter/-/api-documenter-7.22.5.tgz#95cb9791b4a86c15ce63f57feaebe2501abb2860"
+  integrity sha512-umZ2Xn/q8CXi31pQ3+6aQdjmNULej41VSuKm5AFf8QT/75bqJmjstiwb4t1M9I4ZBIrfnGcn217h9XKp0Xkf9w==
   dependencies:
-    "@microsoft/api-extractor-model" "7.26.7"
+    "@microsoft/api-extractor-model" "7.26.9"
     "@microsoft/tsdoc" "0.14.2"
-    "@rushstack/node-core-library" "3.58.0"
+    "@rushstack/node-core-library" "3.59.0"
     "@rushstack/ts-command-line" "4.13.2"
     colors "~1.2.1"
     js-yaml "~3.13.1"
@@ -613,14 +613,14 @@
     "@microsoft/tsdoc-config" "~0.16.1"
     "@rushstack/node-core-library" "3.57.0"
 
-"@microsoft/api-extractor-model@7.26.7":
-  version "7.26.7"
-  resolved "https://registry.yarnpkg.com/@microsoft/api-extractor-model/-/api-extractor-model-7.26.7.tgz#79a15375d2a161fd0efea640f774a8562582ed57"
-  integrity sha512-rx3Tq632VG3ddR74kPuPbv1qmUgO2IuCvn1z16hbNWNS5RhnTQqNPWIm7NVoi6lCh2E7uxzfmdnWXIXiJhM5IQ==
+"@microsoft/api-extractor-model@7.26.9":
+  version "7.26.9"
+  resolved "https://registry.yarnpkg.com/@microsoft/api-extractor-model/-/api-extractor-model-7.26.9.tgz#22b4e86ab654488b06c9fb240ec440a446846828"
+  integrity sha512-1AowqcRy5qMH/OB7UNkdXa4qLoJp58WFdJ026IMFS8skA0OOAOcvBV/Fi4L7fO1R/8uCMz5KHi3NsqVH4Li8xg==
   dependencies:
     "@microsoft/tsdoc" "0.14.2"
     "@microsoft/tsdoc-config" "~0.16.1"
-    "@rushstack/node-core-library" "3.58.0"
+    "@rushstack/node-core-library" "3.59.0"
 
 "@microsoft/api-extractor@7.34.6":
   version "7.34.6"
@@ -701,10 +701,10 @@
     semver "~7.3.0"
     z-schema "~5.0.2"
 
-"@rushstack/node-core-library@3.58.0":
-  version "3.58.0"
-  resolved "https://registry.yarnpkg.com/@rushstack/node-core-library/-/node-core-library-3.58.0.tgz#d40c393bfa47949a8b0ca60b0bbbc5c8d1af00c3"
-  integrity sha512-DHAZ3LTOEq2/EGURznpTJDnB3SNE2CKMDXuviQ6afhru6RykE3QoqXkeyjbpLb5ib5cpIRCPE/wykNe0xmQj3w==
+"@rushstack/node-core-library@3.59.0":
+  version "3.59.0"
+  resolved "https://registry.yarnpkg.com/@rushstack/node-core-library/-/node-core-library-3.59.0.tgz#f04db22575a242c30114b4723ba0580b6f2d8c85"
+  integrity sha512-f8ilzooAu8vj60dDe7weqHvR1NujOaKfe3TaNgAoT22rk+daUTmDtY3TlVGJ3HayVPmw3ffWToDatITi7Ic4ag==
   dependencies:
     colors "~1.2.1"
     fs-extra "~7.0.1"
