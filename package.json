@@ -42,7 +42,7 @@
     "@types/pg": "8.6.6",
     "@types/ramda": "0.29.1",
     "np": "7.7.0",
-    "testcontainers": "9.6.0",
+    "testcontainers": "9.7.0",
     "vitepress": "1.0.0-alpha.75",
     "vitest-fixture": "0.5.1",
     "vue": "3.2.47"
