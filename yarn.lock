@@ -612,15 +612,15 @@
   dependencies:
     prettier-plugin-tailwindcss "^0.3.0"
 
-"@microsoft/api-documenter@7.22.6":
-  version "7.22.6"
-  resolved "https://registry.yarnpkg.com/@microsoft/api-documenter/-/api-documenter-7.22.6.tgz#3f884f75a5821d2f0238816ef7c2b0fdee063691"
-  integrity sha512-4m981mS9VF3B+Z55kwaEV2NH0G0sMYI3RTvMNGHhNMg9BM2UWSF3B6knX8OKRkXoS0Rmu2YGFjPQey0kMhyB6A==
+"@microsoft/api-documenter@7.22.15":
+  version "7.22.15"
+  resolved "https://registry.yarnpkg.com/@microsoft/api-documenter/-/api-documenter-7.22.15.tgz#c9fc662926155a2f1c97df9b8b1f85a23caa9f59"
+  integrity sha512-HvvLYRpM/1ib5pKHA1EbYT77Ji3F4o1P2xodUB4m7ST+kn+27W87lz+Xn55+uS95EclaqxbFMNvurb9U1T/9tQ==
   dependencies:
-    "@microsoft/api-extractor-model" "7.27.0"
+    "@microsoft/api-extractor-model" "7.27.2"
     "@microsoft/tsdoc" "0.14.2"
-    "@rushstack/node-core-library" "3.59.1"
-    "@rushstack/ts-command-line" "4.13.3"
+    "@rushstack/node-core-library" "3.59.3"
+    "@rushstack/ts-command-line" "4.14.0"
     colors "~1.2.1"
     js-yaml "~3.13.1"
     resolve "~1.22.1"
@@ -633,6 +633,15 @@
     "@microsoft/tsdoc" "0.14.2"
     "@microsoft/tsdoc-config" "~0.16.1"
     "@rushstack/node-core-library" "3.59.1"
+
+"@microsoft/api-extractor-model@7.27.2":
+  version "7.27.2"
+  resolved "https://registry.yarnpkg.com/@microsoft/api-extractor-model/-/api-extractor-model-7.27.2.tgz#0146571e8bdab1e014e68cd50870c9270f5d379e"
+  integrity sha512-JWhSfEb4UMYZgI4JsJOws1DjQrb7BaoXoWQV5XW23MWRn1krHVmRHky82Dby5rQPHdr/BBKvEjZV6joFmaGU4Q==
+  dependencies:
+    "@microsoft/tsdoc" "0.14.2"
+    "@microsoft/tsdoc-config" "~0.16.1"
+    "@rushstack/node-core-library" "3.59.3"
 
 "@microsoft/api-extractor@7.35.0":
   version "7.35.0"
@@ -734,6 +743,19 @@
     semver "~7.3.0"
     z-schema "~5.0.2"
 
+"@rushstack/node-core-library@3.59.3":
+  version "3.59.3"
+  resolved "https://registry.yarnpkg.com/@rushstack/node-core-library/-/node-core-library-3.59.3.tgz#4fffed7de781edd5a277be89294f9b979c1668da"
+  integrity sha512-OGk0nQc+SvDkn+IQN16co691A/96gPoRIoWdIlpUds+sYPAGWdTcNVjKMwFOAsCSASqOeF2lh1GdPtWoWJCkPQ==
+  dependencies:
+    colors "~1.2.1"
+    fs-extra "~7.0.1"
+    import-lazy "~4.0.0"
+    jju "~1.4.0"
+    resolve "~1.22.1"
+    semver "~7.3.0"
+    z-schema "~5.0.2"
+
 "@rushstack/rig-package@0.3.19":
   version "0.3.19"
   resolved "https://registry.yarnpkg.com/@rushstack/rig-package/-/rig-package-0.3.19.tgz#635ca524cbb73523af3a0a19b4a0821c61800fdf"
@@ -746,6 +768,16 @@
   version "4.13.3"
   resolved "https://registry.yarnpkg.com/@rushstack/ts-command-line/-/ts-command-line-4.13.3.tgz#39c1cd4b0a8d86a6552a7a0635671f164a22d904"
   integrity sha512-6aQIv/o1EgsC/+SpgUyRmzg2QIAL6sudEzw3sWzJKwWuQTc5XRsyZpyldfE7WAmIqMXDao9QG35/NYORjHm5Zw==
+  dependencies:
+    "@types/argparse" "1.0.38"
+    argparse "~1.0.9"
+    colors "~1.2.1"
+    string-argv "~0.3.1"
+
+"@rushstack/ts-command-line@4.14.0":
+  version "4.14.0"
+  resolved "https://registry.yarnpkg.com/@rushstack/ts-command-line/-/ts-command-line-4.14.0.tgz#1719595bffc61e7a03e1df29a0fd29319f2e4843"
+  integrity sha512-DWozCsKg+ALgrsul+6vJhyB7ZogqSycRlnqULjGsJ9dLRv+Pc0Wj6J7pX0xarmgX2kH3tTf0rXgBcl8QjJULIQ==
   dependencies:
     "@types/argparse" "1.0.38"
     argparse "~1.0.9"
