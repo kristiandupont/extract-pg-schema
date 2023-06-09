@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/prefer-top-level-await */
 // eslint-disable-next-line unicorn/prefer-module
 const l = require('./build');
 
