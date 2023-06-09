@@ -570,7 +570,7 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@kristiandupont/dev-deps@^2.1.0":
+"@kristiandupont/dev-deps@^2.0.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@kristiandupont/dev-deps/-/dev-deps-2.1.0.tgz#933f4016c7c49f1e86561ea45f674c6909837893"
   integrity sha512-vNIb1hor79+FZksNZNlO3sa80+kEu3CwYHOkFWDnEXnpYI/139bJ1iscSs+XNf0dmBVLMtK7C735RQChUDrR5w==
