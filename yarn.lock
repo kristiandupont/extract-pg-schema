@@ -612,10 +612,10 @@
   dependencies:
     prettier-plugin-tailwindcss "^0.3.0"
 
-"@microsoft/api-documenter@7.22.15":
-  version "7.22.15"
-  resolved "https://registry.yarnpkg.com/@microsoft/api-documenter/-/api-documenter-7.22.15.tgz#c9fc662926155a2f1c97df9b8b1f85a23caa9f59"
-  integrity sha512-HvvLYRpM/1ib5pKHA1EbYT77Ji3F4o1P2xodUB4m7ST+kn+27W87lz+Xn55+uS95EclaqxbFMNvurb9U1T/9tQ==
+"@microsoft/api-documenter@7.22.16":
+  version "7.22.16"
+  resolved "https://registry.yarnpkg.com/@microsoft/api-documenter/-/api-documenter-7.22.16.tgz#65e0363c3a9ecd50cb7978263af7eeb2548ef70b"
+  integrity sha512-/m2uXGrOMjdJQDDFKbEnI5xGkVyjaBcd5VUmmTYy+jBB8p1h+UxDDhM6UlW5nvQ3AebcdyFUvX7fX30epwWtaw==
   dependencies:
     "@microsoft/api-extractor-model" "7.27.2"
     "@microsoft/tsdoc" "0.14.2"
