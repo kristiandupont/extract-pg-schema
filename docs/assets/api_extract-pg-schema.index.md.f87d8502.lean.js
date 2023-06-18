@@ -1,1 +1,0 @@
-import{_ as s,c as a,o as e,N as n}from"./chunks/framework.2bebdaf8.js";const h=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"api/extract-pg-schema.index.md"}'),t={name:"api/extract-pg-schema.index.md"},p=n("",4),o=[p];function l(c,r,i,y,d,_){return e(),a("div",null,o)}const C=s(t,[["render",l]]);export{h as __pageData,C as default};
