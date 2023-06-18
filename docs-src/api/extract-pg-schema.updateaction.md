@@ -7,7 +7,7 @@
 **Signature:**
 
 ```typescript
-export type UpdateAction = typeof updateActionMap[keyof typeof updateActionMap];
+export type UpdateAction = (typeof updateActionMap)[keyof typeof updateActionMap];
 ```
 **References:** [updateActionMap](./extract-pg-schema.updateactionmap.md)
 
