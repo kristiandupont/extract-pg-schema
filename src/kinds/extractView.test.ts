@@ -211,4 +211,14 @@ describe('extractView', () => {
 
     expect(actual).toEqual(expected);
   });
+
+  test('it should report the correct source', async ({ knex: [db] }) => {
+    await db.raw('create table test.some_table (id integer not null)');
+    await db.raw('create view test.some_view as select * from test.some_table');
+
+    const result = await extractView(db, makePgType('some_view'));
+
+    expect(result.columns[0].type.fullName).toBe('pg_catalog.int4');
+    expect(result.columns[0].source).toEqual({ schema: 'test', table: 'some_table', column: 'id' });
+  });
 });
