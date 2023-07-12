@@ -28,7 +28,7 @@
   "prettier": "@kristiandupont/prettier-config",
   "dependencies": {
     "jsonpath": "^1.1.1",
-    "knex": "2.4.2",
+    "knex": "2.5.0",
     "pg": "8.11.1",
     "pg-query-emscripten": "^0.1.0",
     "ramda": "^0.29.0",
