@@ -219,6 +219,10 @@ describe('extractView', () => {
     const result = await extractView(db, makePgType('some_view'));
 
     expect(result.columns[0].type.fullName).toBe('pg_catalog.int4');
-    expect(result.columns[0].source).toEqual({ schema: 'test', table: 'some_table', column: 'id' });
+    expect(result.columns[0].source).toEqual({
+      schema: 'test',
+      table: 'some_table',
+      column: 'id',
+    });
   });
 });

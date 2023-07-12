@@ -18,12 +18,12 @@
   ],
   "scripts": {
     "build": "tsc",
-    "lint": "yarn eslint . -f visualstudio --report-unused-disable-directives --ext .js,.ts",
+    "lint": "eslint . -f visualstudio --report-unused-disable-directives --ext .js,.ts",
     "test": "vitest run",
-    "version": "yarn build",
-    "docs:prep": "tsc && yarn api-extractor run --local --verbose && yarn api-documenter markdown --input-folder=./temp/ --output-folder=./docs-src/api && rm -rf ./temp",
-    "docs:dev": "yarn docs:prep && vitepress dev docs-src",
-    "docs:build": "yarn docs:prep && vitepress build docs-src"
+    "version": "npm run build",
+    "docs:prep": "tsc && npx api-extractor run --local --verbose && npx api-documenter markdown --input-folder=./temp/ --output-folder=./docs-src/api && rm -rf ./temp",
+    "docs:dev": "npm run docs:prep && vitepress dev docs-src",
+    "docs:build": "npm run docs:prep && vitepress build docs-src"
   },
   "prettier": "@kristiandupont/prettier-config",
   "dependencies": {
