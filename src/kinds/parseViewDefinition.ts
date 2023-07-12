@@ -15,14 +15,14 @@ export type ViewReference = {
 
 function parseViewDefinition(
   selectStatement: string,
-  defaultSchema: string
+  defaultSchema: string,
 ): ViewReference[] {
   const ast = pgQuery.parse(selectStatement).parse_tree[0];
   const selectAst = ast.RawStmt?.stmt?.SelectStmt;
 
   if (!selectAst) {
     throw new Error(
-      `The string '${selectStatement}' doesn't parse as a select statement.`
+      `The string '${selectStatement}' doesn't parse as a select statement.`,
     );
   }
 
@@ -30,19 +30,19 @@ function parseViewDefinition(
 
   const aliasDefinitions = jp.query(
     ast,
-    '$.RawStmt.stmt.SelectStmt.fromClause..[?(@.alias)]'
+    '$.RawStmt.stmt.SelectStmt.fromClause..[?(@.alias)]',
   );
 
   const aliases = Object.fromEntries(
     aliasDefinitions.map(({ schemaname, relname, alias }) => [
       alias.Alias.aliasname,
       { schema: schemaname, table: relname },
-    ])
+    ]),
   );
 
   const selectTargets = jp.query(
     ast,
-    '$.RawStmt.stmt.SelectStmt.targetList[*].ResTarget'
+    '$.RawStmt.stmt.SelectStmt.targetList[*].ResTarget',
   );
   const viewReferences = selectTargets.map((selectTarget) => {
     const fields = jp.query(selectTarget, '$.val[*].fields[*].String.str');

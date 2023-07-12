@@ -70,7 +70,7 @@ const typeMapQueryPart = `
 
 const extractCompositeType = async (
   db: Knex,
-  compositeType: PgType<'compositeType'>
+  compositeType: PgType<'compositeType'>,
 ): Promise<CompositeTypeDetails> => {
   const columnsQuery = await db.raw(
     `
@@ -111,7 +111,7 @@ const extractCompositeType = async (
       table_name = :table_name
       AND table_schema = :schema_name;
   `,
-    { table_name: compositeType.name, schema_name: compositeType.schemaName }
+    { table_name: compositeType.name, schema_name: compositeType.schemaName },
   );
 
   const attributes = columnsQuery.rows;

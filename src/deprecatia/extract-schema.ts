@@ -98,7 +98,7 @@ const extractSchema = async (
   schemaName: string,
   connectionConfig: string | ConnectionConfig,
   resolveViews: boolean,
-  tables?: string[]
+  tables?: string[],
 ): Promise<{
   tables: any[];
   views: any[];
@@ -128,7 +128,7 @@ const extractSchema = async (
       [
         ...(r[schemaName].enums ?? []),
         ...(r[schemaName].compositeTypes ?? []),
-      ].map(mapType)
+      ].map(mapType),
     ),
   };
   return result;

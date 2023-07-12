@@ -88,7 +88,7 @@ WHERE
 
 const resolveSource = (
   column: ViewColumn,
-  sourceMapping?: Record<string, ViewReference>
+  sourceMapping?: Record<string, ViewReference>,
 ): ViewColumn => ({
   ...column,
   source: sourceMapping?.[column.name].source ?? null,
@@ -96,7 +96,7 @@ const resolveSource = (
 
 const extractView = async (
   db: Knex,
-  view: PgType<'view'>
+  view: PgType<'view'>,
 ): Promise<ViewDetails> => {
   const [informationSchemaValue] = await db
     .from('information_schema.views')
@@ -141,7 +141,7 @@ const extractView = async (
       table_name = :table_name
       AND table_schema = :schema_name;
   `,
-    { table_name: view.name, schema_name: view.schemaName }
+    { table_name: view.name, schema_name: view.schemaName },
   );
 
   const unresolvedColumns: ViewColumn[] = columnsQuery.rows;
@@ -149,17 +149,17 @@ const extractView = async (
   try {
     const viewReferences = await parseViewDefinition(
       informationSchemaValue.view_definition,
-      view.schemaName
+      view.schemaName,
     );
     sourceMapping = R.indexBy(R.prop('viewColumn'), viewReferences);
   } catch {
     console.warn(
-      `Error parsing view definition for "${view.name}". Falling back to raw data`
+      `Error parsing view definition for "${view.name}". Falling back to raw data`,
     );
   }
 
   const columns = unresolvedColumns.map((column) =>
-    resolveSource(column, sourceMapping)
+    resolveSource(column, sourceMapping),
   );
 
   return {

@@ -22,7 +22,7 @@ describe('fetchTypes', () => {
     await db.raw('create table test.some_table (id integer)');
     await db.raw('create view test.some_view as select 1 as id');
     await db.raw(
-      'create materialized view test.some_materialized_view as select 1 as id'
+      'create materialized view test.some_materialized_view as select 1 as id',
     );
     await db.raw('create type test.some_composite_type as (id integer)');
     await db.raw("create type test.some_enum as enum ('a', 'b')");
@@ -66,7 +66,7 @@ describe('fetchTypes', () => {
     // Composite types are both types and classes. The comment comes from the class.
     await db.raw('create type test.some_composite_type as (id integer)');
     await db.raw(
-      "comment on type test.some_composite_type is 'some composite type comment'"
+      "comment on type test.some_composite_type is 'some composite type comment'",
     );
 
     const types = await fetchTypes(db, ['test']);
