@@ -148,7 +148,7 @@ WHERE
 
 const extractTable = async (
   db: Knex,
-  table: PgType<'table'>
+  table: PgType<'table'>,
 ): Promise<TableDetails> => {
   const [informationSchemaValue] = await db
     .from('information_schema.tables')
@@ -206,7 +206,7 @@ const extractTable = async (
       table_name = :table_name
       AND table_schema = :schema_name;
   `,
-    { table_name: table.name, schema_name: table.schemaName }
+    { table_name: table.name, schema_name: table.schemaName },
   );
 
   const columns = columnsQuery.rows.map((row: any) => ({

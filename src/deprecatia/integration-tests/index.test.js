@@ -22,7 +22,7 @@ describe('extractSchema', () => {
       process.env['TESTCONTAINERS_RYUK_DISABLED'] = true;
     }
     const genericContainer = new GenericContainer(
-      'kristiandupont/dvdrental-image'
+      'kristiandupont/dvdrental-image',
     )
       .withExposedPorts(5432)
       .withEnvironment({ POSTGRES_PASSWORD: 'postgres' })
@@ -70,7 +70,7 @@ describe('extractSchema', () => {
       });
 
     await setupDB.schema.raw(
-      'CREATE VIEW some_schema.default_view AS select * from some_schema.default_table'
+      'CREATE VIEW some_schema.default_view AS select * from some_schema.default_table',
     );
 
     // await setupDB.schema.raw(
@@ -79,7 +79,7 @@ describe('extractSchema', () => {
 
     await setupDB.schema.createSchemaIfNotExists('not_default');
     await setupDB.schema.raw(
-      "CREATE TYPE not_default.cust_type_not_default as ENUM ('custom1', 'custom2');"
+      "CREATE TYPE not_default.cust_type_not_default as ENUM ('custom1', 'custom2');",
     );
 
     await setupDB.schema
@@ -100,7 +100,7 @@ describe('extractSchema', () => {
       });
 
     await setupDB.schema.raw(
-      'CREATE VIEW not_default.not_default_view AS select * from not_default.not_default_table'
+      'CREATE VIEW not_default.not_default_view AS select * from not_default.not_default_table',
     );
     await setupDB.destroy();
   }, timeout);
@@ -133,10 +133,10 @@ describe('extractSchema', () => {
 
     expect(extracted.types).toHaveLength(1);
     expect(extracted.types.filter((t) => t.name === 'cust_type')).toHaveLength(
-      1
+      1,
     );
     expect(
-      extracted.types.filter((t) => t.name === 'cust_type_not_default')
+      extracted.types.filter((t) => t.name === 'cust_type_not_default'),
     ).toHaveLength(0);
   });
 
@@ -151,10 +151,10 @@ describe('extractSchema', () => {
 
     expect(extracted.types).toHaveLength(1);
     expect(extracted.types.filter((t) => t.name === 'cust_type')).toHaveLength(
-      0
+      0,
     );
     expect(
-      extracted.types.filter((t) => t.name === 'cust_type_not_default')
+      extracted.types.filter((t) => t.name === 'cust_type_not_default'),
     ).toHaveLength(1);
   });
 
@@ -248,7 +248,7 @@ CREATE VIEW some_schema.v AS SELECT * FROM some_schema.source;
       const extracted = await extractSchema(
         'partition_test',
         connection,
-        false
+        false,
       );
 
       expect(extracted.tables).toHaveLength(1);

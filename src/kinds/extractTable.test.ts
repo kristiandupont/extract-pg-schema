@@ -128,13 +128,13 @@ describe('extractTable', () => {
 
   test('it should handle arrays of primitive types', async ({ knex: [db] }) => {
     await db.raw(
-      'create table test.some_table (array_of_ints integer[], array_of_strings text[], two_dimensional_array integer[][])'
+      'create table test.some_table (array_of_ints integer[], array_of_strings text[], two_dimensional_array integer[][])',
     );
 
     const result = await extractTable(db, makePgType('some_table'));
     const actual = R.map(
       R.pick(['name', 'expandedType', 'type', 'dimensions']),
-      result.columns
+      result.columns,
     );
 
     const expected: Partial<TableColumn>[] = [
@@ -178,13 +178,13 @@ describe('extractTable', () => {
         c_a test.some_composite[],
         r_a test.some_range[],
         e_a test.some_enum[]
-    )`
+    )`,
     );
 
     const result = await extractTable(db, makePgType('some_table'));
     const actual = R.map(
       R.pick(['name', 'expandedType', 'type', 'dimensions']),
-      result.columns
+      result.columns,
     );
 
     const expected: Partial<TableColumn>[] = [
@@ -259,7 +259,7 @@ describe('extractTable', () => {
     test('it should extract a simple foreign key', async ({ knex: [db] }) => {
       await db.raw('create table test.some_table (id integer primary key)');
       await db.raw(
-        'create table test.linking_table (some_table_id integer references test.some_table(id))'
+        'create table test.linking_table (some_table_id integer references test.some_table(id))',
       );
 
       const result = await extractTable(db, makePgType('linking_table'));
@@ -282,10 +282,10 @@ describe('extractTable', () => {
       knex: [db],
     }) => {
       await db.raw(
-        'create table secondary_schema.some_table (id integer primary key)'
+        'create table secondary_schema.some_table (id integer primary key)',
       );
       await db.raw(
-        'create table test.linking_table (some_table_id integer references secondary_schema.some_table(id))'
+        'create table test.linking_table (some_table_id integer references secondary_schema.some_table(id))',
       );
 
       const result = await extractTable(db, makePgType('linking_table'));
@@ -306,7 +306,7 @@ describe('extractTable', () => {
     }) => {
       await db.raw('create table test.some_table (id integer primary key)');
       await db.raw(
-        'create table test.linking_table (some_table_id integer references test.some_table(id) on delete cascade on update set null)'
+        'create table test.linking_table (some_table_id integer references test.some_table(id) on delete cascade on update set null)',
       );
 
       const result = await extractTable(db, makePgType('linking_table'));
@@ -333,7 +333,7 @@ describe('extractTable', () => {
           some_table_id integer,
           constraint "fk_1" foreign key ("some_table_id") references test.some_table(id),
           constraint "fk_2" foreign key ("some_table_id") references test.some_table(id)
-        )`
+        )`,
       );
 
       const result = await extractTable(db, makePgType('linking_table'));

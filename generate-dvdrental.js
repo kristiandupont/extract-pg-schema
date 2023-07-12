@@ -11,5 +11,5 @@ const connection = {
 };
 l.extractSchemas(connection).then((r) =>
   // eslint-disable-next-line no-console
-  console.log(JSON.stringify(r, null, 2))
+  console.log(JSON.stringify(r, null, 2)),
 );

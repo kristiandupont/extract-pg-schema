@@ -11,7 +11,7 @@ export interface DomainDetails extends PgType<'domain'> {
 
 const extractDomain = async (
   db: Knex,
-  domain: PgType<'domain'>
+  domain: PgType<'domain'>,
 ): Promise<DomainDetails> => {
   const query = await db.raw(
     `
@@ -29,7 +29,7 @@ const extractDomain = async (
       AND domain_schema = :schema_name
       AND t.typnamespace::regnamespace::text = :schema_name
     `,
-    { domain_name: domain.name, schema_name: domain.schemaName }
+    { domain_name: domain.name, schema_name: domain.schemaName },
   );
 
   return {

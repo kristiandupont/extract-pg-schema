@@ -135,7 +135,7 @@ describe('extractView', () => {
         c_a test.some_composite[],
         r_a test.some_range[],
         e_a test.some_enum[]
-    )`
+    )`,
     );
 
     await db.raw('create view test.some_view as select * from test.some_table');
@@ -143,7 +143,7 @@ describe('extractView', () => {
     const result = await extractView(db, makePgType('some_view'));
     const actual = R.map(
       R.pick(['name', 'expandedType', 'type', 'isArray']),
-      result.columns
+      result.columns,
     );
 
     const expected: Partial<ViewColumn>[] = [

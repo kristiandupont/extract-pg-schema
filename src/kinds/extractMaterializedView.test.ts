@@ -10,7 +10,7 @@ import PgType from './PgType';
 
 const makePgType = (
   name: string,
-  schemaName = 'test'
+  schemaName = 'test',
 ): PgType<'materializedView'> => ({
   schemaName,
   name,
@@ -23,12 +23,12 @@ describe('extractMaterializedView', () => {
     knex: [db, databaseName],
   }) => {
     await db.raw(
-      'create materialized view test.some_materialized_view as select 1 as id'
+      'create materialized view test.some_materialized_view as select 1 as id',
     );
 
     const result = await extractMaterializedView(
       db,
-      makePgType('some_materialized_view')
+      makePgType('some_materialized_view'),
     );
 
     const expected: MaterializedViewDetails = {
@@ -121,15 +121,15 @@ describe('extractMaterializedView', () => {
 
   test('it should fetch column comments', async ({ knex: [db] }) => {
     await db.raw(
-      'create materialized view test.some_materialized_view as select 1 as id'
+      'create materialized view test.some_materialized_view as select 1 as id',
     );
     await db.raw(
-      "comment on column test.some_materialized_view.id is 'id column'"
+      "comment on column test.some_materialized_view.id is 'id column'",
     );
 
     const result = await extractMaterializedView(
       db,
-      makePgType('some_materialized_view')
+      makePgType('some_materialized_view'),
     );
 
     expect(result.columns[0].comment).toBe('id column');
@@ -153,20 +153,20 @@ describe('extractMaterializedView', () => {
         c_a test.some_composite[],
         r_a test.some_range[],
         e_a test.some_enum[]
-    )`
+    )`,
     );
 
     await db.raw(
-      'create materialized view test.some_materialized_view as select * from test.some_table'
+      'create materialized view test.some_materialized_view as select * from test.some_table',
     );
 
     const result = await extractMaterializedView(
       db,
-      makePgType('some_materialized_view')
+      makePgType('some_materialized_view'),
     );
     const actual = R.map(
       R.pick(['name', 'expandedType', 'type', 'isArray']),
-      result.columns
+      result.columns,
     );
 
     const expected: Partial<MaterializedViewColumn>[] = [
