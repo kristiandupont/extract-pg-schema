@@ -99,10 +99,10 @@ WHERE
 
 const extractMaterializedView = async (
   db: Knex,
-  materializedView: PgType<'materializedView'>
+  materializedView: PgType<'materializedView'>,
 ): Promise<MaterializedViewDetails> => {
   const fakeInformationSchemaValueQuery = await db.raw(
-    fakeInformationSchemaViewsQueryPart
+    fakeInformationSchemaViewsQueryPart,
   );
   const fakeInformationSchemaValue: InformationSchemaView =
     fakeInformationSchemaValueQuery.rows[0];
@@ -157,7 +157,7 @@ const extractMaterializedView = async (
     {
       table_name: materializedView.name,
       schema_name: materializedView.schemaName,
-    }
+    },
   );
 
   const columns = columnsQuery.rows;

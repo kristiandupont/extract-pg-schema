@@ -5,7 +5,7 @@ import PgType, { classKindMap, typeKindMap } from './PgType';
 
 const fetchTypes = async (
   db: Knex,
-  schemaNames: string[]
+  schemaNames: string[],
 ): Promise<PgType[]> => {
   // We want to ignore everything belonging to etensions. (Maybe this should be optional?)
   const { extClassOids, extTypeOids } = await fetchExtensionItemIds(db);
@@ -30,8 +30,8 @@ const fetchTypes = async (
         `COALESCE(
           obj_description(COALESCE(pg_class.oid, pg_type.oid)), 
           obj_description(pg_type.oid)
-        ) as comment`
-      )
+        ) as comment`,
+      ),
     )
     .from('pg_catalog.pg_type')
     .join('pg_catalog.pg_namespace', 'pg_namespace.oid', 'pg_type.typnamespace')
@@ -43,8 +43,8 @@ const fetchTypes = async (
           b2
             .where('pg_class.relispartition', false)
             .whereNotIn('pg_class.relkind', ['S'])
-            .whereNotIn('pg_class.oid', extClassOids)
-        )
+            .whereNotIn('pg_class.oid', extClassOids),
+        ),
     )
     .whereNotIn('pg_type.oid', extTypeOids)
     .whereIn('pg_type.typtype', ['c', ...Object.keys(typeKindMap)])

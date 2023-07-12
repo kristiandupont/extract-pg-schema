@@ -3,7 +3,7 @@ import { GenericContainer, StartedTestContainer } from 'testcontainers';
 const timeout = 5 * 60 * 1000;
 
 const startTestContainer = async (
-  image: string
+  image: string,
 ): Promise<StartedTestContainer> =>
   // Starting this with withReuse() enabled will spin up the container
   // on the first call and then reuse it on subsequent calls.

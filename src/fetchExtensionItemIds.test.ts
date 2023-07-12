@@ -17,7 +17,7 @@ describe('fetchExtensionItemIds', () => {
     const classes = [];
     for (const extClassOid of r.extClassOids) {
       const c = await db.raw(
-        `select * from pg_catalog.pg_class where oid = ${extClassOid}`
+        `select * from pg_catalog.pg_class where oid = ${extClassOid}`,
       );
       classes.push(c.rows[0].relname);
     }
@@ -27,7 +27,7 @@ describe('fetchExtensionItemIds', () => {
     const types = [];
     for (const extTypeOid of r.extTypeOids) {
       const c = await db.raw(
-        `select * from pg_catalog.pg_type where oid = ${extTypeOid}`
+        `select * from pg_catalog.pg_type where oid = ${extTypeOid}`,
       );
       types.push(c.rows[0].typname);
     }
@@ -37,7 +37,7 @@ describe('fetchExtensionItemIds', () => {
     const procs = [];
     for (const extProcOid of r.extProcOids) {
       const c = await db.raw(
-        `select * from pg_catalog.pg_proc where oid = ${extProcOid}`
+        `select * from pg_catalog.pg_proc where oid = ${extProcOid}`,
       );
       procs.push(c.rows[0].proname);
     }

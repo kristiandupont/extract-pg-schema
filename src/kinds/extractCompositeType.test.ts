@@ -10,7 +10,7 @@ import PgType from './PgType';
 
 const makePgType = (
   name: string,
-  schemaName = 'test'
+  schemaName = 'test',
 ): PgType<'compositeType'> => ({
   schemaName,
   name,
@@ -26,7 +26,7 @@ describe('extractCompositeType', () => {
 
     const result = await extractCompositeType(
       db,
-      makePgType('some_composite_type')
+      makePgType('some_composite_type'),
     );
 
     const expected: CompositeTypeDetails = {
@@ -106,15 +106,15 @@ describe('extractCompositeType', () => {
 
   test('it should fetch column comments', async ({ knex: [db] }) => {
     await db.raw(
-      'create type test.some_composite_type as (id integer, name text)'
+      'create type test.some_composite_type as (id integer, name text)',
     );
     await db.raw(
-      "comment on column test.some_composite_type.id is 'id column'"
+      "comment on column test.some_composite_type.id is 'id column'",
     );
 
     const result = await extractCompositeType(
       db,
-      makePgType('some_composite_type')
+      makePgType('some_composite_type'),
     );
 
     expect(result.attributes[0].comment).toBe('id column');
@@ -138,16 +138,16 @@ describe('extractCompositeType', () => {
         c_a test.some_composite[],
         r_a test.some_range[],
         e_a test.some_enum[]
-    )`
+    )`,
     );
 
     const result = await extractCompositeType(
       db,
-      makePgType('some_composite_type')
+      makePgType('some_composite_type'),
     );
     const actual = R.map(
       R.pick(['name', 'expandedType', 'type', 'isArray']),
-      result.attributes
+      result.attributes,
     );
 
     const expected: Partial<CompositeTypeAttribute>[] = [

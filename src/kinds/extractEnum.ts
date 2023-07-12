@@ -8,7 +8,7 @@ export interface EnumDetails extends PgType<'enum'> {
 
 const extractEnum = async (
   db: Knex,
-  pgEnum: PgType<'enum'>
+  pgEnum: PgType<'enum'>,
 ): Promise<EnumDetails> => {
   const query = await db.raw(
     `
@@ -23,7 +23,7 @@ const extractEnum = async (
       AND pg_namespace.nspname = :schema_name
       AND typname = :type_name
     `,
-    { type_name: pgEnum.name, schema_name: pgEnum.schemaName }
+    { type_name: pgEnum.name, schema_name: pgEnum.schemaName },
   );
 
   return {

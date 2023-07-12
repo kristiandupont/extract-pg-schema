@@ -9,10 +9,10 @@ import { ViewColumn, ViewDetails } from './kinds/extractView';
 type Column = TableColumn | ViewColumn | MaterializedViewColumn;
 
 const resolveViewColumns = (
-  schemas: Record<string, Schema>
+  schemas: Record<string, Schema>,
 ): Record<string, Schema> => {
   const resolve = <T extends ViewDetails | MaterializedViewDetails>(
-    view: T
+    view: T,
   ): T => {
     const columns = view.columns.map((column) => {
       let source = column.source;
@@ -33,7 +33,7 @@ const resolveViewColumns = (
         }
         if (!sourceColumn) {
           throw new Error(
-            `Column ${source.schema}.${source.table}.${source.column} was not found..`
+            `Column ${source.schema}.${source.table}.${source.column} was not found..`,
           );
         }
         if ((sourceColumn as ViewColumn | MaterializedViewColumn).source) {
@@ -61,10 +61,10 @@ const resolveViewColumns = (
 
   for (const schema of Object.keys(result)) {
     result[schema].views = result[schema].views.map((element) =>
-      resolve(element)
+      resolve(element),
     );
     result[schema].materializedViews = result[schema].materializedViews.map(
-      (element) => resolve(element)
+      (element) => resolve(element),
     );
   }
 

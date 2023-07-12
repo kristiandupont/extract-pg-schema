@@ -8,7 +8,7 @@ import { Knex } from 'knex';
  * @returns the oids of the Postgres extension classes and types
  */
 const fetchExtensionItemIds = async (
-  db: Knex
+  db: Knex,
 ): Promise<{
   extClassOids: number[];
   extTypeOids: number[];

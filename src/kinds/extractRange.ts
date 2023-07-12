@@ -8,7 +8,7 @@ export interface RangeDetails extends PgType<'range'> {
 
 const extractRange = async (
   db: Knex,
-  range: PgType<'range'>
+  range: PgType<'range'>,
 ): Promise<RangeDetails> => {
   const query = await db.raw(
     `
@@ -23,7 +23,7 @@ const extractRange = async (
       pg_namespace.nspname = :schema_name
       AND range_type.typname = :type_name
     `,
-    { type_name: range.name, schema_name: range.schemaName }
+    { type_name: range.name, schema_name: range.schemaName },
   );
 
   return {

@@ -54,7 +54,7 @@ const emptySchema: Omit<Schema, 'name'> = {
 
 type Populator = <K extends Kind>(
   db: Knex,
-  pgType: PgType<K>
+  pgType: PgType<K>,
 ) => Promise<DetailsMap[K]>;
 
 // @ts-ignore Why is this broken? I don't understand. :-/
@@ -120,7 +120,7 @@ export interface ExtractSchemaOptions {
  */
 async function extractSchemas(
   connectionConfig: string | ConnectionConfig,
-  options?: ExtractSchemaOptions
+  options?: ExtractSchemaOptions,
 ): Promise<Record<string, Schema>> {
   const connection = connectionConfig as string | Knex.PgConnectionConfig;
   const db = knex({ client: 'postgres', connection });
@@ -135,7 +135,7 @@ async function extractSchemas(
   const schemaNames = options?.schemas ?? allSchemaNames;
   if (options?.schemas) {
     const missingSchemas = schemaNames.filter(
-      (schemaName) => !allSchemaNames.includes(schemaName)
+      (schemaName) => !allSchemaNames.includes(schemaName),
     );
 
     if (missingSchemas.length > 0) {
@@ -156,7 +156,7 @@ async function extractSchemas(
       const result = await populatorMap[pgType.kind](db, pgType);
       options?.onProgress?.();
       return result;
-    })
+    }),
   );
 
   const schemas: Record<string, Schema> = {};
