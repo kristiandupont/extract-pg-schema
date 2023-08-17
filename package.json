@@ -29,7 +29,7 @@
   "dependencies": {
     "jsonpath": "^1.1.1",
     "knex": "2.5.1",
-    "pg": "8.11.2",
+    "pg": "8.11.3",
     "pg-query-emscripten": "^0.1.0",
     "ramda": "^0.29.0",
     "tagged-comment-parser": "^1.1.1"
