@@ -38,7 +38,7 @@
     "@kristiandupont/dev-deps": "^2.2.0",
     "@microsoft/api-documenter": "7.22.33",
     "@microsoft/api-extractor": "7.38.0",
-    "@types/jsonpath": "0.2.0",
+    "@types/jsonpath": "0.2.1",
     "@types/pg": "8.10.3",
     "@types/ramda": "0.29.3",
     "np": "8.0.4",
