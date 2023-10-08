@@ -28,22 +28,22 @@
   "prettier": "@kristiandupont/prettier-config",
   "dependencies": {
     "jsonpath": "^1.1.1",
-    "knex": "2.5.0",
-    "pg": "8.11.1",
+    "knex": "2.5.1",
+    "pg": "8.11.3",
     "pg-query-emscripten": "^0.1.0",
     "ramda": "^0.29.0",
     "tagged-comment-parser": "^1.1.1"
   },
   "devDependencies": {
     "@kristiandupont/dev-deps": "^2.2.0",
-    "@microsoft/api-documenter": "7.22.26",
-    "@microsoft/api-extractor": "7.36.1",
+    "@microsoft/api-documenter": "7.22.33",
+    "@microsoft/api-extractor": "7.36.4",
     "@types/jsonpath": "0.2.0",
     "@types/pg": "8.10.2",
     "@types/ramda": "0.29.3",
     "np": "8.0.4",
-    "testcontainers": "9.10.0",
-    "vitepress": "1.0.0-beta.5",
+    "testcontainers": "10.2.1",
+    "vitepress": "1.0.0-rc.10",
     "vitest-fixture": "0.5.2",
     "vue": "3.3.4"
   },
