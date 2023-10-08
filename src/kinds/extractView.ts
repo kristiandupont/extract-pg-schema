@@ -1,16 +1,16 @@
-import { Knex } from 'knex';
-import * as R from 'ramda';
+import { Knex } from "knex";
+import * as R from "ramda";
 
-import InformationSchemaColumn from '../information_schema/InformationSchemaColumn';
-import InformationSchemaView from '../information_schema/InformationSchemaView';
-import { ColumnReference, Index } from './extractTable';
-import parseViewDefinition, { ViewReference } from './parseViewDefinition';
-import PgType from './PgType';
-import commentMapQueryPart from './query-parts/commentMapQueryPart';
+import InformationSchemaColumn from "../information_schema/InformationSchemaColumn";
+import InformationSchemaView from "../information_schema/InformationSchemaView";
+import { ColumnReference, Index } from "./extractTable";
+import parseViewDefinition, { ViewReference } from "./parseViewDefinition";
+import PgType from "./PgType";
+import commentMapQueryPart from "./query-parts/commentMapQueryPart";
 
 export type ViewColumnType = {
   fullName: string;
-  kind: 'base' | 'range' | 'domain' | 'composite' | 'enum';
+  kind: "base" | "range" | "domain" | "composite" | "enum";
 };
 
 export interface ViewColumn {
@@ -21,7 +21,7 @@ export interface ViewColumn {
   defaultValue: any;
   isArray: boolean;
   maxLength: number | null;
-  generated: 'ALWAYS' | 'NEVER' | 'BY DEFAULT';
+  generated: "ALWAYS" | "NEVER" | "BY DEFAULT";
   isUpdatable: boolean;
   isIdentity: boolean;
   ordinalPosition: number;
@@ -48,7 +48,7 @@ export interface ViewColumn {
   informationSchemaValue: InformationSchemaColumn;
 }
 
-export interface ViewDetails extends PgType<'view'> {
+export interface ViewDetails extends PgType<"view"> {
   definition: string;
   informationSchemaValue: InformationSchemaView;
   columns: ViewColumn[];
@@ -96,15 +96,15 @@ const resolveSource = (
 
 const extractView = async (
   db: Knex,
-  view: PgType<'view'>,
+  view: PgType<"view">,
 ): Promise<ViewDetails> => {
   const [informationSchemaValue] = await db
-    .from('information_schema.views')
+    .from("information_schema.views")
     .where({
       table_name: view.name,
       table_schema: view.schemaName,
     })
-    .select<InformationSchemaView[]>('*');
+    .select<InformationSchemaView[]>("*");
 
   const columnsQuery = await db.raw(
     `
@@ -151,7 +151,7 @@ const extractView = async (
       informationSchemaValue.view_definition,
       view.schemaName,
     );
-    sourceMapping = R.indexBy(R.prop('viewColumn'), viewReferences);
+    sourceMapping = R.indexBy(R.prop("viewColumn"), viewReferences);
   } catch {
     console.warn(
       `Error parsing view definition for "${view.name}". Falling back to raw data`,

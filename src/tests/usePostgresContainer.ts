@@ -1,7 +1,7 @@
-import { StartedTestContainer } from 'testcontainers';
-import { test as base, TestType } from 'vitest-fixture';
+import { StartedTestContainer } from "testcontainers";
+import { test as base, TestType } from "vitest-fixture";
 
-import startTestContainer from './startTestContainer';
+import startTestContainer from "./startTestContainer";
 
 export const testWith = (
   image: string,
@@ -12,8 +12,8 @@ export const testWith = (
         const container = await startTestContainer(image);
         await use(container);
       },
-      { scope: 'worker' },
+      { scope: "worker" },
     ],
   });
 
-export const test = testWith('postgres');
+export const test = testWith("postgres");

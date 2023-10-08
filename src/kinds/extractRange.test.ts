@@ -1,28 +1,28 @@
-import { describe, expect } from 'vitest';
+import { describe, expect } from "vitest";
 
-import { test } from '../tests/useSchema';
-import extractRange, { RangeDetails } from './extractRange';
-import PgType from './PgType';
+import { test } from "../tests/useSchema";
+import extractRange, { RangeDetails } from "./extractRange";
+import PgType from "./PgType";
 
-const makePgType = (name: string, schemaName = 'test'): PgType<'range'> => ({
+const makePgType = (name: string, schemaName = "test"): PgType<"range"> => ({
   schemaName,
   name,
-  kind: 'range',
+  kind: "range",
   comment: null,
 });
 
-describe('extractRange', () => {
-  test('it should extract range values', async ({ knex: [db] }) => {
-    await db.raw('create type test.some_range as range(subtype=timestamptz)');
+describe("extractRange", () => {
+  test("it should extract range values", async ({ knex: [db] }) => {
+    await db.raw("create type test.some_range as range(subtype=timestamptz)");
 
-    const result = await extractRange(db, makePgType('some_range'));
+    const result = await extractRange(db, makePgType("some_range"));
 
     const expected: RangeDetails = {
-      name: 'some_range',
-      schemaName: 'test',
-      kind: 'range',
+      name: "some_range",
+      schemaName: "test",
+      kind: "range",
       comment: null,
-      innerType: 'pg_catalog.timestamptz',
+      innerType: "pg_catalog.timestamptz",
     };
     expect(result).toStrictEqual(expected);
   });

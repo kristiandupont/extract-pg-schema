@@ -1,8 +1,8 @@
-import { ConnectionConfig } from 'pg';
-import * as R from 'ramda';
-import { parse } from 'tagged-comment-parser';
+import { ConnectionConfig } from "pg";
+import * as R from "ramda";
+import { parse } from "tagged-comment-parser";
 
-import extractSchemas from '../extractSchemas';
+import extractSchemas from "../extractSchemas";
 
 const tryParse = (str: string) => {
   try {
@@ -35,7 +35,7 @@ const mapColumn = (column: any) => {
 
   const { comment, tags } = tryParse(rawComment);
 
-  const typeName = expandedType.split('.')[1];
+  const typeName = expandedType.split(".")[1];
   return {
     ...rest,
     comment,
@@ -104,16 +104,16 @@ const extractSchema = async (
   views: any[];
   types: any[];
 }> => {
-  console.warn('NOTE: extractSchema is deprecated, use extractSchemas instead');
+  console.warn("NOTE: extractSchema is deprecated, use extractSchemas instead");
 
   const r = await extractSchemas(connectionConfig, {
     schemas: [schemaName],
     resolveViews,
     typeFilter: (pgType) => {
-      if (!['table', 'view', 'enum', 'compositeType'].includes(pgType.kind))
+      if (!["table", "view", "enum", "compositeType"].includes(pgType.kind))
         return false;
 
-      if (tables && pgType.kind === 'table') {
+      if (tables && pgType.kind === "table") {
         return tables.includes(pgType.name);
       }
       return true;
@@ -121,10 +121,10 @@ const extractSchema = async (
   });
 
   const result = {
-    tables: R.sortBy(R.prop('name'), r[schemaName].tables.map(mapTable)),
-    views: R.sortBy(R.prop('name'), r[schemaName].views.map(mapTable)),
+    tables: R.sortBy(R.prop("name"), r[schemaName].tables.map(mapTable)),
+    views: R.sortBy(R.prop("name"), r[schemaName].views.map(mapTable)),
     types: R.sortBy(
-      R.prop('name'),
+      R.prop("name"),
       [
         ...(r[schemaName].enums ?? []),
         ...(r[schemaName].compositeTypes ?? []),

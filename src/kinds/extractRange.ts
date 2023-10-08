@@ -1,14 +1,14 @@
-import { Knex } from 'knex';
+import { Knex } from "knex";
 
-import PgType from './PgType';
+import PgType from "./PgType";
 
-export interface RangeDetails extends PgType<'range'> {
+export interface RangeDetails extends PgType<"range"> {
   innerType: string;
 }
 
 const extractRange = async (
   db: Knex,
-  range: PgType<'range'>,
+  range: PgType<"range">,
 ): Promise<RangeDetails> => {
   const query = await db.raw(
     `

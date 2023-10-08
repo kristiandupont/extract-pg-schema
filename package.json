@@ -25,7 +25,6 @@
     "docs:dev": "npm run docs:prep && vitepress dev docs-src",
     "docs:build": "npm run docs:prep && vitepress build docs-src"
   },
-  "prettier": "@kristiandupont/prettier-config",
   "dependencies": {
     "jsonpath": "^1.1.1",
     "knex": "2.5.1",

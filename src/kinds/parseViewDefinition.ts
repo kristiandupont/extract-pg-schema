@@ -1,6 +1,6 @@
-import jp from 'jsonpath';
-import pgQuery from 'pg-query-emscripten';
-import { last } from 'ramda';
+import jp from "jsonpath";
+import pgQuery from "pg-query-emscripten";
+import { last } from "ramda";
 
 export type ViewReference = {
   viewColumn: string;
@@ -30,7 +30,7 @@ function parseViewDefinition(
 
   const aliasDefinitions = jp.query(
     ast,
-    '$.RawStmt.stmt.SelectStmt.fromClause..[?(@.alias)]',
+    "$.RawStmt.stmt.SelectStmt.fromClause..[?(@.alias)]",
   );
 
   const aliases = Object.fromEntries(
@@ -42,10 +42,10 @@ function parseViewDefinition(
 
   const selectTargets = jp.query(
     ast,
-    '$.RawStmt.stmt.SelectStmt.targetList[*].ResTarget',
+    "$.RawStmt.stmt.SelectStmt.targetList[*].ResTarget",
   );
   const viewReferences = selectTargets.map((selectTarget) => {
-    const fields = jp.query(selectTarget, '$.val[*].fields[*].String.str');
+    const fields = jp.query(selectTarget, "$.val[*].fields[*].String.str");
     let sourceTable = firstFromTable?.relname;
     let sourceSchema = firstFromTable?.schemaname;
     if (fields.length === 2) {

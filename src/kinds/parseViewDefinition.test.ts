@@ -1,41 +1,41 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from "vitest";
 
-import parseViewDefinition from './parseViewDefinition';
+import parseViewDefinition from "./parseViewDefinition";
 
-describe('parseViewDefinition', () => {
-  it('should understand a trivial select', () => {
+describe("parseViewDefinition", () => {
+  it("should understand a trivial select", () => {
     const query = `SELECT id FROM service`;
 
-    const def = parseViewDefinition(query, 'public');
+    const def = parseViewDefinition(query, "public");
     expect(def).toEqual([
       {
-        viewColumn: 'id',
+        viewColumn: "id",
         source: {
-          schema: 'public',
-          table: 'service',
-          column: 'id',
+          schema: "public",
+          table: "service",
+          column: "id",
         },
       },
     ]);
   });
 
-  it('should understand a select with explicit schema', () => {
+  it("should understand a select with explicit schema", () => {
     const query = `SELECT id FROM store.service`;
 
-    const def = parseViewDefinition(query, 'public');
+    const def = parseViewDefinition(query, "public");
     expect(def).toEqual([
       {
-        viewColumn: 'id',
+        viewColumn: "id",
         source: {
-          schema: 'store',
-          table: 'service',
-          column: 'id',
+          schema: "store",
+          table: "service",
+          column: "id",
         },
       },
     ]);
   });
 
-  it('should understand a select with join', () => {
+  it("should understand a select with join", () => {
     const query = `SELECT service.id,
     service."createdAt",
     service.name,
@@ -43,72 +43,72 @@ describe('parseViewDefinition', () => {
    FROM service
      LEFT JOIN "oauthConnection" ON service."oauthConnectionId" = "oauthConnection".id;`;
 
-    const def = parseViewDefinition(query, 'public');
+    const def = parseViewDefinition(query, "public");
     expect(def).toEqual([
       {
-        viewColumn: 'id',
+        viewColumn: "id",
         source: {
-          schema: 'public',
-          table: 'service',
-          column: 'id',
+          schema: "public",
+          table: "service",
+          column: "id",
         },
       },
       {
-        viewColumn: 'createdAt',
+        viewColumn: "createdAt",
         source: {
-          schema: 'public',
-          table: 'service',
-          column: 'createdAt',
+          schema: "public",
+          table: "service",
+          column: "createdAt",
         },
       },
       {
-        viewColumn: 'name',
+        viewColumn: "name",
         source: {
-          schema: 'public',
-          table: 'service',
-          column: 'name',
+          schema: "public",
+          table: "service",
+          column: "name",
         },
       },
       {
-        viewColumn: 'owner',
+        viewColumn: "owner",
         source: {
-          schema: 'public',
-          table: 'oauthConnection',
-          column: 'createdBy',
+          schema: "public",
+          table: "oauthConnection",
+          column: "createdBy",
         },
       },
     ]);
   });
 
-  it('should work with multiple schemas and with aliases', () => {
+  it("should work with multiple schemas and with aliases", () => {
     const query = `
     select u.id as uid, um.id as umid 
       from test1.users u 
       join test2.user_managers um 
       on um.user_id = u.id;`;
 
-    const def = parseViewDefinition(query, 'public');
+    const def = parseViewDefinition(query, "public");
     expect(def).toEqual([
       {
-        viewColumn: 'uid',
+        viewColumn: "uid",
         source: {
-          schema: 'test1',
-          table: 'users',
-          column: 'id',
+          schema: "test1",
+          table: "users",
+          column: "id",
         },
       },
       {
-        viewColumn: 'umid',
+        viewColumn: "umid",
         source: {
-          schema: 'test2',
-          table: 'user_managers',
-          column: 'id',
+          schema: "test2",
+          table: "user_managers",
+          column: "id",
         },
       },
     ]);
   });
 
-  it('should return undefined for unresolvable columns', () => {
+  it("should return undefined for unresolvable columns", () => {
     const query = `
   SELECT cu.customer_id AS id,
     (cu.first_name::text || ' '::text) || cu.last_name::text AS name,
@@ -127,70 +127,70 @@ describe('parseViewDefinition', () => {
      JOIN city ON a.city_id = city.city_id
      JOIN country ON city.country_id = country.country_id;`;
 
-    const def = parseViewDefinition(query, 'public');
+    const def = parseViewDefinition(query, "public");
     expect(def).toEqual([
       {
-        viewColumn: 'id',
+        viewColumn: "id",
         source: {
-          schema: 'public',
-          table: 'customer',
-          column: 'customer_id',
+          schema: "public",
+          table: "customer",
+          column: "customer_id",
         },
       },
       {
-        viewColumn: 'name',
+        viewColumn: "name",
         source: undefined,
       },
       {
-        viewColumn: 'address',
+        viewColumn: "address",
         source: {
-          schema: 'public',
-          table: 'address',
-          column: 'address',
+          schema: "public",
+          table: "address",
+          column: "address",
         },
       },
       {
-        viewColumn: 'zip code',
+        viewColumn: "zip code",
         source: {
-          schema: 'public',
-          table: 'address',
-          column: 'postal_code',
+          schema: "public",
+          table: "address",
+          column: "postal_code",
         },
       },
       {
-        viewColumn: 'phone',
+        viewColumn: "phone",
         source: {
-          schema: 'public',
-          table: 'address',
-          column: 'phone',
+          schema: "public",
+          table: "address",
+          column: "phone",
         },
       },
       {
-        viewColumn: 'city',
+        viewColumn: "city",
         source: {
-          schema: 'public',
-          table: 'city',
-          column: 'city',
+          schema: "public",
+          table: "city",
+          column: "city",
         },
       },
       {
-        viewColumn: 'country',
+        viewColumn: "country",
         source: {
-          schema: 'public',
-          table: 'country',
-          column: 'country',
+          schema: "public",
+          table: "country",
+          column: "country",
         },
       },
       {
-        viewColumn: 'notes',
+        viewColumn: "notes",
         source: undefined,
       },
       {
-        viewColumn: 'sid',
+        viewColumn: "sid",
         source: {
-          schema: 'public',
-          table: 'customer',
-          column: 'store_id',
+          schema: "public",
+          table: "customer",
+          column: "store_id",
         },
       },
     ]);
