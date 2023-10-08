@@ -52,22 +52,20 @@ const emptySchema: Omit<Schema, "name"> = {
   compositeTypes: [],
 };
 
-type Populator = <K extends Kind>(
+type Populator<K extends Kind> = (
   db: Knex,
   pgType: PgType<K>,
 ) => Promise<DetailsMap[K]>;
 
-// @ts-ignore Why is this broken? I don't understand. :-/
-const populatorMap: Record<Kind, Populator> = {
-  domain: extractDomain,
-  enum: extractEnum,
-  range: extractRange,
-
-  table: extractTable,
-  view: extractView,
-  materializedView: extractMaterializedView,
-  compositeType: extractCompositeType,
-} as const;
+const populatorMap = {
+  domain: extractDomain as Populator<"domain">,
+  enum: extractEnum as Populator<"enum">,
+  range: extractRange as Populator<"range">,
+  table: extractTable as Populator<"table">,
+  view: extractView as Populator<"view">,
+  materializedView: extractMaterializedView as Populator<"materializedView">,
+  compositeType: extractCompositeType as Populator<"compositeType">,
+};
 
 /**
  * This is the options object that can be passed to `extractSchemas`.
@@ -153,7 +151,7 @@ async function extractSchemas(
 
   const populated = await Promise.all(
     typesToExtract.map(async (pgType) => {
-      const result = await populatorMap[pgType.kind](db, pgType);
+      const result = await populatorMap[pgType.kind](db, pgType as any); // Now this is broken. I am not sure why!
       options?.onProgress?.();
       return result;
     }),
