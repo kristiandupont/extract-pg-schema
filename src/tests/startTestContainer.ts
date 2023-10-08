@@ -1,4 +1,4 @@
-import { GenericContainer, StartedTestContainer } from 'testcontainers';
+import { GenericContainer, StartedTestContainer } from "testcontainers";
 
 const timeout = 5 * 60 * 1000;
 
@@ -10,7 +10,7 @@ const startTestContainer = async (
   new GenericContainer(image)
     .withReuse()
     .withExposedPorts(5432)
-    .withEnvironment({ POSTGRES_PASSWORD: 'postgres' })
+    .withEnvironment({ POSTGRES_PASSWORD: "postgres" })
     .withStartupTimeout(timeout)
     .start();
 

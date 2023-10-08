@@ -1,4 +1,4 @@
-import YesNo from './YesNo';
+import YesNo from "./YesNo";
 
 /**
  * The view columns contains information about all table columns (or view columns) in the database. System columns (ctid, etc.) are not included. Only those columns are shown that the current user has access to (by way of being the owner or having some privilege).
@@ -75,7 +75,7 @@ interface InformationSchemaColumn {
   /** If the column is an identity column, then YES, else NO. */
   is_identity: YesNo;
   /** If the column is an identity column, then ALWAYS or BY DEFAULT, reflecting the definition of the column. */
-  identity_generation: 'ALWAYS' | 'BY DEFAULT' | null;
+  identity_generation: "ALWAYS" | "BY DEFAULT" | null;
   /** If the column is an identity column, then the start value of the internal sequence, else null. */
   identity_start: string | null;
   /** If the column is an identity column, then the increment of the internal sequence, else null. */
@@ -87,7 +87,7 @@ interface InformationSchemaColumn {
   /** If the column is an identity column, then YES if the internal sequence cycles or NO if it does not; otherwise null. */
   identity_cycle: string;
   /** If the column is a generated column, then ALWAYS, else NEVER. */
-  is_generated: 'ALWAYS' | 'NEVER';
+  is_generated: "ALWAYS" | "NEVER";
   /** If the column is a generated column, then the generation expression, else null. */
   generation_expression: any;
   /** YES if the column is updatable, NO if not (Columns in base tables are always updatable, columns in views not necessarily) */

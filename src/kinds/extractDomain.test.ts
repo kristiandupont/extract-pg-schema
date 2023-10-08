@@ -1,35 +1,35 @@
-import { describe, expect } from 'vitest';
+import { describe, expect } from "vitest";
 
-import { test } from '../tests/useSchema';
-import extractDomain, { DomainDetails } from './extractDomain';
-import PgType from './PgType';
+import { test } from "../tests/useSchema";
+import extractDomain, { DomainDetails } from "./extractDomain";
+import PgType from "./PgType";
 
-const makePgType = (name: string, schemaName = 'test'): PgType<'domain'> => ({
+const makePgType = (name: string, schemaName = "test"): PgType<"domain"> => ({
   schemaName,
   name,
-  kind: 'domain',
+  kind: "domain",
   comment: null,
 });
 
-describe('extractDomain', () => {
-  test('it should extract simplified as well as full information_schema information', async ({
+describe("extractDomain", () => {
+  test("it should extract simplified as well as full information_schema information", async ({
     knex: [db, databaseName],
   }) => {
-    await db.raw('create domain test.some_domain as integer');
+    await db.raw("create domain test.some_domain as integer");
 
-    const result = await extractDomain(db, makePgType('some_domain'));
+    const result = await extractDomain(db, makePgType("some_domain"));
 
     const expected: DomainDetails = {
-      name: 'some_domain',
-      schemaName: 'test',
-      kind: 'domain',
+      name: "some_domain",
+      schemaName: "test",
+      kind: "domain",
       comment: null,
-      innerType: 'pg_catalog.int4',
+      innerType: "pg_catalog.int4",
       informationSchemaValue: {
         domain_catalog: databaseName,
-        domain_schema: 'test',
-        domain_name: 'some_domain',
-        data_type: 'integer',
+        domain_schema: "test",
+        domain_name: "some_domain",
+        data_type: "integer",
         character_maximum_length: null,
         character_octet_length: null,
         character_set_catalog: null,
@@ -46,13 +46,13 @@ describe('extractDomain', () => {
         interval_precision: null,
         domain_default: null,
         udt_catalog: databaseName,
-        udt_schema: 'pg_catalog',
-        udt_name: 'int4',
+        udt_schema: "pg_catalog",
+        udt_name: "int4",
         scope_catalog: null,
         scope_schema: null,
         scope_name: null,
         maximum_cardinality: null,
-        dtd_identifier: '1',
+        dtd_identifier: "1",
       },
     };
     expect(result).toStrictEqual(expected);

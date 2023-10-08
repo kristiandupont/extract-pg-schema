@@ -1,6 +1,6 @@
-import knex, { Knex } from 'knex';
+import knex, { Knex } from "knex";
 
-import { test as base } from './usePostgresContainer';
+import { test as base } from "./usePostgresContainer";
 
 export const test = base.extend<
   Record<string, unknown>,
@@ -12,19 +12,19 @@ export const test = base.extend<
       const connection = {
         host: container.getHost(),
         port: container.getMappedPort(5432),
-        password: 'postgres',
-        user: 'postgres',
+        password: "postgres",
+        user: "postgres",
       };
 
       const setupKnexInstance = knex({
-        client: 'postgres',
-        connection: { ...connection, database: 'postgres' },
+        client: "postgres",
+        connection: { ...connection, database: "postgres" },
       });
-      await setupKnexInstance.raw('create database ??', [databaseName]);
+      await setupKnexInstance.raw("create database ??", [databaseName]);
       await setupKnexInstance.destroy();
 
       const knexInstance = knex({
-        client: 'postgres',
+        client: "postgres",
         connection: { ...connection, database: databaseName },
       });
 
@@ -32,13 +32,13 @@ export const test = base.extend<
         const connection = {
           host: container.getHost(),
           port: container.getMappedPort(5432),
-          password: 'postgres',
-          user: 'postgres',
+          password: "postgres",
+          user: "postgres",
         };
 
         const setupKnexInstance = knex({
-          client: 'postgres',
-          connection: { ...connection, database: 'postgres' },
+          client: "postgres",
+          connection: { ...connection, database: "postgres" },
         });
 
         setupKnexInstance
@@ -48,6 +48,6 @@ export const test = base.extend<
         await knexInstance.destroy();
       });
     },
-    { scope: 'worker' },
+    { scope: "worker" },
   ],
 });

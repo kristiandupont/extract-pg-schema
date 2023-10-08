@@ -1,4 +1,4 @@
-import YesNo from './YesNo';
+import YesNo from "./YesNo";
 
 /**
  * The view tables contains all tables and views defined in the current database. Only those tables and views are shown that the current user has access to (by way of being the owner or having some privilege).
@@ -13,7 +13,7 @@ interface InformationSchemaView {
   /** Query expression defining the view (null if the view is not owned by a currently enabled role) */
   view_definition: string;
   /** CASCADED or LOCAL if the view has a CHECK OPTION defined on it, NONE if not */
-  check_option: 'CASCADED' | 'LOCAL' | 'NONE';
+  check_option: "CASCADED" | "LOCAL" | "NONE";
   /** ES if the view is updatable (allows UPDATE and DELETE), NO if not */
   is_updatable: YesNo;
   /** YES if the table is insertable into, NO if not (Base tables are always insertable into, views not necessarily.) */

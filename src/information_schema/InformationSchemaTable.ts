@@ -1,4 +1,4 @@
-import YesNo from './YesNo';
+import YesNo from "./YesNo";
 
 /**
  * The view tables contains all tables and views defined in the current database. Only those tables and views are shown that the current user has access to (by way of being the owner or having some privilege).
@@ -11,7 +11,7 @@ interface InformationSchemaTable {
   /** Name of the table */
   table_name: string;
   /** Type of the table: BASE TABLE for a persistent base table (the normal table type), VIEW for a view, FOREIGN for a foreign table, or LOCAL TEMPORARY for a temporary table */
-  table_type: 'BASE TABLE' | 'VIEW' | 'FOREIGN' | 'LOCAL TEMPORARY';
+  table_type: "BASE TABLE" | "VIEW" | "FOREIGN" | "LOCAL TEMPORARY";
   /** Applies to a feature not available in PostgreSQL */
   self_referencing_column_name: string | null;
   /** Applies to a feature not available in PostgreSQL */

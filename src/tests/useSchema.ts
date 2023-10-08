@@ -1,8 +1,8 @@
-import { Knex } from 'knex';
-import { StartedTestContainer } from 'testcontainers';
-import { TestType } from 'vitest-fixture';
+import { Knex } from "knex";
+import { StartedTestContainer } from "testcontainers";
+import { TestType } from "vitest-fixture";
 
-import { test as base } from './useTestKnex';
+import { test as base } from "./useTestKnex";
 
 export const testWith = ({
   schemaNames,
@@ -29,4 +29,4 @@ export const testWith = ({
     },
   });
 
-export const test = testWith({ schemaNames: ['test'] });
+export const test = testWith({ schemaNames: ["test"] });

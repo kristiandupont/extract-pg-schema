@@ -1,14 +1,14 @@
-import { Knex } from 'knex';
+import { Knex } from "knex";
 
-import PgType from './PgType';
+import PgType from "./PgType";
 
-export interface EnumDetails extends PgType<'enum'> {
+export interface EnumDetails extends PgType<"enum"> {
   values: string[];
 }
 
 const extractEnum = async (
   db: Knex,
-  pgEnum: PgType<'enum'>,
+  pgEnum: PgType<"enum">,
 ): Promise<EnumDetails> => {
   const query = await db.raw(
     `

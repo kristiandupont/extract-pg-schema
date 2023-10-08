@@ -1,13 +1,13 @@
-import { Knex } from 'knex';
+import { Knex } from "knex";
 
-import InformationSchemaColumn from '../information_schema/InformationSchemaColumn';
-import PgType from './PgType';
-import commentMapQueryPart from './query-parts/commentMapQueryPart';
-import fakeInformationSchemaColumnsQueryPart from './query-parts/fakeInformationSchemaColumnsQueryPart';
+import InformationSchemaColumn from "../information_schema/InformationSchemaColumn";
+import PgType from "./PgType";
+import commentMapQueryPart from "./query-parts/commentMapQueryPart";
+import fakeInformationSchemaColumnsQueryPart from "./query-parts/fakeInformationSchemaColumnsQueryPart";
 
 export type AttributeType = {
   fullName: string;
-  kind: 'base' | 'range' | 'domain' | 'composite' | 'enum';
+  kind: "base" | "range" | "domain" | "composite" | "enum";
 };
 
 export interface CompositeTypeAttribute {
@@ -19,7 +19,7 @@ export interface CompositeTypeAttribute {
   isArray: boolean;
   maxLength: number | null;
   isNullable: boolean;
-  generated: 'ALWAYS' | 'NEVER' | 'BY DEFAULT';
+  generated: "ALWAYS" | "NEVER" | "BY DEFAULT";
   isUpdatable: boolean;
   isIdentity: boolean;
   ordinalPosition: number;
@@ -32,7 +32,7 @@ export interface CompositeTypeAttribute {
   fakeInformationSchemaValue: InformationSchemaColumn;
 }
 
-export interface CompositeTypeDetails extends PgType<'compositeType'> {
+export interface CompositeTypeDetails extends PgType<"compositeType"> {
   attributes: CompositeTypeAttribute[];
 }
 
@@ -70,7 +70,7 @@ const typeMapQueryPart = `
 
 const extractCompositeType = async (
   db: Knex,
-  compositeType: PgType<'compositeType'>,
+  compositeType: PgType<"compositeType">,
 ): Promise<CompositeTypeDetails> => {
   const columnsQuery = await db.raw(
     `

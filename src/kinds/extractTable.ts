@@ -1,17 +1,17 @@
-import { Knex } from 'knex';
+import { Knex } from "knex";
 
-import InformationSchemaColumn from '../information_schema/InformationSchemaColumn';
-import InformationSchemaTable from '../information_schema/InformationSchemaTable';
-import PgType from './PgType';
-import commentMapQueryPart from './query-parts/commentMapQueryPart';
-import indexMapQueryPart from './query-parts/indexMapQueryPart';
+import InformationSchemaColumn from "../information_schema/InformationSchemaColumn";
+import InformationSchemaTable from "../information_schema/InformationSchemaTable";
+import PgType from "./PgType";
+import commentMapQueryPart from "./query-parts/commentMapQueryPart";
+import indexMapQueryPart from "./query-parts/indexMapQueryPart";
 
 export const updateActionMap = {
-  a: 'NO ACTION',
-  r: 'RESTRICT',
-  c: 'CASCADE',
-  n: 'SET NULL',
-  d: 'SET DEFAULT',
+  a: "NO ACTION",
+  r: "RESTRICT",
+  c: "CASCADE",
+  n: "SET NULL",
+  d: "SET DEFAULT",
 } as const;
 
 export type UpdateAction =
@@ -33,7 +33,7 @@ export type Index = {
 
 export type TableColumnType = {
   fullName: string;
-  kind: 'base' | 'range' | 'domain' | 'composite' | 'enum';
+  kind: "base" | "range" | "domain" | "composite" | "enum";
 };
 
 export interface TableColumn {
@@ -51,7 +51,7 @@ export interface TableColumn {
   maxLength: number | null;
   isNullable: boolean;
   isPrimaryKey: boolean;
-  generated: 'ALWAYS' | 'NEVER' | 'BY DEFAULT';
+  generated: "ALWAYS" | "NEVER" | "BY DEFAULT";
   isUpdatable: boolean;
   isIdentity: boolean;
   ordinalPosition: number;
@@ -59,7 +59,7 @@ export interface TableColumn {
   informationSchemaValue: InformationSchemaColumn;
 }
 
-export interface TableDetails extends PgType<'table'> {
+export interface TableDetails extends PgType<"table"> {
   columns: TableColumn[];
   informationSchemaValue: InformationSchemaTable;
 }
@@ -74,12 +74,12 @@ const referenceMapQueryPart = `
             'onUpdate', case expanded_constraint.confupdtype
               ${Object.entries(updateActionMap)
                 .map(([key, action]) => `when '${key}' then '${action}'`)
-                .join('\n')}
+                .join("\n")}
               end,
             'onDelete', case expanded_constraint.confdeltype
               ${Object.entries(updateActionMap)
                 .map(([key, action]) => `when '${key}' then '${action}'`)
-                .join('\n')}
+                .join("\n")}
               end,
             'name', expanded_constraint.conname
             )) AS references
@@ -148,15 +148,15 @@ WHERE
 
 const extractTable = async (
   db: Knex,
-  table: PgType<'table'>,
+  table: PgType<"table">,
 ): Promise<TableDetails> => {
   const [informationSchemaValue] = await db
-    .from('information_schema.tables')
+    .from("information_schema.tables")
     .where({
       table_name: table.name,
       table_schema: table.schemaName,
     })
-    .select<InformationSchemaTable[]>('*');
+    .select<InformationSchemaTable[]>("*");
 
   const columnsQuery = await db.raw(
     `

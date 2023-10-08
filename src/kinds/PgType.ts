@@ -1,7 +1,7 @@
 export const typeKindMap = {
-  d: 'domain',
-  e: 'enum',
-  r: 'range',
+  d: "domain",
+  e: "enum",
+  r: "range",
 
   // Not supported (yet):
   // m: 'multiRange',
@@ -13,11 +13,11 @@ export const typeKindMap = {
 type TypeKind = (typeof typeKindMap)[keyof typeof typeKindMap];
 
 export const classKindMap = {
-  r: 'table',
-  p: 'table', // Treat partitioned tables as tables
-  v: 'view',
-  m: 'materializedView',
-  c: 'compositeType',
+  r: "table",
+  p: "table", // Treat partitioned tables as tables
+  v: "view",
+  m: "materializedView",
+  c: "compositeType",
 
   // Not supported (yet):
   // i: 'index',
