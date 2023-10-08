@@ -1,9 +1,9 @@
-import { Knex } from 'knex';
+import { Knex } from "knex";
 
-import InformationSchemaDomain from '../information_schema/InformationSchemaDomain';
-import PgType from './PgType';
+import InformationSchemaDomain from "../information_schema/InformationSchemaDomain";
+import PgType from "./PgType";
 
-export interface DomainDetails extends PgType<'domain'> {
+export interface DomainDetails extends PgType<"domain"> {
   innerType: string;
 
   informationSchemaValue: InformationSchemaDomain;
@@ -11,7 +11,7 @@ export interface DomainDetails extends PgType<'domain'> {
 
 const extractDomain = async (
   db: Knex,
-  domain: PgType<'domain'>,
+  domain: PgType<"domain">,
 ): Promise<DomainDetails> => {
   const query = await db.raw(
     `

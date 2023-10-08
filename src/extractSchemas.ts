@@ -1,21 +1,21 @@
-import knex, { Knex } from 'knex';
-import { ConnectionConfig } from 'pg';
-import * as R from 'ramda';
+import knex, { Knex } from "knex";
+import { ConnectionConfig } from "pg";
+import * as R from "ramda";
 
 import extractCompositeType, {
   CompositeTypeDetails,
-} from './kinds/extractCompositeType';
-import extractDomain, { DomainDetails } from './kinds/extractDomain';
-import extractEnum, { EnumDetails } from './kinds/extractEnum';
+} from "./kinds/extractCompositeType";
+import extractDomain, { DomainDetails } from "./kinds/extractDomain";
+import extractEnum, { EnumDetails } from "./kinds/extractEnum";
 import extractMaterializedView, {
   MaterializedViewDetails,
-} from './kinds/extractMaterializedView';
-import extractRange, { RangeDetails } from './kinds/extractRange';
-import extractTable, { TableDetails } from './kinds/extractTable';
-import extractView, { ViewDetails } from './kinds/extractView';
-import fetchTypes from './kinds/fetchTypes';
-import PgType, { Kind } from './kinds/PgType';
-import resolveViewColumns from './resolveViewColumns';
+} from "./kinds/extractMaterializedView";
+import extractRange, { RangeDetails } from "./kinds/extractRange";
+import extractTable, { TableDetails } from "./kinds/extractTable";
+import extractView, { ViewDetails } from "./kinds/extractView";
+import fetchTypes from "./kinds/fetchTypes";
+import PgType, { Kind } from "./kinds/PgType";
+import resolveViewColumns from "./resolveViewColumns";
 
 interface DetailsMap {
   domain: DomainDetails;
@@ -42,7 +42,7 @@ export type Schema = {
   compositeTypes: CompositeTypeDetails[];
 };
 
-const emptySchema: Omit<Schema, 'name'> = {
+const emptySchema: Omit<Schema, "name"> = {
   domains: [],
   enums: [],
   ranges: [],
@@ -123,14 +123,14 @@ async function extractSchemas(
   options?: ExtractSchemaOptions,
 ): Promise<Record<string, Schema>> {
   const connection = connectionConfig as string | Knex.PgConnectionConfig;
-  const db = knex({ client: 'postgres', connection });
+  const db = knex({ client: "postgres", connection });
 
   const q = await db
-    .select<{ nspname: string }[]>('nspname')
-    .from('pg_catalog.pg_namespace')
-    .whereNot('nspname', '=', 'information_schema')
-    .whereNot('nspname', 'LIKE', 'pg_%');
-  const allSchemaNames = R.pluck('nspname', q);
+    .select<{ nspname: string }[]>("nspname")
+    .from("pg_catalog.pg_namespace")
+    .whereNot("nspname", "=", "information_schema")
+    .whereNot("nspname", "LIKE", "pg_%");
+  const allSchemaNames = R.pluck("nspname", q);
 
   const schemaNames = options?.schemas ?? allSchemaNames;
   if (options?.schemas) {
@@ -139,7 +139,7 @@ async function extractSchemas(
     );
 
     if (missingSchemas.length > 0) {
-      throw new Error(`No schemas found for ${missingSchemas.join(', ')}`);
+      throw new Error(`No schemas found for ${missingSchemas.join(", ")}`);
     }
   }
 

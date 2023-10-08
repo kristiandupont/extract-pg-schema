@@ -1,16 +1,16 @@
-import { Knex } from 'knex';
+import { Knex } from "knex";
 
-import InformationSchemaColumn from '../information_schema/InformationSchemaColumn';
-import InformationSchemaView from '../information_schema/InformationSchemaView';
-import { ColumnReference, Index } from './extractTable';
-import PgType from './PgType';
-import commentMapQueryPart from './query-parts/commentMapQueryPart';
-import fakeInformationSchemaColumnsQueryPart from './query-parts/fakeInformationSchemaColumnsQueryPart';
-import fakeInformationSchemaViewsQueryPart from './query-parts/fakeInformationSchemaViewsQueryPart';
+import InformationSchemaColumn from "../information_schema/InformationSchemaColumn";
+import InformationSchemaView from "../information_schema/InformationSchemaView";
+import { ColumnReference, Index } from "./extractTable";
+import PgType from "./PgType";
+import commentMapQueryPart from "./query-parts/commentMapQueryPart";
+import fakeInformationSchemaColumnsQueryPart from "./query-parts/fakeInformationSchemaColumnsQueryPart";
+import fakeInformationSchemaViewsQueryPart from "./query-parts/fakeInformationSchemaViewsQueryPart";
 
 export type MaterializedViewColumnType = {
   fullName: string;
-  kind: 'base' | 'range' | 'domain' | 'composite' | 'enum';
+  kind: "base" | "range" | "domain" | "composite" | "enum";
 };
 
 export interface MaterializedViewColumn {
@@ -21,7 +21,7 @@ export interface MaterializedViewColumn {
   defaultValue: any;
   isArray: boolean;
   maxLength: number | null;
-  generated: 'ALWAYS' | 'NEVER' | 'BY DEFAULT';
+  generated: "ALWAYS" | "NEVER" | "BY DEFAULT";
   isUpdatable: boolean;
   isIdentity: boolean;
   ordinalPosition: number;
@@ -53,7 +53,7 @@ export interface MaterializedViewColumn {
   fakeInformationSchemaValue: InformationSchemaColumn;
 }
 
-export interface MaterializedViewDetails extends PgType<'materializedView'> {
+export interface MaterializedViewDetails extends PgType<"materializedView"> {
   definition: string;
   columns: MaterializedViewColumn[];
 
@@ -99,7 +99,7 @@ WHERE
 
 const extractMaterializedView = async (
   db: Knex,
-  materializedView: PgType<'materializedView'>,
+  materializedView: PgType<"materializedView">,
 ): Promise<MaterializedViewDetails> => {
   const fakeInformationSchemaValueQuery = await db.raw(
     fakeInformationSchemaViewsQueryPart,

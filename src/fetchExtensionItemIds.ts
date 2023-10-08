@@ -1,4 +1,4 @@
-import { Knex } from 'knex';
+import { Knex } from "knex";
 
 /**
  * In order to ignore the items (types, views, etc.) that belong to extensions,
@@ -15,30 +15,30 @@ const fetchExtensionItemIds = async (
   extProcOids: number[];
 }> => {
   const cq = await db
-    .select('c.oid')
-    .from('pg_extension as e')
-    .join('pg_depend as d', 'd.refobjid', 'e.oid')
-    .join('pg_class as c', 'c.oid', 'd.objid')
-    .join('pg_namespace as ns', 'ns.oid', 'e.extnamespace')
-    .where('d.deptype', 'e');
+    .select("c.oid")
+    .from("pg_extension as e")
+    .join("pg_depend as d", "d.refobjid", "e.oid")
+    .join("pg_class as c", "c.oid", "d.objid")
+    .join("pg_namespace as ns", "ns.oid", "e.extnamespace")
+    .where("d.deptype", "e");
   const extClassOids = cq.map(({ oid }) => oid);
 
   const tq = await db
-    .select('t.oid')
-    .from('pg_extension as e')
-    .join('pg_depend as d', 'd.refobjid', 'e.oid')
-    .join('pg_type as t', 't.oid', 'd.objid')
-    .join('pg_namespace as ns', 'ns.oid', 'e.extnamespace')
-    .where('d.deptype', 'e');
+    .select("t.oid")
+    .from("pg_extension as e")
+    .join("pg_depend as d", "d.refobjid", "e.oid")
+    .join("pg_type as t", "t.oid", "d.objid")
+    .join("pg_namespace as ns", "ns.oid", "e.extnamespace")
+    .where("d.deptype", "e");
   const extTypeOids = tq.map(({ oid }) => oid);
 
   const rq = await db
-    .select('p.oid')
-    .from('pg_extension as e')
-    .join('pg_depend as d', 'd.refobjid', 'e.oid')
-    .join('pg_proc as p', 'p.oid', 'd.objid')
-    .join('pg_namespace as ns', 'ns.oid', 'e.extnamespace')
-    .where('d.deptype', 'e');
+    .select("p.oid")
+    .from("pg_extension as e")
+    .join("pg_depend as d", "d.refobjid", "e.oid")
+    .join("pg_proc as p", "p.oid", "d.objid")
+    .join("pg_namespace as ns", "ns.oid", "e.extnamespace")
+    .where("d.deptype", "e");
   const extProcOids = rq.map(({ oid }) => oid);
 
   return { extClassOids, extTypeOids, extProcOids };
