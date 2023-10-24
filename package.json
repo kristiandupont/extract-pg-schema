@@ -42,7 +42,7 @@
     "@types/ramda": "0.29.6",
     "np": "8.0.4",
     "testcontainers": "10.2.1",
-    "vitepress": "1.0.0-rc.20",
+    "vitepress": "1.0.0-rc.24",
     "vitest-fixture": "0.5.2",
     "vue": "3.3.4"
   },
