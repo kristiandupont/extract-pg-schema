@@ -38,7 +38,7 @@
     "@microsoft/api-documenter": "7.23.9",
     "@microsoft/api-extractor": "7.38.0",
     "@types/jsonpath": "0.2.1",
-    "@types/pg": "8.10.3",
+    "@types/pg": "8.10.7",
     "@types/ramda": "0.29.6",
     "np": "8.0.4",
     "testcontainers": "10.2.1",
