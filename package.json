@@ -44,7 +44,7 @@
     "testcontainers": "10.2.2",
     "vitepress": "1.0.0-rc.25",
     "vitest-fixture": "0.5.2",
-    "vue": "3.3.7"
+    "vue": "3.3.8"
   },
   "np": {},
   "engines": {
