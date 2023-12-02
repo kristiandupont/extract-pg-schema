@@ -9,5 +9,5 @@ Type of the table: BASE TABLE for a persistent base table (the normal table type
 **Signature:**
 
 ```typescript
-table_type: 'BASE TABLE' | 'VIEW' | 'FOREIGN' | 'LOCAL TEMPORARY';
+table_type: "BASE TABLE" | "VIEW" | "FOREIGN" | "LOCAL TEMPORARY";
 ```

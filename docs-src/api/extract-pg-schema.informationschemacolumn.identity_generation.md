@@ -9,5 +9,5 @@ If the column is an identity column, then ALWAYS or BY DEFAULT, reflecting the d
 **Signature:**
 
 ```typescript
-identity_generation: 'ALWAYS' | 'BY DEFAULT' | null;
+identity_generation: "ALWAYS" | "BY DEFAULT" | null;
 ```

@@ -7,9 +7,9 @@
 **Signature:**
 
 ```typescript
-export interface MaterializedViewDetails extends PgType<'materializedView'> 
+export interface MaterializedViewDetails extends PgType<"materializedView"> 
 ```
-**Extends:** [PgType](./extract-pg-schema.pgtype.md)<!-- -->&lt;'materializedView'&gt;
+**Extends:** [PgType](./extract-pg-schema.pgtype.md)<!-- -->&lt;"materializedView"&gt;
 
 ## Properties
 

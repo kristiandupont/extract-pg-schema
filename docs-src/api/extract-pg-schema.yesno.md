@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-type YesNo = 'YES' | 'NO';
+type YesNo = "YES" | "NO";
 ```

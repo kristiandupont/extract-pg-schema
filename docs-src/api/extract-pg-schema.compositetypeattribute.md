@@ -18,7 +18,7 @@ export interface CompositeTypeAttribute
 |  [defaultValue](./extract-pg-schema.compositetypeattribute.defaultvalue.md) |  | any |  |
 |  [expandedType](./extract-pg-schema.compositetypeattribute.expandedtype.md) |  | string |  |
 |  [fakeInformationSchemaValue](./extract-pg-schema.compositetypeattribute.fakeinformationschemavalue.md) |  | [InformationSchemaColumn](./extract-pg-schema.informationschemacolumn.md) | The Postgres information\_schema views do not contain info about materialized views. This value is the result of a query that matches the one for regular views. Use with caution, not all fields are guaranteed to be meaningful and/or accurate. |
-|  [generated](./extract-pg-schema.compositetypeattribute.generated.md) |  | 'ALWAYS' \| 'NEVER' \| 'BY DEFAULT' |  |
+|  [generated](./extract-pg-schema.compositetypeattribute.generated.md) |  | "ALWAYS" \| "NEVER" \| "BY DEFAULT" |  |
 |  [isArray](./extract-pg-schema.compositetypeattribute.isarray.md) |  | boolean |  |
 |  [isIdentity](./extract-pg-schema.compositetypeattribute.isidentity.md) |  | boolean |  |
 |  [isNullable](./extract-pg-schema.compositetypeattribute.isnullable.md) |  | boolean |  |

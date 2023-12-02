@@ -7,9 +7,9 @@
 **Signature:**
 
 ```typescript
-export interface EnumDetails extends PgType<'enum'> 
+export interface EnumDetails extends PgType<"enum"> 
 ```
-**Extends:** [PgType](./extract-pg-schema.pgtype.md)<!-- -->&lt;'enum'&gt;
+**Extends:** [PgType](./extract-pg-schema.pgtype.md)<!-- -->&lt;"enum"&gt;
 
 ## Properties
 

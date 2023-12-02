@@ -7,9 +7,9 @@
 **Signature:**
 
 ```typescript
-export interface RangeDetails extends PgType<'range'> 
+export interface RangeDetails extends PgType<"range"> 
 ```
-**Extends:** [PgType](./extract-pg-schema.pgtype.md)<!-- -->&lt;'range'&gt;
+**Extends:** [PgType](./extract-pg-schema.pgtype.md)<!-- -->&lt;"range"&gt;
 
 ## Properties
 
