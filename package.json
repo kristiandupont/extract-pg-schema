@@ -35,16 +35,16 @@
   },
   "devDependencies": {
     "@kristiandupont/dev-deps": "^2.16.0",
-    "@microsoft/api-documenter": "7.23.9",
-    "@microsoft/api-extractor": "7.38.0",
-    "@types/jsonpath": "0.2.1",
-    "@types/pg": "8.10.3",
-    "@types/ramda": "0.29.6",
-    "np": "8.0.4",
-    "testcontainers": "10.2.1",
-    "vitepress": "1.0.0-rc.20",
+    "@microsoft/api-documenter": "7.23.12",
+    "@microsoft/api-extractor": "7.38.3",
+    "@types/jsonpath": "0.2.4",
+    "@types/pg": "8.10.9",
+    "@types/ramda": "0.29.9",
+    "np": "9.0.0",
+    "testcontainers": "10.3.2",
+    "vitepress": "1.0.0-rc.31",
     "vitest-fixture": "0.5.2",
-    "vue": "3.3.4"
+    "vue": "3.3.9"
   },
   "np": {},
   "engines": {
