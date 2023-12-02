@@ -5,6 +5,7 @@
     "node": true
   },
   "rules": {
+    "quotes": "off",
     "@typescript-eslint/no-non-null-assertion": "off"
   },
   "overrides": [
