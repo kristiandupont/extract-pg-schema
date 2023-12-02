@@ -57,14 +57,14 @@ type Populator<K extends Kind> = (
   pgType: PgType<K>,
 ) => Promise<DetailsMap[K]>;
 
-const populatorMap = {
-  domain: extractDomain as Populator<"domain">,
-  enum: extractEnum as Populator<"enum">,
-  range: extractRange as Populator<"range">,
-  table: extractTable as Populator<"table">,
-  view: extractView as Populator<"view">,
-  materializedView: extractMaterializedView as Populator<"materializedView">,
-  compositeType: extractCompositeType as Populator<"compositeType">,
+const populatorMap: { [K in Kind]: Populator<K> } = {
+  domain: extractDomain,
+  enum: extractEnum,
+  range: extractRange,
+  table: extractTable,
+  view: extractView,
+  materializedView: extractMaterializedView,
+  compositeType: extractCompositeType,
 };
 
 /**
@@ -151,7 +151,9 @@ async function extractSchemas(
 
   const populated = await Promise.all(
     typesToExtract.map(async (pgType) => {
-      const result = await populatorMap[pgType.kind](db, pgType as any); // Now this is broken. I am not sure why!
+      const result = await (
+        populatorMap[pgType.kind] as Populator<typeof pgType.kind>
+      )(db, pgType);
       options?.onProgress?.();
       return result;
     }),
@@ -165,8 +167,7 @@ async function extractSchemas(
         ...emptySchema,
       };
     }
-    // @ts-ignore
-    schemas[p.schemaName][`${p.kind}s`] = [
+    (schemas[p.schemaName][`${p.kind}s`] as DetailsMap[typeof p.kind][]) = [
       ...schemas[p.schemaName][`${p.kind}s`],
       p,
     ];
