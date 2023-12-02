@@ -7,9 +7,9 @@
 **Signature:**
 
 ```typescript
-export interface DomainDetails extends PgType<'domain'> 
+export interface DomainDetails extends PgType<"domain"> 
 ```
-**Extends:** [PgType](./extract-pg-schema.pgtype.md)<!-- -->&lt;'domain'&gt;
+**Extends:** [PgType](./extract-pg-schema.pgtype.md)<!-- -->&lt;"domain"&gt;
 
 ## Properties
 

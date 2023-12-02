@@ -16,7 +16,7 @@ interface InformationSchemaView
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [check\_option](./extract-pg-schema.informationschemaview.check_option.md) |  | 'CASCADED' \| 'LOCAL' \| 'NONE' | CASCADED or LOCAL if the view has a CHECK OPTION defined on it, NONE if not |
+|  [check\_option](./extract-pg-schema.informationschemaview.check_option.md) |  | "CASCADED" \| "LOCAL" \| "NONE" | CASCADED or LOCAL if the view has a CHECK OPTION defined on it, NONE if not |
 |  [is\_insertable\_into](./extract-pg-schema.informationschemaview.is_insertable_into.md) |  | [YesNo](./extract-pg-schema.yesno.md) | YES if the table is insertable into, NO if not (Base tables are always insertable into, views not necessarily.) |
 |  [is\_trigger\_deletable](./extract-pg-schema.informationschemaview.is_trigger_deletable.md) |  | [YesNo](./extract-pg-schema.yesno.md) | YES if the view has an INSTEAD OF DELETE trigger defined on it, NO if not |
 |  [is\_trigger\_insertable\_into](./extract-pg-schema.informationschemaview.is_trigger_insertable_into.md) |  | [YesNo](./extract-pg-schema.yesno.md) | YES if the view has an INSTEAD OF INSERT trigger defined on it, NO if not |

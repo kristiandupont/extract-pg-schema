@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-generated: 'ALWAYS' | 'NEVER' | 'BY DEFAULT';
+generated: "ALWAYS" | "NEVER" | "BY DEFAULT";
 ```

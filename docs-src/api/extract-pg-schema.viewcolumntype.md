@@ -9,6 +9,6 @@
 ```typescript
 export type ViewColumnType = {
     fullName: string;
-    kind: 'base' | 'range' | 'domain' | 'composite' | 'enum';
+    kind: "base" | "range" | "domain" | "composite" | "enum";
 };
 ```

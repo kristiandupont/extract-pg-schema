@@ -17,7 +17,7 @@ export interface ViewColumn
 |  [comment](./extract-pg-schema.viewcolumn.comment.md) |  | string \| null |  |
 |  [defaultValue](./extract-pg-schema.viewcolumn.defaultvalue.md) |  | any |  |
 |  [expandedType](./extract-pg-schema.viewcolumn.expandedtype.md) |  | string |  |
-|  [generated](./extract-pg-schema.viewcolumn.generated.md) |  | 'ALWAYS' \| 'NEVER' \| 'BY DEFAULT' |  |
+|  [generated](./extract-pg-schema.viewcolumn.generated.md) |  | "ALWAYS" \| "NEVER" \| "BY DEFAULT" |  |
 |  [indices?](./extract-pg-schema.viewcolumn.indices.md) |  | [Index](./extract-pg-schema.index.md)<!-- -->\[\] | _(Optional)_ |
 |  [informationSchemaValue](./extract-pg-schema.viewcolumn.informationschemavalue.md) |  | [InformationSchemaColumn](./extract-pg-schema.informationschemacolumn.md) |  |
 |  [isArray](./extract-pg-schema.viewcolumn.isarray.md) |  | boolean |  |

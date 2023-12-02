@@ -7,9 +7,9 @@
 **Signature:**
 
 ```typescript
-export interface TableDetails extends PgType<'table'> 
+export interface TableDetails extends PgType<"table"> 
 ```
-**Extends:** [PgType](./extract-pg-schema.pgtype.md)<!-- -->&lt;'table'&gt;
+**Extends:** [PgType](./extract-pg-schema.pgtype.md)<!-- -->&lt;"table"&gt;
 
 ## Properties
 

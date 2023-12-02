@@ -7,9 +7,9 @@
 **Signature:**
 
 ```typescript
-export interface ViewDetails extends PgType<'view'> 
+export interface ViewDetails extends PgType<"view"> 
 ```
-**Extends:** [PgType](./extract-pg-schema.pgtype.md)<!-- -->&lt;'view'&gt;
+**Extends:** [PgType](./extract-pg-schema.pgtype.md)<!-- -->&lt;"view"&gt;
 
 ## Properties
 

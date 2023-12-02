@@ -9,6 +9,6 @@
 ```typescript
 export type TableColumnType = {
     fullName: string;
-    kind: 'base' | 'range' | 'domain' | 'composite' | 'enum';
+    kind: "base" | "range" | "domain" | "composite" | "enum";
 };
 ```

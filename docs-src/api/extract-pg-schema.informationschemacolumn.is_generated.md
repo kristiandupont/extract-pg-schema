@@ -9,5 +9,5 @@ If the column is a generated column, then ALWAYS, else NEVER.
 **Signature:**
 
 ```typescript
-is_generated: 'ALWAYS' | 'NEVER';
+is_generated: "ALWAYS" | "NEVER";
 ```

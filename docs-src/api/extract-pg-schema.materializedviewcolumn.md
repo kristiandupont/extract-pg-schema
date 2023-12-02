@@ -18,7 +18,7 @@ export interface MaterializedViewColumn
 |  [defaultValue](./extract-pg-schema.materializedviewcolumn.defaultvalue.md) |  | any |  |
 |  [expandedType](./extract-pg-schema.materializedviewcolumn.expandedtype.md) |  | string |  |
 |  [fakeInformationSchemaValue](./extract-pg-schema.materializedviewcolumn.fakeinformationschemavalue.md) |  | [InformationSchemaColumn](./extract-pg-schema.informationschemacolumn.md) | The Postgres information\_schema views do not contain info about materialized views. This value is the result of a query that matches the one for regular views. Use with caution, not all fields are guaranteed to be meaningful and/or accurate. |
-|  [generated](./extract-pg-schema.materializedviewcolumn.generated.md) |  | 'ALWAYS' \| 'NEVER' \| 'BY DEFAULT' |  |
+|  [generated](./extract-pg-schema.materializedviewcolumn.generated.md) |  | "ALWAYS" \| "NEVER" \| "BY DEFAULT" |  |
 |  [indices?](./extract-pg-schema.materializedviewcolumn.indices.md) |  | [Index](./extract-pg-schema.index.md)<!-- -->\[\] | _(Optional)_ |
 |  [isArray](./extract-pg-schema.materializedviewcolumn.isarray.md) |  | boolean |  |
 |  [isIdentity](./extract-pg-schema.materializedviewcolumn.isidentity.md) |  | boolean |  |

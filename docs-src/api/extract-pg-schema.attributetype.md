@@ -9,6 +9,6 @@
 ```typescript
 export type AttributeType = {
     fullName: string;
-    kind: 'base' | 'range' | 'domain' | 'composite' | 'enum';
+    kind: "base" | "range" | "domain" | "composite" | "enum";
 };
 ```

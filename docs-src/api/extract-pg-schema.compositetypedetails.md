@@ -7,9 +7,9 @@
 **Signature:**
 
 ```typescript
-export interface CompositeTypeDetails extends PgType<'compositeType'> 
+export interface CompositeTypeDetails extends PgType<"compositeType"> 
 ```
-**Extends:** [PgType](./extract-pg-schema.pgtype.md)<!-- -->&lt;'compositeType'&gt;
+**Extends:** [PgType](./extract-pg-schema.pgtype.md)<!-- -->&lt;"compositeType"&gt;
 
 ## Properties
 

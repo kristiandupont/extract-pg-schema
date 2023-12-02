@@ -9,5 +9,5 @@ CASCADED or LOCAL if the view has a CHECK OPTION defined on it, NONE if not
 **Signature:**
 
 ```typescript
-check_option: 'CASCADED' | 'LOCAL' | 'NONE';
+check_option: "CASCADED" | "LOCAL" | "NONE";
 ```
