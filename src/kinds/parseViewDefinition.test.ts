@@ -195,4 +195,100 @@ describe("parseViewDefinition", () => {
       },
     ]);
   });
+
+  it("should resolve kanel#481", () => {
+    const query = `
+    WITH RECURSIVE hierarchy_cte AS (
+      SELECT posting.date,
+         account.name AS account,
+         posting.amount
+        FROM posting
+          JOIN account ON account.id = posting.account_id
+     UNION ALL
+      SELECT hierarchy_cte_1.date,
+         trim_array(hierarchy_cte_1.account, 1) AS account,
+         hierarchy_cte_1.amount
+        FROM hierarchy_cte hierarchy_cte_1
+       WHERE array_length(hierarchy_cte_1.account, 1) > 1
+     )
+    SELECT hierarchy_cte.date,
+    hierarchy_cte.account,
+    hierarchy_cte.amount
+    FROM hierarchy_cte;
+    `;
+
+    const def = parseViewDefinition(query, "public");
+
+    expect(def).toEqual([
+      {
+        viewColumn: "date",
+        source: {
+          schema: "public",
+          table: "posting",
+          column: "date",
+        },
+      },
+      {
+        viewColumn: "account",
+        source: {
+          schema: "public",
+          table: "account",
+          column: "name",
+        },
+      },
+      {
+        viewColumn: "amount",
+        source: {
+          schema: "public",
+          table: "posting",
+          column: "amount",
+        },
+      },
+    ]);
+  });
+
+  it("should work with a minimalistic WITH clause", () => {
+    const query = `
+    WITH RECURSIVE hierarchy_cte AS (
+      SELECT posting.date,
+         account.name AS account,
+         posting.amount
+        FROM posting
+          JOIN account ON account.id = posting.account_id
+     )
+    SELECT hierarchy_cte.date,
+    hierarchy_cte.account,
+    hierarchy_cte.amount
+    FROM hierarchy_cte;
+    `;
+
+    const def = parseViewDefinition(query, "public");
+
+    expect(def).toEqual([
+      {
+        viewColumn: "date",
+        source: {
+          schema: "public",
+          table: "posting",
+          column: "date",
+        },
+      },
+      {
+        viewColumn: "account",
+        source: {
+          schema: "public",
+          table: "account",
+          column: "name",
+        },
+      },
+      {
+        viewColumn: "amount",
+        source: {
+          schema: "public",
+          table: "posting",
+          column: "amount",
+        },
+      },
+    ]);
+  });
 });
