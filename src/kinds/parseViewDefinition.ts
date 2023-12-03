@@ -13,37 +13,15 @@ export type ViewReference = {
     | undefined;
 };
 
-function parseViewDefinition(
-  selectStatement: string,
+function parseSelectStmt(
+  selectAst: any, // Change the type to match the AST structure
   defaultSchema: string,
+  aliases: { [alias: string]: { schema: string; table: string } },
 ): ViewReference[] {
-  const ast = pgQuery.parse(selectStatement).parse_tree[0];
-  const selectAst = ast.RawStmt?.stmt?.SelectStmt;
-
-  if (!selectAst) {
-    throw new Error(
-      `The string '${selectStatement}' doesn't parse as a select statement.`,
-    );
-  }
-
   const firstFromTable = selectAst.fromClause[0].RangeVar;
 
-  const aliasDefinitions = jp.query(
-    ast,
-    "$.RawStmt.stmt.SelectStmt.fromClause..[?(@.alias)]",
-  );
+  const selectTargets = jp.query(selectAst, "$.targetList[*].ResTarget");
 
-  const aliases = Object.fromEntries(
-    aliasDefinitions.map(({ schemaname, relname, alias }) => [
-      alias.Alias.aliasname,
-      { schema: schemaname, table: relname },
-    ]),
-  );
-
-  const selectTargets = jp.query(
-    ast,
-    "$.RawStmt.stmt.SelectStmt.targetList[*].ResTarget",
-  );
   const viewReferences = selectTargets.map((selectTarget) => {
     const fields = jp.query(selectTarget, "$.val[*].fields[*].String.str");
     let sourceTable = firstFromTable?.relname;
@@ -74,6 +52,34 @@ function parseViewDefinition(
   });
 
   return viewReferences;
+}
+
+function parseViewDefinition(
+  selectStatement: string,
+  defaultSchema: string,
+): ViewReference[] {
+  const ast = pgQuery.parse(selectStatement).parse_tree[0];
+  const selectAst = ast.RawStmt?.stmt?.SelectStmt;
+
+  if (!selectAst) {
+    throw new Error(
+      `The string '${selectStatement}' doesn't parse as a select statement.`,
+    );
+  }
+
+  const aliasDefinitions = jp.query(
+    ast,
+    "$.RawStmt.stmt.SelectStmt.fromClause..[?(@.alias)]",
+  );
+
+  const aliases = Object.fromEntries(
+    aliasDefinitions.map(({ schemaname, relname, alias }) => [
+      alias.Alias.aliasname,
+      { schema: schemaname, table: relname },
+    ]),
+  );
+
+  return parseSelectStmt(selectAst, defaultSchema, aliases);
 }
 
 export default parseViewDefinition;
