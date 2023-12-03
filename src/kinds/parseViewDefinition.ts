@@ -18,48 +18,61 @@ function parseSelectStmt(
   defaultSchema: string,
   aliases: { [alias: string]: { schema: string; table: string } },
 ): ViewReference[] {
-  const firstFromTable = selectAst.fromClause[0].RangeVar;
+  if (selectAst.larg && selectAst.rarg) {
+    // This is a UNION, INTERSECT, or EXCEPT operation
+    return [
+      ...parseSelectStmt(selectAst.larg.SelectStmt, defaultSchema, aliases),
+      ...parseSelectStmt(selectAst.rarg.SelectStmt, defaultSchema, aliases),
+    ];
+  }
 
-  const selectTargets = jp.query(selectAst, "$.targetList[*].ResTarget");
+  const viewReferences: ViewReference[] = [];
 
-  const viewReferences = selectTargets.map((selectTarget) => {
-    const fields = jp.query(selectTarget, "$.val[*].fields[*].String.str");
-    let sourceTable = firstFromTable?.relname;
-    let sourceSchema = firstFromTable?.schemaname;
-    if (fields.length === 2) {
-      const tableRel = fields[0];
-      if (tableRel in aliases) {
-        sourceTable = aliases[tableRel].table;
-        sourceSchema = aliases[tableRel].schema ?? sourceSchema;
-      } else {
-        sourceTable = tableRel;
+  selectAst.fromClause.forEach((fromClause: any) => {
+    const fromTable = fromClause.RangeVar;
+
+    const selectTargets = jp.query(selectAst, "$.targetList[*].ResTarget");
+
+    selectTargets.forEach((selectTarget: any) => {
+      const fields = jp.query(selectTarget, "$.val[*].fields[*].String.str");
+      let sourceTable = fromTable?.relname;
+      let sourceSchema = fromTable?.schemaname;
+      if (fields.length === 2) {
+        const tableRel = fields[0];
+        if (tableRel in aliases) {
+          sourceTable = aliases[tableRel].table;
+          sourceSchema = aliases[tableRel].schema ?? sourceSchema;
+        } else {
+          sourceTable = tableRel;
+        }
       }
-    }
-    const sourceColumn = last(fields);
+      const sourceColumn = last(fields);
 
-    const viewReference: ViewReference = {
-      viewColumn: selectTarget.name || last(fields),
-      source:
-        sourceTable && sourceColumn
-          ? {
-              schema: sourceSchema ?? defaultSchema,
-              table: sourceTable,
-              column: last(fields),
-            }
-          : undefined,
-    };
-    return viewReference;
+      const viewReference: ViewReference = {
+        viewColumn: selectTarget.name || last(fields),
+        source:
+          sourceTable && sourceColumn
+            ? {
+                schema: sourceSchema ?? defaultSchema,
+                table: sourceTable,
+                column: last(fields),
+              }
+            : undefined,
+      };
+      viewReferences.push(viewReference);
+    });
   });
 
   return viewReferences;
 }
-
 function parseViewDefinition(
   selectStatement: string,
   defaultSchema: string,
 ): ViewReference[] {
   const ast = pgQuery.parse(selectStatement).parse_tree[0];
   const selectAst = ast.RawStmt?.stmt?.SelectStmt;
+
+  console.log(JSON.stringify(selectAst, null, 2));
 
   if (!selectAst) {
     throw new Error(
