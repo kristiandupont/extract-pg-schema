@@ -196,7 +196,7 @@ describe("parseViewDefinition", () => {
     ]);
   });
 
-  it("should resolve kanel#481", () => {
+  it("should work with a minimalistic WITH clause", () => {
     const query = `
     WITH RECURSIVE hierarchy_cte AS (
       SELECT posting.date,
@@ -204,12 +204,6 @@ describe("parseViewDefinition", () => {
          posting.amount
         FROM posting
           JOIN account ON account.id = posting.account_id
-     UNION ALL
-      SELECT hierarchy_cte_1.date,
-         trim_array(hierarchy_cte_1.account, 1) AS account,
-         hierarchy_cte_1.amount
-        FROM hierarchy_cte hierarchy_cte_1
-       WHERE array_length(hierarchy_cte_1.account, 1) > 1
      )
     SELECT hierarchy_cte.date,
     hierarchy_cte.account,
@@ -247,7 +241,7 @@ describe("parseViewDefinition", () => {
     ]);
   });
 
-  it("should work with a minimalistic WITH clause", () => {
+  it("should resolve kanel#481", () => {
     const query = `
     WITH RECURSIVE hierarchy_cte AS (
       SELECT posting.date,
@@ -255,6 +249,12 @@ describe("parseViewDefinition", () => {
          posting.amount
         FROM posting
           JOIN account ON account.id = posting.account_id
+     UNION ALL
+      SELECT hierarchy_cte_1.date,
+         trim_array(hierarchy_cte_1.account, 1) AS account,
+         hierarchy_cte_1.amount
+        FROM hierarchy_cte hierarchy_cte_1
+       WHERE array_length(hierarchy_cte_1.account, 1) > 1
      )
     SELECT hierarchy_cte.date,
     hierarchy_cte.account,

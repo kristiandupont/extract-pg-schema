@@ -79,7 +79,43 @@ function parseViewDefinition(
     ]),
   );
 
-  return parseSelectStmt(selectAst, defaultSchema, aliases);
+  const withClauses = selectAst.withClause?.WithClause?.ctes || [];
+
+  const cteAliases: Record<string, ViewReference[]> = {};
+
+  for (const cte of withClauses) {
+    if (cte.CommonTableExpr) {
+      const alias = cte.CommonTableExpr.ctename;
+      const cteQuery = cte.CommonTableExpr.ctequery.SelectStmt;
+
+      if (!cteQuery) {
+        continue;
+      }
+
+      // Process the CTE query recursively
+      const cteAlias = parseSelectStmt(cteQuery, defaultSchema, aliases);
+
+      cteAliases[alias] = cteAlias;
+    }
+  }
+
+  const primaryViewReferences = parseSelectStmt(
+    selectAst,
+    defaultSchema,
+    aliases,
+  );
+
+  const viewReferences = primaryViewReferences.map((viewReference) => {
+    const source = viewReference.source;
+    return source && source.table in cteAliases
+      ? (cteAliases[source.table].find(
+          (cteViewReference) =>
+            cteViewReference.viewColumn === viewReference.viewColumn,
+        ) as ViewReference)
+      : viewReference;
+  });
+
+  return viewReferences;
 }
 
 export default parseViewDefinition;
