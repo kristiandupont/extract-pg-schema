@@ -28,11 +28,13 @@ function parseSelectStmt(
 
   const viewReferences: ViewReference[] = [];
 
+  // eslint-disable-next-line unicorn/no-array-for-each
   selectAst.fromClause.forEach((fromClause: any) => {
     const fromTable = fromClause.RangeVar;
 
     const selectTargets = jp.query(selectAst, "$.targetList[*].ResTarget");
 
+    // eslint-disable-next-line unicorn/no-array-for-each
     selectTargets.forEach((selectTarget: any) => {
       const fields = jp.query(selectTarget, "$.val[*].fields[*].String.str");
       let sourceTable = fromTable?.relname;
