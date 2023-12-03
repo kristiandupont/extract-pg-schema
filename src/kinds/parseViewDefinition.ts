@@ -74,8 +74,6 @@ function parseViewDefinition(
   const ast = pgQuery.parse(selectStatement).parse_tree[0];
   const selectAst = ast.RawStmt?.stmt?.SelectStmt;
 
-  console.log(JSON.stringify(selectAst, null, 2));
-
   if (!selectAst) {
     throw new Error(
       `The string '${selectStatement}' doesn't parse as a select statement.`,
