@@ -91,7 +91,7 @@ const resolveSource = (
   sourceMapping?: Record<string, ViewReference>,
 ): ViewColumn => ({
   ...column,
-  source: sourceMapping?.[column.name].source ?? null,
+  source: sourceMapping?.[column.name]?.source ?? null,
 });
 
 const extractView = async (
