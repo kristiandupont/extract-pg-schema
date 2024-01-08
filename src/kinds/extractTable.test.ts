@@ -4,6 +4,7 @@ import { describe, expect } from "vitest";
 import { test, testWith } from "../tests/useSchema";
 import extractTable, {
   ColumnReference,
+  TableCheck,
   TableColumn,
   TableDetails,
 } from "./extractTable";
@@ -44,6 +45,7 @@ describe("extractTable", () => {
         is_typed: "NO",
         commit_action: null,
       },
+      checks: [],
       columns: [
         {
           name: "id",
@@ -157,6 +159,28 @@ describe("extractTable", () => {
         dimensions: 2,
       },
     ];
+    expect(actual).toEqual(expected);
+  });
+
+  test("it should fetch table checks", async ({ knex: [db] }) => {
+    await db.raw(`create table test.some_table_with_checks (
+        id integer constraint id_check check (id > 0),
+        products TEXT[],
+        number_of_products INT,
+        constraint products_len_check check (array_length(products, 1) = number_of_products)
+    )`);
+
+    const result = await extractTable(db, makePgType("some_table_with_checks"));
+    const actual = result.checks;
+
+    const expected: TableCheck[] = [
+      { name: "id_check", clause: "id > 0" },
+      {
+        name: "products_len_check",
+        clause: "array_length(products, 1) = number_of_products",
+      },
+    ];
+
     expect(actual).toEqual(expected);
   });
 
