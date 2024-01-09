@@ -15,6 +15,7 @@ export interface TableDetails extends PgType<"table">
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
+|  [checks](./extract-pg-schema.tabledetails.checks.md) |  | TableCheck\[\] |  |
 |  [columns](./extract-pg-schema.tabledetails.columns.md) |  | [TableColumn](./extract-pg-schema.tablecolumn.md)<!-- -->\[\] |  |
 |  [informationSchemaValue](./extract-pg-schema.tabledetails.informationschemavalue.md) |  | [InformationSchemaTable](./extract-pg-schema.informationschematable.md) |  |
 
