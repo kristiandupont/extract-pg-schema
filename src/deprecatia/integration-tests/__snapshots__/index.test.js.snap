@@ -4,6 +4,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
 {
   "tables": [
     {
+      "checks": [],
       "columns": [
         {
           "comment": undefined,
@@ -277,6 +278,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       "tags": {},
     },
     {
+      "checks": [],
       "columns": [
         {
           "comment": undefined,
@@ -821,6 +823,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       "tags": {},
     },
     {
+      "checks": [],
       "columns": [
         {
           "comment": undefined,
@@ -1025,6 +1028,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       "tags": {},
     },
     {
+      "checks": [],
       "columns": [
         {
           "comment": undefined,
@@ -1313,6 +1317,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       "tags": {},
     },
     {
+      "checks": [],
       "columns": [
         {
           "comment": undefined,
@@ -1517,6 +1522,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       "tags": {},
     },
     {
+      "checks": [],
       "columns": [
         {
           "comment": undefined,
@@ -2199,6 +2205,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       "tags": {},
     },
     {
+      "checks": [],
       "columns": [
         {
           "comment": undefined,
@@ -3073,6 +3080,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       "tags": {},
     },
     {
+      "checks": [],
       "columns": [
         {
           "comment": undefined,
@@ -3316,6 +3324,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       "tags": {},
     },
     {
+      "checks": [],
       "columns": [
         {
           "comment": undefined,
@@ -3555,6 +3564,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       "tags": {},
     },
     {
+      "checks": [],
       "columns": [
         {
           "comment": undefined,
@@ -3848,6 +3858,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       "tags": {},
     },
     {
+      "checks": [],
       "columns": [
         {
           "comment": undefined,
@@ -4052,6 +4063,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       "tags": {},
     },
     {
+      "checks": [],
       "columns": [
         {
           "comment": undefined,
@@ -4508,6 +4520,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       "tags": {},
     },
     {
+      "checks": [],
       "columns": [
         {
           "comment": undefined,
@@ -5032,6 +5045,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       "tags": {},
     },
     {
+      "checks": [],
       "columns": [
         {
           "comment": undefined,
@@ -5763,6 +5777,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       "tags": {},
     },
     {
+      "checks": [],
       "columns": [
         {
           "comment": undefined,

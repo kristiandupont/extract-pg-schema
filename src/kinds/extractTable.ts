@@ -36,6 +36,11 @@ export type TableColumnType = {
   kind: "base" | "range" | "domain" | "composite" | "enum";
 };
 
+export interface TableCheck {
+  name: string;
+  clause: string;
+}
+
 export interface TableColumn {
   name: string;
   expandedType: string;
@@ -61,6 +66,7 @@ export interface TableColumn {
 
 export interface TableDetails extends PgType<"table"> {
   columns: TableColumn[];
+  checks: TableCheck[];
   informationSchemaValue: InformationSchemaTable;
 }
 
@@ -215,7 +221,45 @@ const extractTable = async (
     reference: row.references[0] ?? null,
   }));
 
-  return { ...table, informationSchemaValue, columns };
+  const checkQuery = await db.raw(
+    `
+    SELECT
+      source_namespace.nspname as "schema",
+      source_class.relname as "table",
+      json_agg(json_build_object(
+                 'name', con.conname,
+                 'clause', SUBSTRING(pg_get_constraintdef(con.oid) FROM 7)
+      )) as checks
+    FROM
+     pg_constraint con,
+     pg_class source_class,
+     pg_namespace source_namespace 
+    WHERE
+     source_class.relname = :table_name
+     AND source_namespace.nspname = :schema_name
+     AND conrelid = source_class.oid 
+     AND source_class.relnamespace = source_namespace.oid 
+     AND con.contype = 'c'
+    GROUP BY source_namespace.nspname, source_class.relname;
+  `,
+    { table_name: table.name, schema_name: table.schemaName },
+  );
+
+  const checks = checkQuery.rows
+    .flatMap((row: any) => row.checks as TableCheck)
+    .map(({ name, clause }: TableCheck) => {
+      const numberOfBrackets =
+        clause.startsWith("((") && clause.endsWith("))") ? 2 : 1;
+      return {
+        name,
+        clause: clause.slice(
+          numberOfBrackets,
+          clause.length - numberOfBrackets,
+        ),
+      };
+    });
+
+  return { ...table, checks, informationSchemaValue, columns };
 };
 
 export default extractTable;
