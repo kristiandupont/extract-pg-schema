@@ -41,7 +41,7 @@
     "@types/pg": "8.10.9",
     "@types/ramda": "0.29.9",
     "np": "9.2.0",
-    "testcontainers": "10.4.0",
+    "testcontainers": "10.6.0",
     "vitepress": "1.0.0-rc.36",
     "vitest-fixture": "0.5.2",
     "vue": "3.4.6"
