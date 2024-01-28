@@ -4,6 +4,7 @@ import { describe, expect } from "vitest";
 import { test, testWith } from "../tests/useSchema";
 import extractTable, {
   ColumnReference,
+  Index,
   TableCheck,
   TableColumn,
   TableDetails,
@@ -392,6 +393,27 @@ describe("extractTable", () => {
         onUpdate: "NO ACTION",
         name: "fk_1",
       });
+    });
+
+    test("should not extract indices from another schema", async ({
+      knex: [db],
+    }) => {
+      await db.raw("create table test.some_table (id integer)");
+      await db.raw("create index some_table_id_idx on test.some_table (id)");
+      await db.raw("create schema test2");
+      await db.raw("create table test2.some_table (id integer)");
+      await db.raw("create index some_table_id_idx2 on test2.some_table (id)");
+
+      const result = await extractTable(db, makePgType("some_table"));
+
+      const expected: Index[] = [
+        {
+          isPrimary: false,
+          name: "some_table_id_idx",
+        },
+      ];
+
+      expect(result.columns[0].indices).toStrictEqual(expected);
     });
   });
 });
