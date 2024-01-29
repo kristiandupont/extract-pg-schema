@@ -64,9 +64,21 @@ export interface TableColumn {
   informationSchemaValue: InformationSchemaColumn;
 }
 
+export interface TableSecurityPolicy {
+  name: string;
+  isPermissive: boolean;
+  rolesAppliedTo: string[];
+  commandType: "ALL" | "SELECT" | "INSERT" | "UPDATE" | "DELETE";
+  visibilityExpression: string | null;
+  modifiabilityExpression: string | null;
+}
+
 export interface TableDetails extends PgType<"table"> {
   columns: TableColumn[];
   checks: TableCheck[];
+  isRowLevelSecurityEnabled: boolean;
+  isRowLevelSecurityEnforced: boolean;
+  securityPolicies: TableSecurityPolicy[];
   informationSchemaValue: InformationSchemaTable;
 }
 
@@ -259,7 +271,44 @@ const extractTable = async (
       };
     });
 
-  return { ...table, checks, informationSchemaValue, columns };
+  const rlsQuery = await db.raw(
+    `
+    SELECT
+      c.relrowsecurity AS "isRowLevelSecurityEnabled",
+      c.relforcerowsecurity AS "isRowLevelSecurityEnforced",
+      coalesce(json_agg(json_build_object(
+        'name', p.policyname,
+        'isPermissive', p.permissive = 'PERMISSIVE',
+        'rolesAppliedTo', p.roles,
+        'commandType', p.cmd,
+        'visibilityExpression', p.qual,
+        'modifiabilityExpression', p.with_check
+      )) FILTER (WHERE p.policyname IS NOT NULL), '[]'::json) AS "securityPolicies"
+    FROM
+      pg_class c
+      INNER JOIN pg_namespace n ON c.relnamespace = n.oid
+      LEFT JOIN pg_policies p ON c.relname = p.tablename AND n.nspname = p.schemaname
+    WHERE
+      c.relname = :table_name
+      AND n.nspname = :schema_name
+    GROUP BY c.relrowsecurity, c.relforcerowsecurity
+    `,
+    { table_name: table.name, schema_name: table.schemaName },
+  );
+
+  const rls = rlsQuery.rows[0] as {
+    isRowLevelSecurityEnabled: boolean;
+    isRowLevelSecurityEnforced: boolean;
+    securityPolicies: TableSecurityPolicy[];
+  };
+
+  return {
+    ...table,
+    checks,
+    informationSchemaValue,
+    columns,
+    ...rls,
+  };
 };
 
 export default extractTable;
