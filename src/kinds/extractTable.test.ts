@@ -8,6 +8,7 @@ import extractTable, {
   TableCheck,
   TableColumn,
   TableDetails,
+  TableSecurityPolicy,
 } from "./extractTable";
 import PgType from "./PgType";
 
@@ -115,6 +116,9 @@ describe("extractTable", () => {
           },
         },
       ],
+      isRowLevelSecurityEnabled: false,
+      isRowLevelSecurityEnforced: false,
+      securityPolicies: [],
     };
 
     expect(result).toStrictEqual(expected);
@@ -345,6 +349,90 @@ describe("extractTable", () => {
         name: "linking_table_some_table_id_fkey",
       };
       expect(result.columns[0].references).toEqual([expected]);
+    });
+  });
+
+  describe("row-level security", () => {
+    test("it should extract isRowLevelSecurityEnabled", async ({
+      knex: [db],
+    }) => {
+      await db.raw("create table test.some_table (id integer primary key)");
+      await db.raw("alter table test.some_table enable row level security");
+
+      const result = await extractTable(db, makePgType("some_table"));
+
+      expect(result.isRowLevelSecurityEnabled).toEqual(true);
+      expect(result.isRowLevelSecurityEnforced).toEqual(false);
+    });
+
+    test("it should extract isRowLevelSecurityEnforced", async ({
+      knex: [db],
+    }) => {
+      await db.raw("create table test.some_table (id integer primary key)");
+      await db.raw("alter table test.some_table force row level security");
+
+      const result = await extractTable(db, makePgType("some_table"));
+
+      expect(result.isRowLevelSecurityEnabled).toEqual(false);
+      expect(result.isRowLevelSecurityEnforced).toEqual(true);
+    });
+  });
+
+  describe("securityPolicies", () => {
+    test("it should extract empty array when no policy is defined", async ({
+      knex: [db],
+    }) => {
+      await db.raw("create table test.some_table (id integer primary key)");
+
+      const result = await extractTable(db, makePgType("some_table"));
+
+      const expected: TableSecurityPolicy[] = [];
+      expect(result.securityPolicies).toEqual(expected);
+    });
+
+    test("it should extract a simple security policy", async ({
+      knex: [db],
+    }) => {
+      await db.raw("create table test.some_table (id integer primary key)");
+      await db.raw("create policy test_policy on test.some_table");
+
+      const result = await extractTable(db, makePgType("some_table"));
+
+      const expected: TableSecurityPolicy[] = [
+        {
+          name: "test_policy",
+          isPermissive: true,
+          rolesAppliedTo: ["public"],
+          commandType: "ALL",
+          visibilityExpression: null,
+          modifiabilityExpression: null,
+        },
+      ];
+      expect(result.securityPolicies).toEqual(expected);
+    });
+
+    test("it should extract a complex security policy", async ({
+      knex: [db],
+    }) => {
+      await db.raw("create table test.some_table (id integer primary key)");
+      await db.raw("create role test_role");
+      await db.raw(
+        "create policy test_policy on test.some_table as restrictive for update to test_role, postgres using (id = 1) with check (true)",
+      );
+
+      const result = await extractTable(db, makePgType("some_table"));
+
+      const expected: TableSecurityPolicy[] = [
+        {
+          name: "test_policy",
+          isPermissive: false,
+          rolesAppliedTo: ["postgres", "test_role"],
+          commandType: "UPDATE",
+          visibilityExpression: "(id = 1)",
+          modifiabilityExpression: "true",
+        },
+      ];
+      expect(result.securityPolicies).toEqual(expected);
     });
   });
 
