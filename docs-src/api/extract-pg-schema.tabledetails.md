@@ -18,4 +18,7 @@ export interface TableDetails extends PgType<"table">
 |  [checks](./extract-pg-schema.tabledetails.checks.md) |  | TableCheck\[\] |  |
 |  [columns](./extract-pg-schema.tabledetails.columns.md) |  | [TableColumn](./extract-pg-schema.tablecolumn.md)<!-- -->\[\] |  |
 |  [informationSchemaValue](./extract-pg-schema.tabledetails.informationschemavalue.md) |  | [InformationSchemaTable](./extract-pg-schema.informationschematable.md) |  |
+|  [isRowLevelSecurityEnabled](./extract-pg-schema.tabledetails.isrowlevelsecurityenabled.md) |  | boolean |  |
+|  [isRowLevelSecurityEnforced](./extract-pg-schema.tabledetails.isrowlevelsecurityenforced.md) |  | boolean |  |
+|  [securityPolicies](./extract-pg-schema.tabledetails.securitypolicies.md) |  | TableSecurityPolicy\[\] |  |
 
