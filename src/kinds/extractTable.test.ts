@@ -8,6 +8,7 @@ import extractTable, {
   TableCheck,
   TableColumn,
   TableDetails,
+  TableIndex,
   TableSecurityPolicy,
 } from "./extractTable";
 import PgType from "./PgType";
@@ -47,6 +48,7 @@ describe("extractTable", () => {
         is_typed: "NO",
         commit_action: null,
       },
+      indices: [],
       checks: [],
       columns: [
         {
@@ -349,6 +351,132 @@ describe("extractTable", () => {
         name: "linking_table_some_table_id_fkey",
       };
       expect(result.columns[0].references).toEqual([expected]);
+    });
+  });
+
+  describe("indices", () => {
+    test("it should extract a simple index", async ({ knex: [db] }) => {
+      await db.raw("create table test.some_table (id integer)");
+      await db.raw("create index some_table_id_idx on test.some_table (id)");
+
+      const result = await extractTable(db, makePgType("some_table"));
+
+      const expected: TableIndex[] = [
+        {
+          name: "some_table_id_idx",
+          isPrimary: false,
+          isUnique: false,
+          columns: [
+            {
+              name: "id",
+              definition: "id",
+            },
+          ],
+        },
+      ];
+
+      expect(result.indices).toStrictEqual(expected);
+    });
+
+    test("it should extract a unique index", async ({ knex: [db] }) => {
+      await db.raw("create table test.some_table (id integer)");
+      await db.raw(
+        "create unique index some_table_id_idx on test.some_table (id)",
+      );
+
+      const result = await extractTable(db, makePgType("some_table"));
+
+      const expected: TableIndex[] = [
+        {
+          name: "some_table_id_idx",
+          isPrimary: false,
+          isUnique: true,
+          columns: [
+            {
+              name: "id",
+              definition: "id",
+            },
+          ],
+        },
+      ];
+
+      expect(result.indices).toStrictEqual(expected);
+    });
+
+    test("it should extract a primary key", async ({ knex: [db] }) => {
+      await db.raw("create table test.some_table (id integer primary key)");
+
+      const result = await extractTable(db, makePgType("some_table"));
+
+      const expected: TableIndex[] = [
+        {
+          name: "some_table_pkey",
+          isPrimary: true,
+          isUnique: true,
+          columns: [
+            {
+              name: "id",
+              definition: "id",
+            },
+          ],
+        },
+      ];
+
+      expect(result.indices).toStrictEqual(expected);
+    });
+
+    test("it should extract a multi-column index", async ({ knex: [db] }) => {
+      await db.raw("create table test.some_table (id integer, kind integer)");
+      await db.raw(
+        "create index some_table_id_idx on test.some_table (id, kind)",
+      );
+
+      const result = await extractTable(db, makePgType("some_table"));
+
+      const expected: TableIndex[] = [
+        {
+          name: "some_table_id_idx",
+          isPrimary: false,
+          isUnique: false,
+          columns: [
+            {
+              name: "id",
+              definition: "id",
+            },
+            {
+              name: "kind",
+              definition: "kind",
+            },
+          ],
+        },
+      ];
+
+      expect(result.indices).toStrictEqual(expected);
+    });
+
+    test("it should extract a functional index", async ({ knex: [db] }) => {
+      await db.raw("create table test.some_table (id integer)");
+      await db.raw(
+        "create index some_table_id_idx on test.some_table (abs(id))",
+      );
+
+      const result = await extractTable(db, makePgType("some_table"));
+
+      const expected: TableIndex[] = [
+        {
+          name: "some_table_id_idx",
+          isPrimary: false,
+          isUnique: false,
+          columns: [
+            {
+              name: null,
+              definition: "abs(id)",
+            },
+          ],
+        },
+      ];
+
+      expect(result.indices).toStrictEqual(expected);
     });
   });
 

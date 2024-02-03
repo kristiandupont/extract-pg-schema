@@ -274,6 +274,30 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
         },
       ],
       "comment": undefined,
+      "indices": [
+        {
+          "columns": [
+            {
+              "definition": "actor_id",
+              "name": "actor_id",
+            },
+          ],
+          "isPrimary": true,
+          "isUnique": true,
+          "name": "actor_pkey",
+        },
+        {
+          "columns": [
+            {
+              "definition": "last_name",
+              "name": "last_name",
+            },
+          ],
+          "isPrimary": false,
+          "isUnique": false,
+          "name": "idx_actor_last_name",
+        },
+      ],
       "isRowLevelSecurityEnabled": false,
       "isRowLevelSecurityEnforced": false,
       "name": "actor",
@@ -822,6 +846,30 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
         },
       ],
       "comment": undefined,
+      "indices": [
+        {
+          "columns": [
+            {
+              "definition": "address_id",
+              "name": "address_id",
+            },
+          ],
+          "isPrimary": true,
+          "isUnique": true,
+          "name": "address_pkey",
+        },
+        {
+          "columns": [
+            {
+              "definition": "city_id",
+              "name": "city_id",
+            },
+          ],
+          "isPrimary": false,
+          "isUnique": false,
+          "name": "idx_fk_city_id",
+        },
+      ],
       "isRowLevelSecurityEnabled": false,
       "isRowLevelSecurityEnforced": false,
       "name": "address",
@@ -1030,6 +1078,19 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
         },
       ],
       "comment": undefined,
+      "indices": [
+        {
+          "columns": [
+            {
+              "definition": "category_id",
+              "name": "category_id",
+            },
+          ],
+          "isPrimary": true,
+          "isUnique": true,
+          "name": "category_pkey",
+        },
+      ],
       "isRowLevelSecurityEnabled": false,
       "isRowLevelSecurityEnforced": false,
       "name": "category",
@@ -1322,6 +1383,30 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
         },
       ],
       "comment": undefined,
+      "indices": [
+        {
+          "columns": [
+            {
+              "definition": "city_id",
+              "name": "city_id",
+            },
+          ],
+          "isPrimary": true,
+          "isUnique": true,
+          "name": "city_pkey",
+        },
+        {
+          "columns": [
+            {
+              "definition": "country_id",
+              "name": "country_id",
+            },
+          ],
+          "isPrimary": false,
+          "isUnique": false,
+          "name": "idx_fk_country_id",
+        },
+      ],
       "isRowLevelSecurityEnabled": false,
       "isRowLevelSecurityEnforced": false,
       "name": "city",
@@ -1530,6 +1615,19 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
         },
       ],
       "comment": undefined,
+      "indices": [
+        {
+          "columns": [
+            {
+              "definition": "country_id",
+              "name": "country_id",
+            },
+          ],
+          "isPrimary": true,
+          "isUnique": true,
+          "name": "country_pkey",
+        },
+      ],
       "isRowLevelSecurityEnabled": false,
       "isRowLevelSecurityEnforced": false,
       "name": "country",
@@ -2216,6 +2314,52 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
         },
       ],
       "comment": undefined,
+      "indices": [
+        {
+          "columns": [
+            {
+              "definition": "customer_id",
+              "name": "customer_id",
+            },
+          ],
+          "isPrimary": true,
+          "isUnique": true,
+          "name": "customer_pkey",
+        },
+        {
+          "columns": [
+            {
+              "definition": "address_id",
+              "name": "address_id",
+            },
+          ],
+          "isPrimary": false,
+          "isUnique": false,
+          "name": "idx_fk_address_id",
+        },
+        {
+          "columns": [
+            {
+              "definition": "store_id",
+              "name": "store_id",
+            },
+          ],
+          "isPrimary": false,
+          "isUnique": false,
+          "name": "idx_fk_store_id",
+        },
+        {
+          "columns": [
+            {
+              "definition": "last_name",
+              "name": "last_name",
+            },
+          ],
+          "isPrimary": false,
+          "isUnique": false,
+          "name": "idx_last_name",
+        },
+      ],
       "isRowLevelSecurityEnabled": false,
       "isRowLevelSecurityEnforced": false,
       "name": "customer",
@@ -3094,6 +3238,52 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
         },
       ],
       "comment": undefined,
+      "indices": [
+        {
+          "columns": [
+            {
+              "definition": "film_id",
+              "name": "film_id",
+            },
+          ],
+          "isPrimary": true,
+          "isUnique": true,
+          "name": "film_pkey",
+        },
+        {
+          "columns": [
+            {
+              "definition": "fulltext",
+              "name": "fulltext",
+            },
+          ],
+          "isPrimary": false,
+          "isUnique": false,
+          "name": "film_fulltext_idx",
+        },
+        {
+          "columns": [
+            {
+              "definition": "language_id",
+              "name": "language_id",
+            },
+          ],
+          "isPrimary": false,
+          "isUnique": false,
+          "name": "idx_fk_language_id",
+        },
+        {
+          "columns": [
+            {
+              "definition": "title",
+              "name": "title",
+            },
+          ],
+          "isPrimary": false,
+          "isUnique": false,
+          "name": "idx_title",
+        },
+      ],
       "isRowLevelSecurityEnabled": false,
       "isRowLevelSecurityEnforced": false,
       "name": "film",
@@ -3341,6 +3531,34 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
         },
       ],
       "comment": undefined,
+      "indices": [
+        {
+          "columns": [
+            {
+              "definition": "actor_id",
+              "name": "actor_id",
+            },
+            {
+              "definition": "film_id",
+              "name": "film_id",
+            },
+          ],
+          "isPrimary": true,
+          "isUnique": true,
+          "name": "film_actor_pkey",
+        },
+        {
+          "columns": [
+            {
+              "definition": "film_id",
+              "name": "film_id",
+            },
+          ],
+          "isPrimary": false,
+          "isUnique": false,
+          "name": "idx_fk_film_id",
+        },
+      ],
       "isRowLevelSecurityEnabled": false,
       "isRowLevelSecurityEnforced": false,
       "name": "film_actor",
@@ -3584,6 +3802,23 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
         },
       ],
       "comment": undefined,
+      "indices": [
+        {
+          "columns": [
+            {
+              "definition": "film_id",
+              "name": "film_id",
+            },
+            {
+              "definition": "category_id",
+              "name": "category_id",
+            },
+          ],
+          "isPrimary": true,
+          "isUnique": true,
+          "name": "film_category_pkey",
+        },
+      ],
       "isRowLevelSecurityEnabled": false,
       "isRowLevelSecurityEnforced": false,
       "name": "film_category",
@@ -3881,6 +4116,34 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
         },
       ],
       "comment": undefined,
+      "indices": [
+        {
+          "columns": [
+            {
+              "definition": "inventory_id",
+              "name": "inventory_id",
+            },
+          ],
+          "isPrimary": true,
+          "isUnique": true,
+          "name": "inventory_pkey",
+        },
+        {
+          "columns": [
+            {
+              "definition": "store_id",
+              "name": "store_id",
+            },
+            {
+              "definition": "film_id",
+              "name": "film_id",
+            },
+          ],
+          "isPrimary": false,
+          "isUnique": false,
+          "name": "idx_store_id_film_id",
+        },
+      ],
       "isRowLevelSecurityEnabled": false,
       "isRowLevelSecurityEnforced": false,
       "name": "inventory",
@@ -4089,6 +4352,19 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
         },
       ],
       "comment": undefined,
+      "indices": [
+        {
+          "columns": [
+            {
+              "definition": "language_id",
+              "name": "language_id",
+            },
+          ],
+          "isPrimary": true,
+          "isUnique": true,
+          "name": "language_pkey",
+        },
+      ],
       "isRowLevelSecurityEnabled": false,
       "isRowLevelSecurityEnforced": false,
       "name": "language",
@@ -4549,6 +4825,52 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
         },
       ],
       "comment": undefined,
+      "indices": [
+        {
+          "columns": [
+            {
+              "definition": "payment_id",
+              "name": "payment_id",
+            },
+          ],
+          "isPrimary": true,
+          "isUnique": true,
+          "name": "payment_pkey",
+        },
+        {
+          "columns": [
+            {
+              "definition": "customer_id",
+              "name": "customer_id",
+            },
+          ],
+          "isPrimary": false,
+          "isUnique": false,
+          "name": "idx_fk_customer_id",
+        },
+        {
+          "columns": [
+            {
+              "definition": "rental_id",
+              "name": "rental_id",
+            },
+          ],
+          "isPrimary": false,
+          "isUnique": false,
+          "name": "idx_fk_rental_id",
+        },
+        {
+          "columns": [
+            {
+              "definition": "staff_id",
+              "name": "staff_id",
+            },
+          ],
+          "isPrimary": false,
+          "isUnique": false,
+          "name": "idx_fk_staff_id",
+        },
+      ],
       "isRowLevelSecurityEnabled": false,
       "isRowLevelSecurityEnforced": false,
       "name": "payment",
@@ -5077,6 +5399,49 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
         },
       ],
       "comment": undefined,
+      "indices": [
+        {
+          "columns": [
+            {
+              "definition": "rental_id",
+              "name": "rental_id",
+            },
+          ],
+          "isPrimary": true,
+          "isUnique": true,
+          "name": "rental_pkey",
+        },
+        {
+          "columns": [
+            {
+              "definition": "inventory_id",
+              "name": "inventory_id",
+            },
+          ],
+          "isPrimary": false,
+          "isUnique": false,
+          "name": "idx_fk_inventory_id",
+        },
+        {
+          "columns": [
+            {
+              "definition": "rental_date",
+              "name": "rental_date",
+            },
+            {
+              "definition": "inventory_id",
+              "name": "inventory_id",
+            },
+            {
+              "definition": "customer_id",
+              "name": "customer_id",
+            },
+          ],
+          "isPrimary": false,
+          "isUnique": true,
+          "name": "idx_unq_rental_rental_date_inventory_id_customer_id",
+        },
+      ],
       "isRowLevelSecurityEnabled": false,
       "isRowLevelSecurityEnforced": false,
       "name": "rental",
@@ -5812,6 +6177,19 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
         },
       ],
       "comment": undefined,
+      "indices": [
+        {
+          "columns": [
+            {
+              "definition": "staff_id",
+              "name": "staff_id",
+            },
+          ],
+          "isPrimary": true,
+          "isUnique": true,
+          "name": "staff_pkey",
+        },
+      ],
       "isRowLevelSecurityEnabled": false,
       "isRowLevelSecurityEnforced": false,
       "name": "staff",
@@ -6119,6 +6497,30 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
         },
       ],
       "comment": undefined,
+      "indices": [
+        {
+          "columns": [
+            {
+              "definition": "store_id",
+              "name": "store_id",
+            },
+          ],
+          "isPrimary": true,
+          "isUnique": true,
+          "name": "store_pkey",
+        },
+        {
+          "columns": [
+            {
+              "definition": "manager_staff_id",
+              "name": "manager_staff_id",
+            },
+          ],
+          "isPrimary": false,
+          "isUnique": true,
+          "name": "idx_unq_manager_staff_id",
+        },
+      ],
       "isRowLevelSecurityEnabled": false,
       "isRowLevelSecurityEnforced": false,
       "name": "store",

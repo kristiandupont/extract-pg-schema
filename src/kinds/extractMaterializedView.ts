@@ -41,6 +41,7 @@ export interface MaterializedViewColumn {
   references?: ColumnReference[];
   /** @deprecated use references instead */
   reference?: ColumnReference | null;
+  /** @deprecated use TableDetails.indices instead */
   indices?: Index[];
   isNullable?: boolean;
   isPrimaryKey?: boolean;

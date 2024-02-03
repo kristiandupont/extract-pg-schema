@@ -25,9 +25,13 @@ export { type RangeDetails } from "./kinds/extractRange";
 export {
   type ColumnReference,
   Index,
+  type TableCheck,
   type TableColumn,
   type TableColumnType,
   type TableDetails,
+  type TableIndex,
+  type TableIndexColumn,
+  type TableSecurityPolicy,
   type UpdateAction,
   updateActionMap,
 } from "./kinds/extractTable";
