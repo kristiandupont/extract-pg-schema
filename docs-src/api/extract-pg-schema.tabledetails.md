@@ -15,10 +15,11 @@ export interface TableDetails extends PgType<"table">
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [checks](./extract-pg-schema.tabledetails.checks.md) |  | TableCheck\[\] |  |
+|  [checks](./extract-pg-schema.tabledetails.checks.md) |  | [TableCheck](./extract-pg-schema.tablecheck.md)<!-- -->\[\] |  |
 |  [columns](./extract-pg-schema.tabledetails.columns.md) |  | [TableColumn](./extract-pg-schema.tablecolumn.md)<!-- -->\[\] |  |
+|  [indices](./extract-pg-schema.tabledetails.indices.md) |  | [TableIndex](./extract-pg-schema.tableindex.md)<!-- -->\[\] |  |
 |  [informationSchemaValue](./extract-pg-schema.tabledetails.informationschemavalue.md) |  | [InformationSchemaTable](./extract-pg-schema.informationschematable.md) |  |
 |  [isRowLevelSecurityEnabled](./extract-pg-schema.tabledetails.isrowlevelsecurityenabled.md) |  | boolean |  |
 |  [isRowLevelSecurityEnforced](./extract-pg-schema.tabledetails.isrowlevelsecurityenforced.md) |  | boolean |  |
-|  [securityPolicies](./extract-pg-schema.tabledetails.securitypolicies.md) |  | TableSecurityPolicy\[\] |  |
+|  [securityPolicies](./extract-pg-schema.tabledetails.securitypolicies.md) |  | [TableSecurityPolicy](./extract-pg-schema.tablesecuritypolicy.md)<!-- -->\[\] |  |
 

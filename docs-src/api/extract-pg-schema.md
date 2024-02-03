@@ -26,8 +26,12 @@
 |  [MaterializedViewColumn](./extract-pg-schema.materializedviewcolumn.md) |  |
 |  [MaterializedViewDetails](./extract-pg-schema.materializedviewdetails.md) |  |
 |  [RangeDetails](./extract-pg-schema.rangedetails.md) |  |
+|  [TableCheck](./extract-pg-schema.tablecheck.md) |  |
 |  [TableColumn](./extract-pg-schema.tablecolumn.md) |  |
 |  [TableDetails](./extract-pg-schema.tabledetails.md) |  |
+|  [TableIndex](./extract-pg-schema.tableindex.md) |  |
+|  [TableIndexColumn](./extract-pg-schema.tableindexcolumn.md) |  |
+|  [TableSecurityPolicy](./extract-pg-schema.tablesecuritypolicy.md) |  |
 |  [ViewColumn](./extract-pg-schema.viewcolumn.md) |  |
 |  [ViewDetails](./extract-pg-schema.viewdetails.md) |  |
 

@@ -4,6 +4,11 @@
 
 ## TableColumn.indices property
 
+> Warning: This API is now obsolete.
+> 
+> use TableDetails.indices instead
+> 
+
 **Signature:**
 
 ```typescript
