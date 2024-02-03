@@ -8,22 +8,70 @@ import parseViewDefinition, { ViewReference } from "./parseViewDefinition";
 import PgType from "./PgType";
 import commentMapQueryPart from "./query-parts/commentMapQueryPart";
 
+/**
+ * Column type in a view.
+ */
 export type ViewColumnType = {
+  /**
+   * Qualified name of the type.
+   */
   fullName: string;
+  /**
+   * Kind of the type.
+   */
   kind: "base" | "range" | "domain" | "composite" | "enum";
 };
 
+/**
+ * Column in a view.
+ */
 export interface ViewColumn {
+  /**
+   * Column name.
+   */
   name: string;
+  /**
+   * Expanded type name. If the type is an array, brackets will be appended
+   * to the type name.
+   */
   expandedType: string;
+  /**
+   * Type information.
+   */
   type: ViewColumnType;
+  /**
+   * Comment on the column.
+   */
   comment: string | null;
+  /**
+   * Default value of the column.
+   */
   defaultValue: any;
+  /**
+   * Whether the column is an array.
+   */
   isArray: boolean;
+  /**
+   * Maximum length of the column.
+   */
   maxLength: number | null;
+  /**
+   * Behavior of the generated column. "ALWAYS" if always generated,
+   * "NEVER" if never generated, "BY DEFAULT" if generated when a value
+   * is not provided.
+   */
   generated: "ALWAYS" | "NEVER" | "BY DEFAULT";
+  /**
+   * Whether the column is updatable.
+   */
   isUpdatable: boolean;
+  /**
+   * Whether the column is an identity column.
+   */
   isIdentity: boolean;
+  /**
+   * Ordinal position of the column in the view. Starts from 1.
+   */
   ordinalPosition: number;
 
   /**
@@ -43,15 +91,38 @@ export interface ViewColumn {
   reference?: ColumnReference | null;
   /** @deprecated use TableDetails.indices instead */
   indices?: Index[];
+  /**
+   * Whether the column is nullable. This is only present if the view is
+   * resolved.
+   */
   isNullable?: boolean;
+  /**
+   * Whether the column is a primary key. This is only present if the view is
+   * resolved.
+   */
   isPrimaryKey?: boolean;
 
+  /**
+   * Information schema value for the column.
+   */
   informationSchemaValue: InformationSchemaColumn;
 }
 
+/**
+ * View in a schema.
+ */
 export interface ViewDetails extends PgType<"view"> {
+  /**
+   * The SQL definition of the view.
+   */
   definition: string;
+  /**
+   * Information schema value for the view.
+   */
   informationSchemaValue: InformationSchemaView;
+  /**
+   * Columns in the view.
+   */
   columns: ViewColumn[];
 }
 
