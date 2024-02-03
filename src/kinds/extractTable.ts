@@ -65,7 +65,7 @@ export interface TableColumn {
   informationSchemaValue: InformationSchemaColumn;
 }
 
-export type TableIndexColumn = {
+export interface TableIndexColumn {
   /**
    * Column name or null if functional index
    */
@@ -74,9 +74,9 @@ export type TableIndexColumn = {
    * Definition of index column
    */
   definition: string;
-};
+}
 
-export type TableIndex = {
+export interface TableIndex {
   name: string;
   isPrimary: boolean;
   isUnique: boolean;
@@ -84,7 +84,7 @@ export type TableIndex = {
    * Array of index columns in order
    */
   columns: TableIndexColumn[];
-};
+}
 
 export interface TableSecurityPolicy {
   name: string;
