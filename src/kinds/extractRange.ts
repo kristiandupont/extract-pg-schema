@@ -2,7 +2,13 @@ import { Knex } from "knex";
 
 import PgType from "./PgType";
 
+/**
+ * Range type in a schema.
+ */
 export interface RangeDetails extends PgType<"range"> {
+  /**
+   * Qualified name of the inner type of the range.
+   */
   innerType: string;
 }
 
