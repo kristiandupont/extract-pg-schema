@@ -64,6 +64,27 @@ export interface TableColumn {
   informationSchemaValue: InformationSchemaColumn;
 }
 
+export type TableIndexColumn = {
+  /**
+   * Column name or null if functional index
+   */
+  name: string | null;
+  /**
+   * Definition of index column
+   */
+  definition: string;
+};
+
+export type TableIndex = {
+  name: string;
+  isPrimary: boolean;
+  isUnique: boolean;
+  /**
+   * Array of index columns in order
+   */
+  columns: TableIndexColumn[];
+};
+
 export interface TableSecurityPolicy {
   name: string;
   isPermissive: boolean;
@@ -75,6 +96,7 @@ export interface TableSecurityPolicy {
 
 export interface TableDetails extends PgType<"table"> {
   columns: TableColumn[];
+  indices: TableIndex[];
   checks: TableCheck[];
   isRowLevelSecurityEnabled: boolean;
   isRowLevelSecurityEnforced: boolean;
@@ -233,6 +255,41 @@ const extractTable = async (
     reference: row.references[0] ?? null,
   }));
 
+  const indicesQuery = await db.raw(
+    `
+    WITH index_columns AS (
+      SELECT
+        ix.indexrelid,
+        json_agg(json_build_object(
+          'name', a.attname,
+          'definition', pg_get_indexdef(ix.indexrelid, keys.key_order::integer, true)
+        ) ORDER BY keys.key_order) AS columns
+      FROM
+        pg_index ix
+        CROSS JOIN unnest(ix.indkey) WITH ORDINALITY AS keys(key, key_order)
+        LEFT JOIN pg_attribute a ON ix.indrelid = a.attrelid AND key = a.attnum
+      GROUP BY ix.indexrelid, ix.indrelid
+    )
+    SELECT
+      i.relname AS "name",
+      ix.indisprimary AS "isPrimary",
+      ix.indisunique AS "isUnique",
+      index_columns.columns
+    FROM
+      pg_index ix
+      INNER JOIN pg_class i ON ix.indexrelid = i.oid
+      INNER JOIN pg_class t ON ix.indrelid = t.oid
+      INNER JOIN pg_namespace n ON t.relnamespace = n.oid
+      INNER JOIN index_columns ON ix.indexrelid = index_columns.indexrelid
+    WHERE
+      t.relname = :table_name
+      AND n.nspname = :schema_name
+    `,
+    { table_name: table.name, schema_name: table.schemaName },
+  );
+
+  const indices = indicesQuery.rows as TableIndex[];
+
   const checkQuery = await db.raw(
     `
     SELECT
@@ -304,6 +361,7 @@ const extractTable = async (
 
   return {
     ...table,
+    indices,
     checks,
     informationSchemaValue,
     columns,
