@@ -4,6 +4,8 @@
 
 ## MaterializedViewColumnType type
 
+Column type in a materialized view.
+
 **Signature:**
 
 ```typescript

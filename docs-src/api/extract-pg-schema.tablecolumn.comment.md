@@ -4,6 +4,8 @@
 
 ## TableColumn.comment property
 
+Comment on the column.
+
 **Signature:**
 
 ```typescript

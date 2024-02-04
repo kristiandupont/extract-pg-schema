@@ -4,6 +4,8 @@
 
 ## MaterializedViewColumn.isPrimaryKey property
 
+Whether the column is a primary key. This is only present if the view is resolved.
+
 **Signature:**
 
 ```typescript

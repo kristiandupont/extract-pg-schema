@@ -4,6 +4,8 @@
 
 ## ViewColumn.name property
 
+Column name.
+
 **Signature:**
 
 ```typescript

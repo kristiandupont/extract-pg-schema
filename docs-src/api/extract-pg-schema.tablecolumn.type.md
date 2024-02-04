@@ -4,6 +4,8 @@
 
 ## TableColumn.type property
 
+Type information.
+
 **Signature:**
 
 ```typescript

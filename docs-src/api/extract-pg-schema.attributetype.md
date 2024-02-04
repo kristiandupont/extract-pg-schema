@@ -4,6 +4,8 @@
 
 ## AttributeType type
 
+Attribute type in a composite type.
+
 **Signature:**
 
 ```typescript

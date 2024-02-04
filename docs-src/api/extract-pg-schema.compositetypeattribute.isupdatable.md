@@ -4,6 +4,8 @@
 
 ## CompositeTypeAttribute.isUpdatable property
 
+Whether the attribute is updatable.
+
 **Signature:**
 
 ```typescript

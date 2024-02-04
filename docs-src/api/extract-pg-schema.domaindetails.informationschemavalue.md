@@ -4,6 +4,8 @@
 
 ## DomainDetails.informationSchemaValue property
 
+Information schema value for the domain.
+
 **Signature:**
 
 ```typescript

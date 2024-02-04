@@ -4,6 +4,8 @@
 
 ## CompositeTypeAttribute.maxLength property
 
+Maximum length of the attribute.
+
 **Signature:**
 
 ```typescript

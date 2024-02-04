@@ -4,6 +4,8 @@
 
 ## ColumnReference type
 
+Column reference.
+
 **Signature:**
 
 ```typescript

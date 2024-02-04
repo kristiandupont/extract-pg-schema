@@ -4,6 +4,8 @@
 
 ## ViewDetails.columns property
 
+Columns in the view.
+
 **Signature:**
 
 ```typescript

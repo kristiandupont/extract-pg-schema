@@ -4,6 +4,8 @@
 
 ## MaterializedViewDetails.definition property
 
+The SQL definition of the view.
+
 **Signature:**
 
 ```typescript

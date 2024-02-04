@@ -4,6 +4,8 @@
 
 ## TableColumn.generated property
 
+Behavior of the generated column. "ALWAYS" if always generated, "NEVER" if never generated, "BY DEFAULT" if generated when value is not provided.
+
 **Signature:**
 
 ```typescript

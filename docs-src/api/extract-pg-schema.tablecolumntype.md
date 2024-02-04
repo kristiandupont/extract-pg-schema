@@ -4,6 +4,8 @@
 
 ## TableColumnType type
 
+Column type in a table.
+
 **Signature:**
 
 ```typescript

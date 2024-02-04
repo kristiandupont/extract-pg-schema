@@ -4,6 +4,8 @@
 
 ## TableColumn.isPrimaryKey property
 
+Whether the column is a primary key.
+
 **Signature:**
 
 ```typescript

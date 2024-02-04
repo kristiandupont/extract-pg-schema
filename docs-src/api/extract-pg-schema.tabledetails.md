@@ -4,6 +4,8 @@
 
 ## TableDetails interface
 
+Table in a schema.
+
 **Signature:**
 
 ```typescript
@@ -15,11 +17,11 @@ export interface TableDetails extends PgType<"table">
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [checks](./extract-pg-schema.tabledetails.checks.md) |  | [TableCheck](./extract-pg-schema.tablecheck.md)<!-- -->\[\] |  |
-|  [columns](./extract-pg-schema.tabledetails.columns.md) |  | [TableColumn](./extract-pg-schema.tablecolumn.md)<!-- -->\[\] |  |
-|  [indices](./extract-pg-schema.tabledetails.indices.md) |  | [TableIndex](./extract-pg-schema.tableindex.md)<!-- -->\[\] |  |
-|  [informationSchemaValue](./extract-pg-schema.tabledetails.informationschemavalue.md) |  | [InformationSchemaTable](./extract-pg-schema.informationschematable.md) |  |
-|  [isRowLevelSecurityEnabled](./extract-pg-schema.tabledetails.isrowlevelsecurityenabled.md) |  | boolean |  |
-|  [isRowLevelSecurityEnforced](./extract-pg-schema.tabledetails.isrowlevelsecurityenforced.md) |  | boolean |  |
-|  [securityPolicies](./extract-pg-schema.tabledetails.securitypolicies.md) |  | [TableSecurityPolicy](./extract-pg-schema.tablesecuritypolicy.md)<!-- -->\[\] |  |
+|  [checks](./extract-pg-schema.tabledetails.checks.md) |  | [TableCheck](./extract-pg-schema.tablecheck.md)<!-- -->\[\] | Array of check constraints in the table. |
+|  [columns](./extract-pg-schema.tabledetails.columns.md) |  | [TableColumn](./extract-pg-schema.tablecolumn.md)<!-- -->\[\] | Array of columns in the table. |
+|  [indices](./extract-pg-schema.tabledetails.indices.md) |  | [TableIndex](./extract-pg-schema.tableindex.md)<!-- -->\[\] | Array of indices in the table. |
+|  [informationSchemaValue](./extract-pg-schema.tabledetails.informationschemavalue.md) |  | [InformationSchemaTable](./extract-pg-schema.informationschematable.md) | Information schema value for the table. |
+|  [isRowLevelSecurityEnabled](./extract-pg-schema.tabledetails.isrowlevelsecurityenabled.md) |  | boolean | Whether row level security is enabled on the table. |
+|  [isRowLevelSecurityEnforced](./extract-pg-schema.tabledetails.isrowlevelsecurityenforced.md) |  | boolean | Whether row level security is enforced on the table. |
+|  [securityPolicies](./extract-pg-schema.tabledetails.securitypolicies.md) |  | [TableSecurityPolicy](./extract-pg-schema.tablesecuritypolicy.md)<!-- -->\[\] | Array of security policies on the table. |
 

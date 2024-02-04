@@ -4,6 +4,8 @@
 
 ## ViewColumn.ordinalPosition property
 
+Ordinal position of the column in the view. Starts from 1.
+
 **Signature:**
 
 ```typescript

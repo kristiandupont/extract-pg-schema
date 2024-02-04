@@ -4,6 +4,8 @@
 
 ## TableColumn.references property
 
+Array of references from this column.
+
 **Signature:**
 
 ```typescript

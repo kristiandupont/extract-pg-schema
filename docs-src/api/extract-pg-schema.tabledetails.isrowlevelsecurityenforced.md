@@ -4,6 +4,8 @@
 
 ## TableDetails.isRowLevelSecurityEnforced property
 
+Whether row level security is enforced on the table.
+
 **Signature:**
 
 ```typescript

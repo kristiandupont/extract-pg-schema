@@ -4,6 +4,8 @@
 
 ## MaterializedViewColumn.expandedType property
 
+Expanded type name. If the type is an array, brackets will be appended to the type name.
+
 **Signature:**
 
 ```typescript

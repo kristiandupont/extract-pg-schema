@@ -4,6 +4,8 @@
 
 ## MaterializedViewColumn.isUpdatable property
 
+Whether the column is updatable.
+
 **Signature:**
 
 ```typescript

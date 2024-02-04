@@ -4,6 +4,8 @@
 
 ## TableDetails.indices property
 
+Array of indices in the table.
+
 **Signature:**
 
 ```typescript

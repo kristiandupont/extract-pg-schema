@@ -4,6 +4,8 @@
 
 ## PgType type
 
+Base type for Postgres objects.
+
 **Signature:**
 
 ```typescript

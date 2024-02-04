@@ -4,7 +4,7 @@
 
 ## TableIndex.columns property
 
-Array of index columns in order
+Array of index columns in order.
 
 **Signature:**
 

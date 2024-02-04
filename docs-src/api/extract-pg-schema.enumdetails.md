@@ -4,6 +4,8 @@
 
 ## EnumDetails interface
 
+Enum type in a schema.
+
 **Signature:**
 
 ```typescript
@@ -15,5 +17,5 @@ export interface EnumDetails extends PgType<"enum">
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [values](./extract-pg-schema.enumdetails.values.md) |  | string\[\] |  |
+|  [values](./extract-pg-schema.enumdetails.values.md) |  | string\[\] | Array of enum values in order. |
 

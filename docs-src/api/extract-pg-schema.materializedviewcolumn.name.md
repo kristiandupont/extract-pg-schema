@@ -4,6 +4,8 @@
 
 ## MaterializedViewColumn.name property
 
+Column name.
+
 **Signature:**
 
 ```typescript

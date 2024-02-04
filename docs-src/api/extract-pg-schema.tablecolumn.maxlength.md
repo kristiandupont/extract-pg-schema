@@ -4,6 +4,8 @@
 
 ## TableColumn.maxLength property
 
+Maximum length of the column.
+
 **Signature:**
 
 ```typescript

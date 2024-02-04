@@ -4,6 +4,8 @@
 
 ## TableSecurityPolicy.commandType property
 
+Command type the policy applies to. "ALL" if all commands.
+
 **Signature:**
 
 ```typescript

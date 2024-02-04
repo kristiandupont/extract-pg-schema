@@ -4,6 +4,8 @@
 
 ## RangeDetails interface
 
+Range type in a schema.
+
 **Signature:**
 
 ```typescript
@@ -15,5 +17,5 @@ export interface RangeDetails extends PgType<"range">
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [innerType](./extract-pg-schema.rangedetails.innertype.md) |  | string |  |
+|  [innerType](./extract-pg-schema.rangedetails.innertype.md) |  | string | Qualified name of the inner type of the range. |
 

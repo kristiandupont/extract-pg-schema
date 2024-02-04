@@ -4,6 +4,8 @@
 
 ## TableDetails.checks property
 
+Array of check constraints in the table.
+
 **Signature:**
 
 ```typescript

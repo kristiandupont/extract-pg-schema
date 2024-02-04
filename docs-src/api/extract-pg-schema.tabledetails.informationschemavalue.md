@@ -4,6 +4,8 @@
 
 ## TableDetails.informationSchemaValue property
 
+Information schema value for the table.
+
 **Signature:**
 
 ```typescript

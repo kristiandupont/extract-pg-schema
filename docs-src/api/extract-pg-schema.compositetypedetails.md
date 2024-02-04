@@ -4,6 +4,8 @@
 
 ## CompositeTypeDetails interface
 
+Composite type in a schema.
+
 **Signature:**
 
 ```typescript
@@ -15,5 +17,5 @@ export interface CompositeTypeDetails extends PgType<"compositeType">
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [attributes](./extract-pg-schema.compositetypedetails.attributes.md) |  | [CompositeTypeAttribute](./extract-pg-schema.compositetypeattribute.md)<!-- -->\[\] |  |
+|  [attributes](./extract-pg-schema.compositetypedetails.attributes.md) |  | [CompositeTypeAttribute](./extract-pg-schema.compositetypeattribute.md)<!-- -->\[\] | Attributes of the composite type. |
 

@@ -4,6 +4,8 @@
 
 ## CompositeTypeAttribute.isArray property
 
+Whether the attribute is an array.
+
 **Signature:**
 
 ```typescript

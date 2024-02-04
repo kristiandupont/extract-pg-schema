@@ -4,6 +4,8 @@
 
 ## TableSecurityPolicy.modifiabilityExpression property
 
+Modifiability expression of the policy specified by the WITH CHECK clause.
+
 **Signature:**
 
 ```typescript

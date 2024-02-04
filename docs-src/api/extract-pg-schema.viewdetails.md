@@ -4,6 +4,8 @@
 
 ## ViewDetails interface
 
+View in a schema.
+
 **Signature:**
 
 ```typescript
@@ -15,7 +17,7 @@ export interface ViewDetails extends PgType<"view">
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [columns](./extract-pg-schema.viewdetails.columns.md) |  | [ViewColumn](./extract-pg-schema.viewcolumn.md)<!-- -->\[\] |  |
-|  [definition](./extract-pg-schema.viewdetails.definition.md) |  | string |  |
-|  [informationSchemaValue](./extract-pg-schema.viewdetails.informationschemavalue.md) |  | [InformationSchemaView](./extract-pg-schema.informationschemaview.md) |  |
+|  [columns](./extract-pg-schema.viewdetails.columns.md) |  | [ViewColumn](./extract-pg-schema.viewcolumn.md)<!-- -->\[\] | Columns in the view. |
+|  [definition](./extract-pg-schema.viewdetails.definition.md) |  | string | The SQL definition of the view. |
+|  [informationSchemaValue](./extract-pg-schema.viewdetails.informationschemavalue.md) |  | [InformationSchemaView](./extract-pg-schema.informationschemaview.md) | Information schema value for the view. |
 

@@ -4,6 +4,8 @@
 
 ## CompositeTypeAttribute.comment property
 
+Comment on the attribute.
+
 **Signature:**
 
 ```typescript

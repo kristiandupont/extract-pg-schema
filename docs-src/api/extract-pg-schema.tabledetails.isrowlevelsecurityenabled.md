@@ -4,6 +4,8 @@
 
 ## TableDetails.isRowLevelSecurityEnabled property
 
+Whether row level security is enabled on the table.
+
 **Signature:**
 
 ```typescript

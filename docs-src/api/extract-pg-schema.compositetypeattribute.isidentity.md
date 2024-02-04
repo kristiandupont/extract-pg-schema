@@ -4,6 +4,8 @@
 
 ## CompositeTypeAttribute.isIdentity property
 
+Whether the attribute is an identity attribute.
+
 **Signature:**
 
 ```typescript

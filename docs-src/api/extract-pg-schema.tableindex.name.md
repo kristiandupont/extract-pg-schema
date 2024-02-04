@@ -4,6 +4,8 @@
 
 ## TableIndex.name property
 
+Name of the index.
+
 **Signature:**
 
 ```typescript

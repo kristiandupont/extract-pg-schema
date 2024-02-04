@@ -4,6 +4,8 @@
 
 ## TableCheck interface
 
+Check constraint on a table.
+
 **Signature:**
 
 ```typescript
@@ -14,6 +16,6 @@ export interface TableCheck
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [clause](./extract-pg-schema.tablecheck.clause.md) |  | string |  |
-|  [name](./extract-pg-schema.tablecheck.name.md) |  | string |  |
+|  [clause](./extract-pg-schema.tablecheck.clause.md) |  | string | Check constraint clause. |
+|  [name](./extract-pg-schema.tablecheck.name.md) |  | string | Name of the check constraint. |
 

@@ -4,6 +4,8 @@
 
 ## MaterializedViewDetails.columns property
 
+Columns in the materialized view.
+
 **Signature:**
 
 ```typescript

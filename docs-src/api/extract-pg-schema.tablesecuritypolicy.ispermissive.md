@@ -4,6 +4,8 @@
 
 ## TableSecurityPolicy.isPermissive property
 
+Whether the policy is permissive.
+
 **Signature:**
 
 ```typescript

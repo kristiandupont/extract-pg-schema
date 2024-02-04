@@ -4,6 +4,8 @@
 
 ## CompositeTypeAttribute.name property
 
+Attribute name.
+
 **Signature:**
 
 ```typescript
