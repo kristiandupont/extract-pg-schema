@@ -4,6 +4,8 @@
 
 ## MaterializedViewColumn interface
 
+Column in a materialized view.
+
 **Signature:**
 
 ```typescript
@@ -14,22 +16,22 @@ export interface MaterializedViewColumn
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [comment](./extract-pg-schema.materializedviewcolumn.comment.md) |  | string \| null |  |
-|  [defaultValue](./extract-pg-schema.materializedviewcolumn.defaultvalue.md) |  | any |  |
-|  [expandedType](./extract-pg-schema.materializedviewcolumn.expandedtype.md) |  | string |  |
+|  [comment](./extract-pg-schema.materializedviewcolumn.comment.md) |  | string \| null | Comment on the column. |
+|  [defaultValue](./extract-pg-schema.materializedviewcolumn.defaultvalue.md) |  | any | Default value of the column. |
+|  [expandedType](./extract-pg-schema.materializedviewcolumn.expandedtype.md) |  | string | Expanded type name. If the type is an array, brackets will be appended to the type name. |
 |  [fakeInformationSchemaValue](./extract-pg-schema.materializedviewcolumn.fakeinformationschemavalue.md) |  | [InformationSchemaColumn](./extract-pg-schema.informationschemacolumn.md) | The Postgres information\_schema views do not contain info about materialized views. This value is the result of a query that matches the one for regular views. Use with caution, not all fields are guaranteed to be meaningful and/or accurate. |
-|  [generated](./extract-pg-schema.materializedviewcolumn.generated.md) |  | "ALWAYS" \| "NEVER" \| "BY DEFAULT" |  |
+|  [generated](./extract-pg-schema.materializedviewcolumn.generated.md) |  | "ALWAYS" \| "NEVER" \| "BY DEFAULT" | Behavior of the generated column. "ALWAYS" if always generated, "NEVER" if never generated, "BY DEFAULT" if generated when a value is not provided. |
 |  [indices?](./extract-pg-schema.materializedviewcolumn.indices.md) |  | [Index](./extract-pg-schema.index.md)<!-- -->\[\] | _(Optional)_ |
-|  [isArray](./extract-pg-schema.materializedviewcolumn.isarray.md) |  | boolean |  |
-|  [isIdentity](./extract-pg-schema.materializedviewcolumn.isidentity.md) |  | boolean |  |
-|  [isNullable?](./extract-pg-schema.materializedviewcolumn.isnullable.md) |  | boolean | _(Optional)_ |
-|  [isPrimaryKey?](./extract-pg-schema.materializedviewcolumn.isprimarykey.md) |  | boolean | _(Optional)_ |
-|  [isUpdatable](./extract-pg-schema.materializedviewcolumn.isupdatable.md) |  | boolean |  |
-|  [maxLength](./extract-pg-schema.materializedviewcolumn.maxlength.md) |  | number \| null |  |
-|  [name](./extract-pg-schema.materializedviewcolumn.name.md) |  | string |  |
-|  [ordinalPosition](./extract-pg-schema.materializedviewcolumn.ordinalposition.md) |  | number |  |
+|  [isArray](./extract-pg-schema.materializedviewcolumn.isarray.md) |  | boolean | Whether the column is an array. |
+|  [isIdentity](./extract-pg-schema.materializedviewcolumn.isidentity.md) |  | boolean | Whether the column is an identity column. |
+|  [isNullable?](./extract-pg-schema.materializedviewcolumn.isnullable.md) |  | boolean | _(Optional)_ Whether the column is nullable. This is only present if the view is resolved. |
+|  [isPrimaryKey?](./extract-pg-schema.materializedviewcolumn.isprimarykey.md) |  | boolean | _(Optional)_ Whether the column is a primary key. This is only present if the view is resolved. |
+|  [isUpdatable](./extract-pg-schema.materializedviewcolumn.isupdatable.md) |  | boolean | Whether the column is updatable. |
+|  [maxLength](./extract-pg-schema.materializedviewcolumn.maxlength.md) |  | number \| null | Maximum length of the column. |
+|  [name](./extract-pg-schema.materializedviewcolumn.name.md) |  | string | Column name. |
+|  [ordinalPosition](./extract-pg-schema.materializedviewcolumn.ordinalposition.md) |  | number | Ordinal position of the column in the view. Starts from 1. |
 |  [reference?](./extract-pg-schema.materializedviewcolumn.reference.md) |  | [ColumnReference](./extract-pg-schema.columnreference.md) \| null | _(Optional)_ |
 |  [references?](./extract-pg-schema.materializedviewcolumn.references.md) |  | [ColumnReference](./extract-pg-schema.columnreference.md)<!-- -->\[\] | _(Optional)_ If views are resolved, this will contain the references from the source column in the table that this view references. Note that if the source is another view, that view in turn will be resolved if possible, leading us to a table in the end. |
 |  [source?](./extract-pg-schema.materializedviewcolumn.source.md) |  | { schema: string; table: string; column: string; } | _(Optional)_ This will contain a "link" to the source table or view and column, if it can be determined. |
-|  [type](./extract-pg-schema.materializedviewcolumn.type.md) |  | [MaterializedViewColumnType](./extract-pg-schema.materializedviewcolumntype.md) |  |
+|  [type](./extract-pg-schema.materializedviewcolumn.type.md) |  | [MaterializedViewColumnType](./extract-pg-schema.materializedviewcolumntype.md) | Type information. |
 

@@ -4,6 +4,8 @@
 
 ## TableCheck.name property
 
+Name of the check constraint.
+
 **Signature:**
 
 ```typescript

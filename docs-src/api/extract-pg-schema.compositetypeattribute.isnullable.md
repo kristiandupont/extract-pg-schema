@@ -4,6 +4,8 @@
 
 ## CompositeTypeAttribute.isNullable property
 
+Whether the attribute is nullable.
+
 **Signature:**
 
 ```typescript

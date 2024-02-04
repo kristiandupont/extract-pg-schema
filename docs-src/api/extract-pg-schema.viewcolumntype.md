@@ -4,6 +4,8 @@
 
 ## ViewColumnType type
 
+Column type in a view.
+
 **Signature:**
 
 ```typescript

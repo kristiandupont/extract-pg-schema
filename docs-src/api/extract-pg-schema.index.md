@@ -4,6 +4,8 @@
 
 ## Index type
 
+Index for a column.
+
 **Signature:**
 
 ```typescript

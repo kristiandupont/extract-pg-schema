@@ -4,6 +4,8 @@
 
 ## MaterializedViewColumn.isNullable property
 
+Whether the column is nullable. This is only present if the view is resolved.
+
 **Signature:**
 
 ```typescript

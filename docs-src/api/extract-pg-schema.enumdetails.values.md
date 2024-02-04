@@ -4,6 +4,8 @@
 
 ## EnumDetails.values property
 
+Array of enum values in order.
+
 **Signature:**
 
 ```typescript

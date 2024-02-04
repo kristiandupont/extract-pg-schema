@@ -4,6 +4,8 @@
 
 ## TableColumn.ordinalPosition property
 
+Ordinal position of the column in the table. Starts from 1.
+
 **Signature:**
 
 ```typescript

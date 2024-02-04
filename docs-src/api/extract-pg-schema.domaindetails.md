@@ -4,6 +4,8 @@
 
 ## DomainDetails interface
 
+Domain type in a schema.
+
 **Signature:**
 
 ```typescript
@@ -15,6 +17,6 @@ export interface DomainDetails extends PgType<"domain">
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [informationSchemaValue](./extract-pg-schema.domaindetails.informationschemavalue.md) |  | [InformationSchemaDomain](./extract-pg-schema.informationschemadomain.md) |  |
-|  [innerType](./extract-pg-schema.domaindetails.innertype.md) |  | string |  |
+|  [informationSchemaValue](./extract-pg-schema.domaindetails.informationschemavalue.md) |  | [InformationSchemaDomain](./extract-pg-schema.informationschemadomain.md) | Information schema value for the domain. |
+|  [innerType](./extract-pg-schema.domaindetails.innertype.md) |  | string | Qualified name of the inner type of the domain. |
 

@@ -4,6 +4,8 @@
 
 ## TableIndexColumn interface
 
+Column in an index.
+
 **Signature:**
 
 ```typescript
@@ -14,6 +16,6 @@ export interface TableIndexColumn
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [definition](./extract-pg-schema.tableindexcolumn.definition.md) |  | string | Definition of index column |
-|  [name](./extract-pg-schema.tableindexcolumn.name.md) |  | string \| null | Column name or null if functional index |
+|  [definition](./extract-pg-schema.tableindexcolumn.definition.md) |  | string | Definition of index column. |
+|  [name](./extract-pg-schema.tableindexcolumn.name.md) |  | string \| null | Column name or null if functional index. |
 

@@ -4,6 +4,8 @@
 
 ## TableDetails.securityPolicies property
 
+Array of security policies on the table.
+
 **Signature:**
 
 ```typescript

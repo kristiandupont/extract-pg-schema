@@ -4,6 +4,8 @@
 
 ## CompositeTypeAttribute.defaultValue property
 
+Default value of the attribute.
+
 **Signature:**
 
 ```typescript

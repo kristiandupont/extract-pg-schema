@@ -4,6 +4,8 @@
 
 ## TableCheck.clause property
 
+Check constraint clause.
+
 **Signature:**
 
 ```typescript

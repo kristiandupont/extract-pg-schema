@@ -4,6 +4,8 @@
 
 ## TableColumn.dimensions property
 
+Number of dimensions of the array type. 0 if not an array.
+
 **Signature:**
 
 ```typescript

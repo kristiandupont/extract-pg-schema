@@ -4,6 +4,8 @@
 
 ## TableSecurityPolicy interface
 
+Security policy on a table.
+
 **Signature:**
 
 ```typescript
@@ -14,10 +16,10 @@ export interface TableSecurityPolicy
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [commandType](./extract-pg-schema.tablesecuritypolicy.commandtype.md) |  | "ALL" \| "SELECT" \| "INSERT" \| "UPDATE" \| "DELETE" |  |
-|  [isPermissive](./extract-pg-schema.tablesecuritypolicy.ispermissive.md) |  | boolean |  |
-|  [modifiabilityExpression](./extract-pg-schema.tablesecuritypolicy.modifiabilityexpression.md) |  | string \| null |  |
-|  [name](./extract-pg-schema.tablesecuritypolicy.name.md) |  | string |  |
-|  [rolesAppliedTo](./extract-pg-schema.tablesecuritypolicy.rolesappliedto.md) |  | string\[\] |  |
-|  [visibilityExpression](./extract-pg-schema.tablesecuritypolicy.visibilityexpression.md) |  | string \| null |  |
+|  [commandType](./extract-pg-schema.tablesecuritypolicy.commandtype.md) |  | "ALL" \| "SELECT" \| "INSERT" \| "UPDATE" \| "DELETE" | Command type the policy applies to. "ALL" if all commands. |
+|  [isPermissive](./extract-pg-schema.tablesecuritypolicy.ispermissive.md) |  | boolean | Whether the policy is permissive. |
+|  [modifiabilityExpression](./extract-pg-schema.tablesecuritypolicy.modifiabilityexpression.md) |  | string \| null | Modifiability expression of the policy specified by the WITH CHECK clause. |
+|  [name](./extract-pg-schema.tablesecuritypolicy.name.md) |  | string | Name of the security policy. |
+|  [rolesAppliedTo](./extract-pg-schema.tablesecuritypolicy.rolesappliedto.md) |  | string\[\] | Array of roles the policy is applied to. \["public"\] if applied to all roles. |
+|  [visibilityExpression](./extract-pg-schema.tablesecuritypolicy.visibilityexpression.md) |  | string \| null | Visibility expression of the policy specified by the USING clause. |
 

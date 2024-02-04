@@ -4,6 +4,8 @@
 
 ## TableDetails.columns property
 
+Array of columns in the table.
+
 **Signature:**
 
 ```typescript

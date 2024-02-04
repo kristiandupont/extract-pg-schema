@@ -4,6 +4,8 @@
 
 ## DomainDetails.innerType property
 
+Qualified name of the inner type of the domain.
+
 **Signature:**
 
 ```typescript

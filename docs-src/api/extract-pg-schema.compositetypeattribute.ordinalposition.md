@@ -4,6 +4,8 @@
 
 ## CompositeTypeAttribute.ordinalPosition property
 
+Ordinal position of the attribute in the composite type. Starts from 1.
+
 **Signature:**
 
 ```typescript

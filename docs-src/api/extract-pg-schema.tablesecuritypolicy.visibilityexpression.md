@@ -4,6 +4,8 @@
 
 ## TableSecurityPolicy.visibilityExpression property
 
+Visibility expression of the policy specified by the USING clause.
+
 **Signature:**
 
 ```typescript

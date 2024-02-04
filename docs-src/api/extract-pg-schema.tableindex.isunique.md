@@ -4,6 +4,8 @@
 
 ## TableIndex.isUnique property
 
+Whether the index is unique.
+
 **Signature:**
 
 ```typescript

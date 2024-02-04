@@ -4,7 +4,7 @@
 
 ## TableIndexColumn.definition property
 
-Definition of index column
+Definition of index column.
 
 **Signature:**
 

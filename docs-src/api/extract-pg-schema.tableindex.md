@@ -4,6 +4,8 @@
 
 ## TableIndex interface
 
+Index on a table.
+
 **Signature:**
 
 ```typescript
@@ -14,8 +16,8 @@ export interface TableIndex
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [columns](./extract-pg-schema.tableindex.columns.md) |  | [TableIndexColumn](./extract-pg-schema.tableindexcolumn.md)<!-- -->\[\] | Array of index columns in order |
-|  [isPrimary](./extract-pg-schema.tableindex.isprimary.md) |  | boolean |  |
-|  [isUnique](./extract-pg-schema.tableindex.isunique.md) |  | boolean |  |
-|  [name](./extract-pg-schema.tableindex.name.md) |  | string |  |
+|  [columns](./extract-pg-schema.tableindex.columns.md) |  | [TableIndexColumn](./extract-pg-schema.tableindexcolumn.md)<!-- -->\[\] | Array of index columns in order. |
+|  [isPrimary](./extract-pg-schema.tableindex.isprimary.md) |  | boolean | Whether the index is a primary key. |
+|  [isUnique](./extract-pg-schema.tableindex.isunique.md) |  | boolean | Whether the index is unique. |
+|  [name](./extract-pg-schema.tableindex.name.md) |  | string | Name of the index. |
 

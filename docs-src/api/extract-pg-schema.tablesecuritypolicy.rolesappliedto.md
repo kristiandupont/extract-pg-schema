@@ -4,6 +4,8 @@
 
 ## TableSecurityPolicy.rolesAppliedTo property
 
+Array of roles the policy is applied to. \["public"\] if applied to all roles.
+
 **Signature:**
 
 ```typescript

@@ -4,6 +4,8 @@
 
 ## TableIndex.isPrimary property
 
+Whether the index is a primary key.
+
 **Signature:**
 
 ```typescript

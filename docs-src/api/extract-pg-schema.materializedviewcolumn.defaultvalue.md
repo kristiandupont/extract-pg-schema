@@ -4,6 +4,8 @@
 
 ## MaterializedViewColumn.defaultValue property
 
+Default value of the column.
+
 **Signature:**
 
 ```typescript

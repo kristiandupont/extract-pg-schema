@@ -4,7 +4,7 @@
 
 ## TableIndexColumn.name property
 
-Column name or null if functional index
+Column name or null if functional index.
 
 **Signature:**
 

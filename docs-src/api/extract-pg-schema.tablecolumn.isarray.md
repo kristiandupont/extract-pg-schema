@@ -4,6 +4,8 @@
 
 ## TableColumn.isArray property
 
+Whether the column is an array.
+
 **Signature:**
 
 ```typescript

@@ -4,6 +4,8 @@
 
 ## TableSecurityPolicy.name property
 
+Name of the security policy.
+
 **Signature:**
 
 ```typescript

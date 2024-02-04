@@ -4,6 +4,8 @@
 
 ## TableColumn.isIdentity property
 
+Whether the column is an identity column.
+
 **Signature:**
 
 ```typescript

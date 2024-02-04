@@ -4,6 +4,8 @@
 
 ## CompositeTypeAttribute.generated property
 
+Behavior of the generated attribute. "ALWAYS" if always generated, "NEVER" if never generated, "BY DEFAULT" if generated when a value is not provided.
+
 **Signature:**
 
 ```typescript

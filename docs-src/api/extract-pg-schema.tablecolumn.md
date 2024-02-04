@@ -4,6 +4,8 @@
 
 ## TableColumn interface
 
+Column in a table.
+
 **Signature:**
 
 ```typescript
@@ -14,22 +16,22 @@ export interface TableColumn
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [comment](./extract-pg-schema.tablecolumn.comment.md) |  | string \| null |  |
-|  [defaultValue](./extract-pg-schema.tablecolumn.defaultvalue.md) |  | any |  |
-|  [dimensions](./extract-pg-schema.tablecolumn.dimensions.md) |  | number |  |
-|  [expandedType](./extract-pg-schema.tablecolumn.expandedtype.md) |  | string |  |
-|  [generated](./extract-pg-schema.tablecolumn.generated.md) |  | "ALWAYS" \| "NEVER" \| "BY DEFAULT" |  |
+|  [comment](./extract-pg-schema.tablecolumn.comment.md) |  | string \| null | Comment on the column. |
+|  [defaultValue](./extract-pg-schema.tablecolumn.defaultvalue.md) |  | any | Default value of the column. |
+|  [dimensions](./extract-pg-schema.tablecolumn.dimensions.md) |  | number | Number of dimensions of the array type. 0 if not an array. |
+|  [expandedType](./extract-pg-schema.tablecolumn.expandedtype.md) |  | string | Expanded type name. If the type is an array, brackets will be appended to the type name. |
+|  [generated](./extract-pg-schema.tablecolumn.generated.md) |  | "ALWAYS" \| "NEVER" \| "BY DEFAULT" | Behavior of the generated column. "ALWAYS" if always generated, "NEVER" if never generated, "BY DEFAULT" if generated when value is not provided. |
 |  [indices](./extract-pg-schema.tablecolumn.indices.md) |  | [Index](./extract-pg-schema.index.md)<!-- -->\[\] |  |
-|  [informationSchemaValue](./extract-pg-schema.tablecolumn.informationschemavalue.md) |  | [InformationSchemaColumn](./extract-pg-schema.informationschemacolumn.md) |  |
-|  [isArray](./extract-pg-schema.tablecolumn.isarray.md) |  | boolean |  |
-|  [isIdentity](./extract-pg-schema.tablecolumn.isidentity.md) |  | boolean |  |
-|  [isNullable](./extract-pg-schema.tablecolumn.isnullable.md) |  | boolean |  |
-|  [isPrimaryKey](./extract-pg-schema.tablecolumn.isprimarykey.md) |  | boolean |  |
-|  [isUpdatable](./extract-pg-schema.tablecolumn.isupdatable.md) |  | boolean |  |
-|  [maxLength](./extract-pg-schema.tablecolumn.maxlength.md) |  | number \| null |  |
-|  [name](./extract-pg-schema.tablecolumn.name.md) |  | string |  |
-|  [ordinalPosition](./extract-pg-schema.tablecolumn.ordinalposition.md) |  | number |  |
+|  [informationSchemaValue](./extract-pg-schema.tablecolumn.informationschemavalue.md) |  | [InformationSchemaColumn](./extract-pg-schema.informationschemacolumn.md) | Information schema value for the column. |
+|  [isArray](./extract-pg-schema.tablecolumn.isarray.md) |  | boolean | Whether the column is an array. |
+|  [isIdentity](./extract-pg-schema.tablecolumn.isidentity.md) |  | boolean | Whether the column is an identity column. |
+|  [isNullable](./extract-pg-schema.tablecolumn.isnullable.md) |  | boolean | Whether the column is nullable. |
+|  [isPrimaryKey](./extract-pg-schema.tablecolumn.isprimarykey.md) |  | boolean | Whether the column is a primary key. |
+|  [isUpdatable](./extract-pg-schema.tablecolumn.isupdatable.md) |  | boolean | Whether the column is updatable. |
+|  [maxLength](./extract-pg-schema.tablecolumn.maxlength.md) |  | number \| null | Maximum length of the column. |
+|  [name](./extract-pg-schema.tablecolumn.name.md) |  | string | Column name. |
+|  [ordinalPosition](./extract-pg-schema.tablecolumn.ordinalposition.md) |  | number | Ordinal position of the column in the table. Starts from 1. |
 |  [reference](./extract-pg-schema.tablecolumn.reference.md) |  | [ColumnReference](./extract-pg-schema.columnreference.md) \| null |  |
-|  [references](./extract-pg-schema.tablecolumn.references.md) |  | [ColumnReference](./extract-pg-schema.columnreference.md)<!-- -->\[\] |  |
-|  [type](./extract-pg-schema.tablecolumn.type.md) |  | [TableColumnType](./extract-pg-schema.tablecolumntype.md) |  |
+|  [references](./extract-pg-schema.tablecolumn.references.md) |  | [ColumnReference](./extract-pg-schema.columnreference.md)<!-- -->\[\] | Array of references from this column. |
+|  [type](./extract-pg-schema.tablecolumn.type.md) |  | [TableColumnType](./extract-pg-schema.tablecolumntype.md) | Type information. |
 

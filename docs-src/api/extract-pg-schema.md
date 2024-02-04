@@ -14,26 +14,26 @@
 
 |  Interface | Description |
 |  --- | --- |
-|  [CompositeTypeAttribute](./extract-pg-schema.compositetypeattribute.md) |  |
-|  [CompositeTypeDetails](./extract-pg-schema.compositetypedetails.md) |  |
-|  [DomainDetails](./extract-pg-schema.domaindetails.md) |  |
-|  [EnumDetails](./extract-pg-schema.enumdetails.md) |  |
+|  [CompositeTypeAttribute](./extract-pg-schema.compositetypeattribute.md) | Attribute of a composite type. |
+|  [CompositeTypeDetails](./extract-pg-schema.compositetypedetails.md) | Composite type in a schema. |
+|  [DomainDetails](./extract-pg-schema.domaindetails.md) | Domain type in a schema. |
+|  [EnumDetails](./extract-pg-schema.enumdetails.md) | Enum type in a schema. |
 |  [ExtractSchemaOptions](./extract-pg-schema.extractschemaoptions.md) | This is the options object that can be passed to <code>extractSchemas</code>. |
 |  [InformationSchemaColumn](./extract-pg-schema.informationschemacolumn.md) | The view columns contains information about all table columns (or view columns) in the database. System columns (ctid, etc.) are not included. Only those columns are shown that the current user has access to (by way of being the owner or having some privilege). |
 |  [InformationSchemaDomain](./extract-pg-schema.informationschemadomain.md) | The view domains contains all domains defined in the current database. Only those domains are shown that the current user has access to (by way of being the owner or having some privilege). |
 |  [InformationSchemaTable](./extract-pg-schema.informationschematable.md) | The view tables contains all tables and views defined in the current database. Only those tables and views are shown that the current user has access to (by way of being the owner or having some privilege). |
 |  [InformationSchemaView](./extract-pg-schema.informationschemaview.md) | The view tables contains all tables and views defined in the current database. Only those tables and views are shown that the current user has access to (by way of being the owner or having some privilege). |
-|  [MaterializedViewColumn](./extract-pg-schema.materializedviewcolumn.md) |  |
-|  [MaterializedViewDetails](./extract-pg-schema.materializedviewdetails.md) |  |
-|  [RangeDetails](./extract-pg-schema.rangedetails.md) |  |
-|  [TableCheck](./extract-pg-schema.tablecheck.md) |  |
-|  [TableColumn](./extract-pg-schema.tablecolumn.md) |  |
-|  [TableDetails](./extract-pg-schema.tabledetails.md) |  |
-|  [TableIndex](./extract-pg-schema.tableindex.md) |  |
-|  [TableIndexColumn](./extract-pg-schema.tableindexcolumn.md) |  |
-|  [TableSecurityPolicy](./extract-pg-schema.tablesecuritypolicy.md) |  |
-|  [ViewColumn](./extract-pg-schema.viewcolumn.md) |  |
-|  [ViewDetails](./extract-pg-schema.viewdetails.md) |  |
+|  [MaterializedViewColumn](./extract-pg-schema.materializedviewcolumn.md) | Column in a materialized view. |
+|  [MaterializedViewDetails](./extract-pg-schema.materializedviewdetails.md) | Materialized view in a schema. |
+|  [RangeDetails](./extract-pg-schema.rangedetails.md) | Range type in a schema. |
+|  [TableCheck](./extract-pg-schema.tablecheck.md) | Check constraint on a table. |
+|  [TableColumn](./extract-pg-schema.tablecolumn.md) | Column in a table. |
+|  [TableDetails](./extract-pg-schema.tabledetails.md) | Table in a schema. |
+|  [TableIndex](./extract-pg-schema.tableindex.md) | Index on a table. |
+|  [TableIndexColumn](./extract-pg-schema.tableindexcolumn.md) | Column in an index. |
+|  [TableSecurityPolicy](./extract-pg-schema.tablesecuritypolicy.md) | Security policy on a table. |
+|  [ViewColumn](./extract-pg-schema.viewcolumn.md) | Column in a view. |
+|  [ViewDetails](./extract-pg-schema.viewdetails.md) | View in a schema. |
 
 ## Variables
 
@@ -46,15 +46,15 @@
 
 |  Type Alias | Description |
 |  --- | --- |
-|  [AttributeType](./extract-pg-schema.attributetype.md) |  |
-|  [ColumnReference](./extract-pg-schema.columnreference.md) |  |
-|  [Index](./extract-pg-schema.index.md) |  |
+|  [AttributeType](./extract-pg-schema.attributetype.md) | Attribute type in a composite type. |
+|  [ColumnReference](./extract-pg-schema.columnreference.md) | Column reference. |
+|  [Index](./extract-pg-schema.index.md) | Index for a column. |
 |  [Kind](./extract-pg-schema.kind.md) |  |
-|  [MaterializedViewColumnType](./extract-pg-schema.materializedviewcolumntype.md) |  |
-|  [PgType](./extract-pg-schema.pgtype.md) |  |
+|  [MaterializedViewColumnType](./extract-pg-schema.materializedviewcolumntype.md) | Column type in a materialized view. |
+|  [PgType](./extract-pg-schema.pgtype.md) | Base type for Postgres objects. |
 |  [Schema](./extract-pg-schema.schema.md) | extractSchemas generates a record of all the schemas extracted, indexed by schema name. The schemas are instances of this type. |
-|  [TableColumnType](./extract-pg-schema.tablecolumntype.md) |  |
+|  [TableColumnType](./extract-pg-schema.tablecolumntype.md) | Column type in a table. |
 |  [UpdateAction](./extract-pg-schema.updateaction.md) |  |
-|  [ViewColumnType](./extract-pg-schema.viewcolumntype.md) |  |
+|  [ViewColumnType](./extract-pg-schema.viewcolumntype.md) | Column type in a view. |
 |  [YesNo](./extract-pg-schema.yesno.md) |  |
 

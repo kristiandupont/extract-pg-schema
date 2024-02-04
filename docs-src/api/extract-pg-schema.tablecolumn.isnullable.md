@@ -4,6 +4,8 @@
 
 ## TableColumn.isNullable property
 
+Whether the column is nullable.
+
 **Signature:**
 
 ```typescript
