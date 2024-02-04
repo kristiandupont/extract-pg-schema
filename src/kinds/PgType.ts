@@ -41,10 +41,25 @@ type ClassKind = (typeof classKindMap)[keyof typeof classKindMap];
 
 export type Kind = TypeKind | ClassKind; //  | RoutineKind;
 
+/**
+ * Base type for Postgres objects.
+ */
 type PgType<K extends Kind = Kind> = {
+  /**
+   * The name of the object.
+   */
   name: string;
+  /**
+   * The name of the schema that the object is in.
+   */
   schemaName: string;
+  /**
+   * The kind of the object.
+   */
   kind: K;
+  /**
+   * The comment on the object, if any.
+   */
   comment: string | null;
 };
 

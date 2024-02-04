@@ -8,22 +8,70 @@ import commentMapQueryPart from "./query-parts/commentMapQueryPart";
 import fakeInformationSchemaColumnsQueryPart from "./query-parts/fakeInformationSchemaColumnsQueryPart";
 import fakeInformationSchemaViewsQueryPart from "./query-parts/fakeInformationSchemaViewsQueryPart";
 
+/**
+ * Column type in a materialized view.
+ */
 export type MaterializedViewColumnType = {
+  /**
+   * Qualified name of the type.
+   */
   fullName: string;
+  /**
+   * Kind of the type.
+   */
   kind: "base" | "range" | "domain" | "composite" | "enum";
 };
 
+/**
+ * Column in a materialized view.
+ */
 export interface MaterializedViewColumn {
+  /**
+   * Column name.
+   */
   name: string;
+  /**
+   * Expanded type name. If the type is an array, brackets will be appended
+   * to the type name.
+   */
   expandedType: string;
+  /**
+   * Type information.
+   */
   type: MaterializedViewColumnType;
+  /**
+   * Comment on the column.
+   */
   comment: string | null;
+  /**
+   * Default value of the column.
+   */
   defaultValue: any;
+  /**
+   * Whether the column is an array.
+   */
   isArray: boolean;
+  /**
+   * Maximum length of the column.
+   */
   maxLength: number | null;
+  /**
+   * Behavior of the generated column. "ALWAYS" if always generated,
+   * "NEVER" if never generated, "BY DEFAULT" if generated when a value
+   * is not provided.
+   */
   generated: "ALWAYS" | "NEVER" | "BY DEFAULT";
+  /**
+   * Whether the column is updatable.
+   */
   isUpdatable: boolean;
+  /**
+   * Whether the column is an identity column.
+   */
   isIdentity: boolean;
+  /**
+   * Ordinal position of the column in the view. Starts from 1.
+   */
   ordinalPosition: number;
 
   /**
@@ -43,7 +91,15 @@ export interface MaterializedViewColumn {
   reference?: ColumnReference | null;
   /** @deprecated use TableDetails.indices instead */
   indices?: Index[];
+  /**
+   * Whether the column is nullable. This is only present if the view is
+   * resolved.
+   */
   isNullable?: boolean;
+  /**
+   * Whether the column is a primary key. This is only present if the view is
+   * resolved.
+   */
   isPrimaryKey?: boolean;
 
   /**
@@ -54,8 +110,17 @@ export interface MaterializedViewColumn {
   fakeInformationSchemaValue: InformationSchemaColumn;
 }
 
+/**
+ * Materialized view in a schema.
+ */
 export interface MaterializedViewDetails extends PgType<"materializedView"> {
+  /**
+   * The SQL definition of the view.
+   */
   definition: string;
+  /**
+   * Columns in the materialized view.
+   */
   columns: MaterializedViewColumn[];
 
   /**

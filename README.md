@@ -13,7 +13,7 @@ npm i extract-pg-schema
 
 ## Usage
 
-You give it a [postgres connection config object](https://node-postgres.com/api/client) and some options and it will connect to your database and generate
+You give it a [postgres connection config object](https://node-postgres.com/apis/client) and some options and it will connect to your database and generate
 
 ```javascript
 const { extractSchemas } = require('extract-pg-schema');

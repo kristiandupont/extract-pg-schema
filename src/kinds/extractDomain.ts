@@ -3,9 +3,18 @@ import { Knex } from "knex";
 import InformationSchemaDomain from "../information_schema/InformationSchemaDomain";
 import PgType from "./PgType";
 
+/**
+ * Domain type in a schema.
+ */
 export interface DomainDetails extends PgType<"domain"> {
+  /**
+   * Qualified name of the inner type of the domain.
+   */
   innerType: string;
 
+  /**
+   * Information schema value for the domain.
+   */
   informationSchemaValue: InformationSchemaDomain;
 }
 
