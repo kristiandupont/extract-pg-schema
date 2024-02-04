@@ -17,91 +17,254 @@ export const updateActionMap = {
 export type UpdateAction =
   (typeof updateActionMap)[keyof typeof updateActionMap];
 
+/**
+ * Column reference.
+ */
 export type ColumnReference = {
+  /**
+   * Schema name of the referenced table.
+   */
   schemaName: string;
+  /**
+   * Table name of the referenced column.
+   */
   tableName: string;
+  /**
+   * Name of the referenced column.
+   */
   columnName: string;
+  /**
+   * Action to take on delete.
+   */
   onDelete: UpdateAction;
+  /**
+   * Action to take on update.
+   */
   onUpdate: UpdateAction;
+  /**
+   * Name of the foreign key constraint.
+   */
   name: string;
 };
 
+/**
+ * Index for a column.
+ */
 export type Index = {
+  /**
+   * Name of the index.
+   */
   name: string;
+  /**
+   * Whether the index is a primary key.
+   */
   isPrimary: boolean;
 };
 
+/**
+ * Column type in a table.
+ */
 export type TableColumnType = {
+  /**
+   * Qualified name of the type.
+   */
   fullName: string;
+  /**
+   * Kind of the type.
+   */
   kind: "base" | "range" | "domain" | "composite" | "enum";
 };
 
+/**
+ * Check constraint on a table.
+ */
 export interface TableCheck {
+  /**
+   * Name of the check constraint.
+   */
   name: string;
+  /**
+   * Check constraint clause.
+   */
   clause: string;
 }
 
+/**
+ * Column in a table.
+ */
 export interface TableColumn {
+  /**
+   * Column name.
+   */
   name: string;
+  /**
+   * Expanded type name. If the type is an array, brackets will be appended
+   * to the type name.
+   */
   expandedType: string;
+  /**
+   * Type information.
+   */
   type: TableColumnType;
+  /**
+   * Comment on the column.
+   */
   comment: string | null;
+  /**
+   * Default value of the column.
+   */
   defaultValue: any;
+  /**
+   * Whether the column is an array.
+   */
   isArray: boolean;
+  /**
+   * Number of dimensions of the array type. 0 if not an array.
+   */
   dimensions: number;
+  /**
+   * Array of references from this column.
+   */
   references: ColumnReference[];
   /** @deprecated use references instead */
   reference: ColumnReference | null;
   /** @deprecated use TableDetails.indices instead */
   indices: Index[];
+  /**
+   * Maximum length of the column.
+   */
   maxLength: number | null;
+  /**
+   * Whether the column is nullable.
+   */
   isNullable: boolean;
+  /**
+   * Whether the column is a primary key.
+   */
   isPrimaryKey: boolean;
+  /**
+   * Behavior of the generated column. "ALWAYS" if always generated,
+   * "NEVER" if never generated, "BY DEFAULT" if generated when value
+   * is not provided.
+   */
   generated: "ALWAYS" | "NEVER" | "BY DEFAULT";
+  /**
+   * Whether the column is updatable.
+   */
   isUpdatable: boolean;
+  /**
+   * Whether the column is an identity column.
+   */
   isIdentity: boolean;
+  /**
+   * Ordinal position of the column in the table. Starts from 1.
+   */
   ordinalPosition: number;
 
+  /**
+   * Information schema value for the column.
+   */
   informationSchemaValue: InformationSchemaColumn;
 }
 
+/**
+ * Column in an index.
+ */
 export interface TableIndexColumn {
   /**
-   * Column name or null if functional index
+   * Column name or null if functional index.
    */
   name: string | null;
   /**
-   * Definition of index column
+   * Definition of index column.
    */
   definition: string;
 }
 
+/**
+ * Index on a table.
+ */
 export interface TableIndex {
+  /**
+   * Name of the index.
+   */
   name: string;
+  /**
+   * Whether the index is a primary key.
+   */
   isPrimary: boolean;
+  /**
+   * Whether the index is unique.
+   */
   isUnique: boolean;
   /**
-   * Array of index columns in order
+   * Array of index columns in order.
    */
   columns: TableIndexColumn[];
 }
 
+/**
+ * Security policy on a table.
+ */
 export interface TableSecurityPolicy {
+  /**
+   * Name of the security policy.
+   */
   name: string;
+  /**
+   * Whether the policy is permissive.
+   */
   isPermissive: boolean;
+  /**
+   * Array of roles the policy is applied to. ["public"] if applied to all
+   * roles.
+   */
   rolesAppliedTo: string[];
+  /**
+   * Command type the policy applies to. "ALL" if all commands.
+   */
   commandType: "ALL" | "SELECT" | "INSERT" | "UPDATE" | "DELETE";
+  /**
+   * Visibility expression of the policy specified by the USING clause.
+   */
   visibilityExpression: string | null;
+  /**
+   * Modifiability expression of the policy specified by the WITH CHECK clause.
+   */
   modifiabilityExpression: string | null;
 }
 
+/**
+ * Table in a schema.
+ */
 export interface TableDetails extends PgType<"table"> {
+  /**
+   * Array of columns in the table.
+   */
   columns: TableColumn[];
+  /**
+   * Array of indices in the table.
+   */
   indices: TableIndex[];
+  /**
+   * Array of check constraints in the table.
+   */
   checks: TableCheck[];
+  /**
+   * Whether row level security is enabled on the table.
+   */
   isRowLevelSecurityEnabled: boolean;
+  /**
+   * Whether row level security is enforced on the table.
+   */
   isRowLevelSecurityEnforced: boolean;
+  /**
+   * Array of security policies on the table.
+   */
   securityPolicies: TableSecurityPolicy[];
+  /**
+   * Information schema value for the table.
+   */
   informationSchemaValue: InformationSchemaTable;
 }
 

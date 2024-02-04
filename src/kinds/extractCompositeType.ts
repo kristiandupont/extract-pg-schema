@@ -5,23 +5,74 @@ import PgType from "./PgType";
 import commentMapQueryPart from "./query-parts/commentMapQueryPart";
 import fakeInformationSchemaColumnsQueryPart from "./query-parts/fakeInformationSchemaColumnsQueryPart";
 
+/**
+ * Attribute type in a composite type.
+ */
 export type AttributeType = {
+  /**
+   * Qualified name of the type.
+   */
   fullName: string;
+  /**
+   * Kind of the type.
+   */
   kind: "base" | "range" | "domain" | "composite" | "enum";
 };
 
+/**
+ * Attribute of a composite type.
+ */
 export interface CompositeTypeAttribute {
+  /**
+   * Attribute name.
+   */
   name: string;
+  /**
+   * Expanded type name. If the type is an array, brackets will be appended
+   * to the type name.
+   */
   expandedType: string;
+  /**
+   * Type information.
+   */
   type: AttributeType;
+  /**
+   * Comment on the attribute.
+   */
   comment: string | null;
+  /**
+   * Default value of the attribute.
+   */
   defaultValue: any;
+  /**
+   * Whether the attribute is an array.
+   */
   isArray: boolean;
+  /**
+   * Maximum length of the attribute.
+   */
   maxLength: number | null;
+  /**
+   * Whether the attribute is nullable.
+   */
   isNullable: boolean;
+  /**
+   * Behavior of the generated attribute. "ALWAYS" if always generated,
+   * "NEVER" if never generated, "BY DEFAULT" if generated when a value
+   * is not provided.
+   */
   generated: "ALWAYS" | "NEVER" | "BY DEFAULT";
+  /**
+   * Whether the attribute is updatable.
+   */
   isUpdatable: boolean;
+  /**
+   * Whether the attribute is an identity attribute.
+   */
   isIdentity: boolean;
+  /**
+   * Ordinal position of the attribute in the composite type. Starts from 1.
+   */
   ordinalPosition: number;
 
   /**
@@ -32,7 +83,13 @@ export interface CompositeTypeAttribute {
   fakeInformationSchemaValue: InformationSchemaColumn;
 }
 
+/**
+ * Composite type in a schema.
+ */
 export interface CompositeTypeDetails extends PgType<"compositeType"> {
+  /**
+   * Attributes of the composite type.
+   */
   attributes: CompositeTypeAttribute[];
 }
 

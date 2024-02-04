@@ -2,7 +2,13 @@ import { Knex } from "knex";
 
 import PgType from "./PgType";
 
+/**
+ * Enum type in a schema.
+ */
 export interface EnumDetails extends PgType<"enum"> {
+  /**
+   * Array of enum values in order.
+   */
   values: string[];
 }
 
