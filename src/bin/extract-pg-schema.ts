@@ -85,7 +85,7 @@ export function parseArgs(args: string[]): ParsedArgs {
 
 function showHelp() {
   console.error(
-    `Usage: ${process.argv[1]} [options] [database]
+    `Usage: ${process.argv[1]} [options] [DBNAME]
 
 Extract all schemas from a PostgreSQL database and print them as JSON.
 
