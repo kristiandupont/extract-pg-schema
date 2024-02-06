@@ -28,6 +28,11 @@ async function main(args: string[]) {
     allowPositionals: true,
   });
 
+  if (values.help) {
+    showHelp();
+    return;
+  }
+
   // Prompt for password if not given in environment variable PGPASSWORD
   // eslint-disable-next-line no-process-env
   const password = process.env.PGPASSWORD ?? (await promptPassword());
@@ -56,6 +61,24 @@ async function main(args: string[]) {
 
   // eslint-disable-next-line no-console
   console.log(JSON.stringify(schemas, null, 2));
+}
+
+function showHelp() {
+  console.error(
+    `Usage: ${process.argv[1]} [options] [database]
+
+Extract all schemas from a PostgreSQL database and print them as JSON.
+
+Options:
+    --help                      show this help
+    -h, --host=HOSTNAME         database server host or socket directory
+    -p, --port=PORT             database server port
+    -U, --username=USERNAME     database user name
+    -d, --dbname=DBNAME         database name to connect to
+    -n, --schema=SCHEMA         include schema regular expression (may be given multiple times)
+    -N, --exclude-schema=SCHEMA exclude schema regular expression (may be given multiple times)
+`,
+  );
 }
 
 function promptPassword(): Promise<string> {
