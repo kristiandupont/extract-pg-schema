@@ -41,8 +41,8 @@ async function main(args: string[]) {
   };
 
   const schemaFilter = createSchemaFilter(
-    (values.schema ?? []).map((pattern) => new RegExp(pattern)),
-    (values["exclude-schema"] ?? []).map((pattern) => new RegExp(pattern)),
+    values.schema ?? [],
+    values["exclude-schema"] ?? [],
   );
 
   const allSchemas = await extractSchemas(connectionConfig);
@@ -75,25 +75,33 @@ function promptPassword(): Promise<string> {
   });
 }
 
-function createSchemaFilter(
-  includePatterns: RegExp[],
-  excludePatterns: RegExp[],
+export function createSchemaFilter(
+  includePatterns: string[],
+  excludePatterns: string[],
 ): (schemaName: string) => boolean {
+  const includeRegexes = includePatterns.map((pattern) => new RegExp(pattern));
+  const excludeRegexes = excludePatterns.map((pattern) => new RegExp(pattern));
+
   function isIncluded(schemaName: string) {
     if (includePatterns.length === 0) {
       return true; // Empty include list means include everything
     }
-    return includePatterns.some((pattern) => pattern.test(schemaName));
+    return includeRegexes.some((pattern) => exactMatch(pattern, schemaName));
   }
 
   function isExcluded(schemaName: string) {
     if (excludePatterns.length === 0) {
       return false; // Empty exclude list means exclude nothing
     }
-    return excludePatterns.some((pattern) => pattern.test(schemaName));
+    return excludeRegexes.some((pattern) => exactMatch(pattern, schemaName));
   }
 
   return (schemaName) => isIncluded(schemaName) && !isExcluded(schemaName);
+}
+
+function exactMatch(pattern: RegExp, schemaName: string) {
+  const m = pattern.exec(schemaName);
+  return m !== null && m[0] === schemaName;
 }
 
 main(process.argv.slice(2)).catch((error) => {
