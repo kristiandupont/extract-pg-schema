@@ -78,37 +78,43 @@ describe("parseArgs", () => {
 describe("createSchemaFilter", () => {
   test.each([
     {
+      description: "no include or exclude",
       include: [],
       exclude: [],
       expected: ["test", "test2", "other"],
     },
     {
+      description: "include exact match",
       include: ["test"],
       exclude: [],
       expected: ["test"],
     },
     {
+      description: "include pattern",
       include: ["test.*"],
       exclude: [],
       expected: ["test", "test2"],
     },
     {
+      description: "exclude exact match",
       include: [],
       exclude: ["test"],
       expected: ["test2", "other"],
     },
     {
+      description: "exclude pattern",
       include: [],
       exclude: ["test.*"],
       expected: ["other"],
     },
     {
+      description: "include and exclude",
       include: ["test.*"],
       exclude: [".*2"],
       expected: ["test"],
     },
   ])(
-    "it should filter schemas. include: $include, exclude: $exclude",
+    "it should filter schemas: $description",
     ({ include, exclude, expected }) => {
       const schemaFilter = createSchemaFilter(include, exclude);
       const input = ["test", "test2", "other"];
