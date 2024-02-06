@@ -14,6 +14,44 @@ if (util.parseArgs === undefined) {
 }
 
 async function main(args: string[]) {
+  const parsedArgs = parseArgs(args);
+
+  if (parsedArgs.help) {
+    showHelp();
+    return;
+  }
+
+  const { connectionConfig, includePatterns, excludePatterns } = parsedArgs;
+
+  // Prompt for password if not given in environment variable PGPASSWORD
+  // eslint-disable-next-line no-process-env
+  const password = process.env.PGPASSWORD ?? (await promptPassword());
+
+  const schemaFilter = createSchemaFilter(includePatterns, excludePatterns);
+
+  const allSchemas = await extractSchemas({ ...connectionConfig, password });
+  // Filter schemas after extracting them all, because we don't know
+  // which schemas exist until we've extracted them.
+  const schemas = Object.fromEntries(
+    Object.entries(allSchemas).filter(([schemaName]) =>
+      schemaFilter(schemaName),
+    ),
+  );
+
+  // eslint-disable-next-line no-console
+  console.log(JSON.stringify(schemas, null, 2));
+}
+
+type ParsedArgs =
+  | { help: true }
+  | {
+      help: false;
+      connectionConfig: ConnectionConfig;
+      includePatterns: string[];
+      excludePatterns: string[];
+    };
+
+export function parseArgs(args: string[]): ParsedArgs {
   const { values, positionals } = util.parseArgs({
     args,
     options: {
@@ -29,38 +67,20 @@ async function main(args: string[]) {
   });
 
   if (values.help) {
-    showHelp();
-    return;
+    return { help: true };
   }
 
-  // Prompt for password if not given in environment variable PGPASSWORD
-  // eslint-disable-next-line no-process-env
-  const password = process.env.PGPASSWORD ?? (await promptPassword());
-
-  const connectionConfig: ConnectionConfig = {
-    host: values.host,
-    port: values.port === undefined ? undefined : Number(values.port),
-    user: values.username,
-    password,
-    database: values.dbname ?? positionals[0],
+  return {
+    help: false,
+    connectionConfig: {
+      host: values.host,
+      port: values.port === undefined ? undefined : Number(values.port),
+      user: values.username,
+      database: values.dbname ?? positionals[0],
+    },
+    includePatterns: values.schema ?? [],
+    excludePatterns: values["exclude-schema"] ?? [],
   };
-
-  const schemaFilter = createSchemaFilter(
-    values.schema ?? [],
-    values["exclude-schema"] ?? [],
-  );
-
-  const allSchemas = await extractSchemas(connectionConfig);
-  // Filter schemas after extracting them all, because we don't know
-  // which schemas exist until we've extracted them.
-  const schemas = Object.fromEntries(
-    Object.entries(allSchemas).filter(([schemaName]) =>
-      schemaFilter(schemaName),
-    ),
-  );
-
-  // eslint-disable-next-line no-console
-  console.log(JSON.stringify(schemas, null, 2));
 }
 
 function showHelp() {
