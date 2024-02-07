@@ -1,4 +1,3 @@
-// eslint-disable-next-line unicorn/prefer-module
 const l = require("./build");
 
 // This generates the json for the dvdrental database, if that is running on localhost:54321.
