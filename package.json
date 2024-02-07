@@ -1,6 +1,6 @@
 {
   "name": "extract-pg-schema",
-  "version": "4.7.0",
+  "version": "5.0.0",
   "keywords": [
     "postgresql",
     "schema"
