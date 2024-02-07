@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [extract-pg-schema](./extract-pg-schema.md) &gt; [extractSchema](./extract-pg-schema.extractschema.md)
 
-## extractSchema variable
+## extractSchema() function
 
 > Warning: This API is now obsolete.
 > 
@@ -18,3 +18,17 @@ extractSchema: (schemaName: string, connectionConfig: string | ConnectionConfig,
     types: any[];
 }>
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  schemaName | string |  |
+|  connectionConfig | string \| ConnectionConfig |  |
+|  resolveViews | boolean |  |
+|  tables | string\[\] | _(Optional)_ |
+
+**Returns:**
+
+Promise&lt;{ tables: any\[\]; views: any\[\]; types: any\[\]; }&gt;
+
