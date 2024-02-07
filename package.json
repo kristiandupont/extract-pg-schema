@@ -13,6 +13,9 @@
   },
   "main": "build/index.js",
   "types": "build/index.d.ts",
+  "bin": {
+    "extract-pg-schema": "bin/extract-pg-schema"
+  },
   "files": [
     "build/"
   ],
