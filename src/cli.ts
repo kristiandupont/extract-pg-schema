@@ -4,7 +4,7 @@ import util from "node:util";
 
 import { ConnectionConfig } from "pg";
 
-import extractSchemas from "../extractSchemas";
+import extractSchemas from "./extractSchemas";
 
 if (util.parseArgs === undefined) {
   console.error(

@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 
-import { createSchemaFilter, parseArgs } from "./extract-pg-schema";
+import { createSchemaFilter, parseArgs } from "./cli";
 
 describe("parseArgs", () => {
   test.each([
