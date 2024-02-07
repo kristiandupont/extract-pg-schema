@@ -8,6 +8,7 @@
 
 |  Function | Description |
 |  --- | --- |
+|  [extractSchema(schemaName, connectionConfig, resolveViews, tables)](./extract-pg-schema.extractschema.md) |  |
 |  [extractSchemas(connectionConfig, options)](./extract-pg-schema.extractschemas.md) | Perform the extraction |
 
 ## Interfaces
@@ -39,7 +40,6 @@
 
 |  Variable | Description |
 |  --- | --- |
-|  [extractSchema](./extract-pg-schema.extractschema.md) |  |
 |  [updateActionMap](./extract-pg-schema.updateactionmap.md) |  |
 
 ## Type Aliases
