@@ -2,7 +2,7 @@
 import { createInterface } from "node:readline";
 import util from "node:util";
 
-import { ConnectionConfig } from "pg";
+import type { ConnectionConfig } from "pg";
 
 import extractSchemas from "./extractSchemas";
 

@@ -1,9 +1,6 @@
 export { default as extractSchema } from "./deprecatia/extract-schema";
-export {
-  ExtractSchemaOptions,
-  default as extractSchemas,
-  Schema,
-} from "./extractSchemas";
+export type { ExtractSchemaOptions, Schema } from "./extractSchemas";
+export { default as extractSchemas } from "./extractSchemas";
 export { type default as InformationSchemaColumn } from "./information_schema/InformationSchemaColumn";
 export { type default as InformationSchemaDomain } from "./information_schema/InformationSchemaDomain";
 export { type default as InformationSchemaTable } from "./information_schema/InformationSchemaTable";
@@ -22,19 +19,19 @@ export {
   type MaterializedViewDetails,
 } from "./kinds/extractMaterializedView";
 export { type RangeDetails } from "./kinds/extractRange";
-export {
-  type ColumnReference,
+export type {
+  ColumnReference,
   Index,
-  type TableCheck,
-  type TableColumn,
-  type TableColumnType,
-  type TableDetails,
-  type TableIndex,
-  type TableIndexColumn,
-  type TableSecurityPolicy,
-  type UpdateAction,
-  updateActionMap,
+  TableCheck,
+  TableColumn,
+  TableColumnType,
+  TableDetails,
+  TableIndex,
+  TableIndexColumn,
+  TableSecurityPolicy,
+  UpdateAction,
 } from "./kinds/extractTable";
+export { updateActionMap } from "./kinds/extractTable";
 export {
   type ViewColumn,
   type ViewColumnType,

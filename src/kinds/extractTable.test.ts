@@ -2,7 +2,7 @@ import * as R from "ramda";
 import { describe, expect } from "vitest";
 
 import { test, testWith } from "../tests/useSchema";
-import extractTable, {
+import type {
   ColumnReference,
   Index,
   TableCheck,
@@ -11,7 +11,8 @@ import extractTable, {
   TableIndex,
   TableSecurityPolicy,
 } from "./extractTable";
-import PgType from "./PgType";
+import extractTable from "./extractTable";
+import type PgType from "./PgType";
 
 const makePgType = (name: string, schemaName = "test"): PgType<"table"> => ({
   schemaName,

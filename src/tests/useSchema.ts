@@ -1,6 +1,6 @@
-import { Knex } from "knex";
-import { StartedTestContainer } from "testcontainers";
-import { TestType } from "vitest-fixture";
+import type { Knex } from "knex";
+import type { StartedTestContainer } from "testcontainers";
+import type { TestType } from "vitest-fixture";
 
 import { test as base } from "./useTestKnex";
 
