@@ -1,8 +1,9 @@
 import { describe, expect } from "vitest";
 
 import { test } from "../tests/useSchema";
-import extractRange, { RangeDetails } from "./extractRange";
-import PgType from "./PgType";
+import type { RangeDetails } from "./extractRange";
+import extractRange from "./extractRange";
+import type PgType from "./PgType";
 
 const makePgType = (name: string, schemaName = "test"): PgType<"range"> => ({
   schemaName,

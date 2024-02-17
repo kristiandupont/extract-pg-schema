@@ -2,11 +2,12 @@ import * as R from "ramda";
 import { describe, expect } from "vitest";
 
 import { test } from "../tests/useSchema";
-import extractCompositeType, {
+import type {
   CompositeTypeAttribute,
   CompositeTypeDetails,
 } from "./extractCompositeType";
-import PgType from "./PgType";
+import extractCompositeType from "./extractCompositeType";
+import type PgType from "./PgType";
 
 const makePgType = (
   name: string,

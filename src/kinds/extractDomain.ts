@@ -1,7 +1,7 @@
-import { Knex } from "knex";
+import type { Knex } from "knex";
 
-import InformationSchemaDomain from "../information_schema/InformationSchemaDomain";
-import PgType from "./PgType";
+import type InformationSchemaDomain from "../information_schema/InformationSchemaDomain";
+import type PgType from "./PgType";
 
 /**
  * Domain type in a schema.

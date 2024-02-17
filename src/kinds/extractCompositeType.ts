@@ -1,7 +1,7 @@
-import { Knex } from "knex";
+import type { Knex } from "knex";
 
-import InformationSchemaColumn from "../information_schema/InformationSchemaColumn";
-import PgType from "./PgType";
+import type InformationSchemaColumn from "../information_schema/InformationSchemaColumn";
+import type PgType from "./PgType";
 import commentMapQueryPart from "./query-parts/commentMapQueryPart";
 import fakeInformationSchemaColumnsQueryPart from "./query-parts/fakeInformationSchemaColumnsQueryPart";
 

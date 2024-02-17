@@ -1,4 +1,4 @@
-import { Knex } from "knex";
+import type { Knex } from "knex";
 
 /**
  * In order to ignore the items (types, views, etc.) that belong to extensions,

@@ -1,10 +1,10 @@
-import { Schema } from "./extractSchemas";
-import {
+import type { Schema } from "./extractSchemas";
+import type {
   MaterializedViewColumn,
   MaterializedViewDetails,
 } from "./kinds/extractMaterializedView";
-import { TableColumn } from "./kinds/extractTable";
-import { ViewColumn, ViewDetails } from "./kinds/extractView";
+import type { TableColumn } from "./kinds/extractTable";
+import type { ViewColumn, ViewDetails } from "./kinds/extractView";
 
 type Column = TableColumn | ViewColumn | MaterializedViewColumn;
 

@@ -2,11 +2,12 @@ import * as R from "ramda";
 import { describe, expect } from "vitest";
 
 import { test } from "../tests/useSchema";
-import extractMaterializedView, {
+import type {
   MaterializedViewColumn,
   MaterializedViewDetails,
 } from "./extractMaterializedView";
-import PgType from "./PgType";
+import extractMaterializedView from "./extractMaterializedView";
+import type PgType from "./PgType";
 
 const makePgType = (
   name: string,

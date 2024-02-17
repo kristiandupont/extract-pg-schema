@@ -1,6 +1,6 @@
-import { Knex } from "knex";
+import type { Knex } from "knex";
 
-import PgType from "./PgType";
+import type PgType from "./PgType";
 
 /**
  * Range type in a schema.

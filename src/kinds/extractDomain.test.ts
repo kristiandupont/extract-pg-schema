@@ -1,8 +1,9 @@
 import { describe, expect } from "vitest";
 
 import { test } from "../tests/useSchema";
-import extractDomain, { DomainDetails } from "./extractDomain";
-import PgType from "./PgType";
+import type { DomainDetails } from "./extractDomain";
+import extractDomain from "./extractDomain";
+import type PgType from "./PgType";
 
 const makePgType = (name: string, schemaName = "test"): PgType<"domain"> => ({
   schemaName,

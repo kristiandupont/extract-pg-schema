@@ -1,4 +1,4 @@
-import { StartedTestContainer } from "testcontainers";
+import type { StartedTestContainer } from "testcontainers";
 
 import startTestContainer from "./startTestContainer";
 

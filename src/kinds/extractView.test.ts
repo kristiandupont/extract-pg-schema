@@ -2,8 +2,9 @@ import * as R from "ramda";
 import { describe, expect } from "vitest";
 
 import { test } from "../tests/useSchema";
-import extractView, { ViewColumn, ViewDetails } from "./extractView";
-import PgType from "./PgType";
+import type { ViewColumn, ViewDetails } from "./extractView";
+import extractView from "./extractView";
+import type PgType from "./PgType";
 
 const makePgType = (name: string, schemaName = "test"): PgType<"view"> => ({
   schemaName,
