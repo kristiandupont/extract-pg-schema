@@ -1,5 +1,6 @@
-import { StartedTestContainer } from "testcontainers";
-import { test as base, TestType } from "vitest-fixture";
+import type { StartedTestContainer } from "testcontainers";
+import type { TestType } from "vitest-fixture";
+import { test as base } from "vitest-fixture";
 
 import startTestContainer from "./startTestContainer";
 

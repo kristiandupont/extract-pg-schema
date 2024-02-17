@@ -1,20 +1,25 @@
-import knex, { Knex } from "knex";
-import { ConnectionConfig } from "pg";
+import type { Knex } from "knex";
+import knex from "knex";
+import type { ConnectionConfig } from "pg";
 import * as R from "ramda";
 
-import extractCompositeType, {
-  CompositeTypeDetails,
-} from "./kinds/extractCompositeType";
-import extractDomain, { DomainDetails } from "./kinds/extractDomain";
-import extractEnum, { EnumDetails } from "./kinds/extractEnum";
-import extractMaterializedView, {
-  MaterializedViewDetails,
-} from "./kinds/extractMaterializedView";
-import extractRange, { RangeDetails } from "./kinds/extractRange";
-import extractTable, { TableDetails } from "./kinds/extractTable";
-import extractView, { ViewDetails } from "./kinds/extractView";
+import type { CompositeTypeDetails } from "./kinds/extractCompositeType";
+import extractCompositeType from "./kinds/extractCompositeType";
+import type { DomainDetails } from "./kinds/extractDomain";
+import extractDomain from "./kinds/extractDomain";
+import type { EnumDetails } from "./kinds/extractEnum";
+import extractEnum from "./kinds/extractEnum";
+import type { MaterializedViewDetails } from "./kinds/extractMaterializedView";
+import extractMaterializedView from "./kinds/extractMaterializedView";
+import type { RangeDetails } from "./kinds/extractRange";
+import extractRange from "./kinds/extractRange";
+import type { TableDetails } from "./kinds/extractTable";
+import extractTable from "./kinds/extractTable";
+import type { ViewDetails } from "./kinds/extractView";
+import extractView from "./kinds/extractView";
 import fetchTypes from "./kinds/fetchTypes";
-import PgType, { Kind } from "./kinds/PgType";
+import type { Kind } from "./kinds/PgType";
+import type PgType from "./kinds/PgType";
 import resolveViewColumns from "./resolveViewColumns";
 
 interface DetailsMap {

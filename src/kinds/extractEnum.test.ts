@@ -1,8 +1,9 @@
 import { describe, expect } from "vitest";
 
 import { test } from "../tests/useSchema";
-import extractEnum, { EnumDetails } from "./extractEnum";
-import PgType from "./PgType";
+import type { EnumDetails } from "./extractEnum";
+import extractEnum from "./extractEnum";
+import type PgType from "./PgType";
 
 const makePgType = (name: string, schemaName = "test"): PgType<"enum"> => ({
   schemaName,

@@ -1,4 +1,5 @@
-import { GenericContainer, StartedTestContainer } from "testcontainers";
+import type { StartedTestContainer } from "testcontainers";
+import { GenericContainer } from "testcontainers";
 
 const timeout = 5 * 60 * 1000;
 
