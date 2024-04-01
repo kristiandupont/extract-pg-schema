@@ -15,9 +15,82 @@ export interface ViewDetails extends PgType<"view">
 
 ## Properties
 
-|  Property | Modifiers | Type | Description |
-|  --- | --- | --- | --- |
-|  [columns](./extract-pg-schema.viewdetails.columns.md) |  | [ViewColumn](./extract-pg-schema.viewcolumn.md)<!-- -->\[\] | Columns in the view. |
-|  [definition](./extract-pg-schema.viewdetails.definition.md) |  | string | The SQL definition of the view. |
-|  [informationSchemaValue](./extract-pg-schema.viewdetails.informationschemavalue.md) |  | [InformationSchemaView](./extract-pg-schema.informationschemaview.md) | Information schema value for the view. |
+<table><thead><tr><th>
 
+Property
+
+
+</th><th>
+
+Modifiers
+
+
+</th><th>
+
+Type
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[columns](./extract-pg-schema.viewdetails.columns.md)
+
+
+</td><td>
+
+
+</td><td>
+
+[ViewColumn](./extract-pg-schema.viewcolumn.md)<!-- -->\[\]
+
+
+</td><td>
+
+Columns in the view.
+
+
+</td></tr>
+<tr><td>
+
+[definition](./extract-pg-schema.viewdetails.definition.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string
+
+
+</td><td>
+
+The SQL definition of the view.
+
+
+</td></tr>
+<tr><td>
+
+[informationSchemaValue](./extract-pg-schema.viewdetails.informationschemavalue.md)
+
+
+</td><td>
+
+
+</td><td>
+
+[InformationSchemaView](./extract-pg-schema.informationschemaview.md)
+
+
+</td><td>
+
+Information schema value for the view.
+
+
+</td></tr>
+</tbody></table>

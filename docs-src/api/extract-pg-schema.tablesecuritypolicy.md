@@ -14,12 +14,139 @@ export interface TableSecurityPolicy
 
 ## Properties
 
-|  Property | Modifiers | Type | Description |
-|  --- | --- | --- | --- |
-|  [commandType](./extract-pg-schema.tablesecuritypolicy.commandtype.md) |  | "ALL" \| "SELECT" \| "INSERT" \| "UPDATE" \| "DELETE" | Command type the policy applies to. "ALL" if all commands. |
-|  [isPermissive](./extract-pg-schema.tablesecuritypolicy.ispermissive.md) |  | boolean | Whether the policy is permissive. |
-|  [modifiabilityExpression](./extract-pg-schema.tablesecuritypolicy.modifiabilityexpression.md) |  | string \| null | Modifiability expression of the policy specified by the WITH CHECK clause. |
-|  [name](./extract-pg-schema.tablesecuritypolicy.name.md) |  | string | Name of the security policy. |
-|  [rolesAppliedTo](./extract-pg-schema.tablesecuritypolicy.rolesappliedto.md) |  | string\[\] | Array of roles the policy is applied to. \["public"\] if applied to all roles. |
-|  [visibilityExpression](./extract-pg-schema.tablesecuritypolicy.visibilityexpression.md) |  | string \| null | Visibility expression of the policy specified by the USING clause. |
+<table><thead><tr><th>
 
+Property
+
+
+</th><th>
+
+Modifiers
+
+
+</th><th>
+
+Type
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[commandType](./extract-pg-schema.tablesecuritypolicy.commandtype.md)
+
+
+</td><td>
+
+
+</td><td>
+
+"ALL" \| "SELECT" \| "INSERT" \| "UPDATE" \| "DELETE"
+
+
+</td><td>
+
+Command type the policy applies to. "ALL" if all commands.
+
+
+</td></tr>
+<tr><td>
+
+[isPermissive](./extract-pg-schema.tablesecuritypolicy.ispermissive.md)
+
+
+</td><td>
+
+
+</td><td>
+
+boolean
+
+
+</td><td>
+
+Whether the policy is permissive.
+
+
+</td></tr>
+<tr><td>
+
+[modifiabilityExpression](./extract-pg-schema.tablesecuritypolicy.modifiabilityexpression.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string \| null
+
+
+</td><td>
+
+Modifiability expression of the policy specified by the WITH CHECK clause.
+
+
+</td></tr>
+<tr><td>
+
+[name](./extract-pg-schema.tablesecuritypolicy.name.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string
+
+
+</td><td>
+
+Name of the security policy.
+
+
+</td></tr>
+<tr><td>
+
+[rolesAppliedTo](./extract-pg-schema.tablesecuritypolicy.rolesappliedto.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string\[\]
+
+
+</td><td>
+
+Array of roles the policy is applied to. \["public"\] if applied to all roles.
+
+
+</td></tr>
+<tr><td>
+
+[visibilityExpression](./extract-pg-schema.tablesecuritypolicy.visibilityexpression.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string \| null
+
+
+</td><td>
+
+Visibility expression of the policy specified by the USING clause.
+
+
+</td></tr>
+</tbody></table>

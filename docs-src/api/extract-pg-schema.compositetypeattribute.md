@@ -14,19 +14,272 @@ export interface CompositeTypeAttribute
 
 ## Properties
 
-|  Property | Modifiers | Type | Description |
-|  --- | --- | --- | --- |
-|  [comment](./extract-pg-schema.compositetypeattribute.comment.md) |  | string \| null | Comment on the attribute. |
-|  [defaultValue](./extract-pg-schema.compositetypeattribute.defaultvalue.md) |  | any | Default value of the attribute. |
-|  [expandedType](./extract-pg-schema.compositetypeattribute.expandedtype.md) |  | string | Expanded type name. If the type is an array, brackets will be appended to the type name. |
-|  [fakeInformationSchemaValue](./extract-pg-schema.compositetypeattribute.fakeinformationschemavalue.md) |  | [InformationSchemaColumn](./extract-pg-schema.informationschemacolumn.md) | The Postgres information\_schema views do not contain info about materialized views. This value is the result of a query that matches the one for regular views. Use with caution, not all fields are guaranteed to be meaningful and/or accurate. |
-|  [generated](./extract-pg-schema.compositetypeattribute.generated.md) |  | "ALWAYS" \| "NEVER" \| "BY DEFAULT" | Behavior of the generated attribute. "ALWAYS" if always generated, "NEVER" if never generated, "BY DEFAULT" if generated when a value is not provided. |
-|  [isArray](./extract-pg-schema.compositetypeattribute.isarray.md) |  | boolean | Whether the attribute is an array. |
-|  [isIdentity](./extract-pg-schema.compositetypeattribute.isidentity.md) |  | boolean | Whether the attribute is an identity attribute. |
-|  [isNullable](./extract-pg-schema.compositetypeattribute.isnullable.md) |  | boolean | Whether the attribute is nullable. |
-|  [isUpdatable](./extract-pg-schema.compositetypeattribute.isupdatable.md) |  | boolean | Whether the attribute is updatable. |
-|  [maxLength](./extract-pg-schema.compositetypeattribute.maxlength.md) |  | number \| null | Maximum length of the attribute. |
-|  [name](./extract-pg-schema.compositetypeattribute.name.md) |  | string | Attribute name. |
-|  [ordinalPosition](./extract-pg-schema.compositetypeattribute.ordinalposition.md) |  | number | Ordinal position of the attribute in the composite type. Starts from 1. |
-|  [type](./extract-pg-schema.compositetypeattribute.type.md) |  | [AttributeType](./extract-pg-schema.attributetype.md) | Type information. |
+<table><thead><tr><th>
 
+Property
+
+
+</th><th>
+
+Modifiers
+
+
+</th><th>
+
+Type
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[comment](./extract-pg-schema.compositetypeattribute.comment.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string \| null
+
+
+</td><td>
+
+Comment on the attribute.
+
+
+</td></tr>
+<tr><td>
+
+[defaultValue](./extract-pg-schema.compositetypeattribute.defaultvalue.md)
+
+
+</td><td>
+
+
+</td><td>
+
+any
+
+
+</td><td>
+
+Default value of the attribute.
+
+
+</td></tr>
+<tr><td>
+
+[expandedType](./extract-pg-schema.compositetypeattribute.expandedtype.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string
+
+
+</td><td>
+
+Expanded type name. If the type is an array, brackets will be appended to the type name.
+
+
+</td></tr>
+<tr><td>
+
+[fakeInformationSchemaValue](./extract-pg-schema.compositetypeattribute.fakeinformationschemavalue.md)
+
+
+</td><td>
+
+
+</td><td>
+
+[InformationSchemaColumn](./extract-pg-schema.informationschemacolumn.md)
+
+
+</td><td>
+
+The Postgres information\_schema views do not contain info about materialized views. This value is the result of a query that matches the one for regular views. Use with caution, not all fields are guaranteed to be meaningful and/or accurate.
+
+
+</td></tr>
+<tr><td>
+
+[generated](./extract-pg-schema.compositetypeattribute.generated.md)
+
+
+</td><td>
+
+
+</td><td>
+
+"ALWAYS" \| "NEVER" \| "BY DEFAULT"
+
+
+</td><td>
+
+Behavior of the generated attribute. "ALWAYS" if always generated, "NEVER" if never generated, "BY DEFAULT" if generated when a value is not provided.
+
+
+</td></tr>
+<tr><td>
+
+[isArray](./extract-pg-schema.compositetypeattribute.isarray.md)
+
+
+</td><td>
+
+
+</td><td>
+
+boolean
+
+
+</td><td>
+
+Whether the attribute is an array.
+
+
+</td></tr>
+<tr><td>
+
+[isIdentity](./extract-pg-schema.compositetypeattribute.isidentity.md)
+
+
+</td><td>
+
+
+</td><td>
+
+boolean
+
+
+</td><td>
+
+Whether the attribute is an identity attribute.
+
+
+</td></tr>
+<tr><td>
+
+[isNullable](./extract-pg-schema.compositetypeattribute.isnullable.md)
+
+
+</td><td>
+
+
+</td><td>
+
+boolean
+
+
+</td><td>
+
+Whether the attribute is nullable.
+
+
+</td></tr>
+<tr><td>
+
+[isUpdatable](./extract-pg-schema.compositetypeattribute.isupdatable.md)
+
+
+</td><td>
+
+
+</td><td>
+
+boolean
+
+
+</td><td>
+
+Whether the attribute is updatable.
+
+
+</td></tr>
+<tr><td>
+
+[maxLength](./extract-pg-schema.compositetypeattribute.maxlength.md)
+
+
+</td><td>
+
+
+</td><td>
+
+number \| null
+
+
+</td><td>
+
+Maximum length of the attribute.
+
+
+</td></tr>
+<tr><td>
+
+[name](./extract-pg-schema.compositetypeattribute.name.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string
+
+
+</td><td>
+
+Attribute name.
+
+
+</td></tr>
+<tr><td>
+
+[ordinalPosition](./extract-pg-schema.compositetypeattribute.ordinalposition.md)
+
+
+</td><td>
+
+
+</td><td>
+
+number
+
+
+</td><td>
+
+Ordinal position of the attribute in the composite type. Starts from 1.
+
+
+</td></tr>
+<tr><td>
+
+[type](./extract-pg-schema.compositetypeattribute.type.md)
+
+
+</td><td>
+
+
+</td><td>
+
+[AttributeType](./extract-pg-schema.attributetype.md)
+
+
+</td><td>
+
+Type information.
+
+
+</td></tr>
+</tbody></table>

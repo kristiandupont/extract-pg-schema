@@ -21,13 +21,81 @@ extractSchema: (schemaName: string, connectionConfig: string | ConnectionConfig,
 
 ## Parameters
 
-|  Parameter | Type | Description |
-|  --- | --- | --- |
-|  schemaName | string |  |
-|  connectionConfig | string \| ConnectionConfig |  |
-|  resolveViews | boolean |  |
-|  tables | string\[\] | _(Optional)_ |
+<table><thead><tr><th>
 
+Parameter
+
+
+</th><th>
+
+Type
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+schemaName
+
+
+</td><td>
+
+string
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+connectionConfig
+
+
+</td><td>
+
+string \| ConnectionConfig
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+resolveViews
+
+
+</td><td>
+
+boolean
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+tables
+
+
+</td><td>
+
+string\[\]
+
+
+</td><td>
+
+_(Optional)_
+
+
+</td></tr>
+</tbody></table>
 **Returns:**
 
 Promise&lt;{ tables: any\[\]; views: any\[\]; types: any\[\]; }&gt;

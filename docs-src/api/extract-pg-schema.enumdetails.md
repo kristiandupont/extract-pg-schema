@@ -15,7 +15,44 @@ export interface EnumDetails extends PgType<"enum">
 
 ## Properties
 
-|  Property | Modifiers | Type | Description |
-|  --- | --- | --- | --- |
-|  [values](./extract-pg-schema.enumdetails.values.md) |  | string\[\] | Array of enum values in order. |
+<table><thead><tr><th>
 
+Property
+
+
+</th><th>
+
+Modifiers
+
+
+</th><th>
+
+Type
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[values](./extract-pg-schema.enumdetails.values.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string\[\]
+
+
+</td><td>
+
+Array of enum values in order.
+
+
+</td></tr>
+</tbody></table>

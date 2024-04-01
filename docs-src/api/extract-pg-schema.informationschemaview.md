@@ -14,16 +14,215 @@ interface InformationSchemaView
 
 ## Properties
 
-|  Property | Modifiers | Type | Description |
-|  --- | --- | --- | --- |
-|  [check\_option](./extract-pg-schema.informationschemaview.check_option.md) |  | "CASCADED" \| "LOCAL" \| "NONE" | CASCADED or LOCAL if the view has a CHECK OPTION defined on it, NONE if not |
-|  [is\_insertable\_into](./extract-pg-schema.informationschemaview.is_insertable_into.md) |  | [YesNo](./extract-pg-schema.yesno.md) | YES if the table is insertable into, NO if not (Base tables are always insertable into, views not necessarily.) |
-|  [is\_trigger\_deletable](./extract-pg-schema.informationschemaview.is_trigger_deletable.md) |  | [YesNo](./extract-pg-schema.yesno.md) | YES if the view has an INSTEAD OF DELETE trigger defined on it, NO if not |
-|  [is\_trigger\_insertable\_into](./extract-pg-schema.informationschemaview.is_trigger_insertable_into.md) |  | [YesNo](./extract-pg-schema.yesno.md) | YES if the view has an INSTEAD OF INSERT trigger defined on it, NO if not |
-|  [is\_trigger\_updatable](./extract-pg-schema.informationschemaview.is_trigger_updatable.md) |  | [YesNo](./extract-pg-schema.yesno.md) | YES if the view has an INSTEAD OF UPDATE trigger defined on it, NO if not |
-|  [is\_updatable](./extract-pg-schema.informationschemaview.is_updatable.md) |  | [YesNo](./extract-pg-schema.yesno.md) | ES if the view is updatable (allows UPDATE and DELETE), NO if not |
-|  [table\_catalog](./extract-pg-schema.informationschemaview.table_catalog.md) |  | string | Name of the database that contains the table (always the current database) |
-|  [table\_name](./extract-pg-schema.informationschemaview.table_name.md) |  | string | Name of the table |
-|  [table\_schema](./extract-pg-schema.informationschemaview.table_schema.md) |  | string | Name of the schema that contains the table |
-|  [view\_definition](./extract-pg-schema.informationschemaview.view_definition.md) |  | string | Query expression defining the view (null if the view is not owned by a currently enabled role) |
+<table><thead><tr><th>
 
+Property
+
+
+</th><th>
+
+Modifiers
+
+
+</th><th>
+
+Type
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[check\_option](./extract-pg-schema.informationschemaview.check_option.md)
+
+
+</td><td>
+
+
+</td><td>
+
+"CASCADED" \| "LOCAL" \| "NONE"
+
+
+</td><td>
+
+CASCADED or LOCAL if the view has a CHECK OPTION defined on it, NONE if not
+
+
+</td></tr>
+<tr><td>
+
+[is\_insertable\_into](./extract-pg-schema.informationschemaview.is_insertable_into.md)
+
+
+</td><td>
+
+
+</td><td>
+
+[YesNo](./extract-pg-schema.yesno.md)
+
+
+</td><td>
+
+YES if the table is insertable into, NO if not (Base tables are always insertable into, views not necessarily.)
+
+
+</td></tr>
+<tr><td>
+
+[is\_trigger\_deletable](./extract-pg-schema.informationschemaview.is_trigger_deletable.md)
+
+
+</td><td>
+
+
+</td><td>
+
+[YesNo](./extract-pg-schema.yesno.md)
+
+
+</td><td>
+
+YES if the view has an INSTEAD OF DELETE trigger defined on it, NO if not
+
+
+</td></tr>
+<tr><td>
+
+[is\_trigger\_insertable\_into](./extract-pg-schema.informationschemaview.is_trigger_insertable_into.md)
+
+
+</td><td>
+
+
+</td><td>
+
+[YesNo](./extract-pg-schema.yesno.md)
+
+
+</td><td>
+
+YES if the view has an INSTEAD OF INSERT trigger defined on it, NO if not
+
+
+</td></tr>
+<tr><td>
+
+[is\_trigger\_updatable](./extract-pg-schema.informationschemaview.is_trigger_updatable.md)
+
+
+</td><td>
+
+
+</td><td>
+
+[YesNo](./extract-pg-schema.yesno.md)
+
+
+</td><td>
+
+YES if the view has an INSTEAD OF UPDATE trigger defined on it, NO if not
+
+
+</td></tr>
+<tr><td>
+
+[is\_updatable](./extract-pg-schema.informationschemaview.is_updatable.md)
+
+
+</td><td>
+
+
+</td><td>
+
+[YesNo](./extract-pg-schema.yesno.md)
+
+
+</td><td>
+
+ES if the view is updatable (allows UPDATE and DELETE), NO if not
+
+
+</td></tr>
+<tr><td>
+
+[table\_catalog](./extract-pg-schema.informationschemaview.table_catalog.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string
+
+
+</td><td>
+
+Name of the database that contains the table (always the current database)
+
+
+</td></tr>
+<tr><td>
+
+[table\_name](./extract-pg-schema.informationschemaview.table_name.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string
+
+
+</td><td>
+
+Name of the table
+
+
+</td></tr>
+<tr><td>
+
+[table\_schema](./extract-pg-schema.informationschemaview.table_schema.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string
+
+
+</td><td>
+
+Name of the schema that contains the table
+
+
+</td></tr>
+<tr><td>
+
+[view\_definition](./extract-pg-schema.informationschemaview.view_definition.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string
+
+
+</td><td>
+
+Query expression defining the view (null if the view is not owned by a currently enabled role)
+
+
+</td></tr>
+</tbody></table>

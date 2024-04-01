@@ -15,8 +15,63 @@ export interface DomainDetails extends PgType<"domain">
 
 ## Properties
 
-|  Property | Modifiers | Type | Description |
-|  --- | --- | --- | --- |
-|  [informationSchemaValue](./extract-pg-schema.domaindetails.informationschemavalue.md) |  | [InformationSchemaDomain](./extract-pg-schema.informationschemadomain.md) | Information schema value for the domain. |
-|  [innerType](./extract-pg-schema.domaindetails.innertype.md) |  | string | Qualified name of the inner type of the domain. |
+<table><thead><tr><th>
 
+Property
+
+
+</th><th>
+
+Modifiers
+
+
+</th><th>
+
+Type
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[informationSchemaValue](./extract-pg-schema.domaindetails.informationschemavalue.md)
+
+
+</td><td>
+
+
+</td><td>
+
+[InformationSchemaDomain](./extract-pg-schema.informationschemadomain.md)
+
+
+</td><td>
+
+Information schema value for the domain.
+
+
+</td></tr>
+<tr><td>
+
+[innerType](./extract-pg-schema.domaindetails.innertype.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string
+
+
+</td><td>
+
+Qualified name of the inner type of the domain.
+
+
+</td></tr>
+</tbody></table>

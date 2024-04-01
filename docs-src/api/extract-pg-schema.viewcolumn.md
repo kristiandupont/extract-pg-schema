@@ -14,24 +14,367 @@ export interface ViewColumn
 
 ## Properties
 
-|  Property | Modifiers | Type | Description |
-|  --- | --- | --- | --- |
-|  [comment](./extract-pg-schema.viewcolumn.comment.md) |  | string \| null | Comment on the column. |
-|  [defaultValue](./extract-pg-schema.viewcolumn.defaultvalue.md) |  | any | Default value of the column. |
-|  [expandedType](./extract-pg-schema.viewcolumn.expandedtype.md) |  | string | Expanded type name. If the type is an array, brackets will be appended to the type name. |
-|  [generated](./extract-pg-schema.viewcolumn.generated.md) |  | "ALWAYS" \| "NEVER" \| "BY DEFAULT" | Behavior of the generated column. "ALWAYS" if always generated, "NEVER" if never generated, "BY DEFAULT" if generated when a value is not provided. |
-|  [indices?](./extract-pg-schema.viewcolumn.indices.md) |  | [Index](./extract-pg-schema.index.md)<!-- -->\[\] | _(Optional)_ |
-|  [informationSchemaValue](./extract-pg-schema.viewcolumn.informationschemavalue.md) |  | [InformationSchemaColumn](./extract-pg-schema.informationschemacolumn.md) | Information schema value for the column. |
-|  [isArray](./extract-pg-schema.viewcolumn.isarray.md) |  | boolean | Whether the column is an array. |
-|  [isIdentity](./extract-pg-schema.viewcolumn.isidentity.md) |  | boolean | Whether the column is an identity column. |
-|  [isNullable?](./extract-pg-schema.viewcolumn.isnullable.md) |  | boolean | _(Optional)_ Whether the column is nullable. This is only present if the view is resolved. |
-|  [isPrimaryKey?](./extract-pg-schema.viewcolumn.isprimarykey.md) |  | boolean | _(Optional)_ Whether the column is a primary key. This is only present if the view is resolved. |
-|  [isUpdatable](./extract-pg-schema.viewcolumn.isupdatable.md) |  | boolean | Whether the column is updatable. |
-|  [maxLength](./extract-pg-schema.viewcolumn.maxlength.md) |  | number \| null | Maximum length of the column. |
-|  [name](./extract-pg-schema.viewcolumn.name.md) |  | string | Column name. |
-|  [ordinalPosition](./extract-pg-schema.viewcolumn.ordinalposition.md) |  | number | Ordinal position of the column in the view. Starts from 1. |
-|  [reference?](./extract-pg-schema.viewcolumn.reference.md) |  | [ColumnReference](./extract-pg-schema.columnreference.md) \| null | _(Optional)_ |
-|  [references?](./extract-pg-schema.viewcolumn.references.md) |  | [ColumnReference](./extract-pg-schema.columnreference.md)<!-- -->\[\] | _(Optional)_ If views are resolved, this will contain the references from the source column in the table that this view references. Note that if the source is another view, that view in turn will be resolved if possible, leading us to a table in the end. |
-|  [source](./extract-pg-schema.viewcolumn.source.md) |  | { schema: string; table: string; column: string; } \| null | This will contain a "link" to the source table or view and column, if it can be determined. |
-|  [type](./extract-pg-schema.viewcolumn.type.md) |  | [ViewColumnType](./extract-pg-schema.viewcolumntype.md) | Type information. |
+<table><thead><tr><th>
 
+Property
+
+
+</th><th>
+
+Modifiers
+
+
+</th><th>
+
+Type
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[comment](./extract-pg-schema.viewcolumn.comment.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string \| null
+
+
+</td><td>
+
+Comment on the column.
+
+
+</td></tr>
+<tr><td>
+
+[defaultValue](./extract-pg-schema.viewcolumn.defaultvalue.md)
+
+
+</td><td>
+
+
+</td><td>
+
+any
+
+
+</td><td>
+
+Default value of the column.
+
+
+</td></tr>
+<tr><td>
+
+[expandedType](./extract-pg-schema.viewcolumn.expandedtype.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string
+
+
+</td><td>
+
+Expanded type name. If the type is an array, brackets will be appended to the type name.
+
+
+</td></tr>
+<tr><td>
+
+[generated](./extract-pg-schema.viewcolumn.generated.md)
+
+
+</td><td>
+
+
+</td><td>
+
+"ALWAYS" \| "NEVER" \| "BY DEFAULT"
+
+
+</td><td>
+
+Behavior of the generated column. "ALWAYS" if always generated, "NEVER" if never generated, "BY DEFAULT" if generated when a value is not provided.
+
+
+</td></tr>
+<tr><td>
+
+[indices?](./extract-pg-schema.viewcolumn.indices.md)
+
+
+</td><td>
+
+
+</td><td>
+
+[Index](./extract-pg-schema.index.md)<!-- -->\[\]
+
+
+</td><td>
+
+_(Optional)_
+
+
+</td></tr>
+<tr><td>
+
+[informationSchemaValue](./extract-pg-schema.viewcolumn.informationschemavalue.md)
+
+
+</td><td>
+
+
+</td><td>
+
+[InformationSchemaColumn](./extract-pg-schema.informationschemacolumn.md)
+
+
+</td><td>
+
+Information schema value for the column.
+
+
+</td></tr>
+<tr><td>
+
+[isArray](./extract-pg-schema.viewcolumn.isarray.md)
+
+
+</td><td>
+
+
+</td><td>
+
+boolean
+
+
+</td><td>
+
+Whether the column is an array.
+
+
+</td></tr>
+<tr><td>
+
+[isIdentity](./extract-pg-schema.viewcolumn.isidentity.md)
+
+
+</td><td>
+
+
+</td><td>
+
+boolean
+
+
+</td><td>
+
+Whether the column is an identity column.
+
+
+</td></tr>
+<tr><td>
+
+[isNullable?](./extract-pg-schema.viewcolumn.isnullable.md)
+
+
+</td><td>
+
+
+</td><td>
+
+boolean
+
+
+</td><td>
+
+_(Optional)_ Whether the column is nullable. This is only present if the view is resolved.
+
+
+</td></tr>
+<tr><td>
+
+[isPrimaryKey?](./extract-pg-schema.viewcolumn.isprimarykey.md)
+
+
+</td><td>
+
+
+</td><td>
+
+boolean
+
+
+</td><td>
+
+_(Optional)_ Whether the column is a primary key. This is only present if the view is resolved.
+
+
+</td></tr>
+<tr><td>
+
+[isUpdatable](./extract-pg-schema.viewcolumn.isupdatable.md)
+
+
+</td><td>
+
+
+</td><td>
+
+boolean
+
+
+</td><td>
+
+Whether the column is updatable.
+
+
+</td></tr>
+<tr><td>
+
+[maxLength](./extract-pg-schema.viewcolumn.maxlength.md)
+
+
+</td><td>
+
+
+</td><td>
+
+number \| null
+
+
+</td><td>
+
+Maximum length of the column.
+
+
+</td></tr>
+<tr><td>
+
+[name](./extract-pg-schema.viewcolumn.name.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string
+
+
+</td><td>
+
+Column name.
+
+
+</td></tr>
+<tr><td>
+
+[ordinalPosition](./extract-pg-schema.viewcolumn.ordinalposition.md)
+
+
+</td><td>
+
+
+</td><td>
+
+number
+
+
+</td><td>
+
+Ordinal position of the column in the view. Starts from 1.
+
+
+</td></tr>
+<tr><td>
+
+[reference?](./extract-pg-schema.viewcolumn.reference.md)
+
+
+</td><td>
+
+
+</td><td>
+
+[ColumnReference](./extract-pg-schema.columnreference.md) \| null
+
+
+</td><td>
+
+_(Optional)_
+
+
+</td></tr>
+<tr><td>
+
+[references?](./extract-pg-schema.viewcolumn.references.md)
+
+
+</td><td>
+
+
+</td><td>
+
+[ColumnReference](./extract-pg-schema.columnreference.md)<!-- -->\[\]
+
+
+</td><td>
+
+_(Optional)_ If views are resolved, this will contain the references from the source column in the table that this view references. Note that if the source is another view, that view in turn will be resolved if possible, leading us to a table in the end.
+
+
+</td></tr>
+<tr><td>
+
+[source](./extract-pg-schema.viewcolumn.source.md)
+
+
+</td><td>
+
+
+</td><td>
+
+{ schema: string; table: string; column: string; } \| null
+
+
+</td><td>
+
+This will contain a "link" to the source table or view and column, if it can be determined.
+
+
+</td></tr>
+<tr><td>
+
+[type](./extract-pg-schema.viewcolumn.type.md)
+
+
+</td><td>
+
+
+</td><td>
+
+[ViewColumnType](./extract-pg-schema.viewcolumntype.md)
+
+
+</td><td>
+
+Type information.
+
+
+</td></tr>
+</tbody></table>

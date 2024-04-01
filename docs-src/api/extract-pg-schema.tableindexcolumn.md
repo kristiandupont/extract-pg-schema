@@ -14,8 +14,63 @@ export interface TableIndexColumn
 
 ## Properties
 
-|  Property | Modifiers | Type | Description |
-|  --- | --- | --- | --- |
-|  [definition](./extract-pg-schema.tableindexcolumn.definition.md) |  | string | Definition of index column. |
-|  [name](./extract-pg-schema.tableindexcolumn.name.md) |  | string \| null | Column name or null if functional index. |
+<table><thead><tr><th>
 
+Property
+
+
+</th><th>
+
+Modifiers
+
+
+</th><th>
+
+Type
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[definition](./extract-pg-schema.tableindexcolumn.definition.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string
+
+
+</td><td>
+
+Definition of index column.
+
+
+</td></tr>
+<tr><td>
+
+[name](./extract-pg-schema.tableindexcolumn.name.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string \| null
+
+
+</td><td>
+
+Column name or null if functional index.
+
+
+</td></tr>
+</tbody></table>

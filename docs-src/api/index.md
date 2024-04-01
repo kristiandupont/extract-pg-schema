@@ -6,7 +6,24 @@
 
 ## Packages
 
-|  Package | Description |
-|  --- | --- |
-|  [extract-pg-schema](./extract-pg-schema.md) |  |
+<table><thead><tr><th>
 
+Package
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[extract-pg-schema](./extract-pg-schema.md)
+
+
+</td><td>
+
+
+</td></tr>
+</tbody></table>

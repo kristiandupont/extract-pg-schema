@@ -14,11 +14,55 @@ declare function extractSchemas(connectionConfig: string | ConnectionConfig, opt
 
 ## Parameters
 
-|  Parameter | Type | Description |
-|  --- | --- | --- |
-|  connectionConfig | string \| ConnectionConfig | Connection string or configuration object for Postgres connection |
-|  options | [ExtractSchemaOptions](./extract-pg-schema.extractschemaoptions.md) | _(Optional)_ Optional options |
+<table><thead><tr><th>
 
+Parameter
+
+
+</th><th>
+
+Type
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+connectionConfig
+
+
+</td><td>
+
+string \| ConnectionConfig
+
+
+</td><td>
+
+Connection string or configuration object for Postgres connection
+
+
+</td></tr>
+<tr><td>
+
+options
+
+
+</td><td>
+
+[ExtractSchemaOptions](./extract-pg-schema.extractschemaoptions.md)
+
+
+</td><td>
+
+_(Optional)_ Optional options
+
+
+</td></tr>
+</tbody></table>
 **Returns:**
 
 Promise&lt;Record&lt;string, [Schema](./extract-pg-schema.schema.md)<!-- -->&gt;&gt;
