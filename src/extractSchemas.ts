@@ -9,6 +9,8 @@ import type { DomainDetails } from "./kinds/extractDomain";
 import extractDomain from "./kinds/extractDomain";
 import type { EnumDetails } from "./kinds/extractEnum";
 import extractEnum from "./kinds/extractEnum";
+import type { ForeignTableDetails } from "./kinds/extractForeignTable";
+import extractForeignTable from "./kinds/extractForeignTable";
 import type { MaterializedViewDetails } from "./kinds/extractMaterializedView";
 import extractMaterializedView from "./kinds/extractMaterializedView";
 import type { RangeDetails } from "./kinds/extractRange";
@@ -27,6 +29,7 @@ interface DetailsMap {
   enum: EnumDetails;
   range: RangeDetails;
   table: TableDetails;
+  foreignTable: ForeignTableDetails;
   materializedView: MaterializedViewDetails;
   view: ViewDetails;
   compositeType: CompositeTypeDetails;
@@ -42,6 +45,7 @@ export type Schema = {
   enums: EnumDetails[];
   ranges: RangeDetails[];
   tables: TableDetails[];
+  foreignTables: ForeignTableDetails[];
   views: ViewDetails[];
   materializedViews: MaterializedViewDetails[];
   compositeTypes: CompositeTypeDetails[];
@@ -52,6 +56,7 @@ const emptySchema: Omit<Schema, "name"> = {
   enums: [],
   ranges: [],
   tables: [],
+  foreignTables: [],
   views: [],
   materializedViews: [],
   compositeTypes: [],
@@ -67,6 +72,7 @@ const populatorMap: { [K in Kind]: Populator<K> } = {
   enum: extractEnum,
   range: extractRange,
   table: extractTable,
+  foreignTable: extractForeignTable,
   view: extractView,
   materializedView: extractMaterializedView,
   compositeType: extractCompositeType,
