@@ -109,6 +109,28 @@ This is the options object that can be passed to `extractSchemas`<!-- -->.
 </td></tr>
 <tr><td>
 
+[ForeignTableColumn](./extract-pg-schema.foreigntablecolumn.md)
+
+
+</td><td>
+
+Column in a foreign table.
+
+
+</td></tr>
+<tr><td>
+
+[ForeignTableDetails](./extract-pg-schema.foreigntabledetails.md)
+
+
+</td><td>
+
+Foreign table in a schema.
+
+
+</td></tr>
+<tr><td>
+
 [InformationSchemaColumn](./extract-pg-schema.informationschemacolumn.md)
 
 
@@ -330,6 +352,17 @@ Attribute type in a composite type.
 </td><td>
 
 Column reference.
+
+
+</td></tr>
+<tr><td>
+
+[ForeignTableColumnType](./extract-pg-schema.foreigntablecolumntype.md)
+
+
+</td><td>
+
+Column type in a foreign table.
 
 
 </td></tr>
