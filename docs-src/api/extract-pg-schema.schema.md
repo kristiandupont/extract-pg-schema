@@ -15,6 +15,7 @@ export type Schema = {
     enums: EnumDetails[];
     ranges: RangeDetails[];
     tables: TableDetails[];
+    foreignTables: ForeignTableDetails[];
     views: ViewDetails[];
     materializedViews: MaterializedViewDetails[];
     compositeTypes: CompositeTypeDetails[];

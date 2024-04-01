@@ -15,7 +15,44 @@ export interface CompositeTypeDetails extends PgType<"compositeType">
 
 ## Properties
 
-|  Property | Modifiers | Type | Description |
-|  --- | --- | --- | --- |
-|  [attributes](./extract-pg-schema.compositetypedetails.attributes.md) |  | [CompositeTypeAttribute](./extract-pg-schema.compositetypeattribute.md)<!-- -->\[\] | Attributes of the composite type. |
+<table><thead><tr><th>
 
+Property
+
+
+</th><th>
+
+Modifiers
+
+
+</th><th>
+
+Type
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[attributes](./extract-pg-schema.compositetypedetails.attributes.md)
+
+
+</td><td>
+
+
+</td><td>
+
+[CompositeTypeAttribute](./extract-pg-schema.compositetypeattribute.md)<!-- -->\[\]
+
+
+</td><td>
+
+Attributes of the composite type.
+
+
+</td></tr>
+</tbody></table>

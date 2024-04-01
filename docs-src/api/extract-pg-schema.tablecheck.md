@@ -14,8 +14,63 @@ export interface TableCheck
 
 ## Properties
 
-|  Property | Modifiers | Type | Description |
-|  --- | --- | --- | --- |
-|  [clause](./extract-pg-schema.tablecheck.clause.md) |  | string | Check constraint clause. |
-|  [name](./extract-pg-schema.tablecheck.name.md) |  | string | Name of the check constraint. |
+<table><thead><tr><th>
 
+Property
+
+
+</th><th>
+
+Modifiers
+
+
+</th><th>
+
+Type
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[clause](./extract-pg-schema.tablecheck.clause.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string
+
+
+</td><td>
+
+Check constraint clause.
+
+
+</td></tr>
+<tr><td>
+
+[name](./extract-pg-schema.tablecheck.name.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string
+
+
+</td><td>
+
+Name of the check constraint.
+
+
+</td></tr>
+</tbody></table>

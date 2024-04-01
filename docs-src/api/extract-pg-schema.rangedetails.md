@@ -15,7 +15,44 @@ export interface RangeDetails extends PgType<"range">
 
 ## Properties
 
-|  Property | Modifiers | Type | Description |
-|  --- | --- | --- | --- |
-|  [innerType](./extract-pg-schema.rangedetails.innertype.md) |  | string | Qualified name of the inner type of the range. |
+<table><thead><tr><th>
 
+Property
+
+
+</th><th>
+
+Modifiers
+
+
+</th><th>
+
+Type
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[innerType](./extract-pg-schema.rangedetails.innertype.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string
+
+
+</td><td>
+
+Qualified name of the inner type of the range.
+
+
+</td></tr>
+</tbody></table>

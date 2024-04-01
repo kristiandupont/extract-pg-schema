@@ -14,10 +14,101 @@ export interface TableIndex
 
 ## Properties
 
-|  Property | Modifiers | Type | Description |
-|  --- | --- | --- | --- |
-|  [columns](./extract-pg-schema.tableindex.columns.md) |  | [TableIndexColumn](./extract-pg-schema.tableindexcolumn.md)<!-- -->\[\] | Array of index columns in order. |
-|  [isPrimary](./extract-pg-schema.tableindex.isprimary.md) |  | boolean | Whether the index is a primary key. |
-|  [isUnique](./extract-pg-schema.tableindex.isunique.md) |  | boolean | Whether the index is unique. |
-|  [name](./extract-pg-schema.tableindex.name.md) |  | string | Name of the index. |
+<table><thead><tr><th>
 
+Property
+
+
+</th><th>
+
+Modifiers
+
+
+</th><th>
+
+Type
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[columns](./extract-pg-schema.tableindex.columns.md)
+
+
+</td><td>
+
+
+</td><td>
+
+[TableIndexColumn](./extract-pg-schema.tableindexcolumn.md)<!-- -->\[\]
+
+
+</td><td>
+
+Array of index columns in order.
+
+
+</td></tr>
+<tr><td>
+
+[isPrimary](./extract-pg-schema.tableindex.isprimary.md)
+
+
+</td><td>
+
+
+</td><td>
+
+boolean
+
+
+</td><td>
+
+Whether the index is a primary key.
+
+
+</td></tr>
+<tr><td>
+
+[isUnique](./extract-pg-schema.tableindex.isunique.md)
+
+
+</td><td>
+
+
+</td><td>
+
+boolean
+
+
+</td><td>
+
+Whether the index is unique.
+
+
+</td></tr>
+<tr><td>
+
+[name](./extract-pg-schema.tableindex.name.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string
+
+
+</td><td>
+
+Name of the index.
+
+
+</td></tr>
+</tbody></table>
