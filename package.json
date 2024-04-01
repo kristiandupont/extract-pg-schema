@@ -46,7 +46,6 @@
     "np": "9.2.0",
     "testcontainers": "10.7.1",
     "vitepress": "1.0.0-rc.44",
-    "vitest-fixture": "0.5.2",
     "vue": "3.4.19"
   },
   "np": {},

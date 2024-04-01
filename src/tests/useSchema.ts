@@ -1,32 +1,16 @@
 import type { Knex } from "knex";
-import type { StartedTestContainer } from "testcontainers";
-import type { TestType } from "vitest-fixture";
+import { afterEach, beforeEach } from "vitest";
 
-import { test as base } from "./useTestKnex";
-
-export const testWith = ({
-  schemaNames,
-}: {
-  schemaNames: string[];
-}): TestType<
-  { schema: void },
-  {
-    container: StartedTestContainer;
-  } & {
-    knex: [db: Knex, databaseName: string];
-  }
-> =>
-  base.extend<{ schema: void }>({
-    schema: async ({ knex: [db] }, use) => {
-      for (const schemaName of schemaNames) {
-        await db.schema.createSchemaIfNotExists(schemaName);
-      }
-      await use(undefined, async () => {
-        for (const schemaName of schemaNames) {
-          await db.schema.dropSchemaIfExists(schemaName, true);
-        }
-      });
-    },
+const useSchema = (getKnex: () => Knex, schemaName: string): void => {
+  beforeEach(async () => {
+    const db = getKnex();
+    await db.schema.createSchemaIfNotExists(schemaName);
   });
 
-export const test = testWith({ schemaNames: ["test"] });
+  afterEach(async () => {
+    const db = getKnex();
+    await db.schema.dropSchemaIfExists(schemaName, true);
+  });
+};
+
+export default useSchema;
