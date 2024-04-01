@@ -43,7 +43,7 @@
     "@types/jsonpath": "0.2.4",
     "@types/pg": "8.11.4",
     "@types/ramda": "0.29.12",
-    "np": "9.2.0",
+    "np": "10.0.2",
     "testcontainers": "10.8.0",
     "vitepress": "1.0.2",
     "vue": "3.4.21"
