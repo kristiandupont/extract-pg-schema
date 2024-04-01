@@ -14,6 +14,11 @@ export {
 export { type DomainDetails } from "./kinds/extractDomain";
 export { type EnumDetails } from "./kinds/extractEnum";
 export {
+  type ForeignTableColumn,
+  type ForeignTableColumnType,
+  type ForeignTableDetails,
+} from "./kinds/extractForeignTable";
+export {
   type MaterializedViewColumn,
   type MaterializedViewColumnType,
   type MaterializedViewDetails,
