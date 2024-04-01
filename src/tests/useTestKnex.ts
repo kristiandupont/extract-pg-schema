@@ -1,54 +1,58 @@
-import type { Knex } from "knex";
-import knex from "knex";
+import knex, { type Knex } from "knex";
+import { afterAll, beforeAll } from "vitest";
 
-import { test as base } from "./usePostgresContainer";
+import usePostgresContainer from "./usePostgresContainer";
 
-export const test = base.extend<
-  Record<string, unknown>,
-  { knex: [db: Knex, databaseName: string] }
->({
-  knex: [
-    async ({ container }, use) => {
-      const databaseName = `test_${Math.ceil(Math.random() * 1000)}`;
-      const connection = {
-        host: container.getHost(),
-        port: container.getMappedPort(5432),
-        password: "postgres",
-        user: "postgres",
-      };
+const useTestKnex = (): readonly [() => Knex<any, any[]>, string] => {
+  let knexInstance: Knex;
+  const databaseName = `test_${Math.ceil(Math.random() * 1000)}`;
 
-      const setupKnexInstance = knex({
-        client: "postgres",
-        connection: { ...connection, database: "postgres" },
-      });
-      await setupKnexInstance.raw("create database ??", [databaseName]);
-      await setupKnexInstance.destroy();
+  const getContainer = usePostgresContainer();
 
-      const knexInstance = knex({
-        client: "postgres",
-        connection: { ...connection, database: databaseName },
-      });
+  beforeAll(async () => {
+    const container = getContainer();
+    const connection = {
+      host: container.getHost(),
+      port: container.getMappedPort(5432),
+      password: "postgres",
+      user: "postgres",
+    };
 
-      await use([knexInstance, databaseName], async () => {
-        const connection = {
-          host: container.getHost(),
-          port: container.getMappedPort(5432),
-          password: "postgres",
-          user: "postgres",
-        };
+    const setupKnexInstance = knex({
+      client: "postgres",
+      connection: { ...connection, database: "postgres" },
+    });
+    await setupKnexInstance.raw("create database ??", [databaseName]);
+    await setupKnexInstance.destroy();
 
-        const setupKnexInstance = knex({
-          client: "postgres",
-          connection: { ...connection, database: "postgres" },
-        });
+    knexInstance = knex({
+      client: "postgres",
+      connection: { ...connection, database: databaseName },
+    });
+  });
 
-        setupKnexInstance
-          .raw(`drop database ${databaseName} with (force)`)
-          .then(() => setupKnexInstance.destroy());
+  afterAll(async () => {
+    const container = getContainer();
+    const connection = {
+      host: container.getHost(),
+      port: container.getMappedPort(5432),
+      password: "postgres",
+      user: "postgres",
+    };
 
-        await knexInstance.destroy();
-      });
-    },
-    { scope: "worker" },
-  ],
-});
+    const setupKnexInstance = knex({
+      client: "postgres",
+      connection: { ...connection, database: "postgres" },
+    });
+
+    setupKnexInstance
+      .raw(`drop database ${databaseName} with (force)`)
+      .then(() => setupKnexInstance.destroy());
+
+    await knexInstance.destroy();
+  });
+
+  return [() => knexInstance, databaseName] as const;
+};
+
+export default useTestKnex;

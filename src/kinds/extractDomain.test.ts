@@ -1,6 +1,7 @@
-import { describe, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 
-import { test } from "../tests/useSchema";
+import useSchema from "../tests/useSchema";
+import useTestKnex from "../tests/useTestKnex";
 import type { DomainDetails } from "./extractDomain";
 import extractDomain from "./extractDomain";
 import type PgType from "./PgType";
@@ -13,9 +14,11 @@ const makePgType = (name: string, schemaName = "test"): PgType<"domain"> => ({
 });
 
 describe("extractDomain", () => {
-  test("it should extract simplified as well as full information_schema information", async ({
-    knex: [db, databaseName],
-  }) => {
+  const [getKnex, databaseName] = useTestKnex();
+  useSchema(getKnex, "test");
+
+  it("should extract simplified as well as full information_schema information", async () => {
+    const db = getKnex();
     await db.raw("create domain test.some_domain as integer");
 
     const result = await extractDomain(db, makePgType("some_domain"));
