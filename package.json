@@ -39,7 +39,7 @@
   "devDependencies": {
     "@kristiandupont/dev-deps": "^2.23.0",
     "@microsoft/api-documenter": "7.23.31",
-    "@microsoft/api-extractor": "7.41.0",
+    "@microsoft/api-extractor": "7.43.0",
     "@types/jsonpath": "0.2.4",
     "@types/pg": "8.11.1",
     "@types/ramda": "0.29.12",
