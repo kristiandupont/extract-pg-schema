@@ -1,7 +1,8 @@
 import * as R from "ramda";
-import { describe, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 
-import { test, testWith } from "../tests/useSchema";
+import useSchema from "../tests/useSchema";
+import useTestKnex from "../tests/useTestKnex";
 import type {
   ColumnReference,
   Index,
@@ -23,9 +24,11 @@ const makePgType = (name: string, schemaName = "test"): PgType<"table"> => ({
 
 // const test = testWith({ schemaNames: ['test'] });
 describe("extractTable", () => {
-  test("it should extract simplified as well as full information_schema information", async ({
-    knex: [db, databaseName],
-  }) => {
+  const [getKnex, databaseName] = useTestKnex();
+  useSchema(getKnex, "test");
+
+  it("should extract simplified as well as full information_schema information", async () => {
+    const db = getKnex();
     await db.raw("create table test.some_table (id integer)");
 
     const result = await extractTable(db, makePgType("some_table"));
@@ -127,7 +130,8 @@ describe("extractTable", () => {
     expect(result).toStrictEqual(expected);
   });
 
-  test("it should fetch column comments", async ({ knex: [db] }) => {
+  it("should fetch column comments", async () => {
+    const db = getKnex();
     await db.raw("create table test.some_table (id integer)");
     await db.raw("comment on column test.some_table.id is 'id column'");
 
@@ -136,7 +140,8 @@ describe("extractTable", () => {
     expect(result.columns[0].comment).toBe("id column");
   });
 
-  test("it should handle arrays of primitive types", async ({ knex: [db] }) => {
+  it("should handle arrays of primitive types", async () => {
+    const db = getKnex();
     await db.raw(
       "create table test.some_table (array_of_ints integer[], array_of_strings text[], two_dimensional_array integer[][])",
     );
@@ -170,7 +175,8 @@ describe("extractTable", () => {
     expect(actual).toEqual(expected);
   });
 
-  test("it should fetch table checks", async ({ knex: [db] }) => {
+  it("should fetch table checks", async () => {
+    const db = getKnex();
     await db.raw(`create table test.some_table_with_checks (
         id integer constraint id_check check (id > 0),
         products TEXT[],
@@ -192,9 +198,8 @@ describe("extractTable", () => {
     expect(actual).toEqual(expected);
   });
 
-  test("it should handle domains, composite types, ranges and enums as well as arrays of those", async ({
-    knex: [db],
-  }) => {
+  it("should handle domains, composite types, ranges and enums as well as arrays of those", async () => {
+    const db = getKnex();
     await db.raw("create domain test.some_domain as text");
     await db.raw("create type test.some_composite as (id integer, name text)");
     await db.raw("create type test.some_range as range(subtype=timestamptz)");
@@ -286,9 +291,10 @@ describe("extractTable", () => {
   });
 
   describe("references", () => {
-    const test = testWith({ schemaNames: ["test", "secondary_schema"] });
+    useSchema(getKnex, "secondary_schema");
 
-    test("it should extract a simple foreign key", async ({ knex: [db] }) => {
+    it("should extract a simple foreign key", async () => {
+      const db = getKnex();
       await db.raw("create table test.some_table (id integer primary key)");
       await db.raw(
         "create table test.linking_table (some_table_id integer references test.some_table(id))",
@@ -310,9 +316,8 @@ describe("extractTable", () => {
       expect(result.columns[0].reference).toEqual(expected);
     });
 
-    test("it should extract a foreign key with a different schema", async ({
-      knex: [db],
-    }) => {
+    it("should extract a foreign key with a different schema", async () => {
+      const db = getKnex();
       await db.raw(
         "create table secondary_schema.some_table (id integer primary key)",
       );
@@ -333,9 +338,8 @@ describe("extractTable", () => {
       expect(result.columns[0].references).toEqual([expected]);
     });
 
-    test("it should get the onDelete and onUpdate actions", async ({
-      knex: [db],
-    }) => {
+    it("should get the onDelete and onUpdate actions", async () => {
+      const db = getKnex();
       await db.raw("create table test.some_table (id integer primary key)");
       await db.raw(
         "create table test.linking_table (some_table_id integer references test.some_table(id) on delete cascade on update set null)",
@@ -356,7 +360,8 @@ describe("extractTable", () => {
   });
 
   describe("indices", () => {
-    test("it should extract a simple index", async ({ knex: [db] }) => {
+    it("should extract a simple index", async () => {
+      const db = getKnex();
       await db.raw("create table test.some_table (id integer)");
       await db.raw("create index some_table_id_idx on test.some_table (id)");
 
@@ -379,7 +384,8 @@ describe("extractTable", () => {
       expect(result.indices).toStrictEqual(expected);
     });
 
-    test("it should extract a unique index", async ({ knex: [db] }) => {
+    it("should extract a unique index", async () => {
+      const db = getKnex();
       await db.raw("create table test.some_table (id integer)");
       await db.raw(
         "create unique index some_table_id_idx on test.some_table (id)",
@@ -404,7 +410,8 @@ describe("extractTable", () => {
       expect(result.indices).toStrictEqual(expected);
     });
 
-    test("it should extract a primary key", async ({ knex: [db] }) => {
+    it("it should extract a primary key", async () => {
+      const db = getKnex();
       await db.raw("create table test.some_table (id integer primary key)");
 
       const result = await extractTable(db, makePgType("some_table"));
@@ -426,7 +433,8 @@ describe("extractTable", () => {
       expect(result.indices).toStrictEqual(expected);
     });
 
-    test("it should extract a multi-column index", async ({ knex: [db] }) => {
+    it("should extract a multi-column index", async () => {
+      const db = getKnex();
       await db.raw("create table test.some_table (id integer, kind integer)");
       await db.raw(
         "create index some_table_id_idx on test.some_table (id, kind)",
@@ -455,7 +463,8 @@ describe("extractTable", () => {
       expect(result.indices).toStrictEqual(expected);
     });
 
-    test("it should extract a functional index", async ({ knex: [db] }) => {
+    it("should extract a functional index", async () => {
+      const db = getKnex();
       await db.raw("create table test.some_table (id integer)");
       await db.raw(
         "create index some_table_id_idx on test.some_table (abs(id))",
@@ -482,9 +491,8 @@ describe("extractTable", () => {
   });
 
   describe("row-level security", () => {
-    test("it should extract isRowLevelSecurityEnabled", async ({
-      knex: [db],
-    }) => {
+    it("should extract isRowLevelSecurityEnabled", async () => {
+      const db = getKnex();
       await db.raw("create table test.some_table (id integer primary key)");
       await db.raw("alter table test.some_table enable row level security");
 
@@ -494,9 +502,8 @@ describe("extractTable", () => {
       expect(result.isRowLevelSecurityEnforced).toEqual(false);
     });
 
-    test("it should extract isRowLevelSecurityEnforced", async ({
-      knex: [db],
-    }) => {
+    it("should extract isRowLevelSecurityEnforced", async () => {
+      const db = getKnex();
       await db.raw("create table test.some_table (id integer primary key)");
       await db.raw("alter table test.some_table force row level security");
 
@@ -508,9 +515,8 @@ describe("extractTable", () => {
   });
 
   describe("securityPolicies", () => {
-    test("it should extract empty array when no policy is defined", async ({
-      knex: [db],
-    }) => {
+    it("should extract empty array when no policy is defined", async () => {
+      const db = getKnex();
       await db.raw("create table test.some_table (id integer primary key)");
 
       const result = await extractTable(db, makePgType("some_table"));
@@ -519,9 +525,8 @@ describe("extractTable", () => {
       expect(result.securityPolicies).toEqual(expected);
     });
 
-    test("it should extract a simple security policy", async ({
-      knex: [db],
-    }) => {
+    it("it should extract a simple security policy", async () => {
+      const db = getKnex();
       await db.raw("create table test.some_table (id integer primary key)");
       await db.raw("create policy test_policy on test.some_table");
 
@@ -540,9 +545,8 @@ describe("extractTable", () => {
       expect(result.securityPolicies).toEqual(expected);
     });
 
-    test("it should extract a complex security policy", async ({
-      knex: [db],
-    }) => {
+    it("it should extract a complex security policy", async () => {
+      const db = getKnex();
       await db.raw("create table test.some_table (id integer primary key)");
       await db.raw("create role test_role");
       await db.raw(
@@ -566,9 +570,8 @@ describe("extractTable", () => {
   });
 
   describe("bugfixes", () => {
-    test("should not report duplicate columns when a column has multiple foreign key constraints", async ({
-      knex: [db],
-    }) => {
+    it("should not report duplicate columns when a column has multiple foreign key constraints", async () => {
+      const db = getKnex();
       await db.raw("create table test.some_table (id integer primary key)");
       await db.raw(
         `create table test.linking_table (
@@ -612,9 +615,8 @@ describe("extractTable", () => {
       });
     });
 
-    test("should not extract indices from another schema", async ({
-      knex: [db],
-    }) => {
+    it("should not extract indices from another schema", async () => {
+      const db = getKnex();
       await db.raw("create table test.some_table (id integer)");
       await db.raw("create index some_table_id_idx on test.some_table (id)");
       await db.raw("create schema test2");

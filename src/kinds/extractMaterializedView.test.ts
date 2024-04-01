@@ -1,7 +1,8 @@
 import * as R from "ramda";
-import { describe, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 
-import { test } from "../tests/useSchema";
+import useSchema from "../tests/useSchema";
+import useTestKnex from "../tests/useTestKnex";
 import type {
   MaterializedViewColumn,
   MaterializedViewDetails,
@@ -20,9 +21,11 @@ const makePgType = (
 });
 
 describe("extractMaterializedView", () => {
-  test("it should extract simplified information", async ({
-    knex: [db, databaseName],
-  }) => {
+  const [getKnex, databaseName] = useTestKnex();
+  useSchema(getKnex, "test");
+
+  it("should extract simplified information", async () => {
+    const db = getKnex();
     await db.raw(
       "create materialized view test.some_materialized_view as select 1 as id",
     );
@@ -120,7 +123,8 @@ describe("extractMaterializedView", () => {
     expect(result).toStrictEqual(expected);
   });
 
-  test("it should fetch column comments", async ({ knex: [db] }) => {
+  it("should fetch column comments", async () => {
+    const db = getKnex();
     await db.raw(
       "create materialized view test.some_materialized_view as select 1 as id",
     );
@@ -136,9 +140,8 @@ describe("extractMaterializedView", () => {
     expect(result.columns[0].comment).toBe("id column");
   });
 
-  test("it should handle domains, composite types, ranges and enums as well as arrays of those", async ({
-    knex: [db],
-  }) => {
+  it("should handle domains, composite types, ranges and enums as well as arrays of those", async () => {
+    const db = getKnex();
     await db.raw("create domain test.some_domain as text");
     await db.raw("create type test.some_composite as (id integer, name text)");
     await db.raw("create type test.some_range as range(subtype=timestamptz)");
