@@ -18,12 +18,12 @@ export const classKindMap = {
   v: "view",
   m: "materializedView",
   c: "compositeType",
+  f: "foreignTable",
 
   // Not supported (yet):
   // i: 'index',
   // S: 'sequence',
   // t: 'toastTable',
-  // f: 'foreignTable',
   // I: 'partitionedIndex',
 } as const;
 type ClassKind = (typeof classKindMap)[keyof typeof classKindMap];
