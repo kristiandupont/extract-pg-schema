@@ -46,7 +46,7 @@
     "np": "10.0.6",
     "testcontainers": "10.13.2",
     "vitepress": "1.4.0",
-    "vue": "3.4.37"
+    "vue": "3.5.11"
   },
   "np": {},
   "engines": {
