@@ -7,7 +7,7 @@ import extractSchemas from "../extractSchemas";
 const tryParse = (str: string) => {
   try {
     return parse(str);
-  } catch (e) {
+  } catch (_e) {
     return { comment: str || undefined, tags: {} };
   }
 };
