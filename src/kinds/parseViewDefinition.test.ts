@@ -3,10 +3,10 @@ import { describe, expect, it } from "vitest";
 import parseViewDefinition from "./parseViewDefinition";
 
 describe("parseViewDefinition", () => {
-  it("should understand a trivial select", () => {
+  it("should understand a trivial select", async () => {
     const query = `SELECT id FROM service`;
 
-    const def = parseViewDefinition(query, "public");
+    const def = await parseViewDefinition(query, "public");
     expect(def).toEqual([
       {
         viewColumn: "id",
@@ -19,10 +19,10 @@ describe("parseViewDefinition", () => {
     ]);
   });
 
-  it("should understand a select with explicit schema", () => {
+  it("should understand a select with explicit schema", async () => {
     const query = `SELECT id FROM store.service`;
 
-    const def = parseViewDefinition(query, "public");
+    const def = await parseViewDefinition(query, "public");
     expect(def).toEqual([
       {
         viewColumn: "id",
@@ -35,7 +35,7 @@ describe("parseViewDefinition", () => {
     ]);
   });
 
-  it("should understand a select with join", () => {
+  it("should understand a select with join", async () => {
     const query = `SELECT service.id,
     service."createdAt",
     service.name,
@@ -43,7 +43,7 @@ describe("parseViewDefinition", () => {
    FROM service
      LEFT JOIN "oauthConnection" ON service."oauthConnectionId" = "oauthConnection".id;`;
 
-    const def = parseViewDefinition(query, "public");
+    const def = await parseViewDefinition(query, "public");
     expect(def).toEqual([
       {
         viewColumn: "id",
@@ -80,14 +80,14 @@ describe("parseViewDefinition", () => {
     ]);
   });
 
-  it("should work with multiple schemas and with aliases", () => {
+  it("should work with multiple schemas and with aliases", async () => {
     const query = `
     select u.id as uid, um.id as umid 
       from test1.users u 
       join test2.user_managers um 
       on um.user_id = u.id;`;
 
-    const def = parseViewDefinition(query, "public");
+    const def = await parseViewDefinition(query, "public");
     expect(def).toEqual([
       {
         viewColumn: "uid",
@@ -108,7 +108,7 @@ describe("parseViewDefinition", () => {
     ]);
   });
 
-  it("should return undefined for unresolvable columns", () => {
+  it("should return undefined for unresolvable columns", async () => {
     const query = `
   SELECT cu.customer_id AS id,
     (cu.first_name::text || ' '::text) || cu.last_name::text AS name,
@@ -127,7 +127,7 @@ describe("parseViewDefinition", () => {
      JOIN city ON a.city_id = city.city_id
      JOIN country ON city.country_id = country.country_id;`;
 
-    const def = parseViewDefinition(query, "public");
+    const def = await parseViewDefinition(query, "public");
     expect(def).toEqual([
       {
         viewColumn: "id",
@@ -196,7 +196,7 @@ describe("parseViewDefinition", () => {
     ]);
   });
 
-  it("should work with a minimalistic WITH clause", () => {
+  it("should work with a minimalistic WITH clause", async () => {
     const query = `
     WITH RECURSIVE hierarchy_cte AS (
       SELECT posting.date,
@@ -211,7 +211,7 @@ describe("parseViewDefinition", () => {
     FROM hierarchy_cte;
     `;
 
-    const def = parseViewDefinition(query, "public");
+    const def = await parseViewDefinition(query, "public");
 
     expect(def).toEqual([
       {
@@ -241,7 +241,7 @@ describe("parseViewDefinition", () => {
     ]);
   });
 
-  it("should resolve kanel#481", () => {
+  it("should resolve kanel#481", async () => {
     const query = `
     WITH RECURSIVE hierarchy_cte AS (
       SELECT posting.date,
@@ -262,7 +262,7 @@ describe("parseViewDefinition", () => {
     FROM hierarchy_cte;
     `;
 
-    const def = parseViewDefinition(query, "public");
+    const def = await parseViewDefinition(query, "public");
 
     expect(def).toEqual([
       {
