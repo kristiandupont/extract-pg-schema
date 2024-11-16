@@ -1,6 +1,16 @@
 import jp from "jsonpath";
-import pgQuery from "pg-query-emscripten";
 import { last } from "ramda";
+
+let pgQueryInstance: any;
+const getPgQuery = async () => {
+  if (!pgQueryInstance) {
+    const { default: pgQueryModule } = await import(
+      "pg-query-emscripten/pg_query_wasm"
+    );
+    pgQueryInstance = await new pgQueryModule();
+  }
+  return pgQueryInstance;
+};
 
 export type ViewReference = {
   viewColumn: string;
@@ -21,8 +31,8 @@ function parseSelectStmt(
   if (selectAst.larg && selectAst.rarg) {
     // This is a UNION, INTERSECT, or EXCEPT operation
     return [
-      ...parseSelectStmt(selectAst.larg.SelectStmt, defaultSchema, aliases),
-      ...parseSelectStmt(selectAst.rarg.SelectStmt, defaultSchema, aliases),
+      ...parseSelectStmt(selectAst.larg, defaultSchema, aliases),
+      ...parseSelectStmt(selectAst.rarg, defaultSchema, aliases),
     ];
   }
 
@@ -34,7 +44,7 @@ function parseSelectStmt(
     const selectTargets = jp.query(selectAst, "$.targetList[*].ResTarget");
 
     selectTargets.forEach((selectTarget: any) => {
-      const fields = jp.query(selectTarget, "$.val[*].fields[*].String.str");
+      const fields = jp.query(selectTarget, "$.val[*].fields[*].String.sval");
       let sourceTable = fromTable?.relname;
       let sourceSchema = fromTable?.schemaname;
       if (fields.length === 2) {
@@ -65,12 +75,13 @@ function parseSelectStmt(
 
   return viewReferences;
 }
-function parseViewDefinition(
+async function parseViewDefinition(
   selectStatement: string,
   defaultSchema: string,
-): ViewReference[] {
-  const ast = pgQuery.parse(selectStatement).parse_tree[0];
-  const selectAst = ast.RawStmt?.stmt?.SelectStmt;
+): Promise<ViewReference[]> {
+  const pgQuery = await getPgQuery();
+  const ast = pgQuery.parse(selectStatement).parse_tree.stmts[0];
+  const selectAst = ast?.stmt?.SelectStmt;
 
   if (!selectAst) {
     throw new Error(
@@ -80,17 +91,17 @@ function parseViewDefinition(
 
   const aliasDefinitions = jp.query(
     ast,
-    "$.RawStmt.stmt.SelectStmt.fromClause..[?(@.alias)]",
+    "$.stmt.SelectStmt.fromClause..[?(@.alias)]",
   );
 
   const aliases = Object.fromEntries(
     aliasDefinitions.map(({ schemaname, relname, alias }) => [
-      alias.Alias.aliasname,
+      alias.aliasname,
       { schema: schemaname, table: relname },
     ]),
   );
 
-  const withClauses = selectAst.withClause?.WithClause?.ctes || [];
+  const withClauses = selectAst.withClause?.ctes || [];
 
   const cteAliases: Record<string, ViewReference[]> = {};
 
