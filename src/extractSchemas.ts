@@ -1,5 +1,6 @@
 import type { Knex } from "knex";
 import knex from "knex";
+import ClientPgLite from "knex-pglite";
 import type { ConnectionConfig } from "pg";
 import * as R from "ramda";
 
@@ -132,7 +133,16 @@ async function extractSchemas(
   options?: ExtractSchemaOptions,
 ): Promise<Record<string, Schema>> {
   const connection = connectionConfig as string | Knex.PgConnectionConfig;
-  const db = knex({ client: "postgres", connection });
+  let db;
+  if (typeof connection === "string" && connection.startsWith("file:")) {
+    db = knex({
+      client: ClientPgLite,
+      dialect: "postgres",
+      connection: { filename: connection.slice("file:".length) },
+    });
+  } else {
+    db = knex({ client: "postgres", connection });
+  }
 
   const q = await db
     .select<{ nspname: string }[]>("nspname")
