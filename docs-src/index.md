@@ -34,6 +34,10 @@ run();
 
 The generated output is a record of schemas, described with the [Schema](/api/extract-pg-schema.schema.html) type.
 
+## pglite
+
+The `connection` parameter can either be an object like shown above or a connection string. If the connection string starts with "file:" the specified path is opened using pglite. For example, when providing `file:my/pglite/db/folder`, the folder `'my/pglite/db/folder'` is opened using pglite.
+
 ## CLI Usage
 
 You can also use the CLI to extract the schemas from a database and write it to the console or a file in JSON format.
