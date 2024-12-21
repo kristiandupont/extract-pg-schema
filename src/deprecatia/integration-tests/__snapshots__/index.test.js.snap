@@ -6829,6 +6829,11 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "actor_info",
+      "options": {
+        "checkOption": null,
+        "securityBarrier": false,
+        "securityInvoker": false,
+      },
       "tags": {},
     },
     {
@@ -7455,6 +7460,11 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "customer_list",
+      "options": {
+        "checkOption": null,
+        "securityBarrier": false,
+        "securityInvoker": false,
+      },
       "tags": {},
     },
     {
@@ -8018,6 +8028,11 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "film_list",
+      "options": {
+        "checkOption": null,
+        "securityBarrier": false,
+        "securityInvoker": false,
+      },
       "tags": {},
     },
     {
@@ -8581,6 +8596,11 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "nicer_but_slower_film_list",
+      "options": {
+        "checkOption": null,
+        "securityBarrier": false,
+        "securityInvoker": false,
+      },
       "tags": {},
     },
     {
@@ -8720,6 +8740,11 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "sales_by_film_category",
+      "options": {
+        "checkOption": null,
+        "securityBarrier": false,
+        "securityInvoker": false,
+      },
       "tags": {},
     },
     {
@@ -8916,6 +8941,11 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "sales_by_store",
+      "options": {
+        "checkOption": null,
+        "securityBarrier": false,
+        "securityInvoker": false,
+      },
       "tags": {},
     },
     {
@@ -9474,6 +9504,11 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "staff_list",
+      "options": {
+        "checkOption": null,
+        "securityBarrier": false,
+        "securityInvoker": false,
+      },
       "tags": {},
     },
   ],
