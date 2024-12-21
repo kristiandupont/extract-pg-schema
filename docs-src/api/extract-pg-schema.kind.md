@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-export type Kind = TypeKind | ClassKind;
+export type Kind = TypeKind | ClassKind | RoutineKind;
 ```
