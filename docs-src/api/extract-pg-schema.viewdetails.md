@@ -93,4 +93,23 @@ Information schema value for the view.
 
 
 </td></tr>
+<tr><td>
+
+[options](./extract-pg-schema.viewdetails.options.md)
+
+
+</td><td>
+
+
+</td><td>
+
+{ checkOption: "local" \| "cascaded" \| null; securityBarrier: boolean; securityInvoker: boolean; }
+
+
+</td><td>
+
+View options
+
+
+</td></tr>
 </tbody></table>
