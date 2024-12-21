@@ -125,6 +125,23 @@ export interface ViewDetails extends PgType<"view"> {
    * Columns in the view.
    */
   columns: ViewColumn[];
+  /**
+   * View options
+   */
+  options: {
+    /**
+     * Check option mode: 'LOCAL', 'CASCADED', or null if not set
+     */
+    checkOption: "local" | "cascaded" | null;
+    /**
+     * Whether the view is marked as a security barrier
+     */
+    securityBarrier: boolean;
+    /**
+     * Whether the view uses invoker rights for permission checks
+     */
+    securityInvoker: boolean;
+  };
 }
 
 // NOTE: This is NOT identical for the one for tables.
@@ -217,6 +234,34 @@ const extractView = async (
     { table_name: view.name, schema_name: view.schemaName },
   );
 
+  const viewOptionsQuery = await db.raw(
+    `
+    SELECT
+      CASE 
+        WHEN c.relkind = 'v' THEN (
+          SELECT option_value
+          FROM pg_options_to_table(reloptions)
+          WHERE option_name = 'check_option'
+        )
+      END as check_option,
+      COALESCE((
+        SELECT option_value::boolean
+        FROM pg_options_to_table(reloptions)
+        WHERE option_name = 'security_barrier'
+      ), false) as security_barrier,
+      COALESCE((
+        SELECT option_value::boolean
+        FROM pg_options_to_table(reloptions)
+        WHERE option_name = 'security_invoker'
+      ), false) as security_invoker
+    FROM pg_class c
+    JOIN pg_namespace n ON n.oid = c.relnamespace
+    WHERE n.nspname = :schema_name
+    AND c.relname = :table_name
+  `,
+    { table_name: view.name, schema_name: view.schemaName },
+  );
+
   const unresolvedColumns: ViewColumn[] = columnsQuery.rows;
   let sourceMapping: Record<string, ViewReference> | undefined;
   try {
@@ -240,6 +285,11 @@ const extractView = async (
     definition: informationSchemaValue.view_definition,
     informationSchemaValue,
     columns,
+    options: {
+      checkOption: viewOptionsQuery.rows[0].check_option,
+      securityBarrier: viewOptionsQuery.rows[0].security_barrier,
+      securityInvoker: viewOptionsQuery.rows[0].security_invoker,
+    },
   };
 };
 
