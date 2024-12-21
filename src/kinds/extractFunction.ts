@@ -111,7 +111,7 @@ async function extractFunction(
 
   const row = rows[0];
 
-  const argTypes = row.arg_types ? row.arg_types.split(",") : [];
+  const argTypes = (row.arg_types ? row.arg_types.split(",") : []) as string[];
 
   const paramModes = row.proargmodes
     ? parsePostgresArray(String(row.proargmodes))
@@ -136,7 +136,7 @@ async function extractFunction(
     row.full_return_type &&
     row.full_return_type.toLowerCase().includes("table")
   ) {
-    const tableMatch = row.full_return_type.match(/TABLE\((.*)\)/i);
+    const tableMatch = (row.full_return_type as string).match(/TABLE\((.*)\)/i);
     if (tableMatch) {
       const columnDefs = tableMatch[1].split(",").map((col) => {
         const [name, type] = col.trim().split(/\s+/);
