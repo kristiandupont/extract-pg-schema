@@ -200,7 +200,6 @@ describe("extractFunction", () => {
       $$ language plpgsql`);
 
     const result = await extractFunction(db, makePgType("returns_complex"));
-    console.log("RESULT; ", result);
 
     expect(result.returnType).toMatchObject({
       type: "table",
