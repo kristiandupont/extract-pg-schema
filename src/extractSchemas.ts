@@ -12,8 +12,12 @@ import type { EnumDetails } from "./kinds/extractEnum";
 import extractEnum from "./kinds/extractEnum";
 import type { ForeignTableDetails } from "./kinds/extractForeignTable";
 import extractForeignTable from "./kinds/extractForeignTable";
+import type { FunctionDetails } from "./kinds/extractFunction";
+import extractFunction from "./kinds/extractFunction";
 import type { MaterializedViewDetails } from "./kinds/extractMaterializedView";
 import extractMaterializedView from "./kinds/extractMaterializedView";
+import type { ProcedureDetails } from "./kinds/extractProcedure";
+import extractProcedure from "./kinds/extractProcedure";
 import type { RangeDetails } from "./kinds/extractRange";
 import extractRange from "./kinds/extractRange";
 import type { TableDetails } from "./kinds/extractTable";
@@ -34,6 +38,8 @@ interface DetailsMap {
   materializedView: MaterializedViewDetails;
   view: ViewDetails;
   compositeType: CompositeTypeDetails;
+  function: FunctionDetails;
+  procedure: ProcedureDetails;
 }
 
 /**
@@ -50,6 +56,8 @@ export type Schema = {
   views: ViewDetails[];
   materializedViews: MaterializedViewDetails[];
   compositeTypes: CompositeTypeDetails[];
+  functions: FunctionDetails[];
+  procedures: ProcedureDetails[];
 };
 
 const emptySchema: Omit<Schema, "name"> = {
@@ -61,6 +69,8 @@ const emptySchema: Omit<Schema, "name"> = {
   views: [],
   materializedViews: [],
   compositeTypes: [],
+  functions: [],
+  procedures: [],
 };
 
 type Populator<K extends Kind> = (
@@ -77,6 +87,8 @@ const populatorMap: { [K in Kind]: Populator<K> } = {
   view: extractView,
   materializedView: extractMaterializedView,
   compositeType: extractCompositeType,
+  function: extractFunction,
+  procedure: extractProcedure,
 };
 
 /**
