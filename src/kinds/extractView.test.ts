@@ -107,6 +107,11 @@ describe("extractView", () => {
           },
         },
       ],
+      options: {
+        checkOption: null,
+        securityBarrier: false,
+        securityInvoker: false,
+      },
     };
 
     expect(result).toStrictEqual(expected);
@@ -228,6 +233,37 @@ describe("extractView", () => {
       schema: "test",
       table: "some_table",
       column: "id",
+    });
+  });
+
+  it("should extract view options", async () => {
+    const db = getKnex();
+    await db.raw("create table test.source_table (id integer)");
+    await db.raw(`
+      create view test.some_view 
+      with (check_option = local, security_barrier = true, security_invoker = true) 
+      as select id from test.source_table
+    `);
+
+    const result = await extractView(db, makePgType("some_view"));
+
+    expect(result.options).toEqual({
+      checkOption: "local",
+      securityBarrier: true,
+      securityInvoker: true,
+    });
+  });
+
+  it("should handle views without explicit options", async () => {
+    const db = getKnex();
+    await db.raw("create view test.some_view as select 1 as id");
+
+    const result = await extractView(db, makePgType("some_view"));
+
+    expect(result.options).toEqual({
+      checkOption: null,
+      securityBarrier: false,
+      securityInvoker: false,
     });
   });
 });
