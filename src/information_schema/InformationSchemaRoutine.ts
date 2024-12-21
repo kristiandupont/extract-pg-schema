@@ -17,7 +17,7 @@ interface InformationSchemaRoutine {
   /** Name of the function (might be duplicated in case of overloading) */
   routine_name: string;
   /** Always FUNCTION (In the future there might be other types of routines.) */
-  routine_type: "FUNCTION";
+  routine_type: "FUNCTION" | "PROCEDURE";
   /** Applies to a feature not available in PostgreSQL */
   module_catalog: string | null;
   /** Applies to a feature not available in PostgreSQL */
@@ -31,7 +31,7 @@ interface InformationSchemaRoutine {
   /** Applies to a feature not available in PostgreSQL */
   udt_name: string | null;
   /** Return data type of the function */
-  data_type: string;
+  data_type: string | null;
   /** Always null, since this information is not applied to return data types in PostgreSQL */
   character_maximum_length: number | null;
   /** Always null, since this information is not applied to return data types in PostgreSQL */
@@ -91,7 +91,7 @@ interface InformationSchemaRoutine {
   /** Always MODIFIES, meaning that the function possibly modifies SQL data */
   sql_data_access: "MODIFIES";
   /** If the function automatically returns null if any of its arguments are null, then YES, else NO */
-  is_null_call: YesNo;
+  is_null_call: YesNo | null;
   /** Applies to a feature not available in PostgreSQL */
   sql_path: string | null;
   /** Always YES (The opposite would be a method of a user-defined type, which is not available in PostgreSQL) */
