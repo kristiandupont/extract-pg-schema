@@ -3,6 +3,7 @@ export type { ExtractSchemaOptions, Schema } from "./extractSchemas";
 export { default as extractSchemas } from "./extractSchemas";
 export type { default as InformationSchemaColumn } from "./information_schema/InformationSchemaColumn";
 export type { default as InformationSchemaDomain } from "./information_schema/InformationSchemaDomain";
+export type { default as InformationSchemaRoutine } from "./information_schema/InformationSchemaRoutine";
 export type { default as InformationSchemaTable } from "./information_schema/InformationSchemaTable";
 export type { default as InformationSchemaView } from "./information_schema/InformationSchemaView";
 export type { default as YesNo } from "./information_schema/YesNo";
@@ -11,8 +12,8 @@ export type {
   CompositeTypeAttribute,
   CompositeTypeDetails,
 } from "./kinds/extractCompositeType";
-export type { default as DomainDetails } from "./kinds/extractDomain";
-export type { default as EnumDetails } from "./kinds/extractEnum";
+export type { DomainDetails } from "./kinds/extractDomain";
+export type { EnumDetails } from "./kinds/extractEnum";
 export type {
   ForeignTableColumn,
   ForeignTableColumnType,
@@ -28,10 +29,10 @@ export type {
   MaterializedViewDetails,
 } from "./kinds/extractMaterializedView";
 export type {
-  default as ProcedureDetails,
+  ProcedureDetails,
   ProcedureParameter,
 } from "./kinds/extractProcedure";
-export type { default as RangeDetails } from "./kinds/extractRange";
+export type { RangeDetails } from "./kinds/extractRange";
 export type {
   ColumnReference,
   Index,
