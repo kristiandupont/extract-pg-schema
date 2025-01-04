@@ -68,7 +68,8 @@ const fetchTypes = async (
     .join("pg_catalog.pg_language", "pg_language.oid", "pg_proc.prolang")
     .whereNotIn("pg_proc.oid", extClassOids)
     .whereIn("pg_namespace.nspname", schemaNames)
-    .whereIn("prokind", ["f", "p", "a", "w"])
+    // .whereIn("prokind", ["f", "p", "a", "w"])
+    .whereIn("prokind", ["f", "p"]) // TODO: Add support for aggregate and window functions
     .whereNot("pg_language.lanname", "internal");
 
   return typeQuery.union(procQuery);
