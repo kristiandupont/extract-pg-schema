@@ -124,7 +124,7 @@ describe("extractFunction", () => {
         result_cast_dtd_identifier: null,
       } as InformationSchemaRoutine,
     };
-    expect(result).toMatchObject(expected);
+    expect(result[0]).toMatchObject(expected);
   });
 
   it("should extract function details with arguments", async () => {
@@ -153,7 +153,7 @@ describe("extractFunction", () => {
       language: "plpgsql",
       definition: " BEGIN return $1; END; ",
     };
-    expect(result).toMatchObject(expected);
+    expect(result[0]).toMatchObject(expected);
   });
 
   it("should handle different parameter modes", async () => {
@@ -173,7 +173,7 @@ describe("extractFunction", () => {
 
     const result = await extractFunction(db, makePgType("param_modes"));
 
-    expect(result.parameters).toMatchObject([
+    expect(result[0].parameters).toMatchObject([
       { name: "in_param", mode: "IN", type: "text" },
       { name: "out_param", mode: "OUT", type: "text" },
       { name: "inout_param", mode: "INOUT", type: "integer" },
@@ -185,7 +185,7 @@ describe("extractFunction", () => {
     const db = getKnex();
     await db.raw(`
       create type test.complex_type as (id int, name text);
-      
+
       create function test.returns_complex()
       returns table(
         id integer,
@@ -201,7 +201,7 @@ describe("extractFunction", () => {
 
     const result = await extractFunction(db, makePgType("returns_complex"));
 
-    expect(result.returnType).toMatchObject({
+    expect(result[0].returnType).toMatchObject({
       type: "table",
       columns: [
         { name: "id", type: "integer" },
@@ -233,7 +233,7 @@ describe("extractFunction", () => {
 
     const result = await extractFunction(db, makePgType("with_attributes"));
 
-    expect(result).toMatchObject({
+    expect(result[0]).toMatchObject({
       isStrict: true,
       isSecurityDefiner: true,
       isLeakProof: true,
