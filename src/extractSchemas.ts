@@ -76,7 +76,7 @@ const emptySchema: Omit<Schema, "name"> = {
 type Populator<K extends Kind> = (
   db: Knex,
   pgType: PgType<K>,
-) => Promise<DetailsMap[K]>;
+) => Promise<DetailsMap[K] | DetailsMap[K][]>;
 
 const populatorMap: { [K in Kind]: Populator<K> } = {
   domain: extractDomain,
@@ -182,15 +182,17 @@ async function extractSchemas(
 
   options?.onProgressStart?.(typesToExtract.length);
 
-  const populated = await Promise.all(
-    typesToExtract.map(async (pgType) => {
-      const result = await (
-        populatorMap[pgType.kind] as Populator<typeof pgType.kind>
-      )(db, pgType);
-      options?.onProgress?.();
-      return result;
-    }),
-  );
+  const populated = (
+    await Promise.all(
+      typesToExtract.map(async (pgType) => {
+        const result = await (
+          populatorMap[pgType.kind] as Populator<typeof pgType.kind>
+        )(db, pgType);
+        options?.onProgress?.();
+        return result;
+      }),
+    )
+  ).flat();
 
   const schemas: Record<string, Schema> = {};
   for (const p of populated) {

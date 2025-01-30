@@ -69,7 +69,7 @@ export interface FunctionDetails extends PgType<"function"> {
 async function extractFunction(
   db: Knex,
   pgType: PgType<"function">,
-): Promise<FunctionDetails> {
+): Promise<FunctionDetails[]> {
   const [informationSchemaValue] = await db
     .from("information_schema.routines")
     .where({
@@ -80,7 +80,7 @@ async function extractFunction(
 
   const { rows } = await db.raw(
     `
-    SELECT 
+    SELECT
       p.proname,
       p.prorettype::regtype::text AS return_type,
       l.lanname AS language,
@@ -109,68 +109,72 @@ async function extractFunction(
     [pgType.schemaName, pgType.name],
   );
 
-  const row = rows[0];
+  return (rows as any[]).map((row) => {
+    const argTypes = (
+      row.arg_types ? row.arg_types.split(",") : []
+    ) as string[];
 
-  const argTypes = (row.arg_types ? row.arg_types.split(",") : []) as string[];
+    const paramModes = row.proargmodes
+      ? parsePostgresArray(String(row.proargmodes))
+      : argTypes.map(() => "i");
 
-  const paramModes = row.proargmodes
-    ? parsePostgresArray(String(row.proargmodes))
-    : argTypes.map(() => "i");
+    const paramNames = row.proargnames
+      ? parsePostgresArray(String(row.proargnames))
+      : argTypes.map((_, i) => `$${i + 1}`);
 
-  const paramNames = row.proargnames
-    ? parsePostgresArray(String(row.proargnames))
-    : argTypes.map((_, i) => `$${i + 1}`);
+    const parameters: FunctionParameter[] = argTypes.map(
+      (type: string, i: number) => ({
+        name: paramNames[i],
+        type: type,
+        mode: parameterModeMap[paramModes[i] as keyof typeof parameterModeMap],
+        hasDefault: i >= argTypes.length - (row.pronargdefaults || 0),
+        ordinalPosition: i + 1,
+      }),
+    );
 
-  const parameters: FunctionParameter[] = argTypes.map(
-    (type: string, i: number) => ({
-      name: paramNames[i],
-      type: type,
-      mode: parameterModeMap[paramModes[i] as keyof typeof parameterModeMap],
-      hasDefault: i >= argTypes.length - (row.pronargdefaults || 0),
-      ordinalPosition: i + 1,
-    }),
-  );
+    let returnType: string | TableReturnType = row.return_type;
+    if (
+      row.full_return_type &&
+      row.full_return_type.toLowerCase().includes("table")
+    ) {
+      const tableMatch = (row.full_return_type as string).match(
+        /TABLE\((.*)\)/i,
+      );
+      if (tableMatch) {
+        const columnDefs = tableMatch[1].split(",").map((col) => {
+          const [name, type] = col.trim().split(/\s+/);
+          return { name, type };
+        });
 
-  let returnType: string | TableReturnType = row.return_type;
-  if (
-    row.full_return_type &&
-    row.full_return_type.toLowerCase().includes("table")
-  ) {
-    const tableMatch = (row.full_return_type as string).match(/TABLE\((.*)\)/i);
-    if (tableMatch) {
-      const columnDefs = tableMatch[1].split(",").map((col) => {
-        const [name, type] = col.trim().split(/\s+/);
-        return { name, type };
-      });
-
-      returnType = {
-        type: "table",
-        columns: columnDefs,
-      };
+        returnType = {
+          type: "table",
+          columns: columnDefs,
+        };
+      }
     }
-  }
 
-  return {
-    ...pgType,
-    parameters,
-    returnType,
-    language: row.language,
-    definition: row.definition,
-    isStrict: row.is_strict,
-    isSecurityDefiner: row.is_security_definer,
-    isLeakProof: row.is_leak_proof,
-    returnsSet: row.returns_set,
-    volatility: volatilityMap[
-      row.provolatile as keyof typeof volatilityMap
-    ] as FunctionVolatility,
-    parallelSafety: parallelSafetyMap[
-      row.proparallel as keyof typeof parallelSafetyMap
-    ] as FunctionParallelSafety,
-    estimatedCost: row.estimated_cost,
-    estimatedRows: row.estimated_rows,
-    comment: row.comment,
-    informationSchemaValue,
-  };
+    return {
+      ...pgType,
+      parameters,
+      returnType,
+      language: row.language,
+      definition: row.definition,
+      isStrict: row.is_strict,
+      isSecurityDefiner: row.is_security_definer,
+      isLeakProof: row.is_leak_proof,
+      returnsSet: row.returns_set,
+      volatility: volatilityMap[
+        row.provolatile as keyof typeof volatilityMap
+      ] as FunctionVolatility,
+      parallelSafety: parallelSafetyMap[
+        row.proparallel as keyof typeof parallelSafetyMap
+      ] as FunctionParallelSafety,
+      estimatedCost: row.estimated_cost,
+      estimatedRows: row.estimated_rows,
+      comment: row.comment,
+      informationSchemaValue,
+    };
+  });
 }
 
 export default extractFunction;
