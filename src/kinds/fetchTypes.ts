@@ -29,7 +29,7 @@ const fetchTypes = async (
         // Comments on the class take prescedent, but for composite types,
         // they will reside on the type itself.
         `COALESCE(
-          obj_description(COALESCE(pg_class.oid, pg_type.oid)), 
+          obj_description(COALESCE(pg_class.oid, pg_type.oid)),
           obj_description(pg_type.oid)
         ) as comment`,
       ),
