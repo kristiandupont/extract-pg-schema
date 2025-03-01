@@ -19,7 +19,9 @@ export type Schema = {
     views: ViewDetails[];
     materializedViews: MaterializedViewDetails[];
     compositeTypes: CompositeTypeDetails[];
+    functions: FunctionDetails[];
+    procedures: ProcedureDetails[];
 };
 ```
-**References:** [DomainDetails](./extract-pg-schema.domaindetails.md)<!-- -->, [EnumDetails](./extract-pg-schema.enumdetails.md)<!-- -->, [RangeDetails](./extract-pg-schema.rangedetails.md)<!-- -->, [TableDetails](./extract-pg-schema.tabledetails.md)<!-- -->, [ForeignTableDetails](./extract-pg-schema.foreigntabledetails.md)<!-- -->, [ViewDetails](./extract-pg-schema.viewdetails.md)<!-- -->, [MaterializedViewDetails](./extract-pg-schema.materializedviewdetails.md)<!-- -->, [CompositeTypeDetails](./extract-pg-schema.compositetypedetails.md)
+**References:** [DomainDetails](./extract-pg-schema.domaindetails.md)<!-- -->, [EnumDetails](./extract-pg-schema.enumdetails.md)<!-- -->, [RangeDetails](./extract-pg-schema.rangedetails.md)<!-- -->, [TableDetails](./extract-pg-schema.tabledetails.md)<!-- -->, [ForeignTableDetails](./extract-pg-schema.foreigntabledetails.md)<!-- -->, [ViewDetails](./extract-pg-schema.viewdetails.md)<!-- -->, [MaterializedViewDetails](./extract-pg-schema.materializedviewdetails.md)<!-- -->, [CompositeTypeDetails](./extract-pg-schema.compositetypedetails.md)<!-- -->, [FunctionDetails](./extract-pg-schema.functiondetails.md)<!-- -->, [ProcedureDetails](./extract-pg-schema.proceduredetails.md)
 

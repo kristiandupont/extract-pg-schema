@@ -1,6 +1,6 @@
 {
   "name": "extract-pg-schema",
-  "version": "5.1.3",
+  "version": "5.3.5",
   "keywords": [
     "postgresql",
     "schema"
@@ -31,15 +31,16 @@
   "dependencies": {
     "jsonpath": "^1.1.1",
     "knex": "3.1.0",
+    "knex-pglite": "^0.11.0",
     "pg": "8.13.1",
     "pg-query-emscripten": "^5.1.0",
     "ramda": "^0.30.0",
     "tagged-comment-parser": "^1.3.3"
   },
   "devDependencies": {
-    "@kristiandupont/dev-deps": "^2.29.0",
+    "@kristiandupont/dev-deps": "^2.30.0",
     "@microsoft/api-documenter": "7.26.2",
-    "@microsoft/api-extractor": "7.48.0",
+    "@microsoft/api-extractor": "7.48.1",
     "@types/jsonpath": "0.2.4",
     "@types/pg": "8.11.10",
     "@types/ramda": "0.30.2",

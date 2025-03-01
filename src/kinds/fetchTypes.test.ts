@@ -34,28 +34,28 @@ describe("fetchTypes", () => {
     await db.raw("create type test.some_enum as enum ('a', 'b')");
     await db.raw("create domain test.some_domain as text");
     await db.raw("create type test.some_range as range (subtype = integer)");
-    // await db.raw(
-    //   'create procedure test.some_procedure() language sql as $$ select 1 as id $$'
-    // );
-    // await db.raw(
-    //   'create function test.some_function() returns integer language sql as $$ select 1 as id $$'
-    // );
+    await db.raw(
+      "create procedure test.some_procedure() language sql as $$ select 1 as id $$",
+    );
+    await db.raw(
+      "create function test.some_function() returns integer language sql as $$ select 1 as id $$",
+    );
     // await db.raw(
     //   "create aggregate test.some_aggregate (numeric) ( sfunc = numeric_add, stype = numeric, initcond = '0');"
     // );
 
     const types = await fetchTypes(db, ["test"]);
     expect(types.map((t) => [t.name, t.kind])).toEqual([
-      ["some_table", "table"],
-      ["some_view", "view"],
+      ["some_function", "function"],
       ["some_materialized_view", "materializedView"],
-      ["some_composite_type", "compositeType"],
-      ["some_enum", "enum"],
+      ["some_table", "table"],
+      ["some_procedure", "procedure"],
       ["some_domain", "domain"],
+      ["some_composite_type", "compositeType"],
       ["some_range", "range"],
+      ["some_view", "view"],
+      ["some_enum", "enum"],
       // ['some_multirange', 'multiRange'],
-      // ['some_procedure', 'procedure'],
-      // ['some_function', 'function'],
       // ['some_aggregate', 'aggregate'],
     ]);
   });
@@ -79,8 +79,8 @@ describe("fetchTypes", () => {
 
     const types = await fetchTypes(db, ["test"]);
     expect(types.map((t) => [t.name, t.comment])).toEqual([
-      ["some_table", "some table comment"],
       ["some_domain", "some domain comment"],
+      ["some_table", "some table comment"],
       ["some_composite_type", "some composite type comment"],
     ]);
   });

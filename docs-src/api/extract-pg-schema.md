@@ -131,6 +131,15 @@ Foreign table in a schema.
 </td></tr>
 <tr><td>
 
+[FunctionDetails](./extract-pg-schema.functiondetails.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
 [InformationSchemaColumn](./extract-pg-schema.informationschemacolumn.md)
 
 
@@ -148,6 +157,17 @@ The view columns contains information about all table columns (or view columns) 
 </td><td>
 
 The view domains contains all domains defined in the current database. Only those domains are shown that the current user has access to (by way of being the owner or having some privilege).
+
+
+</td></tr>
+<tr><td>
+
+[InformationSchemaRoutine](./extract-pg-schema.informationschemaroutine.md)
+
+
+</td><td>
+
+Information about all routines in the current database
 
 
 </td></tr>
@@ -368,6 +388,15 @@ Column type in a foreign table.
 </td></tr>
 <tr><td>
 
+[FunctionParameter](./extract-pg-schema.functionparameter.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
 [Index](./extract-pg-schema.index.md)
 
 
@@ -405,6 +434,24 @@ Column type in a materialized view.
 </td><td>
 
 Base type for Postgres objects.
+
+
+</td></tr>
+<tr><td>
+
+[ProcedureDetails](./extract-pg-schema.proceduredetails.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[ProcedureParameter](./extract-pg-schema.procedureparameter.md)
+
+
+</td><td>
 
 
 </td></tr>

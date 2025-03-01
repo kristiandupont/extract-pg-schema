@@ -1,5 +1,6 @@
 import type { Knex } from "knex";
 import knex from "knex";
+import ClientPgLite from "knex-pglite";
 import type { ConnectionConfig } from "pg";
 import * as R from "ramda";
 
@@ -11,8 +12,12 @@ import type { EnumDetails } from "./kinds/extractEnum";
 import extractEnum from "./kinds/extractEnum";
 import type { ForeignTableDetails } from "./kinds/extractForeignTable";
 import extractForeignTable from "./kinds/extractForeignTable";
+import type { FunctionDetails } from "./kinds/extractFunction";
+import extractFunction from "./kinds/extractFunction";
 import type { MaterializedViewDetails } from "./kinds/extractMaterializedView";
 import extractMaterializedView from "./kinds/extractMaterializedView";
+import type { ProcedureDetails } from "./kinds/extractProcedure";
+import extractProcedure from "./kinds/extractProcedure";
 import type { RangeDetails } from "./kinds/extractRange";
 import extractRange from "./kinds/extractRange";
 import type { TableDetails } from "./kinds/extractTable";
@@ -33,6 +38,8 @@ interface DetailsMap {
   materializedView: MaterializedViewDetails;
   view: ViewDetails;
   compositeType: CompositeTypeDetails;
+  function: FunctionDetails;
+  procedure: ProcedureDetails;
 }
 
 /**
@@ -49,6 +56,8 @@ export type Schema = {
   views: ViewDetails[];
   materializedViews: MaterializedViewDetails[];
   compositeTypes: CompositeTypeDetails[];
+  functions: FunctionDetails[];
+  procedures: ProcedureDetails[];
 };
 
 const emptySchema: Omit<Schema, "name"> = {
@@ -60,12 +69,14 @@ const emptySchema: Omit<Schema, "name"> = {
   views: [],
   materializedViews: [],
   compositeTypes: [],
+  functions: [],
+  procedures: [],
 };
 
 type Populator<K extends Kind> = (
   db: Knex,
   pgType: PgType<K>,
-) => Promise<DetailsMap[K]>;
+) => Promise<DetailsMap[K] | DetailsMap[K][]>;
 
 const populatorMap: { [K in Kind]: Populator<K> } = {
   domain: extractDomain,
@@ -76,6 +87,8 @@ const populatorMap: { [K in Kind]: Populator<K> } = {
   view: extractView,
   materializedView: extractMaterializedView,
   compositeType: extractCompositeType,
+  function: extractFunction,
+  procedure: extractProcedure,
 };
 
 /**
@@ -132,7 +145,16 @@ async function extractSchemas(
   options?: ExtractSchemaOptions,
 ): Promise<Record<string, Schema>> {
   const connection = connectionConfig as string | Knex.PgConnectionConfig;
-  const db = knex({ client: "postgres", connection });
+  let db;
+  if (typeof connection === "string" && connection.startsWith("file:")) {
+    db = knex({
+      client: ClientPgLite,
+      dialect: "postgres",
+      connection: { filename: connection.slice("file:".length) },
+    });
+  } else {
+    db = knex({ client: "postgres", connection });
+  }
 
   const q = await db
     .select<{ nspname: string }[]>("nspname")
@@ -160,15 +182,17 @@ async function extractSchemas(
 
   options?.onProgressStart?.(typesToExtract.length);
 
-  const populated = await Promise.all(
-    typesToExtract.map(async (pgType) => {
-      const result = await (
-        populatorMap[pgType.kind] as Populator<typeof pgType.kind>
-      )(db, pgType);
-      options?.onProgress?.();
-      return result;
-    }),
-  );
+  const populated = (
+    await Promise.all(
+      typesToExtract.map(async (pgType) => {
+        const result = await (
+          populatorMap[pgType.kind] as Populator<typeof pgType.kind>
+        )(db, pgType);
+        options?.onProgress?.();
+        return result;
+      }),
+    )
+  ).flat();
 
   const schemas: Record<string, Schema> = {};
   for (const p of populated) {
