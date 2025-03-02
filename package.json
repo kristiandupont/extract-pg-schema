@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.7",
-    "@kristiandupont/dev-deps": "^2.30.0",
+    "@kristiandupont/dev-deps": "^2.32.0",
     "@microsoft/api-documenter": "7.26.2",
     "@microsoft/api-extractor": "7.48.1",
     "@types/jsonpath": "0.2.4",
