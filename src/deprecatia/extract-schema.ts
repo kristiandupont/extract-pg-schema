@@ -1,3 +1,4 @@
+// eslint-disable-next-line filenames/match-exported
 import type { ConnectionConfig } from "pg";
 import * as R from "ramda";
 import { parse } from "tagged-comment-parser";
