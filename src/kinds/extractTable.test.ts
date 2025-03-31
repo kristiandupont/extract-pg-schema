@@ -637,7 +637,7 @@ describe("extractTable", () => {
     });
   });
 
-  it("should extract table as well as columns that the table inherits from", async () => {
+  it("should extract table as well as columns that the table inherits from with inherited columns denoted with the parent table", async () => {
     const db = getKnex();
     await db.raw("CREATE TABLE test.some_base_table (base_id integer)",);
     await db.raw("CREATE TABLE test.some_table (child_field text) INHERITS (test.some_base_table)",)
