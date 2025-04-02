@@ -639,11 +639,12 @@ describe("extractTable", () => {
 
   it("should extract table as well as columns that the table inherits from with inherited columns denoted with the parent table", async () => {
     const db = getKnex();
-    await db.raw("CREATE TABLE test.some_base_table (base_id integer)",);
-    await db.raw("CREATE TABLE test.some_table (child_field text) INHERITS (test.some_base_table)",)
+    await db.raw("CREATE TABLE test.some_base_table (base_id integer)");
+    await db.raw(
+      "CREATE TABLE test.some_table (child_field text) INHERITS (test.some_base_table)",
+    );
 
     const result = await extractTable(db, makePgType("some_table"));
-
 
     const expected: TableDetails = {
       name: "some_table",
@@ -685,7 +686,7 @@ describe("extractTable", () => {
           ordinalPosition: 1,
           maxLength: null,
           comment: null,
-          parentTable: 'some_base_table',
+          parentTable: "some_base_table",
 
           informationSchemaValue: {
             table_catalog: databaseName,
@@ -808,5 +809,5 @@ describe("extractTable", () => {
     };
 
     expect(result).toStrictEqual(expected);
-  })
+  });
 });
