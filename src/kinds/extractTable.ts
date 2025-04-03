@@ -5,6 +5,7 @@ import type InformationSchemaTable from "../information_schema/InformationSchema
 import type PgType from "./PgType";
 import commentMapQueryPart from "./query-parts/commentMapQueryPart";
 import indexMapQueryPart from "./query-parts/indexMapQueryPart";
+import inheritsQueryPart from "./query-parts/inheritsQueryPart";
 
 export const updateActionMap = {
   a: "NO ACTION",
@@ -160,6 +161,10 @@ export interface TableColumn {
    * Ordinal position of the column in the table. Starts from 1.
    */
   ordinalPosition: number;
+  /**
+   * Name of the table the column is inherited from if table is using inheritance
+   */
+  parentTable: string | null;
 
   /**
    * Information schema value for the column.
@@ -376,6 +381,9 @@ const extractTable = async (
     ),
     comment_map AS (
       ${commentMapQueryPart}
+    ),
+    inheritance_map AS (
+      ${inheritsQueryPart}
     )
     SELECT
       columns.column_name AS "name",
@@ -398,7 +406,8 @@ const extractTable = async (
       COALESCE(index_map.is_primary, FALSE) AS "isPrimaryKey", 
       COALESCE(index_map.indices, '[]'::json) AS "indices", 
       COALESCE(reference_map.references, '[]'::json) AS "references", 
-      
+      inheritance_map.parent_name AS "parentTable",
+
       row_to_json(columns.*) AS "informationSchemaValue"
     FROM
       information_schema.columns
@@ -406,6 +415,7 @@ const extractTable = async (
       LEFT JOIN reference_map ON reference_map.column_name = columns.column_name
       LEFT JOIN type_map ON type_map.column_name = columns.column_name
       LEFT JOIN comment_map ON comment_map.column_name = columns.column_name
+      LEFT JOIN inheritance_map ON inheritance_map.parent_column_name = columns.column_name
     WHERE
       table_name = :table_name
       AND table_schema = :schema_name;
