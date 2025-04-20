@@ -634,7 +634,7 @@ Always null, because arrays always have unlimited maximum cardinality in Postgre
 
 </td><td>
 
-number
+number \| null
 
 
 </td><td>

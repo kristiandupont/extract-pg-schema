@@ -320,6 +320,25 @@ Ordinal position of the column in the table. Starts from 1.
 </td></tr>
 <tr><td>
 
+[parentTable](./extract-pg-schema.tablecolumn.parenttable.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string \| null
+
+
+</td><td>
+
+Name of the table the column is inherited from if table is using inheritance
+
+
+</td></tr>
+<tr><td>
+
 [reference](./extract-pg-schema.tablecolumn.reference.md)
 
 
