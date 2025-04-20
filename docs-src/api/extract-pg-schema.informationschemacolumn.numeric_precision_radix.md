@@ -9,5 +9,5 @@ If data\_type identifies a numeric type, this column indicates in which base the
 **Signature:**
 
 ```typescript
-numeric_precision_radix: number;
+numeric_precision_radix: number | null;
 ```
