@@ -1,13 +1,13 @@
-import jp from "jsonpath";
 import { last } from "ramda";
 
 let pgQueryInstance: any;
 const getPgQuery = async () => {
   if (!pgQueryInstance) {
-    const { default: pgQueryModule } = await import(
-      "pg-query-emscripten/pg_query_wasm"
+    // Use eval to prevent TypeScript from converting this to require
+    const pgQueryModule = await eval(
+      'import("pg-query-emscripten/pg_query_wasm.js")',
     );
-    pgQueryInstance = await new pgQueryModule();
+    pgQueryInstance = await new pgQueryModule.default();
   }
   return pgQueryInstance;
 };
@@ -36,15 +36,33 @@ function parseSelectStmt(
     ];
   }
 
+  if (!selectAst.fromClause) {
+    return [];
+  }
+
   const viewReferences: ViewReference[] = [];
 
   selectAst.fromClause.forEach((fromClause: any) => {
     const fromTable = fromClause.RangeVar;
 
-    const selectTargets = jp.query(selectAst, "$.targetList[*].ResTarget");
+    // const selectTargets = jp.query(selectAst, "$.targetList[*].ResTarget");
+    const selectTargets =
+      selectAst.targetList?.map((target: any) => target.ResTarget) || [];
 
     selectTargets.forEach((selectTarget: any) => {
-      const fields = jp.query(selectTarget, "$.val[*].fields[*].String.sval");
+      // const fields = jp.query(selectTarget, "$.val[*].fields[*].String.sval");
+      const vals = selectTarget.val
+        ? Array.isArray(selectTarget.val)
+          ? selectTarget.val
+          : [selectTarget.val]
+        : [];
+      const fields = (vals
+        ?.map((val: any) =>
+          val.ColumnRef?.fields?.map((field: any) => field.String?.sval),
+        )
+        .flat()
+        .filter(Boolean) || []) as any[];
+
       let sourceTable = fromTable?.relname;
       let sourceSchema = fromTable?.schemaname;
       if (fields.length === 2) {
@@ -75,6 +93,52 @@ function parseSelectStmt(
 
   return viewReferences;
 }
+
+// Recursively find alias definitions in a JoinExpr
+function findAliasDefinitionsInJoinExpr(joinExpr: any): {
+  schemaname: string;
+  relname: string;
+  alias: { aliasname: string };
+}[] {
+  const result = [];
+  if (joinExpr.larg?.RangeVar?.alias) {
+    result.push(joinExpr.larg.RangeVar);
+  }
+  if (joinExpr.rarg?.RangeVar?.alias) {
+    result.push(joinExpr.rarg.RangeVar);
+  }
+  if (joinExpr.larg?.JoinExpr) {
+    result.push(...findAliasDefinitionsInJoinExpr(joinExpr.larg.JoinExpr));
+  }
+  if (joinExpr.rarg?.JoinExpr) {
+    result.push(...findAliasDefinitionsInJoinExpr(joinExpr.rarg.JoinExpr));
+  }
+  return result;
+}
+
+function findAliasDefinitions(node: any): {
+  schemaname: string;
+  relname: string;
+  alias: { aliasname: string };
+}[] {
+  // const aliasDefinitions = jp.query(
+  //   ast,
+  //   "$.stmt.SelectStmt.fromClause..[?(@.alias)]",
+  // );
+  const aliasDefinitions =
+    node.fromClause?.flatMap((clause: any) => {
+      const result = [];
+      if (clause.RangeVar?.alias) {
+        result.push(clause.RangeVar);
+      }
+      if (clause.JoinExpr) {
+        result.push(...findAliasDefinitionsInJoinExpr(clause.JoinExpr));
+      }
+      return result;
+    }) || [];
+  return aliasDefinitions;
+}
+
 async function parseViewDefinition(
   selectStatement: string,
   defaultSchema: string,
@@ -89,11 +153,7 @@ async function parseViewDefinition(
     );
   }
 
-  const aliasDefinitions = jp.query(
-    ast,
-    "$.stmt.SelectStmt.fromClause..[?(@.alias)]",
-  );
-
+  const aliasDefinitions = findAliasDefinitions(selectAst);
   const aliases = Object.fromEntries(
     aliasDefinitions.map(({ schemaname, relname, alias }) => [
       alias.aliasname,
