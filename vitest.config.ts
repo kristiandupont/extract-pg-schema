@@ -6,5 +6,9 @@ export default defineConfig({
     include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
     globalSetup: "src/tests/globalSetup.ts",
     sequence: { hooks: "stack" },
+    deps: {
+      interopDefault: true,
+    },
+    pool: "vmThreads",
   },
 });
