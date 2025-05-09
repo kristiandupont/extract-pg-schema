@@ -377,6 +377,7 @@ describe("extractTable", () => {
             {
               name: "id",
               definition: "id",
+              predicate: null,
             },
           ],
         },
@@ -403,6 +404,7 @@ describe("extractTable", () => {
             {
               name: "id",
               definition: "id",
+              predicate: null,
             },
           ],
         },
@@ -426,6 +428,7 @@ describe("extractTable", () => {
             {
               name: "id",
               definition: "id",
+              predicate: null,
             },
           ],
         },
@@ -452,10 +455,12 @@ describe("extractTable", () => {
             {
               name: "id",
               definition: "id",
+              predicate: null,
             },
             {
               name: "kind",
               definition: "kind",
+              predicate: null,
             },
           ],
         },
@@ -482,6 +487,34 @@ describe("extractTable", () => {
             {
               name: null,
               definition: "abs(id)",
+              predicate: null,
+            },
+          ],
+        },
+      ];
+
+      expect(result.indices).toStrictEqual(expected);
+    });
+
+    it("should extract a partial index", async () => {
+      const db = getKnex();
+      await db.raw("create table test.some_table (id integer)");
+      await db.raw(
+        "create index some_table_id_idx on test.some_table (id) WHERE id > 0",
+      );
+
+      const result = await extractTable(db, makePgType("some_table"));
+
+      const expected: TableIndex[] = [
+        {
+          name: "some_table_id_idx",
+          isPrimary: false,
+          isUnique: false,
+          columns: [
+            {
+              name: "id",
+              definition: "id",
+              predicate: "(id > 0)",
             },
           ],
         },
