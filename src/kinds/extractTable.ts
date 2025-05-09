@@ -184,6 +184,10 @@ export interface TableIndexColumn {
    * Definition of index column.
    */
   definition: string;
+  /**
+   * Predicate of the partial index or null if regular index.
+   */
+  predicate: string | null;
 }
 
 /**
@@ -436,7 +440,8 @@ const extractTable = async (
         ix.indexrelid,
         json_agg(json_build_object(
           'name', a.attname,
-          'definition', pg_get_indexdef(ix.indexrelid, keys.key_order::integer, true)
+          'definition', pg_get_indexdef(ix.indexrelid, keys.key_order::integer, true),
+          'predicate', pg_get_expr(ix.indpred, ix.indrelid)
         ) ORDER BY keys.key_order) AS columns
       FROM
         pg_index ix
