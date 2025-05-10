@@ -73,8 +73,6 @@ const fetchTypes = async (
     .whereIn("prokind", ["f", "p"]) // TODO: Add support for aggregate and window functions
     .whereNot("pg_language.lanname", "internal");
 
-  console.error(procQuery.toQuery());
-
   return typeQuery.union(procQuery);
 };
 
