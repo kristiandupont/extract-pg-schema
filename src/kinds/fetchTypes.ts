@@ -9,7 +9,8 @@ const fetchTypes = async (
   schemaNames: string[],
 ): Promise<PgType[]> => {
   // We want to ignore everything belonging to etensions. (Maybe this should be optional?)
-  const { extClassOids, extTypeOids } = await fetchExtensionItemIds(db);
+  const { extClassOids, extTypeOids, extProcOids } =
+    await fetchExtensionItemIds(db);
 
   const typeQuery = db
     .select(
@@ -66,11 +67,13 @@ const fetchTypes = async (
     .from("pg_catalog.pg_proc")
     .join("pg_catalog.pg_namespace", "pg_namespace.oid", "pg_proc.pronamespace")
     .join("pg_catalog.pg_language", "pg_language.oid", "pg_proc.prolang")
-    .whereNotIn("pg_proc.oid", extClassOids)
+    .whereNotIn("pg_proc.oid", extProcOids)
     .whereIn("pg_namespace.nspname", schemaNames)
     // .whereIn("prokind", ["f", "p", "a", "w"])
     .whereIn("prokind", ["f", "p"]) // TODO: Add support for aggregate and window functions
     .whereNot("pg_language.lanname", "internal");
+
+  console.error(procQuery.toQuery());
 
   return typeQuery.union(procQuery);
 };
