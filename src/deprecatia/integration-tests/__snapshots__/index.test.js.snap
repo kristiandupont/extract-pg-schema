@@ -284,6 +284,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "actor_id",
               "name": "actor_id",
+              "predicate": null,
             },
           ],
           "isPrimary": true,
@@ -295,6 +296,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "last_name",
               "name": "last_name",
+              "predicate": null,
             },
           ],
           "isPrimary": false,
@@ -864,6 +866,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "address_id",
               "name": "address_id",
+              "predicate": null,
             },
           ],
           "isPrimary": true,
@@ -875,6 +878,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "city_id",
               "name": "city_id",
+              "predicate": null,
             },
           ],
           "isPrimary": false,
@@ -1099,6 +1103,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "category_id",
               "name": "category_id",
+              "predicate": null,
             },
           ],
           "isPrimary": true,
@@ -1408,6 +1413,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "city_id",
               "name": "city_id",
+              "predicate": null,
             },
           ],
           "isPrimary": true,
@@ -1419,6 +1425,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "country_id",
               "name": "country_id",
+              "predicate": null,
             },
           ],
           "isPrimary": false,
@@ -1643,6 +1650,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "country_id",
               "name": "country_id",
+              "predicate": null,
             },
           ],
           "isPrimary": true,
@@ -2352,6 +2360,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "customer_id",
               "name": "customer_id",
+              "predicate": null,
             },
           ],
           "isPrimary": true,
@@ -2363,6 +2372,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "address_id",
               "name": "address_id",
+              "predicate": null,
             },
           ],
           "isPrimary": false,
@@ -2374,6 +2384,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "store_id",
               "name": "store_id",
+              "predicate": null,
             },
           ],
           "isPrimary": false,
@@ -2385,6 +2396,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "last_name",
               "name": "last_name",
+              "predicate": null,
             },
           ],
           "isPrimary": false,
@@ -3289,6 +3301,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "film_id",
               "name": "film_id",
+              "predicate": null,
             },
           ],
           "isPrimary": true,
@@ -3300,6 +3313,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "fulltext",
               "name": "fulltext",
+              "predicate": null,
             },
           ],
           "isPrimary": false,
@@ -3311,6 +3325,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "language_id",
               "name": "language_id",
+              "predicate": null,
             },
           ],
           "isPrimary": false,
@@ -3322,6 +3337,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "title",
               "name": "title",
+              "predicate": null,
             },
           ],
           "isPrimary": false,
@@ -3585,10 +3601,12 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "actor_id",
               "name": "actor_id",
+              "predicate": null,
             },
             {
               "definition": "film_id",
               "name": "film_id",
+              "predicate": null,
             },
           ],
           "isPrimary": true,
@@ -3600,6 +3618,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "film_id",
               "name": "film_id",
+              "predicate": null,
             },
           ],
           "isPrimary": false,
@@ -3859,10 +3878,12 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "film_id",
               "name": "film_id",
+              "predicate": null,
             },
             {
               "definition": "category_id",
               "name": "category_id",
+              "predicate": null,
             },
           ],
           "isPrimary": true,
@@ -4177,6 +4198,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "inventory_id",
               "name": "inventory_id",
+              "predicate": null,
             },
           ],
           "isPrimary": true,
@@ -4188,10 +4210,12 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "store_id",
               "name": "store_id",
+              "predicate": null,
             },
             {
               "definition": "film_id",
               "name": "film_id",
+              "predicate": null,
             },
           ],
           "isPrimary": false,
@@ -4416,6 +4440,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "language_id",
               "name": "language_id",
+              "predicate": null,
             },
           ],
           "isPrimary": true,
@@ -4895,6 +4920,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "payment_id",
               "name": "payment_id",
+              "predicate": null,
             },
           ],
           "isPrimary": true,
@@ -4906,6 +4932,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "customer_id",
               "name": "customer_id",
+              "predicate": null,
             },
           ],
           "isPrimary": false,
@@ -4917,6 +4944,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "rental_id",
               "name": "rental_id",
+              "predicate": null,
             },
           ],
           "isPrimary": false,
@@ -4928,6 +4956,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "staff_id",
               "name": "staff_id",
+              "predicate": null,
             },
           ],
           "isPrimary": false,
@@ -5476,6 +5505,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "rental_id",
               "name": "rental_id",
+              "predicate": null,
             },
           ],
           "isPrimary": true,
@@ -5487,6 +5517,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "inventory_id",
               "name": "inventory_id",
+              "predicate": null,
             },
           ],
           "isPrimary": false,
@@ -5498,14 +5529,17 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "rental_date",
               "name": "rental_date",
+              "predicate": null,
             },
             {
               "definition": "inventory_id",
               "name": "inventory_id",
+              "predicate": null,
             },
             {
               "definition": "customer_id",
               "name": "customer_id",
+              "predicate": null,
             },
           ],
           "isPrimary": false,
@@ -6265,6 +6299,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "staff_id",
               "name": "staff_id",
+              "predicate": null,
             },
           ],
           "isPrimary": true,
@@ -6589,6 +6624,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "store_id",
               "name": "store_id",
+              "predicate": null,
             },
           ],
           "isPrimary": true,
@@ -6600,6 +6636,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
             {
               "definition": "manager_staff_id",
               "name": "manager_staff_id",
+              "predicate": null,
             },
           ],
           "isPrimary": false,
