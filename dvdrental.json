@@ -69,7 +69,8 @@
             "columns": [
               {
                 "name": "language_id",
-                "definition": "language_id"
+                "definition": "language_id",
+                "predicate": null
               }
             ]
           }
@@ -320,11 +321,13 @@
             "columns": [
               {
                 "name": "actor_id",
-                "definition": "actor_id"
+                "definition": "actor_id",
+                "predicate": null
               },
               {
                 "name": "film_id",
-                "definition": "film_id"
+                "definition": "film_id",
+                "predicate": null
               }
             ]
           },
@@ -335,7 +338,8 @@
             "columns": [
               {
                 "name": "film_id",
-                "definition": "film_id"
+                "definition": "film_id",
+                "predicate": null
               }
             ]
           }
@@ -627,7 +631,8 @@
             "columns": [
               {
                 "name": "actor_id",
-                "definition": "actor_id"
+                "definition": "actor_id",
+                "predicate": null
               }
             ]
           },
@@ -638,7 +643,8 @@
             "columns": [
               {
                 "name": "last_name",
-                "definition": "last_name"
+                "definition": "last_name",
+                "predicate": null
               }
             ]
           }
@@ -963,11 +969,13 @@
             "columns": [
               {
                 "name": "film_id",
-                "definition": "film_id"
+                "definition": "film_id",
+                "predicate": null
               },
               {
                 "name": "category_id",
-                "definition": "category_id"
+                "definition": "category_id",
+                "predicate": null
               }
             ]
           }
@@ -1255,7 +1263,8 @@
             "columns": [
               {
                 "name": "inventory_id",
-                "definition": "inventory_id"
+                "definition": "inventory_id",
+                "predicate": null
               }
             ]
           },
@@ -1266,11 +1275,13 @@
             "columns": [
               {
                 "name": "store_id",
-                "definition": "store_id"
+                "definition": "store_id",
+                "predicate": null
               },
               {
                 "name": "film_id",
-                "definition": "film_id"
+                "definition": "film_id",
+                "predicate": null
               }
             ]
           }
@@ -1616,7 +1627,8 @@
             "columns": [
               {
                 "name": "address_id",
-                "definition": "address_id"
+                "definition": "address_id",
+                "predicate": null
               }
             ]
           },
@@ -1627,7 +1639,8 @@
             "columns": [
               {
                 "name": "city_id",
-                "definition": "city_id"
+                "definition": "city_id",
+                "predicate": null
               }
             ]
           }
@@ -2244,7 +2257,8 @@
             "columns": [
               {
                 "name": "rental_id",
-                "definition": "rental_id"
+                "definition": "rental_id",
+                "predicate": null
               }
             ]
           },
@@ -2255,7 +2269,8 @@
             "columns": [
               {
                 "name": "inventory_id",
-                "definition": "inventory_id"
+                "definition": "inventory_id",
+                "predicate": null
               }
             ]
           },
@@ -2266,15 +2281,18 @@
             "columns": [
               {
                 "name": "rental_date",
-                "definition": "rental_date"
+                "definition": "rental_date",
+                "predicate": null
               },
               {
                 "name": "inventory_id",
-                "definition": "inventory_id"
+                "definition": "inventory_id",
+                "predicate": null
               },
               {
                 "name": "customer_id",
-                "definition": "customer_id"
+                "definition": "customer_id",
+                "predicate": null
               }
             ]
           }
@@ -2868,7 +2886,8 @@
             "columns": [
               {
                 "name": "country_id",
-                "definition": "country_id"
+                "definition": "country_id",
+                "predicate": null
               }
             ]
           }
@@ -3119,7 +3138,8 @@
             "columns": [
               {
                 "name": "staff_id",
-                "definition": "staff_id"
+                "definition": "staff_id",
+                "predicate": null
               }
             ]
           }
@@ -3938,7 +3958,8 @@
             "columns": [
               {
                 "name": "customer_id",
-                "definition": "customer_id"
+                "definition": "customer_id",
+                "predicate": null
               }
             ]
           },
@@ -3949,7 +3970,8 @@
             "columns": [
               {
                 "name": "address_id",
-                "definition": "address_id"
+                "definition": "address_id",
+                "predicate": null
               }
             ]
           },
@@ -3960,7 +3982,8 @@
             "columns": [
               {
                 "name": "store_id",
-                "definition": "store_id"
+                "definition": "store_id",
+                "predicate": null
               }
             ]
           },
@@ -3971,7 +3994,8 @@
             "columns": [
               {
                 "name": "last_name",
-                "definition": "last_name"
+                "definition": "last_name",
+                "predicate": null
               }
             ]
           }
@@ -4736,7 +4760,8 @@
             "columns": [
               {
                 "name": "store_id",
-                "definition": "store_id"
+                "definition": "store_id",
+                "predicate": null
               }
             ]
           },
@@ -4747,7 +4772,8 @@
             "columns": [
               {
                 "name": "manager_staff_id",
-                "definition": "manager_staff_id"
+                "definition": "manager_staff_id",
+                "predicate": null
               }
             ]
           }
@@ -5104,7 +5130,8 @@
             "columns": [
               {
                 "name": "category_id",
-                "definition": "category_id"
+                "definition": "category_id",
+                "predicate": null
               }
             ]
           }
@@ -5355,7 +5382,8 @@
             "columns": [
               {
                 "name": "payment_id",
-                "definition": "payment_id"
+                "definition": "payment_id",
+                "predicate": null
               }
             ]
           },
@@ -5366,7 +5394,8 @@
             "columns": [
               {
                 "name": "customer_id",
-                "definition": "customer_id"
+                "definition": "customer_id",
+                "predicate": null
               }
             ]
           },
@@ -5377,7 +5406,8 @@
             "columns": [
               {
                 "name": "rental_id",
-                "definition": "rental_id"
+                "definition": "rental_id",
+                "predicate": null
               }
             ]
           },
@@ -5388,7 +5418,8 @@
             "columns": [
               {
                 "name": "staff_id",
-                "definition": "staff_id"
+                "definition": "staff_id",
+                "predicate": null
               }
             ]
           }
@@ -5909,7 +5940,8 @@
             "columns": [
               {
                 "name": "film_id",
-                "definition": "film_id"
+                "definition": "film_id",
+                "predicate": null
               }
             ]
           },
@@ -5920,7 +5952,8 @@
             "columns": [
               {
                 "name": "fulltext",
-                "definition": "fulltext"
+                "definition": "fulltext",
+                "predicate": null
               }
             ]
           },
@@ -5931,7 +5964,8 @@
             "columns": [
               {
                 "name": "language_id",
-                "definition": "language_id"
+                "definition": "language_id",
+                "predicate": null
               }
             ]
           },
@@ -5942,7 +5976,8 @@
             "columns": [
               {
                 "name": "title",
-                "definition": "title"
+                "definition": "title",
+                "predicate": null
               }
             ]
           }
@@ -6914,7 +6949,8 @@
             "columns": [
               {
                 "name": "city_id",
-                "definition": "city_id"
+                "definition": "city_id",
+                "predicate": null
               }
             ]
           },
@@ -6925,7 +6961,8 @@
             "columns": [
               {
                 "name": "country_id",
-                "definition": "country_id"
+                "definition": "country_id",
+                "predicate": null
               }
             ]
           }
