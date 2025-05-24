@@ -112,6 +112,7 @@ describe("extractView", () => {
         securityBarrier: false,
         securityInvoker: false,
       },
+      triggers: [],
     };
 
     expect(result).toStrictEqual(expected);
