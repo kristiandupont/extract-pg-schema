@@ -43,6 +43,7 @@ export type {
   TableIndex,
   TableIndexColumn,
   TableSecurityPolicy,
+  Trigger,
   UpdateAction,
   updateActionMap,
 } from "./kinds/extractTable";
