@@ -2,8 +2,9 @@ import type { Knex } from "knex";
 import * as R from "ramda";
 
 import type InformationSchemaColumn from "../information_schema/InformationSchemaColumn";
+import type { InformationSchemaTrigger } from "../information_schema/InformationSchemaTrigger";
 import type InformationSchemaView from "../information_schema/InformationSchemaView";
-import type { ColumnReference, Index } from "./extractTable";
+import type { ColumnReference, Index, Trigger } from "./extractTable";
 import type { ViewReference } from "./parseViewDefinition";
 import parseViewDefinition from "./parseViewDefinition";
 import type PgType from "./PgType";
@@ -142,6 +143,10 @@ export interface ViewDetails extends PgType<"view"> {
      */
     securityInvoker: boolean;
   };
+  /**
+   * Triggers on the view.
+   */
+  triggers: Trigger[];
 }
 
 // NOTE: This is NOT identical for the one for tables.
@@ -195,6 +200,86 @@ const extractView = async (
       table_schema: view.schemaName,
     })
     .select<InformationSchemaView[]>("*");
+
+  // --- Trigger extraction for views ---
+  const triggersQuery = await db<InformationSchemaTrigger>(
+    "information_schema.triggers",
+  )
+    .where({
+      event_object_table: view.name,
+      event_object_schema: view.schemaName,
+    })
+    .select();
+
+  const triggersByName: Record<string, InformationSchemaTrigger[]> = {};
+  for (const trig of triggersQuery) {
+    if (!triggersByName[trig.trigger_name])
+      triggersByName[trig.trigger_name] = [];
+    triggersByName[trig.trigger_name].push(trig);
+  }
+
+  const triggers: Trigger[] = [];
+  for (const [triggerName, triggerRows] of Object.entries(triggersByName)) {
+    const first = triggerRows[0];
+    const pgTriggerRow = await db
+      .select("tgenabled", "tgfoid", "tgargs")
+      .from("pg_trigger")
+      .join("pg_class", "pg_class.oid", "=", "pg_trigger.tgrelid")
+      .join("pg_namespace", "pg_namespace.oid", "=", "pg_class.relnamespace")
+      .where("pg_class.relname", view.name)
+      .andWhere("pg_namespace.nspname", view.schemaName)
+      .andWhere("pg_trigger.tgname", triggerName)
+      .first();
+    if (!pgTriggerRow) continue;
+    const pgProcRow = await db
+      .select("proname", "pronamespace", "proargnames")
+      .from("pg_proc")
+      .where("oid", pgTriggerRow.tgfoid)
+      .first();
+    let functionSchema = null;
+    let functionName = null;
+    let functionArgs: string[] = [];
+    if (pgProcRow) {
+      const ns = await db
+        .select("nspname")
+        .from("pg_namespace")
+        .where("oid", pgProcRow.pronamespace)
+        .first();
+      functionSchema = ns ? ns.nspname : null;
+      functionName = pgProcRow.proname;
+      functionArgs = pgProcRow.proargnames || [];
+    }
+    const commentRow = await db
+      .select("description")
+      .from("pg_description")
+      .whereRaw(
+        `objoid = (
+          SELECT oid FROM pg_trigger
+          WHERE tgname = ?
+          AND tgrelid = (
+            SELECT c.oid FROM pg_class c
+            JOIN pg_namespace n ON c.relnamespace = n.oid
+            WHERE c.relname = ? AND n.nspname = ?
+          )
+        )`,
+        [triggerName, view.name, view.schemaName],
+      )
+      .first();
+    const enabled = pgTriggerRow.tgenabled === "O";
+    triggers.push({
+      name: triggerName,
+      eventManipulation: triggerRows.map((r) => r.event_manipulation as any),
+      actionTiming: first.action_timing as any,
+      functionSchema: functionSchema || "",
+      functionName: functionName || "",
+      functionArgs,
+      enabled,
+      condition: first.action_condition,
+      orientation: first.action_orientation as any,
+      comment: commentRow ? commentRow.description : null,
+      informationSchemaValue: first,
+    });
+  }
 
   const columnsQuery = await db.raw(
     `
@@ -290,6 +375,7 @@ const extractView = async (
       securityBarrier: viewOptionsQuery.rows[0].security_barrier,
       securityInvoker: viewOptionsQuery.rows[0].security_invoker,
     },
+    triggers,
   };
 };
 

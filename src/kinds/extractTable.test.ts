@@ -126,6 +126,7 @@ describe("extractTable", () => {
       isRowLevelSecurityEnabled: false,
       isRowLevelSecurityEnforced: false,
       securityPolicies: [],
+      triggers: [],
     };
 
     expect(result).toStrictEqual(expected);
@@ -839,8 +840,134 @@ describe("extractTable", () => {
       isRowLevelSecurityEnabled: false,
       isRowLevelSecurityEnforced: false,
       securityPolicies: [],
+      triggers: [],
     };
 
     expect(result).toStrictEqual(expected);
+  });
+
+  describe("triggers", () => {
+    it("should extract a simple trigger on a table", async () => {
+      const db = getKnex();
+      await db.raw("create table test.some_table (id integer)");
+      await db.raw(`
+        create function test.simple_trigger_fn() returns trigger as $$
+        begin
+          return new;
+        end;
+        $$ language plpgsql;
+      `);
+      await db.raw(`
+        create trigger simple_trigger
+        before insert on test.some_table
+        for each row execute function test.simple_trigger_fn();
+      `);
+
+      const result = await extractTable(db, makePgType("some_table"));
+      expect(result.triggers).toHaveLength(1);
+      expect(result.triggers[0].name).toBe("simple_trigger");
+      expect(result.triggers[0].eventManipulation).toEqual(["INSERT"]);
+      expect(result.triggers[0].actionTiming).toBe("BEFORE");
+      expect(result.triggers[0].functionName).toBe("simple_trigger_fn");
+      expect(result.triggers[0].functionSchema).toBe("test");
+      expect(result.triggers[0].enabled).toBe(true);
+      expect(result.triggers[0].condition).toBeNull();
+      expect(result.triggers[0].orientation).toBe("ROW");
+    });
+
+    it("should extract a trigger with a WHEN condition", async () => {
+      const db = getKnex();
+      await db.raw("create table test.some_table (id integer)");
+      await db.raw(`
+        create function test.cond_trigger_fn() returns trigger as $$
+        begin
+          return new;
+        end;
+        $$ language plpgsql;
+      `);
+      await db.raw(`
+        create trigger cond_trigger
+        after update on test.some_table
+        for each row when (new.id > 0) execute function test.cond_trigger_fn();
+      `);
+
+      const result = await extractTable(db, makePgType("some_table"));
+      expect(result.triggers).toHaveLength(1);
+      expect(result.triggers[0].name).toBe("cond_trigger");
+      expect(result.triggers[0].eventManipulation).toEqual(["UPDATE"]);
+      expect(result.triggers[0].actionTiming).toBe("AFTER");
+      expect(result.triggers[0].condition).toContain("new.id > 0");
+    });
+
+    it("should extract a trigger on multiple events", async () => {
+      const db = getKnex();
+      await db.raw("create table test.some_table (id integer)");
+      await db.raw(`
+        create function test.multi_event_trigger_fn() returns trigger as $$
+        begin
+          return new;
+        end;
+        $$ language plpgsql;
+      `);
+      await db.raw(`
+        create trigger multi_event_trigger
+        before insert or update or delete on test.some_table
+        for each row execute function test.multi_event_trigger_fn();
+      `);
+
+      const result = await extractTable(db, makePgType("some_table"));
+      expect(result.triggers).toHaveLength(1);
+      expect(result.triggers[0].eventManipulation.sort()).toEqual(
+        ["INSERT", "UPDATE", "DELETE"].sort(),
+      );
+    });
+
+    it("should extract a disabled trigger", async () => {
+      const db = getKnex();
+      await db.raw("create table test.some_table (id integer)");
+      await db.raw(`
+        create function test.disabled_trigger_fn() returns trigger as $$
+        begin
+          return new;
+        end;
+        $$ language plpgsql;
+      `);
+      await db.raw(`
+        create trigger disabled_trigger
+        after insert on test.some_table
+        for each row execute function test.disabled_trigger_fn();
+      `);
+      await db.raw(
+        "alter table test.some_table disable trigger disabled_trigger",
+      );
+
+      const result = await extractTable(db, makePgType("some_table"));
+      expect(result.triggers).toHaveLength(1);
+      expect(result.triggers[0].enabled).toBe(false);
+    });
+
+    it("should extract a trigger with a comment", async () => {
+      const db = getKnex();
+      await db.raw("create table test.some_table (id integer)");
+      await db.raw(`
+        create function test.commented_trigger_fn() returns trigger as $$
+        begin
+          return new;
+        end;
+        $$ language plpgsql;
+      `);
+      await db.raw(`
+        create trigger commented_trigger
+        after insert on test.some_table
+        for each row execute function test.commented_trigger_fn();
+      `);
+      await db.raw(
+        "comment on trigger commented_trigger on test.some_table is 'This is a trigger comment.'",
+      );
+
+      const result = await extractTable(db, makePgType("some_table"));
+      expect(result.triggers).toHaveLength(1);
+      expect(result.triggers[0].comment).toBe("This is a trigger comment.");
+    });
   });
 });

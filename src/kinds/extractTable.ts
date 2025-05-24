@@ -2,6 +2,7 @@ import type { Knex } from "knex";
 
 import type InformationSchemaColumn from "../information_schema/InformationSchemaColumn";
 import type InformationSchemaTable from "../information_schema/InformationSchemaTable";
+import type { InformationSchemaTrigger } from "../information_schema/InformationSchemaTrigger";
 import type PgType from "./PgType";
 import commentMapQueryPart from "./query-parts/commentMapQueryPart";
 import indexMapQueryPart from "./query-parts/indexMapQueryPart";
@@ -244,6 +245,34 @@ export interface TableSecurityPolicy {
 }
 
 /**
+ * Trigger on a table or view.
+ */
+export interface Trigger {
+  /** Name of the trigger. */
+  name: string;
+  /** Events that fire the trigger (INSERT, UPDATE, DELETE, TRUNCATE). */
+  eventManipulation: ("INSERT" | "UPDATE" | "DELETE" | "TRUNCATE")[];
+  /** Timing of the trigger (BEFORE, AFTER, INSTEAD OF). */
+  actionTiming: "BEFORE" | "AFTER" | "INSTEAD OF";
+  /** Schema of the function called by the trigger. */
+  functionSchema: string;
+  /** Name of the function called by the trigger. */
+  functionName: string;
+  /** Arguments passed to the function. */
+  functionArgs: string[];
+  /** Whether the trigger is enabled. */
+  enabled: boolean;
+  /** WHEN condition for the trigger, if any. */
+  condition: string | null;
+  /** Orientation: ROW or STATEMENT. */
+  orientation: "ROW" | "STATEMENT";
+  /** Comment on the trigger, if any. */
+  comment: string | null;
+  /** Information schema value for the trigger. */
+  informationSchemaValue: InformationSchemaTrigger;
+}
+
+/**
  * Table in a schema.
  */
 export interface TableDetails extends PgType<"table"> {
@@ -275,6 +304,7 @@ export interface TableDetails extends PgType<"table"> {
    * Information schema value for the table.
    */
   informationSchemaValue: InformationSchemaTable;
+  triggers: Trigger[];
 }
 
 const referenceMapQueryPart = `
@@ -538,6 +568,97 @@ const extractTable = async (
     securityPolicies: TableSecurityPolicy[];
   };
 
+  // --- Trigger extraction ---
+  // 1. Get all trigger rows for this table from information_schema.triggers
+  const triggersQuery = await db<InformationSchemaTrigger>(
+    "information_schema.triggers",
+  )
+    .where({
+      event_object_table: table.name,
+      event_object_schema: table.schemaName,
+    })
+    .select();
+
+  // 2. Group by trigger_name (since one trigger can have multiple event_manipulation rows)
+  const triggersByName: Record<string, InformationSchemaTrigger[]> = {};
+  for (const trig of triggersQuery) {
+    if (!triggersByName[trig.trigger_name])
+      triggersByName[trig.trigger_name] = [];
+    triggersByName[trig.trigger_name].push(trig);
+  }
+
+  // 3. For each trigger, get extra info from pg_trigger, pg_proc, pg_namespace, and pg_description
+  const triggers: Trigger[] = [];
+  for (const [triggerName, triggerRows] of Object.entries(triggersByName)) {
+    // Use the first row for static info
+    const first = triggerRows[0];
+    // Get pg_trigger row for this trigger
+    const pgTriggerRow = await db
+      .select("tgenabled", "tgfoid", "tgargs")
+      .from("pg_trigger")
+      .join("pg_class", "pg_class.oid", "=", "pg_trigger.tgrelid")
+      .join("pg_namespace", "pg_namespace.oid", "=", "pg_class.relnamespace")
+      .where("pg_class.relname", table.name)
+      .andWhere("pg_namespace.nspname", table.schemaName)
+      .andWhere("pg_trigger.tgname", triggerName)
+      .first();
+    if (!pgTriggerRow) continue;
+    // Get function info
+    const pgProcRow = await db
+      .select("proname", "pronamespace", "proargnames")
+      .from("pg_proc")
+      .where("oid", pgTriggerRow.tgfoid)
+      .first();
+    let functionSchema = null;
+    let functionName = null;
+    let functionArgs: string[] = [];
+    if (pgProcRow) {
+      // Get schema name
+      const ns = await db
+        .select("nspname")
+        .from("pg_namespace")
+        .where("oid", pgProcRow.pronamespace)
+        .first();
+      functionSchema = ns ? ns.nspname : null;
+      functionName = pgProcRow.proname;
+      functionArgs = pgProcRow.proargnames || [];
+    }
+    // Get comment
+    const commentRow = await db
+      .select("description")
+      .from("pg_description")
+      .whereRaw(
+        `objoid = (
+          SELECT oid FROM pg_trigger
+          WHERE tgname = ?
+          AND tgrelid = (
+            SELECT c.oid FROM pg_class c
+            JOIN pg_namespace n ON c.relnamespace = n.oid
+            WHERE c.relname = ? AND n.nspname = ?
+          )
+        )`,
+        [triggerName, table.name, table.schemaName],
+      )
+      .first();
+    // Enabled status
+    // tgenabled: 'O' = enabled, 'D' = disabled
+    const enabled = pgTriggerRow.tgenabled === "O";
+    // Compose Trigger object
+    triggers.push({
+      name: triggerName,
+      eventManipulation: triggerRows.map((r) => r.event_manipulation as any),
+      actionTiming: first.action_timing as any,
+      functionSchema: functionSchema || "",
+      functionName: functionName || "",
+      functionArgs,
+      enabled,
+      condition: first.action_condition,
+      orientation: first.action_orientation as any,
+      comment: commentRow ? commentRow.description : null,
+      informationSchemaValue: first,
+    });
+  }
+
   return {
     ...table,
     indices,
@@ -545,6 +666,7 @@ const extractTable = async (
     informationSchemaValue,
     columns,
     ...rls,
+    triggers,
   };
 };
 
