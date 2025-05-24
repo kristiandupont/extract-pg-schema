@@ -169,4 +169,21 @@ Array of security policies on the table.
 
 
 </td></tr>
+<tr><td>
+
+[triggers](./extract-pg-schema.tabledetails.triggers.md)
+
+
+</td><td>
+
+
+</td><td>
+
+Trigger\[\]
+
+
+</td><td>
+
+
+</td></tr>
 </tbody></table>

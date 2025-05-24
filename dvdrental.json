@@ -306,7 +306,42 @@
         ],
         "isRowLevelSecurityEnabled": false,
         "isRowLevelSecurityEnforced": false,
-        "securityPolicies": []
+        "securityPolicies": [],
+        "triggers": [
+          {
+            "name": "last_updated",
+            "eventManipulation": [
+              "UPDATE"
+            ],
+            "actionTiming": "BEFORE",
+            "functionSchema": "public",
+            "functionName": "last_updated",
+            "functionArgs": [],
+            "enabled": true,
+            "condition": null,
+            "orientation": "ROW",
+            "comment": null,
+            "informationSchemaValue": {
+              "trigger_catalog": "dvdrental",
+              "trigger_schema": "public",
+              "trigger_name": "last_updated",
+              "event_manipulation": "UPDATE",
+              "event_object_catalog": "dvdrental",
+              "event_object_schema": "public",
+              "event_object_table": "language",
+              "action_order": 1,
+              "action_condition": null,
+              "action_statement": "EXECUTE FUNCTION last_updated()",
+              "action_orientation": "ROW",
+              "action_timing": "BEFORE",
+              "action_reference_old_table": null,
+              "action_reference_new_table": null,
+              "action_reference_old_row": null,
+              "action_reference_new_row": null,
+              "created": null
+            }
+          }
+        ]
       },
       {
         "name": "film_actor",
@@ -616,7 +651,42 @@
         ],
         "isRowLevelSecurityEnabled": false,
         "isRowLevelSecurityEnforced": false,
-        "securityPolicies": []
+        "securityPolicies": [],
+        "triggers": [
+          {
+            "name": "last_updated",
+            "eventManipulation": [
+              "UPDATE"
+            ],
+            "actionTiming": "BEFORE",
+            "functionSchema": "public",
+            "functionName": "last_updated",
+            "functionArgs": [],
+            "enabled": true,
+            "condition": null,
+            "orientation": "ROW",
+            "comment": null,
+            "informationSchemaValue": {
+              "trigger_catalog": "dvdrental",
+              "trigger_schema": "public",
+              "trigger_name": "last_updated",
+              "event_manipulation": "UPDATE",
+              "event_object_catalog": "dvdrental",
+              "event_object_schema": "public",
+              "event_object_table": "film_actor",
+              "action_order": 1,
+              "action_condition": null,
+              "action_statement": "EXECUTE FUNCTION last_updated()",
+              "action_orientation": "ROW",
+              "action_timing": "BEFORE",
+              "action_reference_old_table": null,
+              "action_reference_new_table": null,
+              "action_reference_old_row": null,
+              "action_reference_new_row": null,
+              "created": null
+            }
+          }
+        ]
       },
       {
         "name": "actor",
@@ -954,7 +1024,42 @@
         ],
         "isRowLevelSecurityEnabled": false,
         "isRowLevelSecurityEnforced": false,
-        "securityPolicies": []
+        "securityPolicies": [],
+        "triggers": [
+          {
+            "name": "last_updated",
+            "eventManipulation": [
+              "UPDATE"
+            ],
+            "actionTiming": "BEFORE",
+            "functionSchema": "public",
+            "functionName": "last_updated",
+            "functionArgs": [],
+            "enabled": true,
+            "condition": null,
+            "orientation": "ROW",
+            "comment": null,
+            "informationSchemaValue": {
+              "trigger_catalog": "dvdrental",
+              "trigger_schema": "public",
+              "trigger_name": "last_updated",
+              "event_manipulation": "UPDATE",
+              "event_object_catalog": "dvdrental",
+              "event_object_schema": "public",
+              "event_object_table": "actor",
+              "action_order": 1,
+              "action_condition": null,
+              "action_statement": "EXECUTE FUNCTION last_updated()",
+              "action_orientation": "ROW",
+              "action_timing": "BEFORE",
+              "action_reference_old_table": null,
+              "action_reference_new_table": null,
+              "action_reference_old_row": null,
+              "action_reference_new_row": null,
+              "created": null
+            }
+          }
+        ]
       },
       {
         "name": "film_category",
@@ -1248,7 +1353,42 @@
         ],
         "isRowLevelSecurityEnabled": false,
         "isRowLevelSecurityEnforced": false,
-        "securityPolicies": []
+        "securityPolicies": [],
+        "triggers": [
+          {
+            "name": "last_updated",
+            "eventManipulation": [
+              "UPDATE"
+            ],
+            "actionTiming": "BEFORE",
+            "functionSchema": "public",
+            "functionName": "last_updated",
+            "functionArgs": [],
+            "enabled": true,
+            "condition": null,
+            "orientation": "ROW",
+            "comment": null,
+            "informationSchemaValue": {
+              "trigger_catalog": "dvdrental",
+              "trigger_schema": "public",
+              "trigger_name": "last_updated",
+              "event_manipulation": "UPDATE",
+              "event_object_catalog": "dvdrental",
+              "event_object_schema": "public",
+              "event_object_table": "film_category",
+              "action_order": 1,
+              "action_condition": null,
+              "action_statement": "EXECUTE FUNCTION last_updated()",
+              "action_orientation": "ROW",
+              "action_timing": "BEFORE",
+              "action_reference_old_table": null,
+              "action_reference_new_table": null,
+              "action_reference_old_row": null,
+              "action_reference_new_row": null,
+              "created": null
+            }
+          }
+        ]
       },
       {
         "name": "inventory",
@@ -1612,7 +1752,42 @@
         ],
         "isRowLevelSecurityEnabled": false,
         "isRowLevelSecurityEnforced": false,
-        "securityPolicies": []
+        "securityPolicies": [],
+        "triggers": [
+          {
+            "name": "last_updated",
+            "eventManipulation": [
+              "UPDATE"
+            ],
+            "actionTiming": "BEFORE",
+            "functionSchema": "public",
+            "functionName": "last_updated",
+            "functionArgs": [],
+            "enabled": true,
+            "condition": null,
+            "orientation": "ROW",
+            "comment": null,
+            "informationSchemaValue": {
+              "trigger_catalog": "dvdrental",
+              "trigger_schema": "public",
+              "trigger_name": "last_updated",
+              "event_manipulation": "UPDATE",
+              "event_object_catalog": "dvdrental",
+              "event_object_schema": "public",
+              "event_object_table": "inventory",
+              "action_order": 1,
+              "action_condition": null,
+              "action_statement": "EXECUTE FUNCTION last_updated()",
+              "action_orientation": "ROW",
+              "action_timing": "BEFORE",
+              "action_reference_old_table": null,
+              "action_reference_new_table": null,
+              "action_reference_old_row": null,
+              "action_reference_new_row": null,
+              "created": null
+            }
+          }
+        ]
       },
       {
         "name": "address",
@@ -2242,7 +2417,42 @@
         ],
         "isRowLevelSecurityEnabled": false,
         "isRowLevelSecurityEnforced": false,
-        "securityPolicies": []
+        "securityPolicies": [],
+        "triggers": [
+          {
+            "name": "last_updated",
+            "eventManipulation": [
+              "UPDATE"
+            ],
+            "actionTiming": "BEFORE",
+            "functionSchema": "public",
+            "functionName": "last_updated",
+            "functionArgs": [],
+            "enabled": true,
+            "condition": null,
+            "orientation": "ROW",
+            "comment": null,
+            "informationSchemaValue": {
+              "trigger_catalog": "dvdrental",
+              "trigger_schema": "public",
+              "trigger_name": "last_updated",
+              "event_manipulation": "UPDATE",
+              "event_object_catalog": "dvdrental",
+              "event_object_schema": "public",
+              "event_object_table": "address",
+              "action_order": 1,
+              "action_condition": null,
+              "action_statement": "EXECUTE FUNCTION last_updated()",
+              "action_orientation": "ROW",
+              "action_timing": "BEFORE",
+              "action_reference_old_table": null,
+              "action_reference_new_table": null,
+              "action_reference_old_row": null,
+              "action_reference_new_row": null,
+              "created": null
+            }
+          }
+        ]
       },
       {
         "name": "rental",
@@ -2871,7 +3081,42 @@
         ],
         "isRowLevelSecurityEnabled": false,
         "isRowLevelSecurityEnforced": false,
-        "securityPolicies": []
+        "securityPolicies": [],
+        "triggers": [
+          {
+            "name": "last_updated",
+            "eventManipulation": [
+              "UPDATE"
+            ],
+            "actionTiming": "BEFORE",
+            "functionSchema": "public",
+            "functionName": "last_updated",
+            "functionArgs": [],
+            "enabled": true,
+            "condition": null,
+            "orientation": "ROW",
+            "comment": null,
+            "informationSchemaValue": {
+              "trigger_catalog": "dvdrental",
+              "trigger_schema": "public",
+              "trigger_name": "last_updated",
+              "event_manipulation": "UPDATE",
+              "event_object_catalog": "dvdrental",
+              "event_object_schema": "public",
+              "event_object_table": "rental",
+              "action_order": 1,
+              "action_condition": null,
+              "action_statement": "EXECUTE FUNCTION last_updated()",
+              "action_orientation": "ROW",
+              "action_timing": "BEFORE",
+              "action_reference_old_table": null,
+              "action_reference_new_table": null,
+              "action_reference_old_row": null,
+              "action_reference_new_row": null,
+              "created": null
+            }
+          }
+        ]
       },
       {
         "name": "country",
@@ -3123,7 +3368,42 @@
         ],
         "isRowLevelSecurityEnabled": false,
         "isRowLevelSecurityEnforced": false,
-        "securityPolicies": []
+        "securityPolicies": [],
+        "triggers": [
+          {
+            "name": "last_updated",
+            "eventManipulation": [
+              "UPDATE"
+            ],
+            "actionTiming": "BEFORE",
+            "functionSchema": "public",
+            "functionName": "last_updated",
+            "functionArgs": [],
+            "enabled": true,
+            "condition": null,
+            "orientation": "ROW",
+            "comment": null,
+            "informationSchemaValue": {
+              "trigger_catalog": "dvdrental",
+              "trigger_schema": "public",
+              "trigger_name": "last_updated",
+              "event_manipulation": "UPDATE",
+              "event_object_catalog": "dvdrental",
+              "event_object_schema": "public",
+              "event_object_table": "country",
+              "action_order": 1,
+              "action_condition": null,
+              "action_statement": "EXECUTE FUNCTION last_updated()",
+              "action_orientation": "ROW",
+              "action_timing": "BEFORE",
+              "action_reference_old_table": null,
+              "action_reference_new_table": null,
+              "action_reference_old_row": null,
+              "action_reference_new_row": null,
+              "created": null
+            }
+          }
+        ]
       },
       {
         "name": "staff",
@@ -3943,7 +4223,42 @@
         ],
         "isRowLevelSecurityEnabled": false,
         "isRowLevelSecurityEnforced": false,
-        "securityPolicies": []
+        "securityPolicies": [],
+        "triggers": [
+          {
+            "name": "last_updated",
+            "eventManipulation": [
+              "UPDATE"
+            ],
+            "actionTiming": "BEFORE",
+            "functionSchema": "public",
+            "functionName": "last_updated",
+            "functionArgs": [],
+            "enabled": true,
+            "condition": null,
+            "orientation": "ROW",
+            "comment": null,
+            "informationSchemaValue": {
+              "trigger_catalog": "dvdrental",
+              "trigger_schema": "public",
+              "trigger_name": "last_updated",
+              "event_manipulation": "UPDATE",
+              "event_object_catalog": "dvdrental",
+              "event_object_schema": "public",
+              "event_object_table": "staff",
+              "action_order": 1,
+              "action_condition": null,
+              "action_statement": "EXECUTE FUNCTION last_updated()",
+              "action_orientation": "ROW",
+              "action_timing": "BEFORE",
+              "action_reference_old_table": null,
+              "action_reference_new_table": null,
+              "action_reference_old_row": null,
+              "action_reference_new_row": null,
+              "created": null
+            }
+          }
+        ]
       },
       {
         "name": "customer",
@@ -4745,7 +5060,42 @@
         ],
         "isRowLevelSecurityEnabled": false,
         "isRowLevelSecurityEnforced": false,
-        "securityPolicies": []
+        "securityPolicies": [],
+        "triggers": [
+          {
+            "name": "last_updated",
+            "eventManipulation": [
+              "UPDATE"
+            ],
+            "actionTiming": "BEFORE",
+            "functionSchema": "public",
+            "functionName": "last_updated",
+            "functionArgs": [],
+            "enabled": true,
+            "condition": null,
+            "orientation": "ROW",
+            "comment": null,
+            "informationSchemaValue": {
+              "trigger_catalog": "dvdrental",
+              "trigger_schema": "public",
+              "trigger_name": "last_updated",
+              "event_manipulation": "UPDATE",
+              "event_object_catalog": "dvdrental",
+              "event_object_schema": "public",
+              "event_object_table": "customer",
+              "action_order": 1,
+              "action_condition": null,
+              "action_statement": "EXECUTE FUNCTION last_updated()",
+              "action_orientation": "ROW",
+              "action_timing": "BEFORE",
+              "action_reference_old_table": null,
+              "action_reference_new_table": null,
+              "action_reference_old_row": null,
+              "action_reference_new_row": null,
+              "created": null
+            }
+          }
+        ]
       },
       {
         "name": "store",
@@ -5115,7 +5465,42 @@
         ],
         "isRowLevelSecurityEnabled": false,
         "isRowLevelSecurityEnforced": false,
-        "securityPolicies": []
+        "securityPolicies": [],
+        "triggers": [
+          {
+            "name": "last_updated",
+            "eventManipulation": [
+              "UPDATE"
+            ],
+            "actionTiming": "BEFORE",
+            "functionSchema": "public",
+            "functionName": "last_updated",
+            "functionArgs": [],
+            "enabled": true,
+            "condition": null,
+            "orientation": "ROW",
+            "comment": null,
+            "informationSchemaValue": {
+              "trigger_catalog": "dvdrental",
+              "trigger_schema": "public",
+              "trigger_name": "last_updated",
+              "event_manipulation": "UPDATE",
+              "event_object_catalog": "dvdrental",
+              "event_object_schema": "public",
+              "event_object_table": "store",
+              "action_order": 1,
+              "action_condition": null,
+              "action_statement": "EXECUTE FUNCTION last_updated()",
+              "action_orientation": "ROW",
+              "action_timing": "BEFORE",
+              "action_reference_old_table": null,
+              "action_reference_new_table": null,
+              "action_reference_old_row": null,
+              "action_reference_new_row": null,
+              "created": null
+            }
+          }
+        ]
       },
       {
         "name": "category",
@@ -5367,7 +5752,42 @@
         ],
         "isRowLevelSecurityEnabled": false,
         "isRowLevelSecurityEnforced": false,
-        "securityPolicies": []
+        "securityPolicies": [],
+        "triggers": [
+          {
+            "name": "last_updated",
+            "eventManipulation": [
+              "UPDATE"
+            ],
+            "actionTiming": "BEFORE",
+            "functionSchema": "public",
+            "functionName": "last_updated",
+            "functionArgs": [],
+            "enabled": true,
+            "condition": null,
+            "orientation": "ROW",
+            "comment": null,
+            "informationSchemaValue": {
+              "trigger_catalog": "dvdrental",
+              "trigger_schema": "public",
+              "trigger_name": "last_updated",
+              "event_manipulation": "UPDATE",
+              "event_object_catalog": "dvdrental",
+              "event_object_schema": "public",
+              "event_object_table": "category",
+              "action_order": 1,
+              "action_condition": null,
+              "action_statement": "EXECUTE FUNCTION last_updated()",
+              "action_orientation": "ROW",
+              "action_timing": "BEFORE",
+              "action_reference_old_table": null,
+              "action_reference_new_table": null,
+              "action_reference_old_row": null,
+              "action_reference_new_row": null,
+              "created": null
+            }
+          }
+        ]
       },
       {
         "name": "payment",
@@ -5925,7 +6345,8 @@
         ],
         "isRowLevelSecurityEnabled": false,
         "isRowLevelSecurityEnforced": false,
-        "securityPolicies": []
+        "securityPolicies": [],
+        "triggers": []
       },
       {
         "name": "film",
@@ -6934,7 +7355,76 @@
         ],
         "isRowLevelSecurityEnabled": false,
         "isRowLevelSecurityEnforced": false,
-        "securityPolicies": []
+        "securityPolicies": [],
+        "triggers": [
+          {
+            "name": "film_fulltext_trigger",
+            "eventManipulation": [
+              "INSERT",
+              "UPDATE"
+            ],
+            "actionTiming": "BEFORE",
+            "functionSchema": "pg_catalog",
+            "functionName": "tsvector_update_trigger",
+            "functionArgs": [],
+            "enabled": true,
+            "condition": null,
+            "orientation": "ROW",
+            "comment": null,
+            "informationSchemaValue": {
+              "trigger_catalog": "dvdrental",
+              "trigger_schema": "public",
+              "trigger_name": "film_fulltext_trigger",
+              "event_manipulation": "INSERT",
+              "event_object_catalog": "dvdrental",
+              "event_object_schema": "public",
+              "event_object_table": "film",
+              "action_order": 1,
+              "action_condition": null,
+              "action_statement": "EXECUTE FUNCTION tsvector_update_trigger('fulltext', 'pg_catalog.english', 'title', 'description')",
+              "action_orientation": "ROW",
+              "action_timing": "BEFORE",
+              "action_reference_old_table": null,
+              "action_reference_new_table": null,
+              "action_reference_old_row": null,
+              "action_reference_new_row": null,
+              "created": null
+            }
+          },
+          {
+            "name": "last_updated",
+            "eventManipulation": [
+              "UPDATE"
+            ],
+            "actionTiming": "BEFORE",
+            "functionSchema": "public",
+            "functionName": "last_updated",
+            "functionArgs": [],
+            "enabled": true,
+            "condition": null,
+            "orientation": "ROW",
+            "comment": null,
+            "informationSchemaValue": {
+              "trigger_catalog": "dvdrental",
+              "trigger_schema": "public",
+              "trigger_name": "last_updated",
+              "event_manipulation": "UPDATE",
+              "event_object_catalog": "dvdrental",
+              "event_object_schema": "public",
+              "event_object_table": "film",
+              "action_order": 2,
+              "action_condition": null,
+              "action_statement": "EXECUTE FUNCTION last_updated()",
+              "action_orientation": "ROW",
+              "action_timing": "BEFORE",
+              "action_reference_old_table": null,
+              "action_reference_new_table": null,
+              "action_reference_old_row": null,
+              "action_reference_new_row": null,
+              "created": null
+            }
+          }
+        ]
       },
       {
         "name": "city",
@@ -7288,7 +7778,42 @@
         ],
         "isRowLevelSecurityEnabled": false,
         "isRowLevelSecurityEnforced": false,
-        "securityPolicies": []
+        "securityPolicies": [],
+        "triggers": [
+          {
+            "name": "last_updated",
+            "eventManipulation": [
+              "UPDATE"
+            ],
+            "actionTiming": "BEFORE",
+            "functionSchema": "public",
+            "functionName": "last_updated",
+            "functionArgs": [],
+            "enabled": true,
+            "condition": null,
+            "orientation": "ROW",
+            "comment": null,
+            "informationSchemaValue": {
+              "trigger_catalog": "dvdrental",
+              "trigger_schema": "public",
+              "trigger_name": "last_updated",
+              "event_manipulation": "UPDATE",
+              "event_object_catalog": "dvdrental",
+              "event_object_schema": "public",
+              "event_object_table": "city",
+              "action_order": 1,
+              "action_condition": null,
+              "action_statement": "EXECUTE FUNCTION last_updated()",
+              "action_orientation": "ROW",
+              "action_timing": "BEFORE",
+              "action_reference_old_table": null,
+              "action_reference_new_table": null,
+              "action_reference_old_row": null,
+              "action_reference_new_row": null,
+              "created": null
+            }
+          }
+        ]
       }
     ],
     "foreignTables": [],
@@ -7849,7 +8374,8 @@
           "checkOption": null,
           "securityBarrier": false,
           "securityInvoker": false
-        }
+        },
+        "triggers": []
       },
       {
         "name": "actor_info",
@@ -8139,7 +8665,8 @@
           "checkOption": null,
           "securityBarrier": false,
           "securityInvoker": false
-        }
+        },
+        "triggers": []
       },
       {
         "name": "film_list",
@@ -8697,7 +9224,8 @@
           "checkOption": null,
           "securityBarrier": false,
           "securityInvoker": false
-        }
+        },
+        "triggers": []
       },
       {
         "name": "sales_by_film_category",
@@ -8853,7 +9381,8 @@
           "checkOption": null,
           "securityBarrier": false,
           "securityInvoker": false
-        }
+        },
+        "triggers": []
       },
       {
         "name": "sales_by_store",
@@ -9068,7 +9597,8 @@
           "checkOption": null,
           "securityBarrier": false,
           "securityInvoker": false
-        }
+        },
+        "triggers": []
       },
       {
         "name": "customer_list",
@@ -9689,7 +10219,8 @@
           "checkOption": null,
           "securityBarrier": false,
           "securityInvoker": false
-        }
+        },
+        "triggers": []
       },
       {
         "name": "nicer_but_slower_film_list",
@@ -10247,7 +10778,8 @@
           "checkOption": null,
           "securityBarrier": false,
           "securityInvoker": false
-        }
+        },
+        "triggers": []
       }
     ],
     "materializedViews": [],

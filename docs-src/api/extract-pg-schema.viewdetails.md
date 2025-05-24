@@ -112,4 +112,23 @@ View options
 
 
 </td></tr>
+<tr><td>
+
+[triggers](./extract-pg-schema.viewdetails.triggers.md)
+
+
+</td><td>
+
+
+</td><td>
+
+Trigger\[\]
+
+
+</td><td>
+
+Triggers on the view.
+
+
+</td></tr>
 </tbody></table>
