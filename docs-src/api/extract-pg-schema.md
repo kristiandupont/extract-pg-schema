@@ -294,6 +294,17 @@ Security policy on a table.
 </td></tr>
 <tr><td>
 
+[Trigger](./extract-pg-schema.trigger.md)
+
+
+</td><td>
+
+Trigger on a table or view.
+
+
+</td></tr>
+<tr><td>
+
 [ViewColumn](./extract-pg-schema.viewcolumn.md)
 
 

@@ -179,7 +179,7 @@ Array of security policies on the table.
 
 </td><td>
 
-Trigger\[\]
+[Trigger](./extract-pg-schema.trigger.md)<!-- -->\[\]
 
 
 </td><td>
