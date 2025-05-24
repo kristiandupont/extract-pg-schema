@@ -122,7 +122,7 @@ View options
 
 </td><td>
 
-Trigger\[\]
+[Trigger](./extract-pg-schema.trigger.md)<!-- -->\[\]
 
 
 </td><td>
