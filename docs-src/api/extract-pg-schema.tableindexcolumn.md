@@ -73,4 +73,23 @@ Column name or null if functional index.
 
 
 </td></tr>
+<tr><td>
+
+[predicate](./extract-pg-schema.tableindexcolumn.predicate.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string \| null
+
+
+</td><td>
+
+Predicate of the partial index or null if regular index.
+
+
+</td></tr>
 </tbody></table>
