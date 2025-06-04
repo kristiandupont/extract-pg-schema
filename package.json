@@ -48,7 +48,7 @@
     "np": "10.2.0",
     "testcontainers": "10.28.0",
     "vitepress": "1.6.3",
-    "vue": "3.5.14"
+    "vue": "3.5.16"
   },
   "np": {},
   "engines": {
