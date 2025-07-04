@@ -969,5 +969,79 @@ describe("extractTable", () => {
       expect(result.triggers).toHaveLength(1);
       expect(result.triggers[0].comment).toBe("This is a trigger comment.");
     });
+
+    it("should extract a STATEMENT-level trigger", async () => {
+      const db = getKnex();
+      await db.raw("create table test.some_table (id integer)");
+      await db.raw(`
+        create function test.statement_trigger_fn() returns trigger as $$
+        begin
+          return new;
+        end;
+        $$ language plpgsql;
+      `);
+      await db.raw(`
+        create trigger statement_trigger
+        after insert on test.some_table
+        for each statement execute function test.statement_trigger_fn();
+      `);
+
+      const result = await extractTable(db, makePgType("some_table"));
+      expect(result.triggers).toHaveLength(1);
+      expect(result.triggers[0].name).toBe("statement_trigger");
+      expect(result.triggers[0].orientation).toBe("STATEMENT");
+      expect(result.triggers[0].actionTiming).toBe("AFTER");
+      expect(result.triggers[0].eventManipulation).toEqual(["INSERT"]);
+    });
+
+    it("should extract an INSTEAD OF trigger", async () => {
+      const db = getKnex();
+      await db.raw("create table test.some_table (id integer)");
+      await db.raw(
+        "create view test.some_view as select * from test.some_table",
+      );
+      await db.raw(`
+        create function test.instead_of_trigger_fn() returns trigger as $$
+        begin
+          return new;
+        end;
+        $$ language plpgsql;
+      `);
+      await db.raw(`
+        create trigger instead_of_trigger
+        instead of insert on test.some_view
+        for each row execute function test.instead_of_trigger_fn();
+      `);
+
+      const result = await extractTable(db, makePgType("some_view"));
+      expect(result.triggers).toHaveLength(1);
+      expect(result.triggers[0].name).toBe("instead_of_trigger");
+      expect(result.triggers[0].actionTiming).toBe("INSTEAD OF");
+      expect(result.triggers[0].orientation).toBe("ROW");
+      expect(result.triggers[0].eventManipulation).toEqual(["INSERT"]);
+    });
+
+    it("should extract a trigger with function arguments", async () => {
+      const db = getKnex();
+      await db.raw("create table test.some_table (id integer)");
+      await db.raw(`
+        create function test.arg_trigger_fn() returns trigger as $$
+        begin
+          return new;
+        end;
+        $$ language plpgsql;
+      `);
+      await db.raw(`
+        create trigger arg_trigger
+        before insert on test.some_table
+        for each row execute function test.arg_trigger_fn();
+      `);
+
+      const result = await extractTable(db, makePgType("some_table"));
+      expect(result.triggers).toHaveLength(1);
+      expect(result.triggers[0].name).toBe("arg_trigger");
+      expect(result.triggers[0].functionArgs).toEqual([]);
+      expect(result.triggers[0].functionName).toBe("arg_trigger_fn");
+    });
   });
 });

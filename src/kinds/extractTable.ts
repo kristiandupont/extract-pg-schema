@@ -569,8 +569,59 @@ const extractTable = async (
   };
 
   // --- Trigger extraction ---
-  // 1. Get all trigger rows for this table from information_schema.triggers
-  const triggersQuery = await db<InformationSchemaTrigger>(
+  // Get triggers using system catalogs for all fields except informationSchemaValue
+  // Based on PostgreSQL information_schema.triggers view definition
+  const triggersQuery = await db.raw(
+    `
+    SELECT
+      t.tgname AS "name",
+      t.tgenabled AS "enabled",
+      t.tgfoid AS "function_oid",
+      t.tgargs AS "function_args",
+      t.tgtype AS "trigger_type",
+      p.proname AS "function_name",
+      p.proargnames AS "function_arg_names",
+      ns.nspname AS "function_schema",
+      d.description AS "comment",
+      -- Extract events using the same logic as information_schema
+      CASE WHEN (t.tgtype & 4) <> 0 THEN 'INSERT' END AS "insert_event",
+      CASE WHEN (t.tgtype & 8) <> 0 THEN 'DELETE' END AS "delete_event", 
+      CASE WHEN (t.tgtype & 16) <> 0 THEN 'UPDATE' END AS "update_event",
+      -- Extract timing using the same logic as information_schema
+      CASE (t.tgtype & 66)
+        WHEN 2 THEN 'BEFORE'
+        WHEN 64 THEN 'INSTEAD OF'
+        ELSE 'AFTER'
+      END AS "action_timing",
+      -- Extract orientation using the same logic as information_schema
+      CASE (t.tgtype & 1)
+        WHEN 1 THEN 'ROW'
+        ELSE 'STATEMENT'
+      END AS "action_orientation",
+      -- Extract condition using the same logic as information_schema
+      CASE
+        WHEN pg_has_role(c.relowner, 'USAGE') THEN 
+          (regexp_match(pg_get_triggerdef(t.oid), 'WHEN \\((.*\\?)\\) EXECUTE FUNCTION'))[1]
+        ELSE NULL
+      END AS "action_condition"
+    FROM
+      pg_trigger t
+      JOIN pg_class c ON t.tgrelid = c.oid
+      JOIN pg_namespace n ON c.relnamespace = n.oid
+      JOIN pg_proc p ON t.tgfoid = p.oid
+      JOIN pg_namespace ns ON p.pronamespace = ns.oid
+      LEFT JOIN pg_description d ON t.oid = d.objoid
+    WHERE
+      c.relname = :table_name
+      AND n.nspname = :schema_name
+      AND NOT t.tgisinternal
+    ORDER BY t.tgname
+    `,
+    { table_name: table.name, schema_name: table.schemaName },
+  );
+
+  // Get information_schema data for informationSchemaValue property only
+  const informationSchemaTriggers = await db<InformationSchemaTrigger>(
     "information_schema.triggers",
   )
     .where({
@@ -578,84 +629,42 @@ const extractTable = async (
       event_object_schema: table.schemaName,
     })
     .select();
-
-  // 2. Group by trigger_name (since one trigger can have multiple event_manipulation rows)
-  const triggersByName: Record<string, InformationSchemaTrigger[]> = {};
-  for (const trig of triggersQuery) {
-    if (!triggersByName[trig.trigger_name])
-      triggersByName[trig.trigger_name] = [];
-    triggersByName[trig.trigger_name].push(trig);
+  const infoSchemaTriggersByName: Record<string, InformationSchemaTrigger[]> =
+    {};
+  for (const trig of informationSchemaTriggers) {
+    if (!infoSchemaTriggersByName[trig.trigger_name])
+      infoSchemaTriggersByName[trig.trigger_name] = [];
+    infoSchemaTriggersByName[trig.trigger_name].push(trig);
   }
 
-  // 3. For each trigger, get extra info from pg_trigger, pg_proc, pg_namespace, and pg_description
   const triggers: Trigger[] = [];
-  for (const [triggerName, triggerRows] of Object.entries(triggersByName)) {
-    // Use the first row for static info
-    const first = triggerRows[0];
-    // Get pg_trigger row for this trigger
-    const pgTriggerRow = await db
-      .select("tgenabled", "tgfoid", "tgargs")
-      .from("pg_trigger")
-      .join("pg_class", "pg_class.oid", "=", "pg_trigger.tgrelid")
-      .join("pg_namespace", "pg_namespace.oid", "=", "pg_class.relnamespace")
-      .where("pg_class.relname", table.name)
-      .andWhere("pg_namespace.nspname", table.schemaName)
-      .andWhere("pg_trigger.tgname", triggerName)
-      .first();
-    if (!pgTriggerRow) continue;
-    // Get function info
-    const pgProcRow = await db
-      .select("proname", "pronamespace", "proargnames")
-      .from("pg_proc")
-      .where("oid", pgTriggerRow.tgfoid)
-      .first();
-    let functionSchema = null;
-    let functionName = null;
-    let functionArgs: string[] = [];
-    if (pgProcRow) {
-      // Get schema name
-      const ns = await db
-        .select("nspname")
-        .from("pg_namespace")
-        .where("oid", pgProcRow.pronamespace)
-        .first();
-      functionSchema = ns ? ns.nspname : null;
-      functionName = pgProcRow.proname;
-      functionArgs = pgProcRow.proargnames || [];
-    }
-    // Get comment
-    const commentRow = await db
-      .select("description")
-      .from("pg_description")
-      .whereRaw(
-        `objoid = (
-          SELECT oid FROM pg_trigger
-          WHERE tgname = ?
-          AND tgrelid = (
-            SELECT c.oid FROM pg_class c
-            JOIN pg_namespace n ON c.relnamespace = n.oid
-            WHERE c.relname = ? AND n.nspname = ?
-          )
-        )`,
-        [triggerName, table.name, table.schemaName],
-      )
-      .first();
-    // Enabled status
-    // tgenabled: 'O' = enabled, 'D' = disabled
-    const enabled = pgTriggerRow.tgenabled === "O";
-    // Compose Trigger object
+  for (const row of triggersQuery.rows) {
+    // Build events array from individual event columns
+    const events: ("INSERT" | "UPDATE" | "DELETE" | "TRUNCATE")[] = [];
+    if (row.insert_event) events.push("INSERT");
+    if (row.delete_event) events.push("DELETE");
+    if (row.update_event) events.push("UPDATE");
+    // Note: TRUNCATE events are not handled in the information_schema view,
+    // but we can add them if needed: if (row.truncate_event) events.push("TRUNCATE");
+
+    // Parse function arguments
+    const functionArgs: string[] = row.function_arg_names || [];
+
+    // Only use information_schema for informationSchemaValue
+    const infoSchemaValue = infoSchemaTriggersByName[row.name]?.[0] ?? null;
+
     triggers.push({
-      name: triggerName,
-      eventManipulation: triggerRows.map((r) => r.event_manipulation as any),
-      actionTiming: first.action_timing as any,
-      functionSchema: functionSchema || "",
-      functionName: functionName || "",
+      name: row.name,
+      eventManipulation: events,
+      actionTiming: row.action_timing,
+      functionSchema: row.function_schema || "",
+      functionName: row.function_name || "",
       functionArgs,
-      enabled,
-      condition: first.action_condition,
-      orientation: first.action_orientation as any,
-      comment: commentRow ? commentRow.description : null,
-      informationSchemaValue: first,
+      enabled: row.enabled === "O",
+      condition: row.action_condition,
+      orientation: row.action_orientation,
+      comment: row.comment,
+      informationSchemaValue: infoSchemaValue,
     });
   }
 
