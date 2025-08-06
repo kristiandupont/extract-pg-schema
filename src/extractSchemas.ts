@@ -160,7 +160,7 @@ async function extractSchemas(
     .select<{ nspname: string }[]>("nspname")
     .from("pg_catalog.pg_namespace")
     .whereNot("nspname", "=", "information_schema")
-    .whereNot("nspname", "LIKE", "pg_%");
+    .whereNot("nspname", "LIKE", "pg\_%");
   const allSchemaNames = R.pluck("nspname", q);
 
   const schemaNames = options?.schemas ?? allSchemaNames;
