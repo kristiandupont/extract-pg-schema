@@ -160,10 +160,7 @@ async function extractSchemas(
     .select<{ nspname: string }[]>("nspname")
     .from("pg_catalog.pg_namespace")
     .whereNot("nspname", "=", "information_schema")
-    // The escape character below is **necessary** because the underscore is a special character in Postgres
-    // that means "any character".
-    // eslint-disable-next-line no-useless-escape
-    .whereNot("nspname", "LIKE", "pg\_%");
+    .whereNot("nspname", "LIKE", "pg\\_%");
   const allSchemaNames = R.pluck("nspname", q);
 
   const schemaNames = options?.schemas ?? allSchemaNames;

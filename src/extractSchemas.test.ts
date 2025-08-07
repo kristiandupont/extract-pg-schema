@@ -11,7 +11,12 @@ describe("extractSchemas", () => {
   it("should extract all schemas with default options", async () => {
     const db = getKnex();
     // Set up test data
-    await db.raw("CREATE TABLE test_schema.test_table (id INTEGER)");
+    await db.schema
+      .withSchema("test_schema")
+      .createTableIfNotExists("test_table", (table) => {
+        table.increments("id");
+        table.string("name");
+      });
 
     const connection = db.client.config.connection;
     const result = await extractSchemas(connection);
@@ -24,8 +29,10 @@ describe("extractSchemas", () => {
   it("Issue #618 - should not filter out schemas like 'pgboss'", async () => {
     const db = getKnex();
     // Set up test data
-    await db.raw("CREATE SCHEMA pgboss");
-    await db.raw("CREATE TABLE pgboss.test_table (id INTEGER)");
+    await db.schema.createSchemaIfNotExists("pgboss");
+    await db.schema
+      .withSchema("pgboss")
+      .createTableIfNotExists("test_table", (table) => table.increments("id"));
 
     const connection = db.client.config.connection;
     const result = await extractSchemas(connection);
@@ -33,5 +40,8 @@ describe("extractSchemas", () => {
     expect(result).toHaveProperty("pgboss");
     expect(result.pgboss.tables).toHaveLength(1);
     expect(result.pgboss.tables[0].name).toBe("test_table");
+
+    await db.schema.dropTableIfExists("pgboss.test_table");
+    await db.schema.dropSchemaIfExists("pgboss");
   });
 });
