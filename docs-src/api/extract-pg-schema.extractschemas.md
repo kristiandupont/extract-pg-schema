@@ -63,6 +63,7 @@ _(Optional)_ Optional options
 
 </td></tr>
 </tbody></table>
+
 **Returns:**
 
 Promise&lt;Record&lt;string, [Schema](./extract-pg-schema.schema.md)<!-- -->&gt;&gt;
