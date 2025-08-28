@@ -19,15 +19,6 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[extractSchema(schemaName, connectionConfig, resolveViews, tables)](./extract-pg-schema.extractschema.md)
-
-
-</td><td>
-
-
-</td></tr>
-<tr><td>
-
 [extractSchemas(connectionConfig, options)](./extract-pg-schema.extractschemas.md)
 
 
@@ -518,3 +509,4 @@ Column type in a view.
 
 </td></tr>
 </tbody></table>
+
