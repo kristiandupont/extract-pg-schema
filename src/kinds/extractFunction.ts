@@ -127,7 +127,7 @@ async function extractFunction(
         name: paramNames[i],
         type: type,
         mode: parameterModeMap[paramModes[i] as keyof typeof parameterModeMap],
-        hasDefault: i >= argTypes.length - (row.pronargdefaults || 0),
+        hasDefault: i >= argTypes.length - (row.pronargdefaults ?? 0),
         ordinalPosition: i + 1,
       }),
     );

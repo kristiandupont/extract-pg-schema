@@ -41,12 +41,22 @@ export default [
     files: ["**/*.ts", "**/*.tsx"],
 
     languageOptions: {
-      ecmaVersion: 5,
-      sourceType: "script",
-
+      ecmaVersion: 2020,
+      sourceType: "module",
+      parser: await import("@typescript-eslint/parser").then((m) => m.default),
       parserOptions: {
         project: "./tsconfig.json",
+        tsconfigRootDir: __dirname,
       },
+    },
+  },
+  {
+    files: ["**/*.js", "**/*.mjs", "**/*.cjs"],
+    rules: {
+      "@typescript-eslint/prefer-nullish-coalescing": "off",
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+      "@typescript-eslint/consistent-type-exports": "off",
+      "@typescript-eslint/consistent-type-imports": "off",
     },
   },
 ];

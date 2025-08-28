@@ -21,16 +21,12 @@ const resolveViewColumns = (
         let sourceColumn: Column | undefined = schemas[source.schema].tables
           .find((table) => table.name === source!.table)
           ?.columns.find((element) => predicate(element));
-        if (!sourceColumn) {
-          sourceColumn = schemas[source.schema].views
-            .find((view) => view.name === source!.table)
-            ?.columns.find((element) => predicate(element));
-        }
-        if (!sourceColumn) {
-          sourceColumn = schemas[source.schema].materializedViews
-            .find((view) => view.name === source!.table)
-            ?.columns.find((element) => predicate(element));
-        }
+        sourceColumn ??= schemas[source.schema].views
+          .find((view) => view.name === source!.table)
+          ?.columns.find((element) => predicate(element));
+        sourceColumn ??= schemas[source.schema].materializedViews
+          .find((view) => view.name === source!.table)
+          ?.columns.find((element) => predicate(element));
         if (!sourceColumn) {
           throw new Error(
             `Column ${source.schema}.${source.table}.${source.column} was not found..`,
