@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const l = require("./build");
 
 // This generates the json for the dvdrental database, if that is running on localhost:54321.

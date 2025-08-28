@@ -47,7 +47,7 @@ function parseSelectStmt(
 
     // const selectTargets = jp.query(selectAst, "$.targetList[*].ResTarget");
     const selectTargets =
-      selectAst.targetList?.map((target: any) => target.ResTarget) || [];
+      selectAst.targetList?.map((target: any) => target.ResTarget) ?? [];
 
     selectTargets.forEach((selectTarget: any) => {
       // const fields = jp.query(selectTarget, "$.val[*].fields[*].String.sval");
@@ -61,7 +61,7 @@ function parseSelectStmt(
           val.ColumnRef?.fields?.map((field: any) => field.String?.sval),
         )
         .flat()
-        .filter(Boolean) || []) as any[];
+        .filter(Boolean) ?? []) as any[];
 
       let sourceTable = fromTable?.relname;
       let sourceSchema = fromTable?.schemaname;
@@ -77,7 +77,7 @@ function parseSelectStmt(
       const sourceColumn = last(fields);
 
       const viewReference: ViewReference = {
-        viewColumn: selectTarget.name || last(fields),
+        viewColumn: selectTarget.name ?? last(fields),
         source:
           sourceTable && sourceColumn
             ? {
@@ -135,7 +135,7 @@ function findAliasDefinitions(node: any): {
         result.push(...findAliasDefinitionsInJoinExpr(clause.JoinExpr));
       }
       return result;
-    }) || [];
+    }) ?? [];
   return aliasDefinitions;
 }
 
@@ -161,7 +161,7 @@ async function parseViewDefinition(
     ]),
   );
 
-  const withClauses = selectAst.withClause?.ctes || [];
+  const withClauses = selectAst.withClause?.ctes ?? [];
 
   const cteAliases: Record<string, ViewReference[]> = {};
 

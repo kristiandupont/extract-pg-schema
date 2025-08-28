@@ -13,7 +13,7 @@ describe("extractSchemas", () => {
     // Set up test data
     await db.schema
       .withSchema("test_schema")
-      .createTableIfNotExists("test_table", (table) => {
+      .createTable("test_table", (table) => {
         table.increments("id");
         table.string("name");
       });
@@ -32,7 +32,7 @@ describe("extractSchemas", () => {
     await db.schema.createSchemaIfNotExists("pgboss");
     await db.schema
       .withSchema("pgboss")
-      .createTableIfNotExists("test_table", (table) => table.increments("id"));
+      .createTable("test_table", (table) => table.increments("id"));
 
     const connection = db.client.config.connection;
     const result = await extractSchemas(connection);
