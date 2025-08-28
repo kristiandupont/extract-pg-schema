@@ -41,7 +41,7 @@
     "@eslint/compat": "^1.2.7",
     "@kristiandupont/dev-deps": "^2.32.0",
     "@microsoft/api-documenter": "7.26.31",
-    "@microsoft/api-extractor": "7.52.10",
+    "@microsoft/api-extractor": "7.52.11",
     "@types/jsonpath": "0.2.4",
     "@types/pg": "8.15.5",
     "@types/ramda": "0.31.0",
