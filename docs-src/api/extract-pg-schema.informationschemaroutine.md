@@ -1594,3 +1594,4 @@ Applies to a feature not available in PostgreSQL
 
 </td></tr>
 </tbody></table>
+

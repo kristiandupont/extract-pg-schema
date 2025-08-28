@@ -94,3 +94,4 @@ The Postgres information\_schema views do not contain info about materialized vi
 
 </td></tr>
 </tbody></table>
+
