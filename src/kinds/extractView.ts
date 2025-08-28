@@ -247,7 +247,7 @@ const extractView = async (
         .first();
       functionSchema = ns ? ns.nspname : null;
       functionName = pgProcRow.proname;
-      functionArgs = pgProcRow.proargnames || [];
+      functionArgs = pgProcRow.proargnames ?? [];
     }
     const commentRow = await db
       .select("description")
@@ -270,8 +270,8 @@ const extractView = async (
       name: triggerName,
       eventManipulation: triggerRows.map((r) => r.event_manipulation as any),
       actionTiming: first.action_timing as any,
-      functionSchema: functionSchema || "",
-      functionName: functionName || "",
+      functionSchema: functionSchema ?? "",
+      functionName: functionName ?? "",
       functionArgs,
       enabled,
       condition: first.action_condition,

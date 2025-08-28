@@ -53,7 +53,7 @@ const mapColumn = (column: any) => {
         column: reference.columnName,
         onUpdate: reference.onUpdate,
         onDelete: reference.onDelete,
-      }) ||
+      }) ??
       undefined,
   };
 };
