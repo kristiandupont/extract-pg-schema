@@ -1,4 +1,3 @@
-export { default as extractSchema } from "./deprecatia/extract-schema";
 export type { ExtractSchemaOptions, Schema } from "./extractSchemas";
 export { default as extractSchemas } from "./extractSchemas";
 export type { default as InformationSchemaColumn } from "./information_schema/InformationSchemaColumn";
