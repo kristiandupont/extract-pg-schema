@@ -291,4 +291,235 @@ describe("parseViewDefinition", () => {
       },
     ]);
   });
+
+  describe("nested CTEs", () => {
+    it("should resolve columns through nested CTE chain and preserve schema", async () => {
+      // Tests: CTE chain resolution (main SELECT -> cte_b -> cte_a -> table)
+      // Also verifies schema is preserved through the chain
+      const query = `
+        WITH cte_a AS (
+          SELECT t.id, t.name
+          FROM api.source_table t
+        ),
+        cte_b AS (
+          SELECT a.id, a.name
+          FROM cte_a a
+        )
+        SELECT b.id, b.name
+        FROM cte_b b
+      `;
+
+      const def = await parseViewDefinition(query, "public");
+
+      expect(def).toEqual([
+        {
+          viewColumn: "id",
+          source: {
+            schema: "api",
+            table: "source_table",
+            column: "id",
+          },
+        },
+        {
+          viewColumn: "name",
+          source: {
+            schema: "api",
+            table: "source_table",
+            column: "name",
+          },
+        },
+      ]);
+    });
+  });
+
+  describe("VALUES clause CTEs", () => {
+    it("should handle VALUES-based CTE with undefined source", async () => {
+      const query = `
+        WITH inline_data AS (
+          VALUES ('a'::text, 1::int), ('b'::text, 2::int)
+        )
+        SELECT column1 AS code, column2 AS value
+        FROM inline_data
+      `;
+
+      const def = await parseViewDefinition(query, "public");
+
+      expect(def).toEqual([
+        {
+          viewColumn: "code",
+          source: undefined,
+        },
+        {
+          viewColumn: "value",
+          source: undefined,
+        },
+      ]);
+    });
+  });
+
+  describe("UNION operations", () => {
+    it("should resolve different aliases per UNION branch", async () => {
+      // This tests the fix for recursive CTEs where each branch has its own aliases
+      // e.g., left branch uses 'rr' for roles_roles, right branch uses 'gm' for group_members
+      const query = `
+        WITH RECURSIVE group_members AS (
+          SELECT rr.relationship, rr.parent_role_id, rr.role_id
+          FROM roles_roles rr
+          WHERE rr.relationship <> 'member'
+          UNION ALL
+          SELECT gm.relationship, gm.parent_role_id, r.id AS role_id
+          FROM group_members gm
+          JOIN roles_roles gr ON gr.parent_role_id = gm.role_id
+          JOIN roles r ON r.id = gr.role_id
+        )
+        SELECT gm.relationship, gm.parent_role_id, gm.role_id
+        FROM group_members gm
+      `;
+
+      const def = await parseViewDefinition(query, "public");
+
+      expect(def).toEqual([
+        {
+          viewColumn: "relationship",
+          source: {
+            schema: "public",
+            table: "roles_roles",
+            column: "relationship",
+          },
+        },
+        {
+          viewColumn: "parent_role_id",
+          source: {
+            schema: "public",
+            table: "roles_roles",
+            column: "parent_role_id",
+          },
+        },
+        {
+          viewColumn: "role_id",
+          source: {
+            schema: "public",
+            table: "roles_roles",
+            column: "role_id",
+          },
+        },
+      ]);
+    });
+
+    it("should handle simple UNION ALL", async () => {
+      const query = `
+        SELECT a.id, a.name FROM table_a a
+        UNION ALL
+        SELECT b.id, b.name FROM table_b b
+      `;
+
+      const def = await parseViewDefinition(query, "public");
+
+      expect(def).toEqual([
+        {
+          viewColumn: "id",
+          source: {
+            schema: "public",
+            table: "table_a",
+            column: "id",
+          },
+        },
+        {
+          viewColumn: "name",
+          source: {
+            schema: "public",
+            table: "table_a",
+            column: "name",
+          },
+        },
+        {
+          viewColumn: "id",
+          source: {
+            schema: "public",
+            table: "table_b",
+            column: "id",
+          },
+        },
+        {
+          viewColumn: "name",
+          source: {
+            schema: "public",
+            table: "table_b",
+            column: "name",
+          },
+        },
+      ]);
+    });
+  });
+
+  describe("additional SQL features", () => {
+    it("should handle DISTINCT ON", async () => {
+      const query = `
+        SELECT DISTINCT ON (t.category) t.id, t.category, t.name
+        FROM items t
+        ORDER BY t.category, t.created_at DESC
+      `;
+
+      const def = await parseViewDefinition(query, "public");
+
+      expect(def).toEqual([
+        {
+          viewColumn: "id",
+          source: {
+            schema: "public",
+            table: "items",
+            column: "id",
+          },
+        },
+        {
+          viewColumn: "category",
+          source: {
+            schema: "public",
+            table: "items",
+            column: "category",
+          },
+        },
+        {
+          viewColumn: "name",
+          source: {
+            schema: "public",
+            table: "items",
+            column: "name",
+          },
+        },
+      ]);
+    });
+
+    it("should handle subqueries in FROM clause", async () => {
+      const query = `
+        SELECT sub.id, sub.total
+        FROM (
+          SELECT o.id, SUM(o.amount) AS total
+          FROM orders o
+          GROUP BY o.id
+        ) sub
+      `;
+
+      const def = await parseViewDefinition(query, "public");
+
+      expect(def).toEqual([
+        {
+          viewColumn: "id",
+          source: {
+            schema: "public",
+            table: "sub",
+            column: "id",
+          },
+        },
+        {
+          viewColumn: "total",
+          source: {
+            schema: "public",
+            table: "sub",
+            column: "total",
+          },
+        },
+      ]);
+    });
+  });
 });
