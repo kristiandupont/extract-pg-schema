@@ -200,6 +200,81 @@ describe("extractTable", () => {
     expect(actual).toEqual(expected);
   });
 
+  it("should strip NOT VALID from check constraint clauses without truncating", async () => {
+    const db = getKnex();
+    await db.raw(`create table test.some_table_with_not_valid_check (
+        product TEXT
+    )`);
+    await db.raw(`alter table test.some_table_with_not_valid_check
+        add constraint product_length_check
+        check (product is null or length(product) <= 500) not valid`);
+
+    const result = await extractTable(
+      db,
+      makePgType("some_table_with_not_valid_check"),
+    );
+    const actual = result.checks;
+
+    const expected: TableCheck[] = [
+      {
+        name: "product_length_check",
+        clause: "(product IS NULL) OR (length(product) <= 500)",
+      },
+    ];
+
+    expect(actual).toEqual(expected);
+  });
+
+  it("should strip NO INHERIT from check constraint clauses without truncating", async () => {
+    const db = getKnex();
+    await db.raw(`create table test.some_table_with_no_inherit_check (
+        product TEXT
+    )`);
+    await db.raw(`alter table test.some_table_with_no_inherit_check
+        add constraint product_length_check
+        check (product is null or length(product) <= 500) no inherit`);
+
+    const result = await extractTable(
+      db,
+      makePgType("some_table_with_no_inherit_check"),
+    );
+    const actual = result.checks;
+
+    const expected: TableCheck[] = [
+      {
+        name: "product_length_check",
+        clause: "(product IS NULL) OR (length(product) <= 500)",
+      },
+    ];
+
+    expect(actual).toEqual(expected);
+  });
+
+  it("should strip both NO INHERIT and NOT VALID from check constraint clauses", async () => {
+    const db = getKnex();
+    await db.raw(`create table test.some_table_with_both_attrs_check (
+        product TEXT
+    )`);
+    await db.raw(`alter table test.some_table_with_both_attrs_check
+        add constraint product_length_check
+        check (product is null or length(product) <= 500) no inherit not valid`);
+
+    const result = await extractTable(
+      db,
+      makePgType("some_table_with_both_attrs_check"),
+    );
+    const actual = result.checks;
+
+    const expected: TableCheck[] = [
+      {
+        name: "product_length_check",
+        clause: "(product IS NULL) OR (length(product) <= 500)",
+      },
+    ];
+
+    expect(actual).toEqual(expected);
+  });
+
   it("should handle domains, composite types, ranges and enums as well as arrays of those", async () => {
     const db = getKnex();
     await db.raw("create domain test.some_domain as text");

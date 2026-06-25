@@ -526,13 +526,16 @@ const extractTable = async (
   const checks = checkQuery.rows
     .flatMap((row: any) => row.checks as TableCheck)
     .map(({ name, clause }: TableCheck) => {
+      const endIndex = clause.lastIndexOf(")");
+      const expression =
+        endIndex === -1 ? clause : clause.slice(0, endIndex + 1);
       const numberOfBrackets =
-        clause.startsWith("((") && clause.endsWith("))") ? 2 : 1;
+        expression.startsWith("((") && expression.endsWith("))") ? 2 : 1;
       return {
         name,
-        clause: clause.slice(
+        clause: expression.slice(
           numberOfBrackets,
-          clause.length - numberOfBrackets,
+          expression.length - numberOfBrackets,
         ),
       };
     });
