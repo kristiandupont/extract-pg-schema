@@ -653,7 +653,9 @@ const extractTable = async (
     // but we can add them if needed: if (row.truncate_event) events.push("TRUNCATE");
 
     // Parse function arguments
-    const functionArgs: string[] = Array.isArray(row.function_arg_names) ? row.function_arg_names : [];
+    const functionArgs: string[] = Array.isArray(row.function_arg_names)
+      ? row.function_arg_names
+      : [];
 
     // Only use information_schema for informationSchemaValue
     const infoSchemaValue = infoSchemaTriggersByName[row.name]?.[0] ?? null;
