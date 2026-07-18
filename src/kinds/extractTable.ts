@@ -590,6 +590,7 @@ const extractTable = async (
       CASE WHEN (t.tgtype & 4) <> 0 THEN 'INSERT' END AS "insert_event",
       CASE WHEN (t.tgtype & 8) <> 0 THEN 'DELETE' END AS "delete_event", 
       CASE WHEN (t.tgtype & 16) <> 0 THEN 'UPDATE' END AS "update_event",
+      CASE WHEN (t.tgtype & 32) <> 0 THEN 'TRUNCATE' END AS "truncate_event",
       -- Extract timing using the same logic as information_schema
       CASE (t.tgtype & 66)
         WHEN 2 THEN 'BEFORE'
@@ -647,11 +648,12 @@ const extractTable = async (
     if (row.insert_event) events.push("INSERT");
     if (row.delete_event) events.push("DELETE");
     if (row.update_event) events.push("UPDATE");
+    if (row.truncate_event) events.push("TRUNCATE");
     // Note: TRUNCATE events are not handled in the information_schema view,
     // but we can add them if needed: if (row.truncate_event) events.push("TRUNCATE");
 
     // Parse function arguments
-    const functionArgs: string[] = row.function_arg_names ?? [];
+    const functionArgs: string[] = Array.isArray(row.function_arg_names) ? row.function_arg_names : [];
 
     // Only use information_schema for informationSchemaValue
     const infoSchemaValue = infoSchemaTriggersByName[row.name]?.[0] ?? null;

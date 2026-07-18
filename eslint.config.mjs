@@ -5,6 +5,7 @@ import { fixupConfigRules } from "@eslint/compat";
 import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
 import globals from "globals";
+import tseslintParser from "@typescript-eslint/parser";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -43,7 +44,7 @@ export default [
     languageOptions: {
       ecmaVersion: 2020,
       sourceType: "module",
-      parser: await import("@typescript-eslint/parser").then((m) => m.default),
+      parser: tseslintParser,
       parserOptions: {
         project: "./tsconfig.json",
         tsconfigRootDir: __dirname,
