@@ -24,8 +24,9 @@
     "lint": "eslint . --report-unused-disable-directives",
     "test": "vitest run",
     "version": "npm run build",
-    "docs:prep": "tsc && npx api-extractor run --local --verbose && npx api-documenter markdown --input-folder=./temp/ --output-folder=./docs-src/api && rm -rf ./temp",
-    "docs:dev": "npm run docs:prep && vitepress dev docs-src",
+    "docs:generate-types": "npx vite-node docs-src/generate-type-docs.ts",
+    "docs:prep": "npm run docs:generate-types && tsc && npx api-extractor run --local --verbose && npx api-documenter markdown --input-folder=./temp/ --output-folder=./docs-src/api && rm -rf ./temp",
+    "docs:dev": "npm run docs:generate-types && vitepress dev docs-src",
     "docs:build": "npm run docs:prep && vitepress build docs-src",
     "generate-dvdrental": "node ./generate-dvdrental > dvdrental.json"
   },
@@ -46,6 +47,7 @@
     "@types/ramda": "0.31.0",
     "np": "10.2.0",
     "testcontainers": "11.0.3",
+    "ts-morph": "^28.0.0",
     "vitepress": "1.6.4",
     "vue": "3.5.27"
   },

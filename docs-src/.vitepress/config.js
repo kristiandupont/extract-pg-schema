@@ -9,12 +9,8 @@ export default {
       {
         text: 'Guide',
         items: [
-          { text: 'API', link: '/api/' },
-          {
-            text: 'extractSchemas',
-            link: '/api/extract-pg-schema.extractschemas.html',
-          },
-          { text: 'Output', link: '/api/extract-pg-schema.schema.html' },
+          { text: 'Types', link: '/types' },
+          { text: 'API (legacy)', link: '/api/' },
         ],
       },
     ],
