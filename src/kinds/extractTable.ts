@@ -475,8 +475,13 @@ const extractTable = async (
         ) ORDER BY keys.key_order) AS columns
       FROM
         pg_index ix
+        INNER JOIN pg_class ct ON ct.oid = ix.indrelid
+        INNER JOIN pg_namespace cn ON cn.oid = ct.relnamespace
         CROSS JOIN unnest(ix.indkey) WITH ORDINALITY AS keys(key, key_order)
         LEFT JOIN pg_attribute a ON ix.indrelid = a.attrelid AND key = a.attnum
+      WHERE
+        ct.relname = :table_name
+        AND cn.nspname = :schema_name
       GROUP BY ix.indexrelid, ix.indrelid
     )
     SELECT
