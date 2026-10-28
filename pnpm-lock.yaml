@@ -10,13 +10,13 @@ importers:
     dependencies:
       knex:
         specifier: 3.3.0
-        version: 3.3.0(pg@8.17.2)(supports-color@8.1.1)
+        version: 3.3.0(pg@8.23.1)(supports-color@8.1.1)
       knex-pglite:
         specifier: ^0.14.0
-        version: 0.14.0(@electric-sql/pglite@0.5.4)(knex@3.3.0(pg@8.17.2)(supports-color@8.1.1))
+        version: 0.14.0(@electric-sql/pglite@0.5.4)(knex@3.3.0(pg@8.23.1)(supports-color@8.1.1))
       pg:
-        specifier: 8.17.2
-        version: 8.17.2
+        specifier: 8.23.1
+        version: 8.23.1
       pg-query-emscripten:
         specifier: ^5.1.0
         version: 5.1.0
@@ -25,7 +25,7 @@ importers:
         version: 0.32.0
     devDependencies:
       '@eslint/compat':
-        specifier: ^2.1.1
+        specifier: ^2.0.0
         version: 2.1.1(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))
       '@kristiandupont/dev-deps':
         specifier: ^2.32.0
@@ -40,8 +40,8 @@ importers:
         specifier: 0.2.4
         version: 0.2.4
       '@types/pg':
-        specifier: 8.16.0
-        version: 8.16.0
+        specifier: 8.23.1
+        version: 8.23.1
       '@types/ramda':
         specifier: 0.32.0
         version: 0.32.0
@@ -1175,8 +1175,8 @@ packages:
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
 
-  '@types/pg@8.16.0':
-    resolution: {integrity: sha512-RmhMd/wD+CF8Dfo+cVIy3RR5cl8CyfXQ0tGgW6XBL8L4LM/UTEbNXYRbLwU6w+CgrKBNbrQWt4FUtTfaU5jSYQ==}
+  '@types/pg@8.23.1':
+    resolution: {integrity: sha512-fKVHpikPdg4GKks3JuLEhvwSyvwzF23hnabPy6DD8ljVbC7+6J5dQzdv4arV6jqq57djnMgs1HKBxX4P8aBI3A==}
 
   '@types/ramda@0.32.0':
     resolution: {integrity: sha512-eTRIFYUxjVvZimlPNpXzXc3j4tnSYc7lBsD7X3zwtRvJML3qXclM4+m8vvmAZAHhBASKPmZAp6qu2C/DwJpBGQ==}
@@ -3345,11 +3345,11 @@ packages:
   perfect-debounce@1.0.0:
     resolution: {integrity: sha512-xCy9V055GLEqoFaHoC1SoLIaLmWctgCUaBaWxDZ7/Zx4CTyX7cJQLJOok/orfjZAh9kEYpjJa4d0KcJmCbctZA==}
 
-  pg-cloudflare@1.4.0:
-    resolution: {integrity: sha512-Vo7z/6rrQYxpNRylp4Tlob2elzbh+N/MOQbxFVWCxS7oEx6jF53GTJFxK2WWpKuBRkmiin4Mt+xofFDjx09R0A==}
+  pg-cloudflare@1.4.1:
+    resolution: {integrity: sha512-6PQbsFWZcp9EmJEwy5cGQ2La+AMWpP46lgbb8X+U/XsHIUweYDNCpeuKck5RxL2MdVFi7krbbEi5nX4Zh7JhrQ==}
 
-  pg-connection-string@2.14.0:
-    resolution: {integrity: sha512-XwWDGcLRGCXAR8F/AM5bG7Q+A3Wm2s6QeEjlOKZLlH3UYcguiqCWKyWXVag5TLTIjR7oOJUY8kcADaZgWPyLeg==}
+  pg-connection-string@2.14.1:
+    resolution: {integrity: sha512-qR3kGNPBLpCNtz0evbKA0Y/MRFXwSSdT+pTJvYp/bXTcReZbvX1kzF0IyTc1QnxqF7AZbOeBhNL8R5mYQZV/MA==}
 
   pg-connection-string@2.6.2:
     resolution: {integrity: sha512-ch6OwaeaPYcova4kKZ15sbJ2hKb/VP48ZD2gE7i1J+L4MspCtBMAx8nMgz7bksc7IojCIIWuEhHibSMFH8m8oA==}
@@ -3366,6 +3366,9 @@ packages:
   pg-protocol@1.15.0:
     resolution: {integrity: sha512-cq9sECI5s0+uPUXjbz8ioyPJni6RzsRib0US67i5IoTZKw8fNeYlVE7u8F4dG7vEJJtc5wdD1K189lCCUwqWTQ==}
 
+  pg-protocol@1.16.1:
+    resolution: {integrity: sha512-p9VOFMiHB/ZbJATetbg+99PxssTVSQRnyuPSQ67mN1+1KBOjZaZ83ZQzltnxPhJwSsC3nwVjJ10DVJlerbFzLg==}
+
   pg-query-emscripten@5.1.0:
     resolution: {integrity: sha512-H1ZWOzLRddmHuE4GZqFjjo55hA9zMiePz/WDDGANA/EnvILCJps9pcRucyGd+MFvapeYOy6TWSYz6DbtBOaxRQ==}
 
@@ -3373,8 +3376,8 @@ packages:
     resolution: {integrity: sha512-qTAAlrEsl8s4OiEQY69wDvcMIdQN6wdz5ojQiOy6YRMuynxenON0O5oCpJI6lshc6scgAY8qvJ2On/p+CXY0GA==}
     engines: {node: '>=4'}
 
-  pg@8.17.2:
-    resolution: {integrity: sha512-vjbKdiBJRqzcYw1fNU5KuHyYvdJ1qpcQg1CeBrHFqV1pWgHeVR6j/+kX0E1AAXfyuLUGY1ICrN2ELKA/z2HWzw==}
+  pg@8.23.1:
+    resolution: {integrity: sha512-aL96AHANtWjPLDOLqnhx+ngp9+UK7ETEU8VJrDCGvsSSi/mGLcWYsS6Herg7lmaBJe4uwrfqsa7gTEFaSizDoQ==}
     engines: {node: '>= 16.0.0'}
     peerDependencies:
       pg-native: '>=3.0.1'
@@ -5505,7 +5508,7 @@ snapshots:
 
   '@types/normalize-package-data@2.4.4': {}
 
-  '@types/pg@8.16.0':
+  '@types/pg@8.23.1':
     dependencies:
       '@types/node': 26.1.1
       pg-protocol: 1.15.0
@@ -7429,12 +7432,12 @@ snapshots:
     dependencies:
       json-buffer: 3.0.1
 
-  knex-pglite@0.14.0(@electric-sql/pglite@0.5.4)(knex@3.3.0(pg@8.17.2)(supports-color@8.1.1)):
+  knex-pglite@0.14.0(@electric-sql/pglite@0.5.4)(knex@3.3.0(pg@8.23.1)(supports-color@8.1.1)):
     dependencies:
       '@electric-sql/pglite': 0.5.4
-      knex: 3.3.0(pg@8.17.2)(supports-color@8.1.1)
+      knex: 3.3.0(pg@8.23.1)(supports-color@8.1.1)
 
-  knex@3.3.0(pg@8.17.2)(supports-color@8.1.1):
+  knex@3.3.0(pg@8.23.1)(supports-color@8.1.1):
     dependencies:
       colorette: 2.0.19
       commander: 10.0.1
@@ -7451,7 +7454,7 @@ snapshots:
       tarn: 3.1.2
       tildify: 2.0.0
     optionalDependencies:
-      pg: 8.17.2
+      pg: 8.23.1
     transitivePeerDependencies:
       - supports-color
 
@@ -7949,20 +7952,22 @@ snapshots:
 
   perfect-debounce@1.0.0: {}
 
-  pg-cloudflare@1.4.0:
+  pg-cloudflare@1.4.1:
     optional: true
 
-  pg-connection-string@2.14.0: {}
+  pg-connection-string@2.14.1: {}
 
   pg-connection-string@2.6.2: {}
 
   pg-int8@1.0.1: {}
 
-  pg-pool@3.14.0(pg@8.17.2):
+  pg-pool@3.14.0(pg@8.23.1):
     dependencies:
-      pg: 8.17.2
+      pg: 8.23.1
 
   pg-protocol@1.15.0: {}
+
+  pg-protocol@1.16.1: {}
 
   pg-query-emscripten@5.1.0: {}
 
@@ -7974,15 +7979,15 @@ snapshots:
       postgres-date: 1.0.7
       postgres-interval: 1.2.0
 
-  pg@8.17.2:
+  pg@8.23.1:
     dependencies:
-      pg-connection-string: 2.14.0
-      pg-pool: 3.14.0(pg@8.17.2)
-      pg-protocol: 1.15.0
+      pg-connection-string: 2.14.1
+      pg-pool: 3.14.0(pg@8.23.1)
+      pg-protocol: 1.16.1
       pg-types: 2.2.0
       pgpass: 1.0.5
     optionalDependencies:
-      pg-cloudflare: 1.4.0
+      pg-cloudflare: 1.4.1
 
   pgpass@1.0.5:
     dependencies:

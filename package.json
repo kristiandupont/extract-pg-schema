@@ -33,7 +33,7 @@
   "dependencies": {
     "knex": "3.3.0",
     "knex-pglite": "^0.14.0",
-    "pg": "8.17.2",
+    "pg": "8.23.1",
     "pg-query-emscripten": "^5.1.0",
     "ramda": "^0.32.0"
   },
@@ -43,7 +43,7 @@
     "@microsoft/api-documenter": "7.28.2",
     "@microsoft/api-extractor": "7.60.0",
     "@types/jsonpath": "0.2.4",
-    "@types/pg": "8.16.0",
+    "@types/pg": "8.23.1",
     "@types/ramda": "0.32.0",
     "np": "10.3.0",
     "testcontainers": "11.14.0",
