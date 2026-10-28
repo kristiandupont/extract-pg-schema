@@ -4,10 +4,9 @@ import { last } from "ramda";
 // The pg-query-emscripten WASM module has internal state that can become
 // corrupted when reused, causing non-deterministic parse failures.
 const createPgQuery = async () => {
-  // Use eval to prevent TypeScript from converting this to require
-  const pgQueryModule = await eval(
-    'import("pg-query-emscripten/pg_query_wasm.js")',
-  );
+  // With "module": "Node16", TypeScript keeps import() as-is in CommonJS output,
+  // so this ESM-only package can be loaded without an eval workaround.
+  const pgQueryModule = await import("pg-query-emscripten/pg_query_wasm.js");
   return new pgQueryModule.default();
 };
 
