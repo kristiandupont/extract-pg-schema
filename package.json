@@ -40,7 +40,7 @@
   "devDependencies": {
     "@eslint/compat": "^2.0.0",
     "@kristiandupont/dev-deps": "^2.32.0",
-    "@microsoft/api-documenter": "7.28.2",
+    "@microsoft/api-documenter": "7.30.19",
     "@microsoft/api-extractor": "7.60.0",
     "@types/jsonpath": "0.2.4",
     "@types/pg": "8.16.0",
