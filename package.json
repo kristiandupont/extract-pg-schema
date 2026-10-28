@@ -45,7 +45,7 @@
     "@types/jsonpath": "0.2.4",
     "@types/pg": "8.23.1",
     "@types/ramda": "0.32.0",
-    "np": "10.3.0",
+    "np": "12.1.1",
     "testcontainers": "11.14.0",
     "ts-morph": "^28.0.0",
     "vitepress": "1.6.4",
