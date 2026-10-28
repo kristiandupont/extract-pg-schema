@@ -12,8 +12,8 @@ importers:
         specifier: 3.3.0
         version: 3.3.0(pg@8.17.2)(supports-color@8.1.1)
       knex-pglite:
-        specifier: ^0.12.0
-        version: 0.12.1(@electric-sql/pglite@0.5.4)(knex@3.3.0(pg@8.17.2)(supports-color@8.1.1))
+        specifier: ^0.14.0
+        version: 0.14.0(@electric-sql/pglite@0.5.4)(knex@3.3.0(pg@8.17.2)(supports-color@8.1.1))
       pg:
         specifier: 8.17.2
         version: 8.17.2
@@ -2843,8 +2843,8 @@ packages:
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
 
-  knex-pglite@0.12.1:
-    resolution: {integrity: sha512-7aMZfDVt2f6MQEdT1ASP/rS8T2bQCIieFGxMry9AO1zEHduI1fwqsOa0D63z3qFzHHLcEGNfSCqOfoUFbXoxtg==}
+  knex-pglite@0.14.0:
+    resolution: {integrity: sha512-6KVnjKFqhd/LK0ah4DGf/jcF7TjcDQkRxh3bGlZOfo26gfH5SIlN6LzhSxxiAgLy+shkiGnY9VnMtd36Yw/dfw==}
     peerDependencies:
       '@electric-sql/pglite': 0.x
       knex: 3.x
@@ -7394,7 +7394,7 @@ snapshots:
     dependencies:
       json-buffer: 3.0.1
 
-  knex-pglite@0.12.1(@electric-sql/pglite@0.5.4)(knex@3.3.0(pg@8.17.2)(supports-color@8.1.1)):
+  knex-pglite@0.14.0(@electric-sql/pglite@0.5.4)(knex@3.3.0(pg@8.17.2)(supports-color@8.1.1)):
     dependencies:
       '@electric-sql/pglite': 0.5.4
       knex: 3.3.0(pg@8.17.2)(supports-color@8.1.1)
