@@ -32,7 +32,7 @@ async function run() {
 run();
 ```
 
-The generated output is a record of schemas, described with the [Schema](/api/extract-pg-schema.schema.html) type.
+The generated output is a record of schemas, described with the [Schema](/types#schema) type.
 
 ## pglite
 

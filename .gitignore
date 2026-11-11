@@ -67,3 +67,6 @@ build
 cache
 
 docs-src/type-data.json
+
+# VitePress build output (published by .github/workflows/docs.yml)
+docs-src/.vitepress/dist
