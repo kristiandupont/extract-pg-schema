@@ -25,9 +25,8 @@
     "test": "vitest run",
     "version": "npm run build",
     "docs:generate-types": "npx vite-node docs-src/generate-type-docs.ts",
-    "docs:prep": "npm run docs:generate-types && tsc && npx api-extractor run --local --verbose && npx api-documenter markdown --input-folder=./temp/ --output-folder=./docs-src/api && rm -rf ./temp",
     "docs:dev": "npm run docs:generate-types && vitepress dev docs-src",
-    "docs:build": "npm run docs:prep && vitepress build docs-src",
+    "docs:build": "npm run docs:generate-types && vitepress build docs-src",
     "generate-dvdrental": "node ./generate-dvdrental > dvdrental.json"
   },
   "dependencies": {
@@ -40,9 +39,6 @@
   "devDependencies": {
     "@eslint/compat": "^2.0.0",
     "@kristiandupont/dev-deps": "^2.32.0",
-    "@microsoft/api-documenter": "7.30.19",
-    "@microsoft/api-extractor": "7.60.0",
-    "@types/jsonpath": "0.2.4",
     "@types/pg": "8.23.1",
     "@types/ramda": "0.32.0",
     "np": "10.3.0",
