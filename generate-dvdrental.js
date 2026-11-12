@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 const l = require("./build");
 
 // This generates the json for the dvdrental database, if that is running on localhost:54321.
@@ -10,6 +9,5 @@ const connection = {
   port: 54_321,
 };
 l.extractSchemas(connection).then((r) =>
-  // eslint-disable-next-line no-console
   console.log(JSON.stringify(r, null, 2)),
 );

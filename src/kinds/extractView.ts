@@ -1,5 +1,4 @@
 import type { Knex } from "knex";
-import * as R from "ramda";
 
 import type InformationSchemaColumn from "../information_schema/InformationSchemaColumn";
 import type { InformationSchemaTrigger } from "../information_schema/InformationSchemaTrigger";
@@ -354,7 +353,9 @@ const extractView = async (
       informationSchemaValue.view_definition,
       view.schemaName,
     );
-    sourceMapping = R.indexBy(R.prop("viewColumn"), viewReferences);
+    sourceMapping = Object.fromEntries(
+      viewReferences.map((ref) => [ref.viewColumn, ref]),
+    );
   } catch {
     console.warn(
       `Error parsing view definition for "${view.name}". Falling back to raw data`,

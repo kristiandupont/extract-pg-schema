@@ -138,20 +138,24 @@ function extendsBaseRef(extendsText: string): string | null {
   <div class="tb" :class="[`tb--d${depth}`, depth > 0 ? 'tb--nested' : '']">
     <template v-if="typeInfo">
       <!-- Block-level comment — on one line to avoid whitespace condensing -->
-      <div v-if="typeInfo.comment && depth === 0" class="tb-block-comment">/** {{ typeInfo.comment }} */</div>
+      <div v-if="typeInfo.comment && depth === 0" class="tb-block-comment">
+        /** {{ typeInfo.comment }} */
+      </div>
 
       <!-- ── Header line ─────────────────────────────── -->
       <div class="tb-line tb-header">
-        <template v-if="depth === 0"><span class="tb-kw">export</span>{{" "}}</template><span class="tb-kw">{{ typeInfo.keyword }}</span>{{" "}}<span class="tb-self-name">{{ typeInfo.name }}</span>
+        <template v-if="depth === 0"
+          ><span class="tb-kw">export</span>{{ " " }}</template
+        ><span class="tb-kw">{{ typeInfo.keyword }}</span
+        >{{ " " }}<span class="tb-self-name">{{ typeInfo.name }}</span>
 
         <!-- extends clause -->
         <template v-if="typeInfo.extendsTexts.length">
-          {{" "}}<span class="tb-kw">extends</span>{{" "}}
-          <template
-            v-for="(ext, ei) in typeInfo.extendsTexts"
-            :key="ext"
-          >
-            <template v-if="ei > 0"><span class="tb-punct">,</span>{{" "}}</template>
+          {{ " " }}<span class="tb-kw">extends</span>{{ " " }}
+          <template v-for="(ext, ei) in typeInfo.extendsTexts" :key="ext">
+            <template v-if="ei > 0"
+              ><span class="tb-punct">,</span>{{ " " }}</template
+            >
             <template v-for="(tok, ti) in tokenize(ext)" :key="ti">
               <span :class="`tb-${tok.kind}`">{{ tok.text }}</span>
             </template>
@@ -164,13 +168,19 @@ function extendsBaseRef(extendsText: string): string | null {
                   : `Expand ${extendsBaseRef(ext)}`
               "
               @click="toggle(`__extends_${ei}`)"
-            >{{ expanded.has(`__extends_${ei}`) ? "▼" : "▶" }}</button>
+            >
+              {{ expanded.has(`__extends_${ei}`) ? "▼" : "▶" }}
+            </button>
           </template>
         </template>
 
         <!-- = for type aliases / { for interfaces -->
-        <template v-if="typeInfo.keyword === 'type' && !typeInfo.properties">{{" "}}<span class="tb-punct">=</span></template>
-        <template v-else-if="typeInfo.properties">{{" "}}<span class="tb-punct">{</span></template>
+        <template v-if="typeInfo.keyword === 'type' && !typeInfo.properties"
+          >{{ " " }}<span class="tb-punct">=</span></template
+        >
+        <template v-else-if="typeInfo.properties"
+          >{{ " " }}<span class="tb-punct">{</span></template
+        >
       </div>
 
       <!-- Expanded extends types -->
@@ -178,27 +188,39 @@ function extendsBaseRef(extendsText: string): string | null {
         v-for="(ext, ei) in typeInfo.extendsTexts"
         :key="`ext-expanded-${ei}`"
       >
-        <div v-if="expanded.has(`__extends_${ei}`) && extendsBaseRef(ext)" class="tb-child">
-          <TypeBlock
-            :type-name="extendsBaseRef(ext)!"
-            :depth="depth + 1"
-          />
+        <div
+          v-if="expanded.has(`__extends_${ei}`) && extendsBaseRef(ext)"
+          class="tb-child"
+        >
+          <TypeBlock :type-name="extendsBaseRef(ext)!" :depth="depth + 1" />
         </div>
       </template>
 
       <!-- ── Interface / object-type body ───────────── -->
       <template v-if="typeInfo.properties">
-        <div v-for="prop in typeInfo.properties" :key="prop.name" class="tb-prop-group">
+        <div
+          v-for="prop in typeInfo.properties"
+          :key="prop.name"
+          class="tb-prop-group"
+        >
           <!-- JSDoc comment — all on one line to avoid whitespace condensing -->
-          <div v-if="prop.comment" class="tb-line tb-prop-comment tb-indented">// {{ prop.comment }}</div>
+          <div v-if="prop.comment" class="tb-line tb-prop-comment tb-indented">
+            // {{ prop.comment }}
+          </div>
 
           <!-- Property line — kept on one line intentionally -->
           <!-- prettier-ignore -->
           <div class="tb-line tb-prop-line tb-indented"><span class="tb-prop-name" :class="{ 'tb-deprecated': prop.deprecated }">{{ prop.name }}</span><template v-if="prop.optional"><span class="tb-punct">?</span></template><span class="tb-punct">:</span>{{" "}}<template v-for="(tok, ti) in tokenize(prop.typeText)" :key="ti"><span :class="`tb-${tok.kind}`">{{ tok.text }}</span></template><button v-if="firstTypeRef(prop.typeText)" class="tb-btn" :title="expanded.has(prop.name) ? 'Collapse' : `Expand ${firstTypeRef(prop.typeText)}`" @click="toggle(prop.name)">{{ expanded.has(prop.name) ? "▼" : "▶" }}</button></div>
 
           <!-- Inline expanded child type -->
-          <div v-if="expanded.has(prop.name) && firstTypeRef(prop.typeText)" class="tb-child">
-            <TypeBlock :type-name="firstTypeRef(prop.typeText)!" :depth="depth + 1" />
+          <div
+            v-if="expanded.has(prop.name) && firstTypeRef(prop.typeText)"
+            class="tb-child"
+          >
+            <TypeBlock
+              :type-name="firstTypeRef(prop.typeText)!"
+              :depth="depth + 1"
+            />
           </div>
         </div>
 
@@ -255,31 +277,53 @@ function extendsBaseRef(extendsText: string): string | null {
 
 /* ── Syntax colours ─────────────────────────────────────── */
 /* keywords: export, interface, type, extends, null … */
-.tb-kw       { color: #569cd6; }
+.tb-kw {
+  color: #569cd6;
+}
 /* primitive types: string, number, boolean … */
-.tb-primitive { color: #4ec9b0; }
+.tb-primitive {
+  color: #4ec9b0;
+}
 /* interface/type name in the header */
-.tb-self-name { color: #4ec9b0; font-weight: 600; }
+.tb-self-name {
+  color: #4ec9b0;
+  font-weight: 600;
+}
 /* type references: names that exist in typeData */
-.tb-type-ref  { color: #4ec9b0; }
+.tb-type-ref {
+  color: #4ec9b0;
+}
 /* plain identifiers (not in typeData) */
-.tb-ident     { color: var(--vp-c-text-1); }
+.tb-ident {
+  color: var(--vp-c-text-1);
+}
 /* string literals like "table" */
-.tb-string-lit { color: #ce9178; }
+.tb-string-lit {
+  color: #ce9178;
+}
 /* punctuation: { } [ ] : ; | & , < > */
-.tb-punct      { color: var(--vp-c-text-2); }
+.tb-punct {
+  color: var(--vp-c-text-2);
+}
 /* property names */
-.tb-prop-name  { color: #9cdcfe; }
+.tb-prop-name {
+  color: #9cdcfe;
+}
 .tb-prop-name.tb-deprecated {
   text-decoration: line-through;
   opacity: 0.45;
 }
 /* comments */
 .tb-block-comment,
-.tb-prop-comment { color: #6a9955; font-style: normal; }
+.tb-prop-comment {
+  color: #6a9955;
+  font-style: normal;
+}
 
 /* 2-character indent via CSS so whitespace spans are not needed */
-.tb-indented { padding-left: 2ch; }
+.tb-indented {
+  padding-left: 2ch;
+}
 
 /* ── Expand / collapse button ───────────────────────────── */
 .tb-btn {
@@ -295,7 +339,9 @@ function extendsBaseRef(extendsText: string): string | null {
   margin-left: 6px;
   vertical-align: middle;
   opacity: 0.75;
-  transition: opacity 0.15s, border-color 0.15s;
+  transition:
+    opacity 0.15s,
+    border-color 0.15s;
 }
 .tb-btn:hover {
   opacity: 1;
@@ -303,15 +349,31 @@ function extendsBaseRef(extendsText: string): string | null {
 }
 
 /* ── Light mode overrides ───────────────────────────────── */
-:root:not(.dark) .tb-kw        { color: #0000ff; }
-:root:not(.dark) .tb-primitive { color: #267f99; }
-:root:not(.dark) .tb-self-name { color: #267f99; }
-:root:not(.dark) .tb-type-ref  { color: #267f99; }
-:root:not(.dark) .tb-string-lit { color: #a31515; }
-:root:not(.dark) .tb-prop-name  { color: #001080; }
+:root:not(.dark) .tb-kw {
+  color: #0000ff;
+}
+:root:not(.dark) .tb-primitive {
+  color: #267f99;
+}
+:root:not(.dark) .tb-self-name {
+  color: #267f99;
+}
+:root:not(.dark) .tb-type-ref {
+  color: #267f99;
+}
+:root:not(.dark) .tb-string-lit {
+  color: #a31515;
+}
+:root:not(.dark) .tb-prop-name {
+  color: #001080;
+}
 :root:not(.dark) .tb-block-comment,
-:root:not(.dark) .tb-prop-comment { color: #008000; }
+:root:not(.dark) .tb-prop-comment {
+  color: #008000;
+}
 
 /* ── Error state ────────────────────────────────────────── */
-.tb-error { color: var(--vp-c-danger-1); }
+.tb-error {
+  color: var(--vp-c-danger-1);
+}
 </style>
