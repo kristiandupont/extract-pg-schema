@@ -42,12 +42,7 @@ function toggle(key: string) {
 // ── Tokenizer ────────────────────────────────────────────────────────────────
 
 type TokenKind =
-  | "kw"
-  | "primitive"
-  | "type-ref"
-  | "string-lit"
-  | "punct"
-  | "ident";
+  "kw" | "primitive" | "type-ref" | "string-lit" | "punct" | "ident";
 
 interface Token {
   kind: TokenKind;

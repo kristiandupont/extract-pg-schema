@@ -37,12 +37,12 @@
   },
   "devDependencies": {
     "@electric-sql/pglite": "^0.5.16",
-    "prettier": "^3.6.2",
-    "testcontainers": "11.14.0",
+    "prettier": "^3.10.1",
+    "testcontainers": "12.2.1",
     "ts-morph": "^28.0.0",
-    "typescript": "^5.9.2",
+    "typescript": "^7.0.2",
     "vitepress": "1.6.4",
-    "vitest": "^3.2.4"
+    "vitest": "^5.1.0"
   },
   "peerDependencies": {
     "@electric-sql/pglite": "0.x"

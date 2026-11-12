@@ -2,9 +2,9 @@
 // The pg-query-emscripten WASM module has internal state that can become
 // corrupted when reused, causing non-deterministic parse failures.
 const createPgQuery = async () => {
-  // Use eval to prevent TypeScript from converting this to require
-  const pgQueryModule = await eval(
-    'import("pg-query-emscripten/pg_query_wasm.js")',
+  const pgQueryModule = await import(
+    // @ts-expect-error -- no type declarations for the wasm entry point
+    "pg-query-emscripten/pg_query_wasm.js"
   );
   return new pgQueryModule.default();
 };
