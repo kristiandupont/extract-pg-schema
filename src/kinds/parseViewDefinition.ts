@@ -1,5 +1,3 @@
-import { last } from "ramda";
-
 // Create a fresh parser instance for each parse call to avoid state corruption
 // The pg-query-emscripten WASM module has internal state that can become
 // corrupted when reused, causing non-deterministic parse failures.
@@ -96,16 +94,16 @@ function parseSelectStmt(
           sourceTable = tableRel;
         }
       }
-      const sourceColumn = last(fields);
+      const sourceColumn = fields[fields.length - 1];
 
       const viewReference: ViewReference = {
-        viewColumn: selectTarget.name ?? last(fields),
+        viewColumn: selectTarget.name ?? sourceColumn,
         source:
           sourceTable && sourceColumn
             ? {
                 schema: sourceSchema ?? defaultSchema,
                 table: sourceTable,
-                column: last(fields),
+                column: sourceColumn,
               }
             : undefined,
       };

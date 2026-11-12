@@ -2,7 +2,6 @@ import type { Knex } from "knex";
 import knex from "knex";
 import ClientPgLite from "knex-pglite";
 import type { ConnectionConfig } from "pg";
-import * as R from "ramda";
 
 import type { CompositeTypeDetails } from "./kinds/extractCompositeType";
 import extractCompositeType from "./kinds/extractCompositeType";
@@ -161,7 +160,7 @@ async function extractSchemas(
     .from("pg_catalog.pg_namespace")
     .whereNot("nspname", "=", "information_schema")
     .whereNot("nspname", "LIKE", "pg\\_%");
-  const allSchemaNames = R.pluck("nspname", q);
+  const allSchemaNames = q.map((row) => row.nspname);
 
   const schemaNames = options?.schemas ?? allSchemaNames;
   if (options?.schemas) {

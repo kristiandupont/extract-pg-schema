@@ -68,8 +68,7 @@ for (const sourceFile of project.getSourceFiles()) {
       extendsTexts: iface.getExtends().map((e) => e.getText()),
       properties: iface.getProperties().map((prop) => ({
         name: prop.getName(),
-        typeText:
-          prop.getTypeNode()?.getText() ?? prop.getType().getText(prop),
+        typeText: prop.getTypeNode()?.getText() ?? prop.getType().getText(prop),
         comment: prop.getJsDocs()[0]?.getDescription().trim() || null,
         optional: prop.hasQuestionToken(),
         deprecated: isDeprecated(prop.getJsDocs()),

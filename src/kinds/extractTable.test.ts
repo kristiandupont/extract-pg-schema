@@ -1,4 +1,3 @@
-import * as R from "ramda";
 import { describe, expect, it } from "vitest";
 
 import useSchema from "../tests/useSchema";
@@ -149,9 +148,13 @@ describe("extractTable", () => {
     );
 
     const result = await extractTable(db, makePgType("some_table"));
-    const actual = R.map(
-      R.pick(["name", "expandedType", "type", "dimensions"]),
-      result.columns,
+    const actual = result.columns.map(
+      ({ name, expandedType, type, dimensions }) => ({
+        name,
+        expandedType,
+        type,
+        dimensions,
+      }),
     );
 
     const expected: Partial<TableColumn>[] = [
@@ -296,9 +299,13 @@ describe("extractTable", () => {
     );
 
     const result = await extractTable(db, makePgType("some_table"));
-    const actual = R.map(
-      R.pick(["name", "expandedType", "type", "dimensions"]),
-      result.columns,
+    const actual = result.columns.map(
+      ({ name, expandedType, type, dimensions }) => ({
+        name,
+        expandedType,
+        type,
+        dimensions,
+      }),
     );
 
     const expected: Partial<TableColumn>[] = [

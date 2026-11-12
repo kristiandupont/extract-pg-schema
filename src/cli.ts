@@ -24,7 +24,6 @@ async function main(args: string[]) {
   const { connectionConfig, includePatterns, excludePatterns } = parsedArgs;
 
   // Prompt for password if not given in environment variable PGPASSWORD
-  // eslint-disable-next-line no-process-env
   const password = process.env.PGPASSWORD ?? (await promptPassword());
 
   const schemaFilter = createSchemaFilter(includePatterns, excludePatterns);
@@ -38,7 +37,6 @@ async function main(args: string[]) {
     ),
   );
 
-  // eslint-disable-next-line no-console
   console.log(JSON.stringify(schemas, null, 2));
 }
 

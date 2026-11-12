@@ -16,14 +16,14 @@ npm i extract-pg-schema
 You give it a [postgres connection config object](https://node-postgres.com/apis/client) and some options and it will connect to your database and generate
 
 ```javascript
-const { extractSchemas } = require('extract-pg-schema');
+const { extractSchemas } = require("extract-pg-schema");
 
 async function run() {
   const connection = {
-    host: 'localhost',
-    database: 'postgres',
-    user: 'postgres',
-    password: 'postgres',
+    host: "localhost",
+    database: "postgres",
+    user: "postgres",
+    password: "postgres",
   };
 
   const result = await extractSchemas(connection);

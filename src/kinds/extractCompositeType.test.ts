@@ -1,4 +1,3 @@
-import * as R from "ramda";
 import { describe, expect, it } from "vitest";
 
 import useSchema from "../tests/useSchema";
@@ -149,9 +148,13 @@ describe("extractCompositeType", () => {
       db,
       makePgType("some_composite_type"),
     );
-    const actual = R.map(
-      R.pick(["name", "expandedType", "type", "isArray"]),
-      result.attributes,
+    const actual = result.attributes.map(
+      ({ name, expandedType, type, isArray }) => ({
+        name,
+        expandedType,
+        type,
+        isArray,
+      }),
     );
 
     const expected: Partial<CompositeTypeAttribute>[] = [
