@@ -1,4 +1,4 @@
-import type { Knex } from "knex";
+import { type DbConnection, query } from "../db";
 
 import type InformationSchemaDomain from "../information_schema/InformationSchemaDomain";
 import type PgType from "./PgType";
@@ -19,10 +19,11 @@ export interface DomainDetails extends PgType<"domain"> {
 }
 
 const extractDomain = async (
-  db: Knex,
+  db: DbConnection,
   domain: PgType<"domain">,
 ): Promise<DomainDetails> => {
-  const query = await db.raw(
+  const rows = await query(
+    db,
     `
     SELECT
       i.typnamespace::regnamespace::text||'.'||i.typname as "innerType",
@@ -43,7 +44,7 @@ const extractDomain = async (
 
   return {
     ...domain,
-    ...query.rows[0],
+    ...rows[0],
   };
 };
 

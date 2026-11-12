@@ -1,4 +1,4 @@
-import type { Knex } from "knex";
+import { type DbConnection, query } from "../db";
 
 import type PgType from "./PgType";
 
@@ -13,10 +13,11 @@ export interface RangeDetails extends PgType<"range"> {
 }
 
 const extractRange = async (
-  db: Knex,
+  db: DbConnection,
   range: PgType<"range">,
 ): Promise<RangeDetails> => {
-  const query = await db.raw(
+  const rows = await query(
+    db,
     `
     SELECT
       subtype.typnamespace::regnamespace::text||'.'||subtype.typname as "innerType"
@@ -34,7 +35,7 @@ const extractRange = async (
 
   return {
     ...range,
-    ...query.rows[0],
+    ...rows[0],
   };
 };
 

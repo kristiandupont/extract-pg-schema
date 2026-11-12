@@ -1,4 +1,4 @@
-import type { Knex } from "knex";
+import { type DbConnection, query } from "../db";
 
 import type InformationSchemaRoutine from "../information_schema/InformationSchemaRoutine";
 import { parsePostgresArray } from "./parsePostgresArray";
@@ -48,10 +48,11 @@ export type ProcedureDetails = {
 };
 
 async function extractProcedure(
-  db: Knex,
+  db: DbConnection,
   pgType: PgType<"procedure">,
 ): Promise<ProcedureDetails> {
-  const { rows } = await db.raw(
+  const rows = await query(
+    db,
     `SELECT 
       p.proname,
       l.lanname AS language,
@@ -69,8 +70,8 @@ async function extractProcedure(
     LEFT JOIN pg_namespace n ON n.oid = p.pronamespace
     LEFT JOIN pg_description d ON d.objoid = p.oid
     LEFT JOIN pg_language l ON l.oid = p.prolang
-    WHERE n.nspname = ? AND p.proname = ? AND p.prokind = 'p'`,
-    [pgType.schemaName, pgType.name],
+    WHERE n.nspname = :schema_name AND p.proname = :name AND p.prokind = 'p'`,
+    { schema_name: pgType.schemaName, name: pgType.name },
   );
 
   const row = rows[0];
@@ -94,14 +95,14 @@ async function extractProcedure(
     }),
   );
 
-  const [informationSchemaValue] = await db
-    .select("*")
-    .from("information_schema.routines")
-    .where({
-      routine_schema: pgType.schemaName,
-      routine_name: pgType.name,
-      routine_type: "PROCEDURE",
-    });
+  const [informationSchemaValue] = await query(
+    db,
+    `SELECT * FROM information_schema.routines
+    WHERE routine_schema = :routine_schema
+      AND routine_name = :routine_name
+      AND routine_type = 'PROCEDURE'`,
+    { routine_schema: pgType.schemaName, routine_name: pgType.name },
+  );
 
   return {
     ...pgType,

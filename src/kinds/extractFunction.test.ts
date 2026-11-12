@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import type InformationSchemaRoutine from "../information_schema/InformationSchemaRoutine";
 import useSchema from "../tests/useSchema";
-import useTestKnex from "../tests/useTestKnex";
+import useTestDb from "../tests/useTestDb";
 import type { FunctionDetails } from "./extractFunction";
 import extractFunction from "./extractFunction";
 import type PgType from "./PgType";
@@ -15,12 +15,12 @@ const makePgType = (name: string, schemaName = "test"): PgType<"function"> => ({
 });
 
 describe("extractFunction", () => {
-  const [getKnex] = useTestKnex();
-  useSchema(getKnex, "test");
+  const [getDb] = useTestDb();
+  useSchema(getDb, "test");
 
   it("should extract function details", async () => {
-    const db = getKnex();
-    await db.raw(
+    const db = getDb();
+    await db.query(
       "create function test.some_function() returns text as $$ BEGIN return 'hello'; END; $$ language plpgsql",
     );
 
@@ -128,8 +128,8 @@ describe("extractFunction", () => {
   });
 
   it("should extract function details with arguments", async () => {
-    const db = getKnex();
-    await db.raw(
+    const db = getDb();
+    await db.query(
       "create function test.some_function(text) returns text as $$ BEGIN return $1; END; $$ language plpgsql",
     );
 
@@ -157,8 +157,8 @@ describe("extractFunction", () => {
   });
 
   it("should handle different parameter modes", async () => {
-    const db = getKnex();
-    await db.raw(`
+    const db = getDb();
+    await db.query(`
       create function test.param_modes(
         IN in_param text,
         OUT out_param text,
@@ -182,8 +182,8 @@ describe("extractFunction", () => {
   });
 
   it("should handle complex return types", async () => {
-    const db = getKnex();
-    await db.raw(`
+    const db = getDb();
+    await db.query(`
       create type test.complex_type as (id int, name text);
 
       create function test.returns_complex()
@@ -214,8 +214,8 @@ describe("extractFunction", () => {
   });
 
   it("should handle function attributes", async () => {
-    const db = getKnex();
-    await db.raw(`
+    const db = getDb();
+    await db.query(`
       create function test.with_attributes()
       returns void
       language plpgsql

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import useSchema from "../tests/useSchema";
-import useTestKnex from "../tests/useTestKnex";
+import useTestDb from "../tests/useTestDb";
 import type {
   ColumnReference,
   Index,
@@ -23,12 +23,12 @@ const makePgType = (name: string, schemaName = "test"): PgType<"table"> => ({
 
 // const test = testWith({ schemaNames: ['test'] });
 describe("extractTable", () => {
-  const [getKnex, databaseName] = useTestKnex();
-  useSchema(getKnex, "test");
+  const [getDb, databaseName] = useTestDb();
+  useSchema(getDb, "test");
 
   it("should extract simplified as well as full information_schema information", async () => {
-    const db = getKnex();
-    await db.raw("create table test.some_table (id integer)");
+    const db = getDb();
+    await db.query("create table test.some_table (id integer)");
 
     const result = await extractTable(db, makePgType("some_table"));
 
@@ -132,9 +132,9 @@ describe("extractTable", () => {
   });
 
   it("should fetch column comments", async () => {
-    const db = getKnex();
-    await db.raw("create table test.some_table (id integer)");
-    await db.raw("comment on column test.some_table.id is 'id column'");
+    const db = getDb();
+    await db.query("create table test.some_table (id integer)");
+    await db.query("comment on column test.some_table.id is 'id column'");
 
     const result = await extractTable(db, makePgType("some_table"));
 
@@ -142,8 +142,8 @@ describe("extractTable", () => {
   });
 
   it("should handle arrays of primitive types", async () => {
-    const db = getKnex();
-    await db.raw(
+    const db = getDb();
+    await db.query(
       "create table test.some_table (array_of_ints integer[], array_of_strings text[], two_dimensional_array integer[][])",
     );
 
@@ -181,8 +181,8 @@ describe("extractTable", () => {
   });
 
   it("should fetch table checks", async () => {
-    const db = getKnex();
-    await db.raw(`create table test.some_table_with_checks (
+    const db = getDb();
+    await db.query(`create table test.some_table_with_checks (
         id integer constraint id_check check (id > 0),
         products TEXT[],
         number_of_products INT,
@@ -204,11 +204,11 @@ describe("extractTable", () => {
   });
 
   it("should strip NOT VALID from check constraint clauses without truncating", async () => {
-    const db = getKnex();
-    await db.raw(`create table test.some_table_with_not_valid_check (
+    const db = getDb();
+    await db.query(`create table test.some_table_with_not_valid_check (
         product TEXT
     )`);
-    await db.raw(`alter table test.some_table_with_not_valid_check
+    await db.query(`alter table test.some_table_with_not_valid_check
         add constraint product_length_check
         check (product is null or length(product) <= 500) not valid`);
 
@@ -229,11 +229,11 @@ describe("extractTable", () => {
   });
 
   it("should strip NO INHERIT from check constraint clauses without truncating", async () => {
-    const db = getKnex();
-    await db.raw(`create table test.some_table_with_no_inherit_check (
+    const db = getDb();
+    await db.query(`create table test.some_table_with_no_inherit_check (
         product TEXT
     )`);
-    await db.raw(`alter table test.some_table_with_no_inherit_check
+    await db.query(`alter table test.some_table_with_no_inherit_check
         add constraint product_length_check
         check (product is null or length(product) <= 500) no inherit`);
 
@@ -254,11 +254,11 @@ describe("extractTable", () => {
   });
 
   it("should strip both NO INHERIT and NOT VALID from check constraint clauses", async () => {
-    const db = getKnex();
-    await db.raw(`create table test.some_table_with_both_attrs_check (
+    const db = getDb();
+    await db.query(`create table test.some_table_with_both_attrs_check (
         product TEXT
     )`);
-    await db.raw(`alter table test.some_table_with_both_attrs_check
+    await db.query(`alter table test.some_table_with_both_attrs_check
         add constraint product_length_check
         check (product is null or length(product) <= 500) no inherit not valid`);
 
@@ -279,13 +279,15 @@ describe("extractTable", () => {
   });
 
   it("should handle domains, composite types, ranges and enums as well as arrays of those", async () => {
-    const db = getKnex();
-    await db.raw("create domain test.some_domain as text");
-    await db.raw("create type test.some_composite as (id integer, name text)");
-    await db.raw("create type test.some_range as range(subtype=timestamptz)");
-    await db.raw("create type test.some_enum as enum ('a', 'b', 'c')");
+    const db = getDb();
+    await db.query("create domain test.some_domain as text");
+    await db.query(
+      "create type test.some_composite as (id integer, name text)",
+    );
+    await db.query("create type test.some_range as range(subtype=timestamptz)");
+    await db.query("create type test.some_enum as enum ('a', 'b', 'c')");
 
-    await db.raw(
+    await db.query(
       `create table test.some_table (
         d test.some_domain,
         c test.some_composite,
@@ -375,12 +377,12 @@ describe("extractTable", () => {
   });
 
   describe("references", () => {
-    useSchema(getKnex, "secondary_schema");
+    useSchema(getDb, "secondary_schema");
 
     it("should extract a simple foreign key", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer primary key)");
-      await db.raw(
+      const db = getDb();
+      await db.query("create table test.some_table (id integer primary key)");
+      await db.query(
         "create table test.linking_table (some_table_id integer references test.some_table(id))",
       );
 
@@ -401,11 +403,11 @@ describe("extractTable", () => {
     });
 
     it("should extract a foreign key with a different schema", async () => {
-      const db = getKnex();
-      await db.raw(
+      const db = getDb();
+      await db.query(
         "create table secondary_schema.some_table (id integer primary key)",
       );
-      await db.raw(
+      await db.query(
         "create table test.linking_table (some_table_id integer references secondary_schema.some_table(id))",
       );
 
@@ -423,9 +425,9 @@ describe("extractTable", () => {
     });
 
     it("should get the onDelete and onUpdate actions", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer primary key)");
-      await db.raw(
+      const db = getDb();
+      await db.query("create table test.some_table (id integer primary key)");
+      await db.query(
         "create table test.linking_table (some_table_id integer references test.some_table(id) on delete cascade on update set null)",
       );
 
@@ -445,9 +447,9 @@ describe("extractTable", () => {
 
   describe("indices", () => {
     it("should extract a simple index", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer)");
-      await db.raw("create index some_table_id_idx on test.some_table (id)");
+      const db = getDb();
+      await db.query("create table test.some_table (id integer)");
+      await db.query("create index some_table_id_idx on test.some_table (id)");
 
       const result = await extractTable(db, makePgType("some_table"));
 
@@ -470,9 +472,9 @@ describe("extractTable", () => {
     });
 
     it("should extract a unique index", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer)");
-      await db.raw(
+      const db = getDb();
+      await db.query("create table test.some_table (id integer)");
+      await db.query(
         "create unique index some_table_id_idx on test.some_table (id)",
       );
 
@@ -497,8 +499,8 @@ describe("extractTable", () => {
     });
 
     it("it should extract a primary key", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer primary key)");
+      const db = getDb();
+      await db.query("create table test.some_table (id integer primary key)");
 
       const result = await extractTable(db, makePgType("some_table"));
 
@@ -521,9 +523,9 @@ describe("extractTable", () => {
     });
 
     it("should extract a multi-column index", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer, kind integer)");
-      await db.raw(
+      const db = getDb();
+      await db.query("create table test.some_table (id integer, kind integer)");
+      await db.query(
         "create index some_table_id_idx on test.some_table (id, kind)",
       );
 
@@ -553,9 +555,9 @@ describe("extractTable", () => {
     });
 
     it("should extract a functional index", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer)");
-      await db.raw(
+      const db = getDb();
+      await db.query("create table test.some_table (id integer)");
+      await db.query(
         "create index some_table_id_idx on test.some_table (abs(id))",
       );
 
@@ -580,9 +582,9 @@ describe("extractTable", () => {
     });
 
     it("should extract a partial index", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer)");
-      await db.raw(
+      const db = getDb();
+      await db.query("create table test.some_table (id integer)");
+      await db.query(
         "create index some_table_id_idx on test.some_table (id) WHERE id > 0",
       );
 
@@ -609,9 +611,9 @@ describe("extractTable", () => {
 
   describe("row-level security", () => {
     it("should extract isRowLevelSecurityEnabled", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer primary key)");
-      await db.raw("alter table test.some_table enable row level security");
+      const db = getDb();
+      await db.query("create table test.some_table (id integer primary key)");
+      await db.query("alter table test.some_table enable row level security");
 
       const result = await extractTable(db, makePgType("some_table"));
 
@@ -620,9 +622,9 @@ describe("extractTable", () => {
     });
 
     it("should extract isRowLevelSecurityEnforced", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer primary key)");
-      await db.raw("alter table test.some_table force row level security");
+      const db = getDb();
+      await db.query("create table test.some_table (id integer primary key)");
+      await db.query("alter table test.some_table force row level security");
 
       const result = await extractTable(db, makePgType("some_table"));
 
@@ -633,8 +635,8 @@ describe("extractTable", () => {
 
   describe("securityPolicies", () => {
     it("should extract empty array when no policy is defined", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer primary key)");
+      const db = getDb();
+      await db.query("create table test.some_table (id integer primary key)");
 
       const result = await extractTable(db, makePgType("some_table"));
 
@@ -643,9 +645,9 @@ describe("extractTable", () => {
     });
 
     it("it should extract a simple security policy", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer primary key)");
-      await db.raw("create policy test_policy on test.some_table");
+      const db = getDb();
+      await db.query("create table test.some_table (id integer primary key)");
+      await db.query("create policy test_policy on test.some_table");
 
       const result = await extractTable(db, makePgType("some_table"));
 
@@ -663,10 +665,10 @@ describe("extractTable", () => {
     });
 
     it("it should extract a complex security policy", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer primary key)");
-      await db.raw("create role test_role");
-      await db.raw(
+      const db = getDb();
+      await db.query("create table test.some_table (id integer primary key)");
+      await db.query("create role test_role");
+      await db.query(
         "create policy test_policy on test.some_table as restrictive for update to test_role, postgres using (id = 1) with check (true)",
       );
 
@@ -688,9 +690,9 @@ describe("extractTable", () => {
 
   describe("bugfixes", () => {
     it("should not report duplicate columns when a column has multiple foreign key constraints", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer primary key)");
-      await db.raw(
+      const db = getDb();
+      await db.query("create table test.some_table (id integer primary key)");
+      await db.query(
         `create table test.linking_table (
           some_table_id integer,
           constraint "fk_1" foreign key ("some_table_id") references test.some_table(id),
@@ -733,12 +735,14 @@ describe("extractTable", () => {
     });
 
     it("should not extract indices from another schema", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer)");
-      await db.raw("create index some_table_id_idx on test.some_table (id)");
-      await db.raw("create schema test2");
-      await db.raw("create table test2.some_table (id integer)");
-      await db.raw("create index some_table_id_idx2 on test2.some_table (id)");
+      const db = getDb();
+      await db.query("create table test.some_table (id integer)");
+      await db.query("create index some_table_id_idx on test.some_table (id)");
+      await db.query("create schema test2");
+      await db.query("create table test2.some_table (id integer)");
+      await db.query(
+        "create index some_table_id_idx2 on test2.some_table (id)",
+      );
 
       const result = await extractTable(db, makePgType("some_table"));
 
@@ -754,9 +758,9 @@ describe("extractTable", () => {
   });
 
   it("should extract table as well as columns that the table inherits from with inherited columns denoted with the parent table", async () => {
-    const db = getKnex();
-    await db.raw("CREATE TABLE test.some_base_table (base_id integer)");
-    await db.raw(
+    const db = getDb();
+    await db.query("CREATE TABLE test.some_base_table (base_id integer)");
+    await db.query(
       "CREATE TABLE test.some_table (child_field text) INHERITS (test.some_base_table)",
     );
 
@@ -930,16 +934,16 @@ describe("extractTable", () => {
 
   describe("triggers", () => {
     it("should extract a simple trigger on a table", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer)");
-      await db.raw(`
+      const db = getDb();
+      await db.query("create table test.some_table (id integer)");
+      await db.query(`
         create function test.simple_trigger_fn() returns trigger as $$
         begin
           return new;
         end;
         $$ language plpgsql;
       `);
-      await db.raw(`
+      await db.query(`
         create trigger simple_trigger
         before insert on test.some_table
         for each row execute function test.simple_trigger_fn();
@@ -958,16 +962,16 @@ describe("extractTable", () => {
     });
 
     it("should extract a trigger with a WHEN condition", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer)");
-      await db.raw(`
+      const db = getDb();
+      await db.query("create table test.some_table (id integer)");
+      await db.query(`
         create function test.cond_trigger_fn() returns trigger as $$
         begin
           return new;
         end;
         $$ language plpgsql;
       `);
-      await db.raw(`
+      await db.query(`
         create trigger cond_trigger
         after update on test.some_table
         for each row when (new.id > 0) execute function test.cond_trigger_fn();
@@ -982,16 +986,16 @@ describe("extractTable", () => {
     });
 
     it("should extract a trigger on multiple events", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer)");
-      await db.raw(`
+      const db = getDb();
+      await db.query("create table test.some_table (id integer)");
+      await db.query(`
         create function test.multi_event_trigger_fn() returns trigger as $$
         begin
           return new;
         end;
         $$ language plpgsql;
       `);
-      await db.raw(`
+      await db.query(`
         create trigger multi_event_trigger
         before insert or update or delete on test.some_table
         for each row execute function test.multi_event_trigger_fn();
@@ -1005,21 +1009,21 @@ describe("extractTable", () => {
     });
 
     it("should extract a disabled trigger", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer)");
-      await db.raw(`
+      const db = getDb();
+      await db.query("create table test.some_table (id integer)");
+      await db.query(`
         create function test.disabled_trigger_fn() returns trigger as $$
         begin
           return new;
         end;
         $$ language plpgsql;
       `);
-      await db.raw(`
+      await db.query(`
         create trigger disabled_trigger
         after insert on test.some_table
         for each row execute function test.disabled_trigger_fn();
       `);
-      await db.raw(
+      await db.query(
         "alter table test.some_table disable trigger disabled_trigger",
       );
 
@@ -1029,21 +1033,21 @@ describe("extractTable", () => {
     });
 
     it("should extract a trigger with a comment", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer)");
-      await db.raw(`
+      const db = getDb();
+      await db.query("create table test.some_table (id integer)");
+      await db.query(`
         create function test.commented_trigger_fn() returns trigger as $$
         begin
           return new;
         end;
         $$ language plpgsql;
       `);
-      await db.raw(`
+      await db.query(`
         create trigger commented_trigger
         after insert on test.some_table
         for each row execute function test.commented_trigger_fn();
       `);
-      await db.raw(
+      await db.query(
         "comment on trigger commented_trigger on test.some_table is 'This is a trigger comment.'",
       );
 
@@ -1053,16 +1057,16 @@ describe("extractTable", () => {
     });
 
     it("should extract a STATEMENT-level trigger", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer)");
-      await db.raw(`
+      const db = getDb();
+      await db.query("create table test.some_table (id integer)");
+      await db.query(`
         create function test.statement_trigger_fn() returns trigger as $$
         begin
           return new;
         end;
         $$ language plpgsql;
       `);
-      await db.raw(`
+      await db.query(`
         create trigger statement_trigger
         after insert on test.some_table
         for each statement execute function test.statement_trigger_fn();
@@ -1077,19 +1081,19 @@ describe("extractTable", () => {
     });
 
     it("should extract an INSTEAD OF trigger", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer)");
-      await db.raw(
+      const db = getDb();
+      await db.query("create table test.some_table (id integer)");
+      await db.query(
         "create view test.some_view as select * from test.some_table",
       );
-      await db.raw(`
+      await db.query(`
         create function test.instead_of_trigger_fn() returns trigger as $$
         begin
           return new;
         end;
         $$ language plpgsql;
       `);
-      await db.raw(`
+      await db.query(`
         create trigger instead_of_trigger
         instead of insert on test.some_view
         for each row execute function test.instead_of_trigger_fn();
@@ -1104,16 +1108,16 @@ describe("extractTable", () => {
     });
 
     it("should extract a trigger with function arguments", async () => {
-      const db = getKnex();
-      await db.raw("create table test.some_table (id integer)");
-      await db.raw(`
+      const db = getDb();
+      await db.query("create table test.some_table (id integer)");
+      await db.query(`
         create function test.arg_trigger_fn() returns trigger as $$
         begin
           return new;
         end;
         $$ language plpgsql;
       `);
-      await db.raw(`
+      await db.query(`
         create trigger arg_trigger
         before insert on test.some_table
         for each row execute function test.arg_trigger_fn();

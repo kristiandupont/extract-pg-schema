@@ -1,4 +1,4 @@
-import type { Knex } from "knex";
+import { type DbConnection, query } from "../db";
 
 import type InformationSchemaColumn from "../information_schema/InformationSchemaColumn";
 import type InformationSchemaTable from "../information_schema/InformationSchemaTable";
@@ -390,18 +390,18 @@ WHERE
 `;
 
 const extractTable = async (
-  db: Knex,
+  db: DbConnection,
   table: PgType<"table">,
 ): Promise<TableDetails> => {
-  const [informationSchemaValue] = await db
-    .from("information_schema.tables")
-    .where({
-      table_name: table.name,
-      table_schema: table.schemaName,
-    })
-    .select<InformationSchemaTable[]>("*");
+  const [informationSchemaValue] = await query<InformationSchemaTable>(
+    db,
+    `SELECT * FROM information_schema.tables
+    WHERE table_name = :table_name AND table_schema = :schema_name`,
+    { table_name: table.name, schema_name: table.schemaName },
+  );
 
-  const columnsQuery = await db.raw(
+  const columnsRows = await query(
+    db,
     `
     WITH 
     reference_map AS (
@@ -457,13 +457,14 @@ const extractTable = async (
     { table_name: table.name, schema_name: table.schemaName },
   );
 
-  const columns = columnsQuery.rows.map((row: any) => ({
+  const columns = columnsRows.map((row: any) => ({
     ...row,
     // Add this deprecated field for backwards compatibility
     reference: row.references[0] ?? null,
   }));
 
-  const indicesQuery = await db.raw(
+  const indicesRows = await query(
+    db,
     `
     WITH index_columns AS (
       SELECT
@@ -502,9 +503,10 @@ const extractTable = async (
     { table_name: table.name, schema_name: table.schemaName },
   );
 
-  const indices = indicesQuery.rows as TableIndex[];
+  const indices = indicesRows as TableIndex[];
 
-  const checkQuery = await db.raw(
+  const checkRows = await query(
+    db,
     `
     SELECT
       source_namespace.nspname as "schema",
@@ -528,7 +530,7 @@ const extractTable = async (
     { table_name: table.name, schema_name: table.schemaName },
   );
 
-  const checks = checkQuery.rows
+  const checks = checkRows
     .flatMap((row: any) => row.checks as TableCheck)
     .map(({ name, clause }: TableCheck) => {
       const endIndex = clause.lastIndexOf(")");
@@ -545,7 +547,8 @@ const extractTable = async (
       };
     });
 
-  const rlsQuery = await db.raw(
+  const rlsRows = await query(
+    db,
     `
     SELECT
       c.relrowsecurity AS "isRowLevelSecurityEnabled",
@@ -570,7 +573,7 @@ const extractTable = async (
     { table_name: table.name, schema_name: table.schemaName },
   );
 
-  const rls = rlsQuery.rows[0] as {
+  const rls = rlsRows[0] as {
     isRowLevelSecurityEnabled: boolean;
     isRowLevelSecurityEnforced: boolean;
     securityPolicies: TableSecurityPolicy[];
@@ -579,7 +582,8 @@ const extractTable = async (
   // --- Trigger extraction ---
   // Get triggers using system catalogs for all fields except informationSchemaValue
   // Based on PostgreSQL information_schema.triggers view definition
-  const triggersQuery = await db.raw(
+  const triggersRows = await query(
+    db,
     `
     SELECT
       t.tgname AS "name",
@@ -610,7 +614,7 @@ const extractTable = async (
       -- Extract condition using the same logic as information_schema
       CASE
         WHEN pg_has_role(c.relowner, 'USAGE') THEN 
-          (regexp_match(pg_get_triggerdef(t.oid), 'WHEN \\((.*\\?)\\) EXECUTE FUNCTION'))[1]
+          (regexp_match(pg_get_triggerdef(t.oid), 'WHEN \\((.*?)\\) EXECUTE FUNCTION'))[1]
         ELSE NULL
       END AS "action_condition"
     FROM
@@ -630,14 +634,12 @@ const extractTable = async (
   );
 
   // Get information_schema data for informationSchemaValue property only
-  const informationSchemaTriggers = await db<InformationSchemaTrigger>(
-    "information_schema.triggers",
-  )
-    .where({
-      event_object_table: table.name,
-      event_object_schema: table.schemaName,
-    })
-    .select();
+  const informationSchemaTriggers = await query<InformationSchemaTrigger>(
+    db,
+    `SELECT * FROM information_schema.triggers
+    WHERE event_object_table = :table_name AND event_object_schema = :schema_name`,
+    { table_name: table.name, schema_name: table.schemaName },
+  );
   const infoSchemaTriggersByName: Record<string, InformationSchemaTrigger[]> =
     {};
   for (const trig of informationSchemaTriggers) {
@@ -647,7 +649,7 @@ const extractTable = async (
   }
 
   const triggers: Trigger[] = [];
-  for (const row of triggersQuery.rows) {
+  for (const row of triggersRows) {
     // Build events array from individual event columns
     const events: ("INSERT" | "UPDATE" | "DELETE" | "TRUNCATE")[] = [];
     if (row.insert_event) events.push("INSERT");

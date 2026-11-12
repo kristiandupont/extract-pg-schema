@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import useSchema from "../tests/useSchema";
-import useTestKnex from "../tests/useTestKnex";
+import useTestDb from "../tests/useTestDb";
 import type { ViewColumn, ViewDetails } from "./extractView";
 import extractView from "./extractView";
 import type PgType from "./PgType";
@@ -14,12 +14,12 @@ const makePgType = (name: string, schemaName = "test"): PgType<"view"> => ({
 });
 
 describe("extractView", () => {
-  const [getKnex, databaseName] = useTestKnex();
-  useSchema(getKnex, "test");
+  const [getDb, databaseName] = useTestDb();
+  useSchema(getDb, "test");
 
   it("should extract simplified as well as full information_schema information", async () => {
-    const db = getKnex();
-    await db.raw("create view test.some_view as select 1 as id");
+    const db = getDb();
+    await db.query("create view test.some_view as select 1 as id");
 
     const result = await extractView(db, makePgType("some_view"));
 
@@ -118,9 +118,9 @@ describe("extractView", () => {
   });
 
   it("should fetch column comments", async () => {
-    const db = getKnex();
-    await db.raw("create view test.some_view as select 1 as id");
-    await db.raw("comment on column test.some_view.id is 'id column'");
+    const db = getDb();
+    await db.query("create view test.some_view as select 1 as id");
+    await db.query("comment on column test.some_view.id is 'id column'");
 
     const result = await extractView(db, makePgType("some_view"));
 
@@ -128,13 +128,15 @@ describe("extractView", () => {
   });
 
   it("should handle domains, composite types, ranges and enums as well as arrays of those", async () => {
-    const db = getKnex();
-    await db.raw("create domain test.some_domain as text");
-    await db.raw("create type test.some_composite as (id integer, name text)");
-    await db.raw("create type test.some_range as range(subtype=timestamptz)");
-    await db.raw("create type test.some_enum as enum ('a', 'b', 'c')");
+    const db = getDb();
+    await db.query("create domain test.some_domain as text");
+    await db.query(
+      "create type test.some_composite as (id integer, name text)",
+    );
+    await db.query("create type test.some_range as range(subtype=timestamptz)");
+    await db.query("create type test.some_enum as enum ('a', 'b', 'c')");
 
-    await db.raw(
+    await db.query(
       `create table test.some_table (
         d test.some_domain,
         c test.some_composite,
@@ -147,7 +149,9 @@ describe("extractView", () => {
     )`,
     );
 
-    await db.raw("create view test.some_view as select * from test.some_table");
+    await db.query(
+      "create view test.some_view as select * from test.some_table",
+    );
 
     const result = await extractView(db, makePgType("some_view"));
     const actual = result.columns.map(
@@ -226,9 +230,11 @@ describe("extractView", () => {
   });
 
   it("should report the correct source", async () => {
-    const db = getKnex();
-    await db.raw("create table test.some_table (id integer not null)");
-    await db.raw("create view test.some_view as select * from test.some_table");
+    const db = getDb();
+    await db.query("create table test.some_table (id integer not null)");
+    await db.query(
+      "create view test.some_view as select * from test.some_table",
+    );
 
     const result = await extractView(db, makePgType("some_view"));
 
@@ -241,9 +247,9 @@ describe("extractView", () => {
   });
 
   it("should extract view options", async () => {
-    const db = getKnex();
-    await db.raw("create table test.source_table (id integer)");
-    await db.raw(`
+    const db = getDb();
+    await db.query("create table test.source_table (id integer)");
+    await db.query(`
       create view test.some_view 
       with (check_option = local, security_barrier = true, security_invoker = true) 
       as select id from test.source_table
@@ -259,8 +265,8 @@ describe("extractView", () => {
   });
 
   it("should handle views without explicit options", async () => {
-    const db = getKnex();
-    await db.raw("create view test.some_view as select 1 as id");
+    const db = getDb();
+    await db.query("create view test.some_view as select 1 as id");
 
     const result = await extractView(db, makePgType("some_view"));
 

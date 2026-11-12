@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import type InformationSchemaRoutine from "../information_schema/InformationSchemaRoutine";
 import useSchema from "../tests/useSchema";
-import useTestKnex from "../tests/useTestKnex";
+import useTestDb from "../tests/useTestDb";
 import type { ProcedureDetails } from "./extractProcedure";
 import extractProcedure from "./extractProcedure";
 import type PgType from "./PgType";
@@ -18,12 +18,12 @@ const makePgType = (
 });
 
 describe("extractProcedure", () => {
-  const [getKnex] = useTestKnex();
-  useSchema(getKnex, "test");
+  const [getDb] = useTestDb();
+  useSchema(getDb, "test");
 
   it("should extract procedure details", async () => {
-    const db = getKnex();
-    await db.raw(
+    const db = getDb();
+    await db.query(
       "create procedure test.some_procedure() as $$ begin end $$ language plpgsql",
     );
 
@@ -127,8 +127,8 @@ describe("extractProcedure", () => {
   });
 
   it("should extract procedure details with parameters", async () => {
-    const db = getKnex();
-    await db.raw(`
+    const db = getDb();
+    await db.query(`
       CREATE PROCEDURE test.some_procedure(
         IN in_param text,
         OUT out_param text,

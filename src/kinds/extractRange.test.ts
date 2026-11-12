@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import useSchema from "../tests/useSchema";
-import useTestKnex from "../tests/useTestKnex";
+import useTestDb from "../tests/useTestDb";
 import type { RangeDetails } from "./extractRange";
 import extractRange from "./extractRange";
 import type PgType from "./PgType";
@@ -14,12 +14,12 @@ const makePgType = (name: string, schemaName = "test"): PgType<"range"> => ({
 });
 
 describe("extractRange", () => {
-  const [getKnex] = useTestKnex();
-  useSchema(getKnex, "test");
+  const [getDb] = useTestDb();
+  useSchema(getDb, "test");
 
   it("should extract range values", async () => {
-    const db = getKnex();
-    await db.raw("create type test.some_range as range(subtype=timestamptz)");
+    const db = getDb();
+    await db.query("create type test.some_range as range(subtype=timestamptz)");
 
     const result = await extractRange(db, makePgType("some_range"));
 

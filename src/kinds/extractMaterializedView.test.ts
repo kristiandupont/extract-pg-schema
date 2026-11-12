@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import useSchema from "../tests/useSchema";
-import useTestKnex from "../tests/useTestKnex";
+import useTestDb from "../tests/useTestDb";
 import type {
   MaterializedViewColumn,
   MaterializedViewDetails,
@@ -20,12 +20,12 @@ const makePgType = (
 });
 
 describe("extractMaterializedView", () => {
-  const [getKnex, databaseName] = useTestKnex();
-  useSchema(getKnex, "test");
+  const [getDb, databaseName] = useTestDb();
+  useSchema(getDb, "test");
 
   it("should extract simplified information", async () => {
-    const db = getKnex();
-    await db.raw(
+    const db = getDb();
+    await db.query(
       "create materialized view test.some_materialized_view as select 1 as id",
     );
 
@@ -123,11 +123,11 @@ describe("extractMaterializedView", () => {
   });
 
   it("should fetch column comments", async () => {
-    const db = getKnex();
-    await db.raw(
+    const db = getDb();
+    await db.query(
       "create materialized view test.some_materialized_view as select 1 as id",
     );
-    await db.raw(
+    await db.query(
       "comment on column test.some_materialized_view.id is 'id column'",
     );
 
@@ -140,13 +140,15 @@ describe("extractMaterializedView", () => {
   });
 
   it("should handle domains, composite types, ranges and enums as well as arrays of those", async () => {
-    const db = getKnex();
-    await db.raw("create domain test.some_domain as text");
-    await db.raw("create type test.some_composite as (id integer, name text)");
-    await db.raw("create type test.some_range as range(subtype=timestamptz)");
-    await db.raw("create type test.some_enum as enum ('a', 'b', 'c')");
+    const db = getDb();
+    await db.query("create domain test.some_domain as text");
+    await db.query(
+      "create type test.some_composite as (id integer, name text)",
+    );
+    await db.query("create type test.some_range as range(subtype=timestamptz)");
+    await db.query("create type test.some_enum as enum ('a', 'b', 'c')");
 
-    await db.raw(
+    await db.query(
       `create table test.some_table (
         d test.some_domain,
         c test.some_composite,
@@ -159,7 +161,7 @@ describe("extractMaterializedView", () => {
     )`,
     );
 
-    await db.raw(
+    await db.query(
       "create materialized view test.some_materialized_view as select * from test.some_table",
     );
 

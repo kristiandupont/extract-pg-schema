@@ -1,4 +1,4 @@
-import type { Knex } from "knex";
+import { type DbConnection, query } from "../db";
 
 import type InformationSchemaColumn from "../information_schema/InformationSchemaColumn";
 import type PgType from "./PgType";
@@ -126,10 +126,11 @@ const typeMapQueryPart = `
 `;
 
 const extractCompositeType = async (
-  db: Knex,
+  db: DbConnection,
   compositeType: PgType<"compositeType">,
 ): Promise<CompositeTypeDetails> => {
-  const columnsQuery = await db.raw(
+  const columnsRows = await query(
+    db,
     `
     WITH 
     fake_info_schema_columns AS (
@@ -171,7 +172,7 @@ const extractCompositeType = async (
     { table_name: compositeType.name, schema_name: compositeType.schemaName },
   );
 
-  const attributes = columnsQuery.rows;
+  const attributes = columnsRows;
 
   return { ...compositeType, attributes };
 };
