@@ -2,27 +2,27 @@ import { describe, expect, it } from "vitest";
 
 import fetchExtensionItemIds from "./fetchExtensionItemIds";
 import useSchema from "./tests/useSchema";
-import useTestKnex from "./tests/useTestKnex";
+import useTestDb from "./tests/useTestDb";
 
 describe("fetchExtensionItemIds", () => {
-  const [getKnex] = useTestKnex();
-  useSchema(getKnex, "test");
+  const [getDb] = useTestDb();
+  useSchema(getDb, "test");
 
   // NOTE: be aware that this test depends on specifics of certain Postgres extensions.
   // If it fails there is a chance that it's because the extensions themselves have changed,
   // not necessarily the test.
   it("should fetch extension item ids", async () => {
-    const db = getKnex();
+    const db = getDb();
 
-    await db.raw("create extension if not exists pg_trgm");
-    await db.raw("create extension if not exists pg_stat_statements");
-    await db.raw("create extension if not exists citext");
+    await db.query("create extension if not exists pg_trgm");
+    await db.query("create extension if not exists pg_stat_statements");
+    await db.query("create extension if not exists citext");
 
     const r = await fetchExtensionItemIds(db);
 
     const classes = [];
     for (const extClassOid of r.extClassOids) {
-      const c = await db.raw(
+      const c = await db.query(
         `select * from pg_catalog.pg_class where oid = ${extClassOid}`,
       );
       classes.push(c.rows[0].relname);
@@ -32,7 +32,7 @@ describe("fetchExtensionItemIds", () => {
 
     const types = [];
     for (const extTypeOid of r.extTypeOids) {
-      const c = await db.raw(
+      const c = await db.query(
         `select * from pg_catalog.pg_type where oid = ${extTypeOid}`,
       );
       types.push(c.rows[0].typname);
@@ -42,7 +42,7 @@ describe("fetchExtensionItemIds", () => {
 
     const procs = [];
     for (const extProcOid of r.extProcOids) {
-      const c = await db.raw(
+      const c = await db.query(
         `select * from pg_catalog.pg_proc where oid = ${extProcOid}`,
       );
       procs.push(c.rows[0].proname);
@@ -51,8 +51,8 @@ describe("fetchExtensionItemIds", () => {
     expect(procs).toContain("gtrgm_in");
     expect(procs).toContain("citextin");
 
-    await db.raw("drop extension pg_trgm");
-    await db.raw("drop extension pg_stat_statements");
-    await db.raw("drop extension citext");
+    await db.query("drop extension pg_trgm");
+    await db.query("drop extension pg_stat_statements");
+    await db.query("drop extension citext");
   });
 });

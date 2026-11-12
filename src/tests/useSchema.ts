@@ -1,15 +1,13 @@
-import type { Knex } from "knex";
+import type { Client } from "pg";
 import { afterEach, beforeEach } from "vitest";
 
-const useSchema = (getKnex: () => Knex, schemaName: string): void => {
+const useSchema = (getDb: () => Client, schemaName: string): void => {
   beforeEach(async () => {
-    const db = getKnex();
-    await db.schema.createSchemaIfNotExists(schemaName);
+    await getDb().query(`create schema if not exists "${schemaName}"`);
   });
 
   afterEach(async () => {
-    const db = getKnex();
-    await db.schema.dropSchemaIfExists(schemaName, true);
+    await getDb().query(`drop schema if exists "${schemaName}" cascade`);
   });
 };
 

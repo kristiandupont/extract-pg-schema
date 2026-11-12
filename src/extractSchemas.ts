@@ -1,7 +1,7 @@
-import type { Knex } from "knex";
-import knex from "knex";
-import ClientPgLite from "knex-pglite";
 import type { ConnectionConfig } from "pg";
+import { Client } from "pg";
+
+import { type DbConnection, query } from "./db";
 
 import type { CompositeTypeDetails } from "./kinds/extractCompositeType";
 import extractCompositeType from "./kinds/extractCompositeType";
@@ -73,7 +73,7 @@ const emptySchema: Omit<Schema, "name"> = {
 };
 
 type Populator<K extends Kind> = (
-  db: Knex,
+  db: DbConnection,
   pgType: PgType<K>,
 ) => Promise<DetailsMap[K] | DetailsMap[K][]>;
 
@@ -143,24 +143,46 @@ async function extractSchemas(
   connectionConfig: string | ConnectionConfig,
   options?: ExtractSchemaOptions,
 ): Promise<Record<string, Schema>> {
-  const connection = connectionConfig as string | Knex.PgConnectionConfig;
-  let db;
-  if (typeof connection === "string" && connection.startsWith("file:")) {
-    db = knex({
-      client: ClientPgLite,
-      dialect: "postgres",
-      connection: { filename: connection.slice("file:".length) },
-    });
-  } else {
-    db = knex({ client: "postgres", connection });
+  const { db, close } = await connect(connectionConfig);
+  try {
+    return await extractFromConnection(db, options);
+  } finally {
+    await close();
+  }
+}
+
+/**
+ * Opens a PGlite database for `file:` connection strings, and a `pg` client
+ * for everything else.
+ */
+async function connect(
+  connectionConfig: string | ConnectionConfig,
+): Promise<{ db: DbConnection; close: () => Promise<void> }> {
+  if (
+    typeof connectionConfig === "string" &&
+    connectionConfig.startsWith("file:")
+  ) {
+    const { PGlite } = await import("@electric-sql/pglite");
+    const pglite = new PGlite(connectionConfig.slice("file:".length));
+    return { db: pglite, close: () => pglite.close() };
   }
 
-  const q = await db
-    .select<{ nspname: string }[]>("nspname")
-    .from("pg_catalog.pg_namespace")
-    .whereNot("nspname", "=", "information_schema")
-    .whereNot("nspname", "LIKE", "pg\\_%");
-  const allSchemaNames = q.map((row) => row.nspname);
+  const client = new Client(connectionConfig);
+  await client.connect();
+  return { db: client, close: () => client.end() };
+}
+
+async function extractFromConnection(
+  db: DbConnection,
+  options?: ExtractSchemaOptions,
+): Promise<Record<string, Schema>> {
+  const schemaRows = await query<{ nspname: string }>(
+    db,
+    `SELECT nspname FROM pg_catalog.pg_namespace
+    WHERE nspname <> 'information_schema'
+      AND nspname NOT LIKE 'pg\\_%'`,
+  );
+  const allSchemaNames = schemaRows.map((row) => row.nspname);
 
   const schemaNames = options?.schemas ?? allSchemaNames;
   if (options?.schemas) {
@@ -181,17 +203,16 @@ async function extractSchemas(
 
   options?.onProgressStart?.(typesToExtract.length);
 
-  const populated = (
-    await Promise.all(
-      typesToExtract.map(async (pgType) => {
-        const result = await (
-          populatorMap[pgType.kind] as Populator<typeof pgType.kind>
-        )(db, pgType);
-        options?.onProgress?.();
-        return result;
-      }),
-    )
-  ).flat();
+  // The extractors run one at a time, because a single connection can only
+  // run one query at a time.
+  const populated: DetailsMap[Kind][] = [];
+  for (const pgType of typesToExtract) {
+    const result = await (
+      populatorMap[pgType.kind] as Populator<typeof pgType.kind>
+    )(db, pgType);
+    populated.push(...(Array.isArray(result) ? result : [result]));
+    options?.onProgress?.();
+  }
 
   const schemas: Record<string, Schema> = {};
   for (const p of populated) {
@@ -211,7 +232,6 @@ async function extractSchemas(
 
   options?.onProgressEnd?.();
 
-  await db.destroy();
   return result;
 }
 

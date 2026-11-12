@@ -1,4 +1,4 @@
-import type { Knex } from "knex";
+import { type DbConnection, query } from "../db";
 
 import type InformationSchemaRoutine from "../information_schema/InformationSchemaRoutine";
 import { parsePostgresArray } from "./parsePostgresArray";
@@ -67,18 +67,18 @@ export interface FunctionDetails extends PgType<"function"> {
 }
 
 async function extractFunction(
-  db: Knex,
+  db: DbConnection,
   pgType: PgType<"function">,
 ): Promise<FunctionDetails[]> {
-  const [informationSchemaValue] = await db
-    .from("information_schema.routines")
-    .where({
-      routine_name: pgType.name,
-      routine_schema: pgType.schemaName,
-    })
-    .select("*");
+  const [informationSchemaValue] = await query(
+    db,
+    `SELECT * FROM information_schema.routines
+    WHERE routine_name = :routine_name AND routine_schema = :routine_schema`,
+    { routine_name: pgType.name, routine_schema: pgType.schemaName },
+  );
 
-  const { rows } = await db.raw(
+  const rows = await query(
+    db,
     `
     SELECT
       p.proname,
@@ -105,8 +105,8 @@ async function extractFunction(
     LEFT JOIN pg_namespace n ON n.oid = p.pronamespace
     LEFT JOIN pg_description d ON d.objoid = p.oid
     LEFT JOIN pg_language l ON l.oid = p.prolang
-    WHERE n.nspname = ? AND p.proname = ?`,
-    [pgType.schemaName, pgType.name],
+    WHERE n.nspname = :schema_name AND p.proname = :name`,
+    { schema_name: pgType.schemaName, name: pgType.name },
   );
 
   return (rows as any[]).map((row) => {

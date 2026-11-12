@@ -1,4 +1,4 @@
-import type { Knex } from "knex";
+import { type DbConnection, query } from "../db";
 
 import type InformationSchemaColumn from "../information_schema/InformationSchemaColumn";
 import type { InformationSchemaTrigger } from "../information_schema/InformationSchemaTrigger";
@@ -189,29 +189,26 @@ const resolveSource = (
 });
 
 const extractView = async (
-  db: Knex,
+  db: DbConnection,
   view: PgType<"view">,
 ): Promise<ViewDetails> => {
-  const [informationSchemaValue] = await db
-    .from("information_schema.views")
-    .where({
-      table_name: view.name,
-      table_schema: view.schemaName,
-    })
-    .select<InformationSchemaView[]>("*");
+  const [informationSchemaValue] = await query<InformationSchemaView>(
+    db,
+    `SELECT * FROM information_schema.views
+    WHERE table_name = :table_name AND table_schema = :schema_name`,
+    { table_name: view.name, schema_name: view.schemaName },
+  );
 
   // --- Trigger extraction for views ---
-  const triggersQuery = await db<InformationSchemaTrigger>(
-    "information_schema.triggers",
-  )
-    .where({
-      event_object_table: view.name,
-      event_object_schema: view.schemaName,
-    })
-    .select();
+  const informationSchemaTriggers = await query<InformationSchemaTrigger>(
+    db,
+    `SELECT * FROM information_schema.triggers
+    WHERE event_object_table = :table_name AND event_object_schema = :schema_name`,
+    { table_name: view.name, schema_name: view.schemaName },
+  );
 
   const triggersByName: Record<string, InformationSchemaTrigger[]> = {};
-  for (const trig of triggersQuery) {
+  for (const trig of informationSchemaTriggers) {
     if (!triggersByName[trig.trigger_name])
       triggersByName[trig.trigger_name] = [];
     triggersByName[trig.trigger_name].push(trig);
@@ -220,50 +217,60 @@ const extractView = async (
   const triggers: Trigger[] = [];
   for (const [triggerName, triggerRows] of Object.entries(triggersByName)) {
     const first = triggerRows[0];
-    const pgTriggerRow = await db
-      .select("tgenabled", "tgfoid", "tgargs")
-      .from("pg_trigger")
-      .join("pg_class", "pg_class.oid", "=", "pg_trigger.tgrelid")
-      .join("pg_namespace", "pg_namespace.oid", "=", "pg_class.relnamespace")
-      .where("pg_class.relname", view.name)
-      .andWhere("pg_namespace.nspname", view.schemaName)
-      .andWhere("pg_trigger.tgname", triggerName)
-      .first();
+    const [pgTriggerRow] = await query(
+      db,
+      `SELECT tgenabled, tgfoid, tgargs
+      FROM pg_trigger
+      JOIN pg_class ON pg_class.oid = pg_trigger.tgrelid
+      JOIN pg_namespace ON pg_namespace.oid = pg_class.relnamespace
+      WHERE pg_class.relname = :table_name
+        AND pg_namespace.nspname = :schema_name
+        AND pg_trigger.tgname = :trigger_name
+      LIMIT 1`,
+      {
+        table_name: view.name,
+        schema_name: view.schemaName,
+        trigger_name: triggerName,
+      },
+    );
     if (!pgTriggerRow) continue;
-    const pgProcRow = await db
-      .select("proname", "pronamespace", "proargnames")
-      .from("pg_proc")
-      .where("oid", pgTriggerRow.tgfoid)
-      .first();
+    const [pgProcRow] = await query(
+      db,
+      `SELECT proname, pronamespace, proargnames FROM pg_proc WHERE oid = :oid`,
+      { oid: pgTriggerRow.tgfoid },
+    );
     let functionSchema = null;
     let functionName = null;
     let functionArgs: string[] = [];
     if (pgProcRow) {
-      const ns = await db
-        .select("nspname")
-        .from("pg_namespace")
-        .where("oid", pgProcRow.pronamespace)
-        .first();
+      const [ns] = await query(
+        db,
+        `SELECT nspname FROM pg_namespace WHERE oid = :oid`,
+        { oid: pgProcRow.pronamespace },
+      );
       functionSchema = ns ? ns.nspname : null;
       functionName = pgProcRow.proname;
       functionArgs = pgProcRow.proargnames ?? [];
     }
-    const commentRow = await db
-      .select("description")
-      .from("pg_description")
-      .whereRaw(
-        `objoid = (
-          SELECT oid FROM pg_trigger
-          WHERE tgname = ?
-          AND tgrelid = (
-            SELECT c.oid FROM pg_class c
-            JOIN pg_namespace n ON c.relnamespace = n.oid
-            WHERE c.relname = ? AND n.nspname = ?
-          )
-        )`,
-        [triggerName, view.name, view.schemaName],
+    const [commentRow] = await query(
+      db,
+      `SELECT description FROM pg_description
+      WHERE objoid = (
+        SELECT oid FROM pg_trigger
+        WHERE tgname = :trigger_name
+        AND tgrelid = (
+          SELECT c.oid FROM pg_class c
+          JOIN pg_namespace n ON c.relnamespace = n.oid
+          WHERE c.relname = :table_name AND n.nspname = :schema_name
+        )
       )
-      .first();
+      LIMIT 1`,
+      {
+        trigger_name: triggerName,
+        table_name: view.name,
+        schema_name: view.schemaName,
+      },
+    );
     const enabled = pgTriggerRow.tgenabled === "O";
     triggers.push({
       name: triggerName,
@@ -280,7 +287,8 @@ const extractView = async (
     });
   }
 
-  const columnsQuery = await db.raw(
+  const columnsRows = await query(
+    db,
     `
     WITH 
     type_map AS (
@@ -318,7 +326,8 @@ const extractView = async (
     { table_name: view.name, schema_name: view.schemaName },
   );
 
-  const viewOptionsQuery = await db.raw(
+  const viewOptionsRows = await query(
+    db,
     `
     SELECT
       CASE 
@@ -346,7 +355,7 @@ const extractView = async (
     { table_name: view.name, schema_name: view.schemaName },
   );
 
-  const unresolvedColumns: ViewColumn[] = columnsQuery.rows;
+  const unresolvedColumns: ViewColumn[] = columnsRows;
   let sourceMapping: Record<string, ViewReference> | undefined;
   try {
     const viewReferences = await parseViewDefinition(
@@ -372,9 +381,9 @@ const extractView = async (
     informationSchemaValue,
     columns,
     options: {
-      checkOption: viewOptionsQuery.rows[0].check_option,
-      securityBarrier: viewOptionsQuery.rows[0].security_barrier,
-      securityInvoker: viewOptionsQuery.rows[0].security_invoker,
+      checkOption: viewOptionsRows[0].check_option,
+      securityBarrier: viewOptionsRows[0].security_barrier,
+      securityInvoker: viewOptionsRows[0].security_invoker,
     },
     triggers,
   };

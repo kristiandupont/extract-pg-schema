@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import useSchema from "../tests/useSchema";
-import useTestKnex from "../tests/useTestKnex";
+import useTestDb from "../tests/useTestDb";
 import extractForeignTable from "./extractForeignTable";
 import type PgType from "./PgType";
 
@@ -16,41 +16,41 @@ const makePgType = (
 });
 
 describe("extractForeignTable", () => {
-  const [getKnex, databaseName] = useTestKnex();
-  useSchema(getKnex, "test");
-  useSchema(getKnex, "foreign_data");
+  const [getDb, databaseName] = useTestDb();
+  useSchema(getDb, "test");
+  useSchema(getDb, "foreign_data");
 
   beforeEach(async () => {
-    const db = getKnex();
-    await db.raw("create extension if not exists postgres_fdw");
-    await db.raw(
+    const db = getDb();
+    await db.query("create extension if not exists postgres_fdw");
+    await db.query(
       "create table foreign_data.dummy_table (id serial primary key, data text)",
     );
-    await db.raw(
+    await db.query(
       "create server local_foreign_server foreign data wrapper postgres_fdw options (dbname 'your_test_db_name', host 'localhost')",
     );
-    await db.raw(
+    await db.query(
       "create user mapping for current_user server local_foreign_server options (user 'your_user_name', password 'your_password')",
     );
-    await db.raw(
+    await db.query(
       "create foreign table test.foreign_dummy_table (id integer options (column_name 'id'), data text options (column_name 'data')) server local_foreign_server options (schema_name 'foreign_data', table_name 'dummy_table')",
     );
   });
 
   afterEach(async () => {
-    const db = getKnex();
-    await db.raw("drop foreign table test.foreign_dummy_table");
-    await db.raw(
+    const db = getDb();
+    await db.query("drop foreign table test.foreign_dummy_table");
+    await db.query(
       "drop user mapping for current_user server local_foreign_server",
     );
-    await db.raw("drop server local_foreign_server");
-    await db.raw("drop table foreign_data.dummy_table");
-    await db.raw("drop extension if exists postgres_fdw");
+    await db.query("drop server local_foreign_server");
+    await db.query("drop table foreign_data.dummy_table");
+    await db.query("drop extension if exists postgres_fdw");
   });
 
   it("should extract simplified as well as full information_schema information", async () => {
     const result = await extractForeignTable(
-      getKnex(),
+      getDb(),
       makePgType("foreign_dummy_table", "test"),
     );
 

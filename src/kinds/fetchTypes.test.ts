@@ -1,16 +1,16 @@
 import { describe, expect, it } from "vitest";
 
 import useSchema from "../tests/useSchema";
-import useTestKnex from "../tests/useTestKnex";
+import useTestDb from "../tests/useTestDb";
 import fetchTypes from "./fetchTypes";
 
 describe("fetchTypes", () => {
-  const [getKnex] = useTestKnex();
-  useSchema(getKnex, "test");
+  const [getDb] = useTestDb();
+  useSchema(getDb, "test");
 
   it("should fetch a simple type", async () => {
-    const db = getKnex();
-    await db.raw("create table test.some_table (id integer)");
+    const db = getDb();
+    await db.query("create table test.some_table (id integer)");
 
     const types = await fetchTypes(db, ["test"]);
 
@@ -24,23 +24,23 @@ describe("fetchTypes", () => {
   });
 
   it("should fetch all kinds", async () => {
-    const db = getKnex();
-    await db.raw("create table test.some_table (id integer)");
-    await db.raw("create view test.some_view as select 1 as id");
-    await db.raw(
+    const db = getDb();
+    await db.query("create table test.some_table (id integer)");
+    await db.query("create view test.some_view as select 1 as id");
+    await db.query(
       "create materialized view test.some_materialized_view as select 1 as id",
     );
-    await db.raw("create type test.some_composite_type as (id integer)");
-    await db.raw("create type test.some_enum as enum ('a', 'b')");
-    await db.raw("create domain test.some_domain as text");
-    await db.raw("create type test.some_range as range (subtype = integer)");
-    await db.raw(
+    await db.query("create type test.some_composite_type as (id integer)");
+    await db.query("create type test.some_enum as enum ('a', 'b')");
+    await db.query("create domain test.some_domain as text");
+    await db.query("create type test.some_range as range (subtype = integer)");
+    await db.query(
       "create procedure test.some_procedure() language sql as $$ select 1 as id $$",
     );
-    await db.raw(
+    await db.query(
       "create function test.some_function() returns integer language sql as $$ select 1 as id $$",
     );
-    // await db.raw(
+    // await db.query(
     //   "create aggregate test.some_aggregate (numeric) ( sfunc = numeric_add, stype = numeric, initcond = '0');"
     // );
 
@@ -61,19 +61,21 @@ describe("fetchTypes", () => {
   });
 
   it("should fetch comments", async () => {
-    const db = getKnex();
+    const db = getDb();
 
     // Tables are a "class" in postgres.
-    await db.raw("create table test.some_table (id integer)");
-    await db.raw("comment on table test.some_table is 'some table comment'");
+    await db.query("create table test.some_table (id integer)");
+    await db.query("comment on table test.some_table is 'some table comment'");
 
     // Domains are "types", which is different. Make sure we get those commments as well.
-    await db.raw("create domain test.some_domain as text");
-    await db.raw("comment on domain test.some_domain is 'some domain comment'");
+    await db.query("create domain test.some_domain as text");
+    await db.query(
+      "comment on domain test.some_domain is 'some domain comment'",
+    );
 
     // Composite types are both types and classes. The comment comes from the class.
-    await db.raw("create type test.some_composite_type as (id integer)");
-    await db.raw(
+    await db.query("create type test.some_composite_type as (id integer)");
+    await db.query(
       "comment on type test.some_composite_type is 'some composite type comment'",
     );
 

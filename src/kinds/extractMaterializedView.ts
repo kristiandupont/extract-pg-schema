@@ -1,4 +1,4 @@
-import type { Knex } from "knex";
+import { type DbConnection, query } from "../db";
 
 import type InformationSchemaColumn from "../information_schema/InformationSchemaColumn";
 import type InformationSchemaView from "../information_schema/InformationSchemaView";
@@ -164,14 +164,15 @@ WHERE
 `;
 
 const extractMaterializedView = async (
-  db: Knex,
+  db: DbConnection,
   materializedView: PgType<"materializedView">,
 ): Promise<MaterializedViewDetails> => {
-  const fakeInformationSchemaValueQuery = await db.raw(
+  const fakeInformationSchemaValueRows = await query(
+    db,
     fakeInformationSchemaViewsQueryPart,
   );
   const fakeInformationSchemaValue: InformationSchemaView =
-    fakeInformationSchemaValueQuery.rows[0];
+    fakeInformationSchemaValueRows[0];
 
   // const [{ definition }] = await db
   //   .select<{ definition: string }[]>('definition')
@@ -181,7 +182,8 @@ const extractMaterializedView = async (
   //     schemaname: view.schemaName,
   //   });
 
-  const columnsQuery = await db.raw(
+  const columnsRows = await query(
+    db,
     `
     WITH 
     fake_info_schema_columns AS (
@@ -226,7 +228,7 @@ const extractMaterializedView = async (
     },
   );
 
-  const columns = columnsQuery.rows;
+  const columns = columnsRows;
 
   return {
     ...materializedView,
